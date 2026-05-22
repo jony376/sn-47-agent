@@ -12,16 +12,12 @@ cp .env.example .env
 Fill `.env` values:
 - `HF_TOKEN`
 - `DOWNLOAD_USERNAME`, `DOWNLOAD_MODEL_NAME`
-- `UPLOAD_USERNAME`
+- `UPLOAD_USERNAME`, `UPLOAD_MODEL_NAME` (existing model repo)
 - `REGISTER_WALLET_NAME`, `REGISTER_HOTKEY`, `REGISTER_NETUID`
 - `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`
 
-Upload target name is auto-generated as:
-- `evolai-transformer-1`
-- `evolai-transformer-2`
-- ...
-
-based on existing models under `UPLOAD_USERNAME`.
+Upload commits into your existing model repo:
+- `<UPLOAD_USERNAME>/<UPLOAD_MODEL_NAME>`
 
 ## 2) Run
 

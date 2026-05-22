@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 import json
 import os
-import re
 import subprocess
 import sys
 import time
@@ -73,19 +72,6 @@ def require(name: str) -> str:
     return value
 
 
-def next_model_name(api: HfApi, username: str, prefix: str) -> str:
-    pattern = re.compile(rf"^{re.escape(prefix)}(\d+)$")
-    max_num = 0
-    for model in api.list_models(author=username, full=True):
-        model_id = getattr(model, "id", "")
-        # model_id looks like "username/repo_name"
-        repo_name = model_id.split("/", 1)[-1] if "/" in model_id else model_id
-        match = pattern.match(repo_name)
-        if match:
-            max_num = max(max_num, int(match.group(1)))
-    return f"{prefix}{max_num + 1}"
-
-
 def download_model(api: HfApi) -> Path:
     username = require("DOWNLOAD_USERNAME")
     model_name = require("DOWNLOAD_MODEL_NAME")
@@ -94,19 +80,19 @@ def download_model(api: HfApi) -> Path:
     repo_id = f"{username}/{model_name}"
     local_dir = target_dir / model_name
 
-    notify(f"[START] Download model: {repo_id}")
+    notify(f"[START] Download model: {repo_id}", telegram=False)
     snapshot_download(
         repo_id=repo_id,
         local_dir=str(local_dir),
         token=env_str("HF_TOKEN"),
     )
-    notify(f"[DONE] Download completed: {repo_id} -> {local_dir}")
+    notify(f"[DONE] Download completed: {repo_id} -> {local_dir}", telegram=False)
     return local_dir
 
 
 def upload_model(api: HfApi, source_dir: Optional[Path]) -> Dict[str, str]:
     username = require("UPLOAD_USERNAME")
-    prefix = env_str("UPLOAD_MODEL_PREFIX", "evolai-transformer-")
+    model_name = require("UPLOAD_MODEL_NAME")
 
     if source_dir is None:
         upload_source_env = env_str("UPLOAD_SOURCE_DIR")
@@ -120,13 +106,9 @@ def upload_model(api: HfApi, source_dir: Optional[Path]) -> Dict[str, str]:
     if not source_dir.exists() or not source_dir.is_dir():
         raise ValueError(f"Upload source directory not found: {source_dir}")
 
-    next_name = next_model_name(api, username, prefix)
-    repo_id = f"{username}/{next_name}"
+    repo_id = f"{username}/{model_name}"
 
-    notify(f"[START] Create/prepare HF repo: {repo_id}")
-    api.create_repo(repo_id=repo_id, repo_type="model", private=False, exist_ok=False)
-
-    notify(f"[START] Upload folder: {source_dir} -> {repo_id}")
+    notify(f"[START] Upload folder: {source_dir} -> {repo_id}", telegram=False)
     api.upload_folder(
         repo_id=repo_id,
         repo_type="model",
@@ -139,7 +121,9 @@ def upload_model(api: HfApi, source_dir: Optional[Path]) -> Dict[str, str]:
     if not revision:
         raise RuntimeError(f"Could not get revision sha for {repo_id}")
 
-    notify(f"[DONE] Upload completed: {repo_id} (revision={revision})")
+    notify(
+        f"[DONE] Upload completed: {repo_id} (revision={revision})", telegram=False
+    )
     return {"repo_id": repo_id, "revision": revision}
 
 
@@ -171,7 +155,7 @@ def register_model(repo_id: str, revision: str) -> None:
         netuid,
     ]
 
-    notify(f"[START] Register model in EvolAI: {repo_id}")
+    notify(f"[START] Register model in EvolAI: {repo_id}", telegram=False)
     result = subprocess.run(
         cmd,
         cwd="/root/sn47/evolai",
@@ -187,7 +171,7 @@ def register_model(repo_id: str, revision: str) -> None:
         raise RuntimeError(
             f"EvolAI register failed (exit={result.returncode}) for {repo_id}"
         )
-    notify(f"[DONE] Register completed: {repo_id}")
+    notify(f"[DONE] Register completed: {repo_id}", telegram=False)
 
 
 def source_repo_id() -> str:
@@ -222,6 +206,7 @@ def save_state(state_path: Path, state: Dict[str, str]) -> None:
 
 
 def run_pipeline_once(api: HfApi) -> Dict[str, str]:
+    started_at = time.monotonic()
     downloaded_dir: Optional[Path] = None
     upload_result: Optional[Dict[str, str]] = None
 
@@ -241,7 +226,17 @@ def run_pipeline_once(api: HfApi) -> Dict[str, str]:
         else:
             register_model(upload_result["repo_id"], upload_result["revision"])
 
-    notify("[SUCCESS] All requested operations finished")
+    elapsed_sec = time.monotonic() - started_at
+    if upload_result:
+        summary = (
+            "[SUCCESS] Pipeline completed | "
+            f"model={upload_result['repo_id']} | "
+            f"revision={upload_result['revision']} | "
+            f"elapsed={elapsed_sec:.1f}s"
+        )
+    else:
+        summary = f"[SUCCESS] Pipeline completed | elapsed={elapsed_sec:.1f}s"
+    notify(summary, telegram=True)
     return upload_result or {}
 
 
@@ -253,7 +248,7 @@ def main() -> int:
     api = HfApi(token=hf_token)
     watch_mode = env_bool("WATCH_MODE", False)
 
-    notify("[BOOT] sn-47-agent HF model bot started")
+    notify("[BOOT] sn-47-agent HF model bot started", telegram=False)
 
     if not watch_mode:
         run_pipeline_once(api)
@@ -271,7 +266,8 @@ def main() -> int:
 
     notify(
         f"[WATCH] Watching {src_repo} for new commits every {poll_seconds}s "
-        f"(state: {state_path})"
+        f"(state: {state_path})",
+        telegram=False,
     )
     error_sleep_seconds = int(env_str("WATCH_ERROR_SLEEP_SECONDS", "30"))
     while True:
@@ -280,10 +276,13 @@ def main() -> int:
             if state.get(last_seen_key) != current:
                 state[last_seen_key] = current
                 save_state(state_path, state)
-                notify(f"[WATCH] New source commit detected: {current}")
+                notify(f"[WATCH] New source commit detected: {current}", telegram=False)
 
             if state.get(last_done_key) != current:
-                notify(f"[WATCH] Triggering pipeline for source commit: {current}")
+                notify(
+                    f"[WATCH] Triggering pipeline for source commit: {current}",
+                    telegram=False,
+                )
                 run_pipeline_once(api)
                 # Collapse multiple upstream commits: after one pipeline run, mark
                 # the newest head as done so we do not replay intermediate commits.
@@ -292,7 +291,8 @@ def main() -> int:
                 save_state(state_path, state)
                 notify(
                     "[WATCH] Completed pipeline. "
-                    f"Marked latest source commit as done: {latest_after_run}"
+                    f"Marked latest source commit as done: {latest_after_run}",
+                    telegram=False,
                 )
             else:
                 notify(f"[WATCH] No new source commit. Current: {current}", telegram=False)
