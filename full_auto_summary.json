@@ -1,62 +1,248 @@
 {
-  "started_at": 1779620055.3730888,
+  "started_at": 1779628289.1866865,
   "uid": 93,
   "status": "failed",
   "latest_eval": {
     "uid": 93,
-    "timestamp": "2026-05-24 10:29:19",
+    "timestamp": "2026-05-24 13:00:57",
     "model_repo": "Phoenix9781/evolai-tf-model",
-    "model_revision": "b05038fcfdcc79fa8d8e79730074b65cd68c73f9",
+    "model_revision": "883756e42bfbc362761bb150f2ef316deaafa94f",
     "challenge": "evolai/universal_qa(20 idx)",
-    "kl": 2.0005,
-    "next_kl": 1.8798,
+    "kl": 1.8533,
+    "next_kl": 2.037,
     "gate": "FAIL",
-    "cur_kl": 2.0005,
-    "req_kl": 1.9605,
-    "prev_kl": 2.0005,
+    "cur_kl": 1.8533,
+    "req_kl": 1.8163,
+    "prev_kl": 1.8533,
     "raw_block": [
-      "2026-05-24 10:29:19   [33/50] UID 93 | Phoenix9781/evolai-tf-model @",
-      "2026-05-24 10:29:19 b05038fcfdcc79fa8d8e79730074b65cd68c73f9 | hotkey 5F4R25t78FSF\u2026",
-      "2026-05-24 10:29:19     Challenge: evolai/universal_qa(20 idx)",
-      "2026-05-24 10:29:19     Fetched 20 texts (20 indices)",
-      "2026-05-24 10:29:19    Downloading",
-      "2026-05-24 10:29:19 clear-blue-sky/evolai-reborn-tfm-009@461d465d0b0eae7c262990b9a8e3aa112f199ce2\u2026",
-      "2026-05-24 10:29:20     Loaded (local prefetch)",
-      "2026-05-24 10:29:20     Model 0.46B \u2192 batch=512, seq=16384",
-      "2026-05-24 10:29:22    Ready:",
-      "2026-05-24 10:29:22 clear-blue-sky/evolai-reborn-tfm-009@461d465d0b0eae7c262990b9a8e3aa112f199ce2",
-      "2026-05-24 10:30:02     Loss eval \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 80/80 100% 0:00:38",
-      "2026-05-24 10:30:02     Loss 3.8161 | Size \u00d70.50 | Think 3.8161 | ThinkGain 0 (+0.4600) | Flow",
-      "2026-05-24 10:30:02 0.0000 | KL 2.0005 | NextKL 1.8798 | SideQ 0% | Score 0.0000 (41.3s)",
-      "2026-05-24 10:30:02     Gate FAIL | Improve same SHA cur=2.0005 req<=1.9605 prev=2.0005 | Consist ok",
-      "2026-05-24 10:30:02 ema_cur=1.9843 ema_next=1.9678 ratio=0.992 max<=1.20",
-      "2026-05-24 10:30:04   Evicted cached model:",
-      "2026-05-24 10:30:04 clear-blue-sky/evolai-reborn-tfm-006@3abb0e95402025da8fbd282c334b989c9930a680"
+      "2026-05-24 13:00:57   [48/50] UID 93 | Phoenix9781/evolai-tf-model @",
+      "2026-05-24 13:00:57 883756e42bfbc362761bb150f2ef316deaafa94f | hotkey 5F4R25t78FSF\u2026",
+      "2026-05-24 13:00:57     Challenge: evolai/universal_qa(20 idx)",
+      "2026-05-24 13:00:57     Fetched 20 texts (20 indices)",
+      "2026-05-24 13:00:57    Downloading",
+      "2026-05-24 13:00:57 Radiant28/evolai-transformer-0.4b-b0@7a08a8009fa8b8f82d1ad0febc442a89020082d1\u2026",
+      "2026-05-24 13:00:58     Loaded (local prefetch)",
+      "2026-05-24 13:00:59     Model 0.46B \u2192 batch=512, seq=16384",
+      "2026-05-24 13:01:03    Ready:",
+      "2026-05-24 13:01:03 Radiant28/evolai-transformer-0.4b-b0@7a08a8009fa8b8f82d1ad0febc442a89020082d1",
+      "2026-05-24 13:01:36     Loss eval \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 80/80 100% 0:00:34",
+      "2026-05-24 13:01:36     Loss 3.9359 | Size \u00d70.50 | Think 3.9359 | ThinkGain 0 (+0.4616) | Flow",
+      "2026-05-24 13:01:36 0.1232 | KL 1.8533 | NextKL 2.0370 | SideQ 0% | Score 0.0000 (37.2s)",
+      "2026-05-24 13:01:36     Gate FAIL | Improve same SHA cur=1.8533 req<=1.8163 prev=1.8533 | Consist ok",
+      "2026-05-24 13:01:36 ema_cur=1.9504 ema_next=1.9561 ratio=1.003 max<=1.20",
+      "2026-05-24 13:01:38   Evicted cached model:",
+      "2026-05-24 13:01:38 clear-blue-sky/evolai-reborn-tfm-003@5c6b0c29d5d07cfcc5327b94f83fb774bf720826"
     ]
   },
   "challenge": {
     "validators": 2,
-    "epoch": 22926,
-    "block": 8253482
+    "epoch": 22928,
+    "block": 8254168
   },
   "prepared_data_dir": "/root/sn47/sn-47-agent/cpu_pass_all_data",
   "training": {
     "enabled": true,
-    "skipped": false,
-    "command": "python3 /root/sn47/sn-47-agent/train_cpu_real.py --uid 93 --challenge-json /root/sn47/sn-47-agent/challenge_latest.json --eval-json /root/sn47/sn-47-agent/latest_eval_record.json --prep-out-dir /root/sn47/sn-47-agent/cpu_pass_all_data --model-dir /root/sn47/sn-47-agent/models/evolai_test_challenge --report-json /root/sn47/sn-47-agent/train_report.json --train-mode lm_head --max-steps 30 --lr 5e-5 --max-seq-len 512",
-    "report_json": "/root/sn47/sn-47-agent/train_report.json"
+    "train_until_pass": true,
+    "max_rounds": 6,
+    "rounds_executed": 3,
+    "passed": true,
+    "rounds": [
+      {
+        "round": 1,
+        "train": {
+          "skipped": false,
+          "command": "python3 /root/sn47/sn-47-agent/train_cpu_real.py --uid 93 --challenge-json /root/sn47/sn-47-agent/challenge_latest.json --eval-json /root/sn47/sn-47-agent/latest_eval_record.json --prep-out-dir /root/sn47/sn-47-agent/cpu_pass_all_data --model-dir /root/sn47/sn-47-agent/models/evolai_test_challenge --report-json /root/sn47/sn-47-agent/train_report.json --focus-file /root/sn47/sn-47-agent/cpu_pass_all_data/union_next.jsonl --train-mode lm_head --max-steps 30 --lr 5e-5 --max-seq-len 512",
+          "report_json": "/root/sn47/sn-47-agent/train_report.json"
+        },
+        "gate": {
+          "all_pass": false,
+          "required_improvement": 0.04,
+          "rows": [
+            {
+              "validator_uid": 4,
+              "baseline_kl": 4.9890625,
+              "required_kl": 4.7895,
+              "current_kl": 4.88984375,
+              "margin": -0.10034374999999951,
+              "pass": false
+            },
+            {
+              "validator_uid": 6,
+              "baseline_kl": 5.193359375,
+              "required_kl": 4.985625,
+              "current_kl": 4.9125,
+              "margin": 0.0731250000000001,
+              "pass": true
+            },
+            {
+              "validator_uid": 16,
+              "baseline_kl": 4.53046875,
+              "required_kl": 4.34925,
+              "current_kl": 4.4296875,
+              "margin": -0.08043750000000038,
+              "pass": false
+            }
+          ],
+          "worst_validator_uid": 4,
+          "worst_margin": -0.10034374999999951,
+          "kl_eval_json": "/root/sn47/sn-47-agent/kl_eval_round1.json"
+        },
+        "focus_file": "/root/sn47/sn-47-agent/cpu_pass_all_data/union_next.jsonl"
+      },
+      {
+        "round": 2,
+        "train": {
+          "skipped": false,
+          "command": "python3 /root/sn47/sn-47-agent/train_cpu_real.py --uid 93 --challenge-json /root/sn47/sn-47-agent/challenge_latest.json --eval-json /root/sn47/sn-47-agent/latest_eval_record.json --prep-out-dir /root/sn47/sn-47-agent/cpu_pass_all_data --model-dir /root/sn47/sn-47-agent/models/evolai_test_challenge --report-json /root/sn47/sn-47-agent/train_report.json --focus-file /root/sn47/sn-47-agent/cpu_pass_all_data/validator_4_next.jsonl --train-mode lm_head --max-steps 30 --lr 5e-5 --max-seq-len 512",
+          "report_json": "/root/sn47/sn-47-agent/train_report.json"
+        },
+        "gate": {
+          "all_pass": false,
+          "required_improvement": 0.04,
+          "rows": [
+            {
+              "validator_uid": 4,
+              "baseline_kl": 4.9890625,
+              "required_kl": 4.7895,
+              "current_kl": 4.6375,
+              "margin": 0.15200000000000014,
+              "pass": true
+            },
+            {
+              "validator_uid": 6,
+              "baseline_kl": 5.193359375,
+              "required_kl": 4.985625,
+              "current_kl": 4.836328125,
+              "margin": 0.1492968750000001,
+              "pass": true
+            },
+            {
+              "validator_uid": 16,
+              "baseline_kl": 4.53046875,
+              "required_kl": 4.34925,
+              "current_kl": 4.375,
+              "margin": -0.025750000000000384,
+              "pass": false
+            }
+          ],
+          "worst_validator_uid": 16,
+          "worst_margin": -0.025750000000000384,
+          "kl_eval_json": "/root/sn47/sn-47-agent/kl_eval_round2.json"
+        },
+        "focus_file": "/root/sn47/sn-47-agent/cpu_pass_all_data/validator_4_next.jsonl"
+      },
+      {
+        "round": 3,
+        "train": {
+          "skipped": false,
+          "command": "python3 /root/sn47/sn-47-agent/train_cpu_real.py --uid 93 --challenge-json /root/sn47/sn-47-agent/challenge_latest.json --eval-json /root/sn47/sn-47-agent/latest_eval_record.json --prep-out-dir /root/sn47/sn-47-agent/cpu_pass_all_data --model-dir /root/sn47/sn-47-agent/models/evolai_test_challenge --report-json /root/sn47/sn-47-agent/train_report.json --focus-file /root/sn47/sn-47-agent/cpu_pass_all_data/validator_16_next.jsonl --train-mode lm_head --max-steps 30 --lr 5e-5 --max-seq-len 512",
+          "report_json": "/root/sn47/sn-47-agent/train_report.json"
+        },
+        "gate": {
+          "all_pass": true,
+          "required_improvement": 0.04,
+          "rows": [
+            {
+              "validator_uid": 4,
+              "baseline_kl": 4.9890625,
+              "required_kl": 4.7895,
+              "current_kl": 4.59453125,
+              "margin": 0.19496875000000014,
+              "pass": true
+            },
+            {
+              "validator_uid": 6,
+              "baseline_kl": 5.193359375,
+              "required_kl": 4.985625,
+              "current_kl": 4.783203125,
+              "margin": 0.20242187499999975,
+              "pass": true
+            },
+            {
+              "validator_uid": 16,
+              "baseline_kl": 4.53046875,
+              "required_kl": 4.34925,
+              "current_kl": 4.21484375,
+              "margin": 0.13440624999999962,
+              "pass": true
+            }
+          ],
+          "worst_validator_uid": 16,
+          "worst_margin": 0.13440624999999962,
+          "kl_eval_json": "/root/sn47/sn-47-agent/kl_eval_round3.json"
+        },
+        "focus_file": "/root/sn47/sn-47-agent/cpu_pass_all_data/validator_16_next.jsonl"
+      }
+    ]
   },
   "gate_check": {
+    "enabled": true,
+    "required_improvement": 0.04,
     "all_pass": true,
-    "returncode": 0,
-    "stdout_tail": "validator_uid,before_ce,req_ce,after_ce,margin(req-after),pass\n4,7.454140,7.454140,7.363151,0.090988,PASS\n6,7.958062,7.958062,6.887971,1.070091,PASS\n16,5.970829,5.970829,5.718879,0.251950,PASS\n\nALL_VALIDATORS_PASS=True\n",
-    "summary_json": "/root/sn47/sn-47-agent/post_train_gate_summary.json"
+    "last_round": {
+      "all_pass": true,
+      "required_improvement": 0.04,
+      "rows": [
+        {
+          "validator_uid": 4,
+          "baseline_kl": 4.9890625,
+          "required_kl": 4.7895,
+          "current_kl": 4.59453125,
+          "margin": 0.19496875000000014,
+          "pass": true
+        },
+        {
+          "validator_uid": 6,
+          "baseline_kl": 5.193359375,
+          "required_kl": 4.985625,
+          "current_kl": 4.783203125,
+          "margin": 0.20242187499999975,
+          "pass": true
+        },
+        {
+          "validator_uid": 16,
+          "baseline_kl": 4.53046875,
+          "required_kl": 4.34925,
+          "current_kl": 4.21484375,
+          "margin": 0.13440624999999962,
+          "pass": true
+        }
+      ],
+      "worst_validator_uid": 16,
+      "worst_margin": 0.13440624999999962,
+      "kl_eval_json": "/root/sn47/sn-47-agent/kl_eval_round3.json"
+    }
+  },
+  "kl_baseline": {
+    "model_dir": "/root/sn47/sn-47-agent/models/evolai_test_challenge",
+    "ref_model": "Qwen/Qwen3.5-9B",
+    "max_seq_len": 512,
+    "rows": [
+      {
+        "validator_uid": 16,
+        "samples": 20,
+        "kl": 4.53046875,
+        "file": "/root/sn47/sn-47-agent/cpu_pass_all_data/validator_16_next.jsonl"
+      },
+      {
+        "validator_uid": 4,
+        "samples": 20,
+        "kl": 4.9890625,
+        "file": "/root/sn47/sn-47-agent/cpu_pass_all_data/validator_4_next.jsonl"
+      },
+      {
+        "validator_uid": 6,
+        "samples": 20,
+        "kl": 5.193359375,
+        "file": "/root/sn47/sn-47-agent/cpu_pass_all_data/validator_6_next.jsonl"
+      }
+    ]
   },
   "upload": {
     "repo_id": "Phoenix9781/evolai-tf-model",
     "source_dir": "/root/sn47/sn-47-agent/models/evolai_test_challenge",
-    "revision": "883756e42bfbc362761bb150f2ef316deaafa94f"
+    "revision": "669d9f101c6408dfaaa8da68d55a76c796359332"
   },
   "error": "Register failed:\nHotkey not found for wallet 'phoenix713' at ~/.bittensor/wallets\nRegistration failed: 1\n\n\nEvolAI Model Registration\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n\u256d\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u256e\n\u2502 Model Registration                 \u2502\n\u2502 Model: Phoenix9781/evolai-tf-model \u2502\n\u2502 Revision:                          \u2502\n\u2502 Track: TRANSFORMER                 \u2502\n\u2502 Wallet: phoenix713                 \u2502\n\u2502 Hotkey: phoenix713                 \u2502\n\u2570\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u256f\n\nRegistering model on-chain...\n",
-  "finished_at": 1779620208.2541575
+  "finished_at": 1779628667.234269
 }
