@@ -40,6 +40,7 @@ def _avg_kl_on_rows(
     rows: list[dict[str, Any]],
     max_seq_len: int,
     limit: int,
+    device: torch.device,
     progress_label: str = "",
     progress_every: int = 5,
 ) -> float:
@@ -60,8 +61,8 @@ def _avg_kl_on_rows(
                 truncation=True,
                 max_length=max_seq_len,
             )
-            ids = enc["input_ids"]
-            attn = enc["attention_mask"]
+            ids = enc["input_ids"].to(device)
+            attn = enc["attention_mask"].to(device)
             if ids.shape[1] < 2:
                 continue
             out_m = model(input_ids=ids, attention_mask=attn, use_cache=False)
@@ -100,6 +101,12 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--max-seq-len", type=int, default=512)
     p.add_argument("--limit-per-validator", type=int, default=40)
     p.add_argument("--progress-every", type=int, default=5)
+    p.add_argument(
+        "--device",
+        default="auto",
+        choices=["auto", "cpu", "cuda"],
+        help="Device for KL eval. auto uses CUDA when available.",
+    )
     return p.parse_args()
 
 
@@ -114,20 +121,37 @@ def main() -> int:
     if not files:
         raise SystemExit(f"No validator_*_next.jsonl files found in {prep_dir}")
 
+    if args.device == "cuda":
+        device = torch.device("cuda")
+    elif args.device == "cpu":
+        device = torch.device("cpu")
+    else:
+        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    dtype = torch.bfloat16 if device.type == "cuda" else torch.float32
+    print(
+        f"[KL] start device={device} dtype={str(dtype).replace('torch.', '')} "
+        f"cuda_available={torch.cuda.is_available()}",
+        flush=True,
+    )
+
     print(f"[KL] loading tokenizer/model from {model_dir}", flush=True)
     tokenizer = AutoTokenizer.from_pretrained(str(model_dir), local_files_only=True)
     model = AutoModelForCausalLM.from_pretrained(
         str(model_dir),
-        torch_dtype=torch.float32,
+        torch_dtype=dtype,
         low_cpu_mem_usage=True,
         local_files_only=True,
     )
+    model = model.to(device)
+    print("[KL] candidate model loaded", flush=True)
     print(f"[KL] loading reference model {args.ref_model}", flush=True)
     ref_model = AutoModelForCausalLM.from_pretrained(
         args.ref_model,
-        torch_dtype=torch.float32,
+        torch_dtype=dtype,
         low_cpu_mem_usage=True,
     )
+    ref_model = ref_model.to(device)
+    print("[KL] reference model loaded", flush=True)
     # Use same tokenizer space as candidate model for comparable logits.
     # (Assumes same tokenizer/vocab family as validator track.)
 
@@ -149,6 +173,7 @@ def main() -> int:
             rows=data,
             max_seq_len=args.max_seq_len,
             limit=args.limit_per_validator,
+            device=device,
             progress_label=f"uid={vid}",
             progress_every=args.progress_every,
         )

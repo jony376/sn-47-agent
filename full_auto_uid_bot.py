@@ -264,6 +264,8 @@ def run_kl_eval(
     ref_model: str,
     max_seq_len: int,
     limit_per_validator: int,
+    device: str,
+    progress_every: int,
 ) -> dict[str, Any]:
     cmd = [
         sys.executable,
@@ -280,10 +282,19 @@ def run_kl_eval(
         str(max_seq_len),
         "--limit-per-validator",
         str(limit_per_validator),
+        "--device",
+        device,
+        "--progress-every",
+        str(progress_every),
     ]
-    res = run(cmd, cwd=KL_EVAL_SCRIPT.parent)
-    if res.returncode != 0:
-        raise RuntimeError(f"KL eval failed:\n{res.stderr}\n{res.stdout}")
+    notify(f"[KL] Running: {' '.join(cmd)}", telegram=False)
+    code = run_streaming(
+        " ".join(cmd),
+        cwd=KL_EVAL_SCRIPT.parent,
+        env=os.environ.copy(),
+    )
+    if code != 0:
+        raise RuntimeError(f"KL eval failed with exit code {code}")
     payload = json.loads(out_json.read_text(encoding="utf-8"))
     return payload
 
@@ -409,6 +420,8 @@ def main() -> int:
     kl_eval_ref_model = env_str("KL_EVAL_REF_MODEL", "Qwen/Qwen3.5-9B")
     kl_eval_max_seq_len = int(env_str("KL_EVAL_MAX_SEQ_LEN", "512"))
     kl_eval_limit_per_validator = int(env_str("KL_EVAL_LIMIT_PER_VALIDATOR", "40"))
+    kl_eval_device = env_str("KL_EVAL_DEVICE", "auto")
+    kl_eval_progress_every = int(env_str("KL_EVAL_PROGRESS_EVERY", "5"))
 
     upload_source_dir_env = env_str("UPLOAD_SOURCE_DIR")
     if upload_source_dir_env:
@@ -485,6 +498,8 @@ def main() -> int:
                 ref_model=kl_eval_ref_model,
                 max_seq_len=kl_eval_max_seq_len,
                 limit_per_validator=kl_eval_limit_per_validator,
+                device=kl_eval_device,
+                progress_every=kl_eval_progress_every,
             )
             baseline_kl_by_validator = {
                 int(r["validator_uid"]): float(r["kl"])
@@ -507,14 +522,25 @@ def main() -> int:
                     if last_gate_result and last_gate_result.get("worst_validator_uid") is not None:
                         wuid = int(last_gate_result["worst_validator_uid"])
                         focus = prep_out_dir / f"validator_{wuid}_next.jsonl"
-                        env_extra["FOCUS_FILE"] = str(focus) if focus.exists() else ""
+                        if focus.exists():
+                            env_extra["FOCUS_FILE"] = str(focus)
+                        else:
+                            env_extra["FOCUS_FILE"] = str(prep_out_dir / "union_next.jsonl")
+                            notify(
+                                f"[LOOP] round {ridx}: validator file missing for {wuid}; "
+                                "falling back to union_next.jsonl",
+                                telegram=False,
+                            )
                         notify(
                             f"[LOOP] round {ridx}: focusing validator {wuid} file={env_extra['FOCUS_FILE']}",
                             telegram=False,
                         )
                     else:
-                        env_extra["FOCUS_FILE"] = ""
-                        notify(f"[LOOP] round {ridx}: no focus file (union training)", telegram=False)
+                        env_extra["FOCUS_FILE"] = str(prep_out_dir / "union_next.jsonl")
+                        notify(
+                            f"[LOOP] round {ridx}: no focus file, using union file={env_extra['FOCUS_FILE']}",
+                            telegram=False,
+                        )
 
                     notify(f"[LOOP] round {ridx}/{train_until_pass_max_rounds}: training", telegram=False)
                     train_result = run_training(train_cmd, env_extra=env_extra, cwd=work_dir)
@@ -532,6 +558,8 @@ def main() -> int:
                             ref_model=kl_eval_ref_model,
                             max_seq_len=kl_eval_max_seq_len,
                             limit_per_validator=kl_eval_limit_per_validator,
+                            device=kl_eval_device,
+                            progress_every=kl_eval_progress_every,
                         )
                         cur_kl_by_validator = {
                             int(r["validator_uid"]): float(r["kl"])
