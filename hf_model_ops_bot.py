@@ -144,7 +144,7 @@ def register_model(repo_id: str, revision: str) -> None:
         "register",
         repo_id,
         "--revision",
-        revision,
+        "main",
         "--track",
         track,
         "--wallet-name",
@@ -155,7 +155,10 @@ def register_model(repo_id: str, revision: str) -> None:
         netuid,
     ]
 
-    notify(f"[START] Register model in EvolAI: {repo_id}", telegram=False)
+    notify(
+        f"[START] Register model in EvolAI: {repo_id} (revision=main)",
+        telegram=False,
+    )
     result = subprocess.run(
         cmd,
         cwd="/root/sn47/evolai",
