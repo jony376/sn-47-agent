@@ -1,0 +1,113 @@
+{
+  "network": "finney",
+  "netuid": 47,
+  "target_uid": 93,
+  "current_block": 8252422,
+  "current_epoch": 22923,
+  "track": "transformer",
+  "n_eval": 20,
+  "active_datasets": [
+    "evolai/universal_qa"
+  ],
+  "validators": [
+    {
+      "validator_uid": 4,
+      "validator_hotkey": "5E6tY1M7B4s8xtRg4QhUTVCC7V73jBy27x9gxmfBTRhims47",
+      "latest_seed_epoch": 22922,
+      "latest_seed": "b68369c711a3d67c8d91a45cb937eec4",
+      "previous_seed_epoch": null,
+      "previous_seed": null,
+      "next_challenge_indices_from_latest_seed": {
+        "evolai/universal_qa": [
+          30655,
+          74698,
+          96262,
+          244442,
+          742362,
+          980081,
+          1233149,
+          1242461,
+          1383285,
+          1427058,
+          1490199,
+          1543820,
+          1579320,
+          1585466,
+          1609564,
+          1650964,
+          1889454,
+          1998801,
+          2153304,
+          2212452
+        ]
+      },
+      "challenge_indices_from_previous_seed": null
+    },
+    {
+      "validator_uid": 6,
+      "validator_hotkey": "5Gk1KPrct8X4cjc6P3s3C8WSPk6iwELw2LHYFx4M5BLZh5M2",
+      "latest_seed_epoch": 22922,
+      "latest_seed": "8207b8e0d928a333d4e5982af40a3848",
+      "previous_seed_epoch": null,
+      "previous_seed": null,
+      "next_challenge_indices_from_latest_seed": {
+        "evolai/universal_qa": [
+          183546,
+          332059,
+          335235,
+          525216,
+          907962,
+          1165519,
+          1281647,
+          1378168,
+          1508227,
+          1532101,
+          1590348,
+          1644388,
+          1650493,
+          1715652,
+          1859045,
+          2054038,
+          2086241,
+          2206456,
+          2263145,
+          2284626
+        ]
+      },
+      "challenge_indices_from_previous_seed": null
+    },
+    {
+      "validator_uid": 16,
+      "validator_hotkey": "5CrSrEdM36RyLaSzTnRCJUvG7kAEJWjdvAd5S5APATVRsn47",
+      "latest_seed_epoch": 22922,
+      "latest_seed": "e920e97aa2ced55d9011b3f62cdb9c1a",
+      "previous_seed_epoch": null,
+      "previous_seed": null,
+      "next_challenge_indices_from_latest_seed": {
+        "evolai/universal_qa": [
+          50170,
+          284732,
+          362565,
+          490783,
+          564718,
+          685919,
+          792845,
+          1300469,
+          1732517,
+          1791269,
+          1805610,
+          1855369,
+          1912884,
+          2035553,
+          2098368,
+          2196379,
+          2227549,
+          2255581,
+          2257432,
+          2258984
+        ]
+      },
+      "challenge_indices_from_previous_seed": null
+    }
+  ]
+}
