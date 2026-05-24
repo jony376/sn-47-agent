@@ -1,0 +1,28 @@
+{
+  "uid": 93,
+  "timestamp": "2026-05-24 05:49:27",
+  "model_repo": "Phoenix9781/evolai-tf-model",
+  "model_revision": "179571f70ebd4dc5e34351909c68b06d73c1aa0d",
+  "challenge": "evolai/universal_qa(20 idx)",
+  "kl": 1.8753,
+  "next_kl": 1.7842,
+  "gate": "PASS",
+  "cur_kl": 1.8753,
+  "req_kl": 1.8843,
+  "prev_kl": 1.9227,
+  "raw_block": [
+    "2026-05-24 05:49:27   [35/50] UID 93 | Phoenix9781/evolai-tf-model @",
+    "2026-05-24 05:49:27 179571f70ebd4dc5e34351909c68b06d73c1aa0d | hotkey 5F4R25t78FSF\u2026",
+    "2026-05-24 05:49:27     Challenge: evolai/universal_qa(20 idx)",
+    "2026-05-24 05:49:27     Fetched 20 texts (20 indices)",
+    "2026-05-24 05:49:36     Loaded (HF download)",
+    "2026-05-24 05:49:36     Model 0.46B \u2192 batch=512, seq=16384",
+    "2026-05-24 05:50:09     Loss eval \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 80/80 100% 0:00:31",
+    "2026-05-24 05:50:10     Loss 3.7364 | Size \u00d70.50 | Think 3.7364 | ThinkGain 0 (+0.4588) | Flow",
+    "2026-05-24 05:50:10 0.0020 | KL 1.8753 | NextKL 1.7842 | SideQ 0% | Score 0.0226 (33.5s)",
+    "2026-05-24 05:50:10     Gate PASS | Improve ok cur=1.8753 req<=1.8843 prev=1.9227 | Consist ok",
+    "2026-05-24 05:50:10 ema_cur=1.9522 ema_next=1.9400 ratio=0.994 max<=1.20",
+    "2026-05-24 05:50:11   Evicted cached model:",
+    "2026-05-24 05:50:11 evolai/evolai_test_challenge@41890e1420a98ff75a51186cbe5d21a159f218da"
+  ]
+}
