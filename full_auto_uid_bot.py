@@ -332,6 +332,8 @@ def main() -> int:
     gate_check_enabled = env_bool("GATE_CHECK_ENABLED", True)
     gate_required_improvement = float(env_str("GATE_REQUIRED_IMPROVEMENT", "0.0"))
     gate_fail_action = env_str("GATE_FAIL_ACTION", "abort").lower()
+    train_until_pass_enabled = env_bool("TRAIN_UNTIL_PASS_ENABLED", False)
+    train_until_pass_max_rounds = int(env_str("TRAIN_UNTIL_PASS_MAX_ROUNDS", "5"))
 
     upload_source_dir_env = env_str("UPLOAD_SOURCE_DIR")
     if upload_source_dir_env:
@@ -393,37 +395,98 @@ def main() -> int:
             "MODEL_REVISION": eval_rec.get("model_revision", ""),
             "TRAIN_REPORT_JSON": str(SCRIPT_DIR / "train_report.json"),
         }
-        if train_enabled:
-            t = step_log("Run training command")
-            train_result = run_training(train_cmd, env_extra=env_extra, cwd=work_dir)
-            summary["training"] = {"enabled": True, **train_result}
-            notify(f"[STEP {step}] done in {time.time()-t:.1f}s", telegram=False)
-        else:
-            summary["training"] = {"enabled": False}
+        summary["training"] = {"enabled": train_enabled}
+        summary["gate_check"] = {"enabled": gate_check_enabled and train_enabled}
 
-        if gate_check_enabled and train_enabled:
-            t = step_log("Run post-train gate check")
-            report_json = Path(env_extra["TRAIN_REPORT_JSON"])
-            if not report_json.exists():
-                raise RuntimeError(
-                    f"GATE_CHECK_ENABLED=true but training report not found: {report_json}"
+        if train_enabled:
+            if train_until_pass_enabled and gate_check_enabled:
+                t = step_log(
+                    f"Train-until-pass loop (max_rounds={train_until_pass_max_rounds}, "
+                    f"required_improvement={gate_required_improvement})"
                 )
-            gate_summary_json = SCRIPT_DIR / "post_train_gate_summary.json"
-            gate_result = run_post_train_gate_check(
-                report_json=report_json,
-                required_improvement=gate_required_improvement,
-                summary_json=gate_summary_json,
-            )
-            summary["gate_check"] = gate_result
-            notify(
-                f"[STEP {step}] done in {time.time()-t:.1f}s | all_pass={gate_result['all_pass']}",
-                telegram=False,
-            )
-            if not gate_result["all_pass"] and gate_fail_action == "abort":
-                raise RuntimeError(
-                    "Post-train gate-check failed (not all validators pass); "
-                    "aborting upload/register due to GATE_FAIL_ACTION=abort."
+                loop_rounds: list[dict[str, Any]] = []
+                passed = False
+                for ridx in range(1, max(1, train_until_pass_max_rounds) + 1):
+                    notify(f"[LOOP] round {ridx}/{train_until_pass_max_rounds}: training", telegram=False)
+                    train_result = run_training(train_cmd, env_extra=env_extra, cwd=work_dir)
+                    report_json = Path(env_extra["TRAIN_REPORT_JSON"])
+                    if not report_json.exists():
+                        raise RuntimeError(
+                            f"Training report not found after round {ridx}: {report_json}"
+                        )
+                    gate_summary_json = SCRIPT_DIR / f"post_train_gate_summary_round{ridx}.json"
+                    gate_result = run_post_train_gate_check(
+                        report_json=report_json,
+                        required_improvement=gate_required_improvement,
+                        summary_json=gate_summary_json,
+                    )
+                    loop_rounds.append(
+                        {
+                            "round": ridx,
+                            "train": train_result,
+                            "gate": gate_result,
+                        }
+                    )
+                    notify(
+                        f"[LOOP] round {ridx}: gate all_pass={gate_result['all_pass']}",
+                        telegram=False,
+                    )
+                    if gate_result["all_pass"]:
+                        passed = True
+                        break
+
+                summary["training"] = {
+                    "enabled": True,
+                    "train_until_pass": True,
+                    "max_rounds": train_until_pass_max_rounds,
+                    "rounds_executed": len(loop_rounds),
+                    "passed": passed,
+                    "rounds": loop_rounds,
+                }
+                summary["gate_check"] = {
+                    "enabled": True,
+                    "required_improvement": gate_required_improvement,
+                    "all_pass": passed,
+                    "last_round": loop_rounds[-1]["gate"] if loop_rounds else None,
+                }
+                notify(
+                    f"[STEP {step}] done in {time.time()-t:.1f}s | pass={passed} rounds={len(loop_rounds)}",
+                    telegram=False,
                 )
+                if not passed and gate_fail_action == "abort":
+                    raise RuntimeError(
+                        "Train-until-pass exhausted rounds without passing gate; "
+                        "aborting upload/register due to GATE_FAIL_ACTION=abort."
+                    )
+            else:
+                t = step_log("Run training command")
+                train_result = run_training(train_cmd, env_extra=env_extra, cwd=work_dir)
+                summary["training"] = {"enabled": True, **train_result}
+                notify(f"[STEP {step}] done in {time.time()-t:.1f}s", telegram=False)
+
+                if gate_check_enabled:
+                    t = step_log("Run post-train gate check")
+                    report_json = Path(env_extra["TRAIN_REPORT_JSON"])
+                    if not report_json.exists():
+                        raise RuntimeError(
+                            f"GATE_CHECK_ENABLED=true but training report not found: {report_json}"
+                        )
+                    gate_summary_json = SCRIPT_DIR / "post_train_gate_summary.json"
+                    gate_result = run_post_train_gate_check(
+                        report_json=report_json,
+                        required_improvement=gate_required_improvement,
+                        summary_json=gate_summary_json,
+                    )
+                    summary["gate_check"] = gate_result
+                    notify(
+                        f"[STEP {step}] done in {time.time()-t:.1f}s | all_pass={gate_result['all_pass']}",
+                        telegram=False,
+                    )
+                    if not gate_result["all_pass"] and gate_fail_action == "abort":
+                        raise RuntimeError(
+                            "Post-train gate-check failed (not all validators pass); "
+                            "aborting upload/register due to GATE_FAIL_ACTION=abort."
+                        )
 
         t = step_log("Upload model to Hugging Face")
         api = HfApi(token=hf_token)
