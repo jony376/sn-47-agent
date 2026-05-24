@@ -23,6 +23,7 @@ EVOLAI_PYTHON = EVOLAI_ROOT / ".venv/bin/python"
 CHALLENGE_SCRIPT = SCRIPT_DIR / "get_prev_seed_and_next_indices.py"
 PREPARE_SCRIPT = SCRIPT_DIR / "cpu_pass_all_pipeline.py"
 POST_TRAIN_GATE_SCRIPT = SCRIPT_DIR / "post_train_gate_check.py"
+KL_EVAL_SCRIPT = SCRIPT_DIR / "kl_eval_validator_like.py"
 
 
 def load_env_file(env_path: Path) -> None:
@@ -256,6 +257,76 @@ def run_post_train_gate_check(
     }
 
 
+def run_kl_eval(
+    model_dir: Path,
+    prep_out_dir: Path,
+    out_json: Path,
+    ref_model: str,
+    max_seq_len: int,
+    limit_per_validator: int,
+) -> dict[str, Any]:
+    cmd = [
+        sys.executable,
+        str(KL_EVAL_SCRIPT),
+        "--model-dir",
+        str(model_dir),
+        "--prep-out-dir",
+        str(prep_out_dir),
+        "--out-json",
+        str(out_json),
+        "--ref-model",
+        ref_model,
+        "--max-seq-len",
+        str(max_seq_len),
+        "--limit-per-validator",
+        str(limit_per_validator),
+    ]
+    res = run(cmd, cwd=KL_EVAL_SCRIPT.parent)
+    if res.returncode != 0:
+        raise RuntimeError(f"KL eval failed:\n{res.stderr}\n{res.stdout}")
+    payload = json.loads(out_json.read_text(encoding="utf-8"))
+    return payload
+
+
+def kl_gate_from_baseline(
+    baseline_kl: dict[int, float],
+    current_kl: dict[int, float],
+    required_improvement: float,
+) -> dict[str, Any]:
+    rows = []
+    all_pass = True
+    worst_uid = None
+    worst_margin = None
+    for vid in sorted(baseline_kl.keys()):
+        b = float(baseline_kl[vid])
+        c = float(current_kl.get(vid, float("nan")))
+        req = b * (1.0 - required_improvement)
+        margin = req - c
+        passed = c <= req
+        if not passed:
+            all_pass = False
+        rows.append(
+            {
+                "validator_uid": vid,
+                "baseline_kl": b,
+                "required_kl": req,
+                "current_kl": c,
+                "margin": margin,
+                "pass": passed,
+            }
+        )
+        if worst_margin is None or margin < worst_margin:
+            worst_margin = margin
+            worst_uid = vid
+    return {
+        "all_pass": all_pass,
+        "required_improvement": required_improvement,
+        "rows": rows,
+        "worst_validator_uid": worst_uid,
+        "worst_margin": worst_margin,
+    }
+
+
 def upload_model(api: HfApi, source_dir: Path, repo_id: str, message: str) -> str:
     if not source_dir.exists():
         raise RuntimeError(f"UPLOAD_SOURCE_DIR not found: {source_dir}")
@@ -334,6 +405,10 @@ def main() -> int:
     gate_fail_action = env_str("GATE_FAIL_ACTION", "abort").lower()
     train_until_pass_enabled = env_bool("TRAIN_UNTIL_PASS_ENABLED", False)
     train_until_pass_max_rounds = int(env_str("TRAIN_UNTIL_PASS_MAX_ROUNDS", "5"))
+    kl_eval_enabled = env_bool("KL_EVAL_ENABLED", True)
+    kl_eval_ref_model = env_str("KL_EVAL_REF_MODEL", "Qwen/Qwen3.5-9B")
+    kl_eval_max_seq_len = int(env_str("KL_EVAL_MAX_SEQ_LEN", "512"))
+    kl_eval_limit_per_validator = int(env_str("KL_EVAL_LIMIT_PER_VALIDATOR", "40"))
 
     upload_source_dir_env = env_str("UPLOAD_SOURCE_DIR")
     if upload_source_dir_env:
@@ -394,9 +469,29 @@ def main() -> int:
             "MODEL_REPO": eval_rec.get("model_repo", ""),
             "MODEL_REVISION": eval_rec.get("model_revision", ""),
             "TRAIN_REPORT_JSON": str(SCRIPT_DIR / "train_report.json"),
+            "FOCUS_FILE": "",
         }
         summary["training"] = {"enabled": train_enabled}
         summary["gate_check"] = {"enabled": gate_check_enabled and train_enabled}
+
+        baseline_kl_by_validator: dict[int, float] = {}
+        if train_enabled and kl_eval_enabled:
+            t = step_log("Baseline KL eval on current model (per validator)")
+            baseline_json = SCRIPT_DIR / "kl_eval_baseline.json"
+            baseline_payload = run_kl_eval(
+                model_dir=upload_source_dir,
+                prep_out_dir=prep_out_dir,
+                out_json=baseline_json,
+                ref_model=kl_eval_ref_model,
+                max_seq_len=kl_eval_max_seq_len,
+                limit_per_validator=kl_eval_limit_per_validator,
+            )
+            baseline_kl_by_validator = {
+                int(r["validator_uid"]): float(r["kl"])
+                for r in baseline_payload.get("rows", [])
+            }
+            summary["kl_baseline"] = baseline_payload
+            notify(f"[STEP {step}] done in {time.time()-t:.1f}s", telegram=False)
 
         if train_enabled:
             if train_until_pass_enabled and gate_check_enabled:
@@ -406,7 +501,21 @@ def main() -> int:
                 )
                 loop_rounds: list[dict[str, Any]] = []
                 passed = False
+                last_gate_result: dict[str, Any] | None = None
                 for ridx in range(1, max(1, train_until_pass_max_rounds) + 1):
+                    # worst-validator-focused schedule
+                    if last_gate_result and last_gate_result.get("worst_validator_uid") is not None:
+                        wuid = int(last_gate_result["worst_validator_uid"])
+                        focus = prep_out_dir / f"validator_{wuid}_next.jsonl"
+                        env_extra["FOCUS_FILE"] = str(focus) if focus.exists() else ""
+                        notify(
+                            f"[LOOP] round {ridx}: focusing validator {wuid} file={env_extra['FOCUS_FILE']}",
+                            telegram=False,
+                        )
+                    else:
+                        env_extra["FOCUS_FILE"] = ""
+                        notify(f"[LOOP] round {ridx}: no focus file (union training)", telegram=False)
+
                     notify(f"[LOOP] round {ridx}/{train_until_pass_max_rounds}: training", telegram=False)
                     train_result = run_training(train_cmd, env_extra=env_extra, cwd=work_dir)
                     report_json = Path(env_extra["TRAIN_REPORT_JSON"])
@@ -414,19 +523,42 @@ def main() -> int:
                         raise RuntimeError(
                             f"Training report not found after round {ridx}: {report_json}"
                         )
-                    gate_summary_json = SCRIPT_DIR / f"post_train_gate_summary_round{ridx}.json"
-                    gate_result = run_post_train_gate_check(
-                        report_json=report_json,
-                        required_improvement=gate_required_improvement,
-                        summary_json=gate_summary_json,
-                    )
+                    if kl_eval_enabled:
+                        round_kl_json = SCRIPT_DIR / f"kl_eval_round{ridx}.json"
+                        round_kl = run_kl_eval(
+                            model_dir=upload_source_dir,
+                            prep_out_dir=prep_out_dir,
+                            out_json=round_kl_json,
+                            ref_model=kl_eval_ref_model,
+                            max_seq_len=kl_eval_max_seq_len,
+                            limit_per_validator=kl_eval_limit_per_validator,
+                        )
+                        cur_kl_by_validator = {
+                            int(r["validator_uid"]): float(r["kl"])
+                            for r in round_kl.get("rows", [])
+                        }
+                        gate_result = kl_gate_from_baseline(
+                            baseline_kl=baseline_kl_by_validator,
+                            current_kl=cur_kl_by_validator,
+                            required_improvement=gate_required_improvement,
+                        )
+                        gate_result["kl_eval_json"] = str(round_kl_json)
+                    else:
+                        gate_summary_json = SCRIPT_DIR / f"post_train_gate_summary_round{ridx}.json"
+                        gate_result = run_post_train_gate_check(
+                            report_json=report_json,
+                            required_improvement=gate_required_improvement,
+                            summary_json=gate_summary_json,
+                        )
                     loop_rounds.append(
                         {
                             "round": ridx,
                             "train": train_result,
                             "gate": gate_result,
+                            "focus_file": env_extra.get("FOCUS_FILE", ""),
                         }
                     )
+                    last_gate_result = gate_result
                     notify(
                         f"[LOOP] round {ridx}: gate all_pass={gate_result['all_pass']}",
                         telegram=False,

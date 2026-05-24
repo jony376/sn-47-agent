@@ -87,6 +87,11 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--max-seq-len", type=int, default=512)
     p.add_argument("--warmup-steps", type=int, default=3)
     p.add_argument(
+        "--focus-file",
+        default="",
+        help="Optional per-validator JSONL file to focus this training round.",
+    )
+    p.add_argument(
         "--train-mode",
         choices=("lm_head", "super_light"),
         default="super_light",
@@ -192,6 +197,15 @@ def main() -> int:
         raise SystemExit("Union dataset is empty.")
     print(f"[TRAIN] union samples: {len(union_rows)}", flush=True)
 
+    focus_rows: list[dict[str, Any]] = []
+    if args.focus_file:
+        fp = Path(args.focus_file).resolve()
+        focus_rows = _read_jsonl(fp)
+        print(
+            f"[TRAIN] focus-file={fp} samples={len(focus_rows)}",
+            flush=True,
+        )
+
     per_val_files = sorted(prep_dir.glob("validator_*_next.jsonl"))
     per_val_rows: dict[str, list[dict[str, Any]]] = {
         p.stem.replace("validator_", "").replace("_next", ""): _read_jsonl(p)
@@ -255,7 +269,8 @@ def main() -> int:
     }
 
     optim = AdamW([p for p in model.parameters() if p.requires_grad], lr=args.lr)
-    rows = [r for r in union_rows if (r.get("instruction") or "").strip()]
+    base_rows = focus_rows if focus_rows else union_rows
+    rows = [r for r in base_rows if (r.get("instruction") or "").strip()]
     if not rows:
         raise SystemExit("No valid instruction rows in union dataset.")
 
