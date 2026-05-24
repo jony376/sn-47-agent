@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import json
 import math
+import time
 from pathlib import Path
 from typing import Any
 
@@ -39,6 +40,8 @@ def _avg_kl_on_rows(
     rows: list[dict[str, Any]],
     max_seq_len: int,
     limit: int,
+    progress_label: str = "",
+    progress_every: int = 5,
 ) -> float:
     use = rows[: min(limit, len(rows))]
     if not use:
@@ -46,8 +49,10 @@ def _avg_kl_on_rows(
     model.eval()
     ref_model.eval()
     kls: list[float] = []
+    started = time.time()
+    total = len(use)
     with torch.inference_mode():
-        for r in use:
+        for i, r in enumerate(use, start=1):
             txt = _render_text(r)
             enc = tokenizer(
                 txt,
@@ -72,6 +77,13 @@ def _avg_kl_on_rows(
             log_p_m = F.log_softmax(lm, dim=-1)
             kl = (p_ref * (log_p_ref - log_p_m)).sum(dim=-1).mean()
             kls.append(float(kl.detach().cpu().item()))
+            if i == 1 or i == total or (progress_every > 0 and i % progress_every == 0):
+                elapsed = time.time() - started
+                msg = f"[KL] {progress_label} progress {i}/{total} elapsed={elapsed:.1f}s"
+                if i > 0:
+                    eta = (elapsed / i) * (total - i)
+                    msg += f" eta={eta:.1f}s"
+                print(msg, flush=True)
     return float(sum(kls) / max(1, len(kls)))
 
 
@@ -87,6 +99,7 @@ def parse_args() -> argparse.Namespace:
     )
     p.add_argument("--max-seq-len", type=int, default=512)
     p.add_argument("--limit-per-validator", type=int, default=40)
+    p.add_argument("--progress-every", type=int, default=5)
     return p.parse_args()
 
 
@@ -119,9 +132,16 @@ def main() -> int:
     # (Assumes same tokenizer/vocab family as validator track.)
 
     rows = []
-    for f in files:
+    total_validators = len(files)
+    for v_idx, f in enumerate(files, start=1):
         vid = int(f.stem.replace("validator_", "").replace("_next", ""))
         data = _read_jsonl(f)
+        sample_n = min(len(data), args.limit_per_validator)
+        print(
+            f"[KL] validator {v_idx}/{total_validators} uid={vid} samples={sample_n} start",
+            flush=True,
+        )
+        v_started = time.time()
         kl = _avg_kl_on_rows(
             model=model,
             ref_model=ref_model,
@@ -129,16 +149,22 @@ def main() -> int:
             rows=data,
             max_seq_len=args.max_seq_len,
             limit=args.limit_per_validator,
+            progress_label=f"uid={vid}",
+            progress_every=args.progress_every,
         )
+        v_elapsed = time.time() - v_started
         rows.append(
             {
                 "validator_uid": vid,
-                "samples": min(len(data), args.limit_per_validator),
+                "samples": sample_n,
                 "kl": kl,
                 "file": str(f),
             }
         )
-        print(f"[KL] validator={vid} kl={kl:.6f} samples={min(len(data), args.limit_per_validator)}", flush=True)
+        print(
+            f"[KL] validator={vid} done kl={kl:.6f} samples={sample_n} elapsed={v_elapsed:.1f}s",
+            flush=True,
+        )
 
     out = {
         "model_dir": str(model_dir),
@@ -153,4 +179,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-
