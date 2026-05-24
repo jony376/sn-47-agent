@@ -3,15 +3,13 @@
   "track": "transformer",
   "n_eval": 20,
   "validators": [
-    4,
     6,
     16
   ],
-  "union_size": 60,
+  "union_size": 40,
   "files": {
     "union_next": "/root/sn47/sn-47-agent/cpu_pass_all_data/union_next.jsonl",
     "per_validator": [
-      "/root/sn47/sn-47-agent/cpu_pass_all_data/validator_4_next.jsonl",
       "/root/sn47/sn-47-agent/cpu_pass_all_data/validator_6_next.jsonl",
       "/root/sn47/sn-47-agent/cpu_pass_all_data/validator_16_next.jsonl"
     ]

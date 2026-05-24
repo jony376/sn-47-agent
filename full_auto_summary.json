@@ -1,41 +1,62 @@
 {
-  "started_at": 1779607028.7151442,
+  "started_at": 1779620055.3730888,
   "uid": 93,
   "status": "failed",
   "latest_eval": {
     "uid": 93,
-    "timestamp": "2026-05-24 05:49:27",
+    "timestamp": "2026-05-24 10:29:19",
     "model_repo": "Phoenix9781/evolai-tf-model",
-    "model_revision": "179571f70ebd4dc5e34351909c68b06d73c1aa0d",
+    "model_revision": "b05038fcfdcc79fa8d8e79730074b65cd68c73f9",
     "challenge": "evolai/universal_qa(20 idx)",
-    "kl": 1.8753,
-    "next_kl": 1.7842,
-    "gate": "PASS",
-    "cur_kl": 1.8753,
-    "req_kl": 1.8843,
-    "prev_kl": 1.9227,
+    "kl": 2.0005,
+    "next_kl": 1.8798,
+    "gate": "FAIL",
+    "cur_kl": 2.0005,
+    "req_kl": 1.9605,
+    "prev_kl": 2.0005,
     "raw_block": [
-      "2026-05-24 05:49:27   [35/50] UID 93 | Phoenix9781/evolai-tf-model @",
-      "2026-05-24 05:49:27 179571f70ebd4dc5e34351909c68b06d73c1aa0d | hotkey 5F4R25t78FSF\u2026",
-      "2026-05-24 05:49:27     Challenge: evolai/universal_qa(20 idx)",
-      "2026-05-24 05:49:27     Fetched 20 texts (20 indices)",
-      "2026-05-24 05:49:36     Loaded (HF download)",
-      "2026-05-24 05:49:36     Model 0.46B \u2192 batch=512, seq=16384",
-      "2026-05-24 05:50:09     Loss eval \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 80/80 100% 0:00:31",
-      "2026-05-24 05:50:10     Loss 3.7364 | Size \u00d70.50 | Think 3.7364 | ThinkGain 0 (+0.4588) | Flow",
-      "2026-05-24 05:50:10 0.0020 | KL 1.8753 | NextKL 1.7842 | SideQ 0% | Score 0.0226 (33.5s)",
-      "2026-05-24 05:50:10     Gate PASS | Improve ok cur=1.8753 req<=1.8843 prev=1.9227 | Consist ok",
-      "2026-05-24 05:50:10 ema_cur=1.9522 ema_next=1.9400 ratio=0.994 max<=1.20",
-      "2026-05-24 05:50:11   Evicted cached model:",
-      "2026-05-24 05:50:11 evolai/evolai_test_challenge@41890e1420a98ff75a51186cbe5d21a159f218da"
+      "2026-05-24 10:29:19   [33/50] UID 93 | Phoenix9781/evolai-tf-model @",
+      "2026-05-24 10:29:19 b05038fcfdcc79fa8d8e79730074b65cd68c73f9 | hotkey 5F4R25t78FSF\u2026",
+      "2026-05-24 10:29:19     Challenge: evolai/universal_qa(20 idx)",
+      "2026-05-24 10:29:19     Fetched 20 texts (20 indices)",
+      "2026-05-24 10:29:19    Downloading",
+      "2026-05-24 10:29:19 clear-blue-sky/evolai-reborn-tfm-009@461d465d0b0eae7c262990b9a8e3aa112f199ce2\u2026",
+      "2026-05-24 10:29:20     Loaded (local prefetch)",
+      "2026-05-24 10:29:20     Model 0.46B \u2192 batch=512, seq=16384",
+      "2026-05-24 10:29:22    Ready:",
+      "2026-05-24 10:29:22 clear-blue-sky/evolai-reborn-tfm-009@461d465d0b0eae7c262990b9a8e3aa112f199ce2",
+      "2026-05-24 10:30:02     Loss eval \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501 80/80 100% 0:00:38",
+      "2026-05-24 10:30:02     Loss 3.8161 | Size \u00d70.50 | Think 3.8161 | ThinkGain 0 (+0.4600) | Flow",
+      "2026-05-24 10:30:02 0.0000 | KL 2.0005 | NextKL 1.8798 | SideQ 0% | Score 0.0000 (41.3s)",
+      "2026-05-24 10:30:02     Gate FAIL | Improve same SHA cur=2.0005 req<=1.9605 prev=2.0005 | Consist ok",
+      "2026-05-24 10:30:02 ema_cur=1.9843 ema_next=1.9678 ratio=0.992 max<=1.20",
+      "2026-05-24 10:30:04   Evicted cached model:",
+      "2026-05-24 10:30:04 clear-blue-sky/evolai-reborn-tfm-006@3abb0e95402025da8fbd282c334b989c9930a680"
     ]
   },
   "challenge": {
-    "validators": 3,
-    "epoch": 22923,
-    "block": 8252398
+    "validators": 2,
+    "epoch": 22926,
+    "block": 8253482
   },
   "prepared_data_dir": "/root/sn47/sn-47-agent/cpu_pass_all_data",
-  "error": "Training command failed with exit code 1",
-  "finished_at": 1779607079.1269457
+  "training": {
+    "enabled": true,
+    "skipped": false,
+    "command": "python3 /root/sn47/sn-47-agent/train_cpu_real.py --uid 93 --challenge-json /root/sn47/sn-47-agent/challenge_latest.json --eval-json /root/sn47/sn-47-agent/latest_eval_record.json --prep-out-dir /root/sn47/sn-47-agent/cpu_pass_all_data --model-dir /root/sn47/sn-47-agent/models/evolai_test_challenge --report-json /root/sn47/sn-47-agent/train_report.json --train-mode lm_head --max-steps 30 --lr 5e-5 --max-seq-len 512",
+    "report_json": "/root/sn47/sn-47-agent/train_report.json"
+  },
+  "gate_check": {
+    "all_pass": true,
+    "returncode": 0,
+    "stdout_tail": "validator_uid,before_ce,req_ce,after_ce,margin(req-after),pass\n4,7.454140,7.454140,7.363151,0.090988,PASS\n6,7.958062,7.958062,6.887971,1.070091,PASS\n16,5.970829,5.970829,5.718879,0.251950,PASS\n\nALL_VALIDATORS_PASS=True\n",
+    "summary_json": "/root/sn47/sn-47-agent/post_train_gate_summary.json"
+  },
+  "upload": {
+    "repo_id": "Phoenix9781/evolai-tf-model",
+    "source_dir": "/root/sn47/sn-47-agent/models/evolai_test_challenge",
+    "revision": "883756e42bfbc362761bb150f2ef316deaafa94f"
+  },
+  "error": "Register failed:\nHotkey not found for wallet 'phoenix713' at ~/.bittensor/wallets\nRegistration failed: 1\n\n\nEvolAI Model Registration\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n\u256d\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u256e\n\u2502 Model Registration                 \u2502\n\u2502 Model: Phoenix9781/evolai-tf-model \u2502\n\u2502 Revision:                          \u2502\n\u2502 Track: TRANSFORMER                 \u2502\n\u2502 Wallet: phoenix713                 \u2502\n\u2502 Hotkey: phoenix713                 \u2502\n\u2570\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u256f\n\nRegistering model on-chain...\n",
+  "finished_at": 1779620208.2541575
 }
