@@ -86,6 +86,15 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--lr", type=float, default=5e-5)
     p.add_argument("--max-seq-len", type=int, default=512)
     p.add_argument("--warmup-steps", type=int, default=3)
+    p.add_argument(
+        "--train-mode",
+        choices=("lm_head", "super_light"),
+        default="super_light",
+        help=(
+            "lm_head: train full lm_head (heavy on CPU). "
+            "super_light: train only bias/LayerNorm/lm_head bias tensors (much lighter)."
+        ),
+    )
     return p.parse_args()
 
 
@@ -206,23 +215,38 @@ def main() -> int:
     model.train()
     print(f"[TRAIN] model loaded in {time.time()-t0:.1f}s", flush=True)
 
-    # CPU-friendly: train only lm_head (real weight update, but light).
+    # CPU-friendly train modes.
     for _, p in model.named_parameters():
         p.requires_grad = False
     trainable = 0
-    if hasattr(model, "lm_head") and model.lm_head is not None:
-        for p in model.lm_head.parameters():
-            p.requires_grad = True
-            trainable += p.numel()
+    if args.train_mode == "lm_head":
+        if hasattr(model, "lm_head") and model.lm_head is not None:
+            for p in model.lm_head.parameters():
+                p.requires_grad = True
+                trainable += p.numel()
+        else:
+            for n, p in model.named_parameters():
+                if n.endswith("lm_head.weight") or n.endswith("lm_head.bias"):
+                    p.requires_grad = True
+                    trainable += p.numel()
     else:
-        # Fallback if model has no lm_head attr.
+        # super_light: only tiny subsets that still produce real updates.
+        # This is much faster on CPU and suitable for quick iteration.
         for n, p in model.named_parameters():
-            if n.endswith("lm_head.weight"):
+            ln_name = n.lower()
+            if (
+                n.endswith(".bias")
+                or "layernorm" in ln_name
+                or ".ln_" in ln_name
+                or n.endswith("norm.weight")
+                or n.endswith("norm.bias")
+                or n.endswith("lm_head.bias")
+            ):
                 p.requires_grad = True
                 trainable += p.numel()
     if trainable == 0:
-        raise SystemExit("No trainable lm_head parameters found.")
-    print(f"[TRAIN] trainable parameters (lm_head only): {trainable}", flush=True)
+        raise SystemExit(f"No trainable parameters found for train_mode={args.train_mode}.")
+    print(f"[TRAIN] train_mode={args.train_mode} trainable_parameters={trainable}", flush=True)
 
     before_union = _avg_ce(model, tokenizer, union_rows, args.max_seq_len)
     before_by_validator = {
@@ -237,7 +261,6 @@ def main() -> int:
 
     step = 0
     losses: list[float] = []
-    log_every = max(1, args.max_steps // 10)
     t_train = time.time()
     print(
         f"[TRAIN] start steps={args.max_steps} lr={args.lr} max_seq_len={args.max_seq_len}",
@@ -266,14 +289,13 @@ def main() -> int:
 
         step += 1
         losses.append(float(loss.detach().float().item()))
-        if step % log_every == 0 or step == args.max_steps:
-            elapsed = time.time() - t_train
-            print(
-                f"[TRAIN] step {step}/{args.max_steps} "
-                f"loss={losses[-1]:.4f} avg={sum(losses)/len(losses):.4f} "
-                f"elapsed={elapsed:.1f}s",
-                flush=True,
-            )
+        elapsed = time.time() - t_train
+        print(
+            f"[TRAIN] step {step}/{args.max_steps} "
+            f"loss={losses[-1]:.4f} avg={sum(losses)/len(losses):.4f} "
+            f"elapsed={elapsed:.1f}s",
+            flush=True,
+        )
 
     print("[TRAIN] saving model/tokenizer...", flush=True)
     model.save_pretrained(str(model_dir), safe_serialization=True)
@@ -289,7 +311,7 @@ def main() -> int:
     report = {
         "uid": int(args.uid),
         "model_dir": str(model_dir),
-        "train_mode": "cpu_lm_head_only",
+        "train_mode": args.train_mode,
         "max_steps": int(args.max_steps),
         "lr": float(args.lr),
         "max_seq_len": int(args.max_seq_len),
