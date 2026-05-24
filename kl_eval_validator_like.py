@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import json
 import math
+import os
 import time
 from pathlib import Path
 from typing import Any
@@ -31,6 +32,75 @@ def _render_text(r: dict[str, Any]) -> str:
     if resp:
         return f"### Human: {ins}\n\n### Assistant: {resp}"
     return f"### Human: {ins}\n\n### Assistant:"
+
+
+def _ensure_local_model_metadata(model_dir: Path) -> None:
+    needed = [
+        "model.safetensors",
+        "tokenizer.json",
+        "config.json",
+        "tokenizer_config.json",
+        "generation_config.json",
+        "chat_template.jinja",
+    ]
+    missing = [f for f in needed if not (model_dir / f).exists()]
+    if not missing:
+        return
+
+    repo_id = os.getenv("MODEL_REPO", "").strip()
+    revision = os.getenv("MODEL_REVISION", "").strip() or "main"
+    token = os.getenv("HF_TOKEN", "").strip() or None
+    if not repo_id:
+        raise SystemExit(
+            "Local model metadata missing "
+            f"({', '.join(missing)}) and MODEL_REPO is not set."
+        )
+
+    print(
+        f"[KL] local model missing files: {missing} | fetching from {repo_id}@{revision}",
+        flush=True,
+    )
+    from huggingface_hub import hf_hub_download
+
+    model_dir.mkdir(parents=True, exist_ok=True)
+    fetched = 0
+    for fn in missing:
+        try:
+            src = hf_hub_download(
+                repo_id=repo_id,
+                filename=fn,
+                revision=revision,
+                token=token,
+            )
+            dst = model_dir / fn
+            Path(dst).write_bytes(Path(src).read_bytes())
+            fetched += 1
+        except Exception as exc:
+            print(f"[KL] warn: could not fetch {fn}: {exc}", flush=True)
+
+    if not (model_dir / "model.safetensors").exists() and not (model_dir / "pytorch_model.bin").exists():
+        try:
+            src = hf_hub_download(
+                repo_id=repo_id,
+                filename="pytorch_model.bin",
+                revision=revision,
+                token=token,
+            )
+            dst = model_dir / "pytorch_model.bin"
+            Path(dst).write_bytes(Path(src).read_bytes())
+            fetched += 1
+            print("[KL] fetched fallback weight file: pytorch_model.bin", flush=True)
+        except Exception:
+            pass
+    print(f"[KL] fetched {fetched}/{len(missing)} missing files", flush=True)
+
+    if not (model_dir / "model.safetensors").exists() and not (model_dir / "pytorch_model.bin").exists():
+        raise SystemExit(
+            "No local model weights found after repair. "
+            "Expected model.safetensors or pytorch_model.bin."
+        )
+    if not (model_dir / "tokenizer.json").exists():
+        raise SystemExit("No local tokenizer.json found after repair.")
 
 
 def _avg_kl_on_rows(
@@ -135,6 +205,7 @@ def main() -> int:
     )
 
     print(f"[KL] loading tokenizer/model from {model_dir}", flush=True)
+    _ensure_local_model_metadata(model_dir)
     tokenizer = AutoTokenizer.from_pretrained(str(model_dir), local_files_only=True)
     model = AutoModelForCausalLM.from_pretrained(
         str(model_dir),

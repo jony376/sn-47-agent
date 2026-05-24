@@ -266,6 +266,8 @@ def run_kl_eval(
     limit_per_validator: int,
     device: str,
     progress_every: int,
+    model_repo: str = "",
+    model_revision: str = "",
 ) -> dict[str, Any]:
     cmd = [
         sys.executable,
@@ -288,10 +290,15 @@ def run_kl_eval(
         str(progress_every),
     ]
     notify(f"[KL] Running: {' '.join(cmd)}", telegram=False)
+    kl_env = os.environ.copy()
+    if model_repo:
+        kl_env["MODEL_REPO"] = model_repo
+    if model_revision:
+        kl_env["MODEL_REVISION"] = model_revision
     code = run_streaming(
         " ".join(cmd),
         cwd=KL_EVAL_SCRIPT.parent,
-        env=os.environ.copy(),
+        env=kl_env,
     )
     if code != 0:
         raise RuntimeError(f"KL eval failed with exit code {code}")
@@ -500,6 +507,8 @@ def main() -> int:
                 limit_per_validator=kl_eval_limit_per_validator,
                 device=kl_eval_device,
                 progress_every=kl_eval_progress_every,
+                model_repo=eval_rec.get("model_repo", ""),
+                model_revision=eval_rec.get("model_revision", ""),
             )
             baseline_kl_by_validator = {
                 int(r["validator_uid"]): float(r["kl"])
@@ -560,6 +569,8 @@ def main() -> int:
                             limit_per_validator=kl_eval_limit_per_validator,
                             device=kl_eval_device,
                             progress_every=kl_eval_progress_every,
+                            model_repo=eval_rec.get("model_repo", ""),
+                            model_revision=eval_rec.get("model_revision", ""),
                         )
                         cur_kl_by_validator = {
                             int(r["validator_uid"]): float(r["kl"])
