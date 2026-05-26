@@ -13,7 +13,36 @@ from pathlib import Path
 from typing import Any, Dict, Optional
 from urllib import parse, request
 
+from eval_log_parser import parse_latest_eval_for_uid as parse_eval_from_lines
+from wandb_log_watcher import WandbLogTailer
 from huggingface_hub import HfApi
+
+from agent_common import (
+    assess_lock_risk,
+    effective_lock_age_seconds,
+    eval_age_seconds,
+    eval_is_complete,
+    get_subnet_timing,
+    is_valid_sha,
+    load_state,
+    lock_budget_seconds,
+    lock_risk_requires_fast_train,
+    lock_risk_should_abort,
+    mark_pipeline_success,
+    resolve_register_revision,
+    save_state,
+    should_skip_duplicate_eval,
+    verify_hf_revision,
+    watch_eval_trigger_key,
+)
+from validator_log_timing import (
+    build_timing_model,
+    enrich_eval_record,
+    estimate_lock_window,
+    load_timing_model_from_state,
+    parse_lock_events,
+    save_timing_model_to_state,
+)
 
 
 SCRIPT_DIR = Path(__file__).resolve().parent
@@ -23,7 +52,7 @@ EVOLAI_PYTHON = EVOLAI_ROOT / ".venv/bin/python"
 CHALLENGE_SCRIPT = SCRIPT_DIR / "get_prev_seed_and_next_indices.py"
 PREPARE_SCRIPT = SCRIPT_DIR / "cpu_pass_all_pipeline.py"
 POST_TRAIN_GATE_SCRIPT = SCRIPT_DIR / "post_train_gate_check.py"
-KL_EVAL_SCRIPT = SCRIPT_DIR / "kl_eval_validator_like.py"
+KL_EVAL_SCRIPT = SCRIPT_DIR / "validator_kl_eval.py"
 
 
 def load_env_file(env_path: Path) -> None:
@@ -114,61 +143,73 @@ def run_streaming(
 
 def parse_latest_eval_for_uid(log_file: Path, uid: int) -> dict[str, Any]:
     lines = log_file.read_text(encoding="utf-8").splitlines()
-    start_pat = re.compile(
-        rf"^(\d{{4}}-\d{{2}}-\d{{2}} \d{{2}}:\d{{2}}:\d{{2}})\s+\[\d+/\d+\]\s+UID {uid}\s+\|\s+(.+?)\s+@$"
-    )
-    rev_pat = re.compile(r"^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\s+([0-9a-f]{40})\s+\|")
-    gate_pat = re.compile(
-        r"Gate\s+(PASS|FAIL).+cur=([0-9.]+)\s+req<=([0-9.]+)\s+prev=([0-9.]+)"
-    )
-    kl_pat = re.compile(r"\|\s+KL\s+([0-9.]+)\s+\|\s+NextKL\s+([0-9.]+)")
+    rec = parse_eval_from_lines(lines, uid)
+    rec["log_source"] = "file"
+    return rec
 
-    starts = [i for i, ln in enumerate(lines) if start_pat.search(ln)]
-    if not starts:
-        raise RuntimeError(f"No eval block found for UID {uid} in {log_file}")
-    s_idx = starts[-1]
-    e_idx = len(lines)
-    for i in range(s_idx + 1, len(lines)):
-        if re.search(r"^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\s+\[\d+/\d+\]\s+UID \d+\s+\|", lines[i]):
-            e_idx = i
-            break
-    block = lines[s_idx:e_idx]
-    m = start_pat.search(block[0])
-    assert m is not None
-    out: dict[str, Any] = {
-        "uid": uid,
-        "timestamp": m.group(1),
-        "model_repo": m.group(2).strip(),
-        "model_revision": "",
-        "challenge": None,
-        "kl": None,
-        "next_kl": None,
-        "gate": None,
-        "cur_kl": None,
-        "req_kl": None,
-        "prev_kl": None,
-        "raw_block": block,
-    }
-    for ln in block:
-        if not out["model_revision"]:
-            rm = rev_pat.search(ln)
-            if rm:
-                out["model_revision"] = rm.group(1)
-        if out["challenge"] is None and "Challenge:" in ln:
-            out["challenge"] = ln.split("Challenge:", 1)[1].strip()
-        if out["kl"] is None and "| KL " in ln:
-            km = kl_pat.search(ln)
-            if km:
-                out["kl"] = float(km.group(1))
-                out["next_kl"] = float(km.group(2))
-        if out["gate"] is None and "Gate " in ln:
-            gm = gate_pat.search(ln)
-            if gm:
-                out["gate"] = gm.group(1)
-                out["cur_kl"] = float(gm.group(2))
-                out["req_kl"] = float(gm.group(3))
-                out["prev_kl"] = float(gm.group(4))
-    return out
+
+def _read_log_lines(
+    *,
+    log_source: str,
+    log_file: Path,
+    wandb_tailer: WandbLogTailer | None,
+    refresh: bool = True,
+) -> list[str]:
+    source = (log_source or "wandb").strip().lower()
+    if source == "wandb":
+        if wandb_tailer is None:
+            wandb_tailer = WandbLogTailer.from_env(cache_dir=SCRIPT_DIR / ".wandb_cache")
+        if refresh:
+            wandb_tailer.refresh()
+            mirror = Path(env_str("AUTO_LOG_FILE", str(SCRIPT_DIR / "log.md"))).resolve()
+            if env_bool("WANDB_MIRROR_TO_LOCAL_LOG", True):
+                wandb_tailer.append_to_local_log(mirror)
+        return list(wandb_tailer.lines)
+    if source == "file":
+        if not log_file.exists():
+            return []
+        return log_file.read_text(encoding="utf-8").splitlines()
+    raise ValueError(f"Unknown LOG_SOURCE={log_source!r}; use wandb or file")
+
+
+def fetch_latest_eval(uid: int, *, log_source: str, log_file: Path, wandb_tailer: WandbLogTailer | None) -> dict[str, Any]:
+    source = (log_source or "wandb").strip().lower()
+    lines = _read_log_lines(
+        log_source=source,
+        log_file=log_file,
+        wandb_tailer=wandb_tailer,
+        refresh=True,
+    )
+    if source == "wandb":
+        if wandb_tailer is None:
+            wandb_tailer = WandbLogTailer.from_env(cache_dir=SCRIPT_DIR / ".wandb_cache")
+        rec = wandb_tailer.latest_eval_for_uid(uid)
+    elif source == "file":
+        rec = parse_latest_eval_for_uid(log_file, uid)
+    else:
+        raise ValueError(f"Unknown LOG_SOURCE={log_source!r}; use wandb or file")
+    return enrich_eval_record(rec, lines, uid)
+
+
+def compute_dynamic_lock_window(
+    eval_rec: dict[str, Any],
+    log_lines: list[str],
+    *,
+    uid: int,
+    agent_state: dict[str, Any],
+    track: str = "transformer",
+) -> dict[str, Any]:
+    cached = load_timing_model_from_state(agent_state, uid, track=track)
+    model = build_timing_model(log_lines, uid=uid, track=track, cached=cached)
+    save_timing_model_to_state(agent_state, uid, model, track=track)
+    locks = parse_lock_events(log_lines, track=track)
+    age_s, _ = effective_lock_age_seconds(eval_rec)
+    return estimate_lock_window(
+        eval_rec,
+        model,
+        locks=locks,
+        pipeline_age_s=age_s,
+    )
 
 
 def derive_challenge_json(uid: int, network: str, netuid: int, out_path: Path) -> dict[str, Any]:
@@ -262,15 +303,22 @@ def run_kl_eval(
     prep_out_dir: Path,
     out_json: Path,
     ref_model: str,
-    max_seq_len: int,
+    ref_tokenizer: str,
+    ref_mode: str,
+    max_length: int,
+    kl_max_new_tokens: int,
     limit_per_validator: int,
     device: str,
     progress_every: int,
+    data_suffix: str = "_next",
     model_repo: str = "",
     model_revision: str = "",
+    vllm_ref_url: str = "",
+    start_vllm_ref: bool = False,
 ) -> dict[str, Any]:
+    python_bin = EVOLAI_PYTHON if EVOLAI_PYTHON.exists() else Path(sys.executable)
     cmd = [
-        sys.executable,
+        str(python_bin),
         str(KL_EVAL_SCRIPT),
         "--model-dir",
         str(model_dir),
@@ -280,15 +328,27 @@ def run_kl_eval(
         str(out_json),
         "--ref-model",
         ref_model,
-        "--max-seq-len",
-        str(max_seq_len),
+        "--ref-tokenizer",
+        ref_tokenizer,
+        "--ref-mode",
+        ref_mode,
+        "--max-length",
+        str(max_length),
+        "--kl-max-new-tokens",
+        str(kl_max_new_tokens),
         "--limit-per-validator",
         str(limit_per_validator),
         "--device",
         device,
         "--progress-every",
         str(progress_every),
+        "--data-suffix",
+        data_suffix,
     ]
+    if vllm_ref_url:
+        cmd.extend(["--vllm-ref-url", vllm_ref_url])
+    if start_vllm_ref:
+        cmd.append("--start-vllm-ref")
     notify(f"[KL] Running: {' '.join(cmd)}", telegram=False)
     kl_env = os.environ.copy()
     if model_repo:
@@ -349,16 +409,19 @@ def upload_model(api: HfApi, source_dir: Path, repo_id: str, message: str) -> st
     if not source_dir.exists():
         raise RuntimeError(f"UPLOAD_SOURCE_DIR not found: {source_dir}")
     notify(f"[UPLOAD] {source_dir} -> {repo_id}", telegram=False)
-    api.upload_folder(
+    commit_info = api.upload_folder(
         repo_id=repo_id,
         repo_type="model",
         folder_path=str(source_dir),
         commit_message=message,
     )
-    info = api.model_info(repo_id=repo_id)
-    revision = getattr(info, "sha", None)
+    revision = getattr(commit_info, "oid", None) or getattr(commit_info, "sha", None)
     if not revision:
+        info = api.model_info(repo_id=repo_id)
+        revision = getattr(info, "sha", None)
+    if not is_valid_sha(str(revision or "")):
         raise RuntimeError(f"Unable to read uploaded revision for {repo_id}")
+    revision = verify_hf_revision(api, repo_id, str(revision))
     notify(f"[UPLOAD] done revision={revision}", telegram=False)
     return revision
 
@@ -393,8 +456,7 @@ def register_model(repo_id: str, track: str, wallet_name: str, wallet_path: str,
     notify("[REGISTER] done", telegram=False)
 
 
-def main() -> int:
-    env_path = Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else DEFAULT_ENV_PATH
+def run_pipeline(env_path: Path) -> int:
     load_env_file(env_path)
 
     uid = int(env_str("AUTO_UID", "93"))
@@ -425,10 +487,36 @@ def main() -> int:
     train_until_pass_max_rounds = int(env_str("TRAIN_UNTIL_PASS_MAX_ROUNDS", "5"))
     kl_eval_enabled = env_bool("KL_EVAL_ENABLED", True)
     kl_eval_ref_model = env_str("KL_EVAL_REF_MODEL", "Qwen/Qwen3.5-9B")
-    kl_eval_max_seq_len = int(env_str("KL_EVAL_MAX_SEQ_LEN", "512"))
-    kl_eval_limit_per_validator = int(env_str("KL_EVAL_LIMIT_PER_VALIDATOR", "40"))
+    kl_eval_ref_tokenizer = env_str("KL_EVAL_REF_TOKENIZER", kl_eval_ref_model)
+    kl_eval_ref_mode = env_str("KL_EVAL_REF_MODE", "auto")
+    kl_eval_max_length = int(
+        env_str("KL_EVAL_MAX_LENGTH", env_str("KL_EVAL_MAX_SEQ_LEN", "8192"))
+    )
+    kl_eval_kl_max_new_tokens = int(env_str("KL_EVAL_KL_MAX_NEW_TOKENS", "512"))
+    kl_eval_limit_per_validator = int(env_str("KL_EVAL_LIMIT_PER_VALIDATOR", "20"))
     kl_eval_device = env_str("KL_EVAL_DEVICE", "auto")
     kl_eval_progress_every = int(env_str("KL_EVAL_PROGRESS_EVERY", "5"))
+    kl_eval_data_suffix = env_str("KL_EVAL_DATA_SUFFIX", "_next")
+    vllm_ref_url = env_str("VLLM_REF_URL", "")
+    start_vllm_ref = env_bool("KL_EVAL_START_VLLM_REF", False)
+    lock_timing_mode = env_str("LOCK_TIMING_MODE", "dynamic").strip().lower()
+    validator_eval_interval_s = float(env_str("VALIDATOR_EVAL_INTERVAL_S", "720"))
+    lock_risk_budget_fraction = float(env_str("LOCK_RISK_BUDGET_FRACTION", "0.40"))
+    max_pipeline_seconds = float(env_str("MAX_PIPELINE_SECONDS", "0"))
+    auto_state_path = Path(
+        env_str("AUTO_STATE_FILE", str(SCRIPT_DIR / ".full_auto_uid_state.json"))
+    ).resolve()
+    skip_duplicate_eval = env_bool("AUTO_SKIP_DUPLICATE_EVAL", True)
+    abort_on_high_lock_risk = env_bool("AUTO_ABORT_ON_HIGH_LOCK_RISK", True)
+    abort_on_medium_lock_risk = env_bool("AUTO_ABORT_ON_MEDIUM_LOCK_RISK", True)
+    fast_train_on_lock_risk = env_bool("AUTO_FAST_TRAIN_ON_LOCK_RISK", True)
+    fast_train_cmd = env_str("FAST_TRAIN_CMD", "").strip()
+    register_override = env_str("REGISTER_REVISION", "auto")
+    log_source = env_str("LOG_SOURCE", "wandb").strip().lower()
+    wandb_cache_dir = Path(env_str("WANDB_CACHE_DIR", str(SCRIPT_DIR / ".wandb_cache"))).resolve()
+    wandb_tailer: WandbLogTailer | None = None
+    if log_source == "wandb":
+        wandb_tailer = WandbLogTailer.from_env(cache_dir=wandb_cache_dir)
 
     upload_source_dir_env = env_str("UPLOAD_SOURCE_DIR")
     if upload_source_dir_env:
@@ -458,9 +546,132 @@ def main() -> int:
     try:
         notify(f"[BOOT] full_auto_uid_bot start uid={uid} netuid={netuid}", telegram=False)
         t = step_log("Parse latest UID evaluation block")
-        eval_rec = parse_latest_eval_for_uid(log_file, uid)
+        eval_rec = fetch_latest_eval(
+            uid,
+            log_source=log_source,
+            log_file=log_file,
+            wandb_tailer=wandb_tailer,
+        )
+        trigger_unix = env_str("PIPELINE_TRIGGER_UNIX", "").strip()
+        if trigger_unix:
+            try:
+                eval_rec["pipeline_trigger_unix"] = float(trigger_unix)
+            except ValueError:
+                pass
         eval_json.write_text(json.dumps(eval_rec, indent=2), encoding="utf-8")
         summary["latest_eval"] = eval_rec
+        notify(f"[STEP {step}] done in {time.time()-t:.1f}s", telegram=False)
+
+        agent_state = load_state(auto_state_path)
+
+        def _resolve_lock_window(refresh_log: bool = False) -> dict[str, Any] | None:
+            if lock_timing_mode == "fixed":
+                return None
+            lines = _read_log_lines(
+                log_source=log_source,
+                log_file=log_file,
+                wandb_tailer=wandb_tailer,
+                refresh=refresh_log,
+            )
+            if not lines:
+                return None
+            return compute_dynamic_lock_window(
+                eval_rec,
+                lines,
+                uid=uid,
+                agent_state=agent_state,
+                track=track,
+            )
+
+        if skip_duplicate_eval:
+            skip, skip_reason = should_skip_duplicate_eval(
+                eval_rec, agent_state, uid=uid
+            )
+            summary["duplicate_eval_skip"] = {"skip": skip, "reason": skip_reason}
+            if skip:
+                notify(f"[SKIP] {skip_reason}", telegram=True)
+                summary["status"] = "skipped_duplicate_eval"
+                summary["finished_at"] = time.time()
+                summary_json.write_text(json.dumps(summary, indent=2), encoding="utf-8")
+                return 0
+
+        def _assess_lock(*, refresh_log: bool = False) -> dict[str, Any]:
+            lock_window = _resolve_lock_window(refresh_log=refresh_log)
+            if lock_window is not None:
+                eval_rec["lock_window"] = lock_window
+            timing_local = get_subnet_timing(network=network, netuid=netuid)
+            interval_s = validator_eval_interval_s
+            max_pipe = max_pipeline_seconds
+            if lock_window and lock_timing_mode == "dynamic":
+                remaining = lock_window.get("remaining_until_lock_s")
+                if remaining is not None and float(remaining) > 0:
+                    interval_s = float(lock_window.get("post_gate_window_s") or interval_s)
+                    if max_pipe <= 0:
+                        max_pipe = max(
+                            60.0,
+                            float(remaining) * lock_risk_budget_fraction,
+                        )
+            elif max_pipe <= 0:
+                max_pipe = lock_budget_seconds(interval_s, lock_risk_budget_fraction)
+            risk = assess_lock_risk(
+                eval_rec,
+                validator_eval_interval_s=interval_s,
+                budget_fraction=lock_risk_budget_fraction,
+                blocks_remaining_in_epoch=timing_local.get("blocks_remaining_in_epoch"),
+                max_pipeline_seconds=max_pipe if max_pipe > 0 else None,
+                lock_window=lock_window,
+            )
+            save_state(auto_state_path, agent_state)
+            return {**timing_local, "lock_risk": risk, "lock_window": lock_window}
+
+        def _enforce_lock_risk(phase: str, lock_risk: dict[str, Any]) -> None:
+            should_abort, why = lock_risk_should_abort(
+                lock_risk,
+                abort_high=abort_on_high_lock_risk,
+                abort_medium=abort_on_medium_lock_risk,
+            )
+            if should_abort:
+                msg = (
+                    f"Lock-window risk at {phase} ({why}): validator may lock the old "
+                    f"SHA before upload/register. budget={lock_risk.get('budget_seconds', 0):.0f}s "
+                    f"age={lock_risk.get('age_seconds')}s"
+                )
+                notify(f"[LOCK] {msg}", telegram=True)
+                raise RuntimeError(msg)
+
+        t = step_log("Assess validator lock-window risk (log-driven)")
+        timing = _assess_lock(refresh_log=False)
+        lock_risk = timing["lock_risk"]
+        lock_window = timing.get("lock_window")
+        summary["timing"] = timing
+        age_s, age_src = effective_lock_age_seconds(eval_rec)
+        timing_msg = (
+            f"[TIMING] block={timing.get('block')} epoch={timing.get('epoch')} "
+            f"age={age_s:.0f}s ({age_src}) budget={lock_risk.get('budget_seconds', 0):.0f}s "
+            f"risk={lock_risk['risk']} mode={lock_risk.get('timing_mode', '?')}"
+        )
+        if lock_window:
+            timing_msg += (
+                f" slot={lock_window.get('slot')}/{lock_window.get('total_miners')} "
+                f"remaining={lock_window.get('remaining_until_lock_s', 0):.0f}s "
+                f"round~{lock_window.get('round_duration_s', 0):.0f}s"
+            )
+        notify(timing_msg if age_s is not None else timing_msg.replace(" age=?", ""), telegram=False)
+        for reason in lock_risk.get("reasons", []):
+            notify(f"[TIMING] {reason}", telegram=False)
+        _enforce_lock_risk("pipeline_start", lock_risk)
+        use_fast_train = fast_train_on_lock_risk and lock_risk_requires_fast_train(lock_risk)
+        if use_fast_train and fast_train_cmd:
+            notify(
+                f"[LOCK] Using FAST_TRAIN_CMD (risk={lock_risk['risk']})",
+                telegram=False,
+            )
+            train_cmd = fast_train_cmd
+        elif use_fast_train and train_cmd:
+            notify(
+                f"[LOCK] Lock risk={lock_risk['risk']}; keep TRAIN_CMD but budget is tight",
+                telegram=False,
+            )
         notify(f"[STEP {step}] done in {time.time()-t:.1f}s", telegram=False)
 
         t = step_log("Derive challenge indices from latest seeds")
@@ -503,12 +714,18 @@ def main() -> int:
                 prep_out_dir=prep_out_dir,
                 out_json=baseline_json,
                 ref_model=kl_eval_ref_model,
-                max_seq_len=kl_eval_max_seq_len,
+                ref_tokenizer=kl_eval_ref_tokenizer,
+                ref_mode=kl_eval_ref_mode,
+                max_length=kl_eval_max_length,
+                kl_max_new_tokens=kl_eval_kl_max_new_tokens,
                 limit_per_validator=kl_eval_limit_per_validator,
                 device=kl_eval_device,
                 progress_every=kl_eval_progress_every,
+                data_suffix=kl_eval_data_suffix,
                 model_repo=eval_rec.get("model_repo", ""),
                 model_revision=eval_rec.get("model_revision", ""),
+                vllm_ref_url=vllm_ref_url,
+                start_vllm_ref=start_vllm_ref,
             )
             baseline_kl_by_validator = {
                 int(r["validator_uid"]): float(r["kl"])
@@ -565,12 +782,18 @@ def main() -> int:
                             prep_out_dir=prep_out_dir,
                             out_json=round_kl_json,
                             ref_model=kl_eval_ref_model,
-                            max_seq_len=kl_eval_max_seq_len,
+                            ref_tokenizer=kl_eval_ref_tokenizer,
+                            ref_mode=kl_eval_ref_mode,
+                            max_length=kl_eval_max_length,
+                            kl_max_new_tokens=kl_eval_kl_max_new_tokens,
                             limit_per_validator=kl_eval_limit_per_validator,
                             device=kl_eval_device,
                             progress_every=kl_eval_progress_every,
+                            data_suffix=kl_eval_data_suffix,
                             model_repo=eval_rec.get("model_repo", ""),
                             model_revision=eval_rec.get("model_revision", ""),
+                            vllm_ref_url=vllm_ref_url,
+                            start_vllm_ref=start_vllm_ref,
                         )
                         cur_kl_by_validator = {
                             int(r["validator_uid"]): float(r["kl"])
@@ -659,6 +882,19 @@ def main() -> int:
                             "aborting upload/register due to GATE_FAIL_ACTION=abort."
                         )
 
+        t = step_log("Pre-upload lock-window check")
+        timing_pre = _assess_lock(refresh_log=True)
+        lock_pre = timing_pre["lock_risk"]
+        summary["timing_pre_upload"] = timing_pre
+        _enforce_lock_risk("pre_upload", lock_pre)
+        age_pre, _ = effective_lock_age_seconds(eval_rec)
+        if age_pre is not None and age_pre > max_pipeline_seconds:
+            raise RuntimeError(
+                f"Pipeline exceeded MAX_PIPELINE_SECONDS ({max_pipeline_seconds:.0f}s); "
+                "upload/register would likely miss the next validator lock"
+            )
+        notify(f"[STEP {step}] done in {time.time()-t:.1f}s", telegram=False)
+
         t = step_log("Upload model to Hugging Face")
         api = HfApi(token=hf_token)
         commit_message = env_str("UPLOAD_COMMIT_MESSAGE", "Auto train+publish via full_auto_uid_bot")
@@ -671,7 +907,16 @@ def main() -> int:
         notify(f"[STEP {step}] done in {time.time()-t:.1f}s", telegram=False)
 
         t = step_log("Register model on subnet")
-        register_revision = env_str("REGISTER_REVISION", "main")
+        register_revision = resolve_register_revision(
+            uploaded_revision,
+            register_override,
+        )
+        if register_revision == str(eval_rec.get("model_revision", "")).lower():
+            notify(
+                "[WARN] New registered revision matches the last evaluated revision. "
+                "If the validator already locked this SHA, expect Improve same SHA.",
+                telegram=True,
+            )
         register_model(
             repo_id=upload_repo_id,
             track=track,
@@ -684,9 +929,20 @@ def main() -> int:
         summary["register"] = {
             "repo_id": upload_repo_id,
             "revision": register_revision,
+            "uploaded_revision": uploaded_revision,
             "track": track,
         }
         notify(f"[STEP {step}] done in {time.time()-t:.1f}s", telegram=False)
+
+        mark_pipeline_success(
+            agent_state,
+            uid=uid,
+            eval_revision=str(eval_rec.get("model_revision") or ""),
+            registered_revision=register_revision,
+            block=timing.get("block"),
+        )
+        save_state(auto_state_path, agent_state)
+        summary["agent_state_file"] = str(auto_state_path)
 
         summary["status"] = "success"
         summary["finished_at"] = time.time()
@@ -703,6 +959,89 @@ def main() -> int:
         traceback.print_exc()
         send_telegram(message)
         return 1
+
+
+def main() -> int:
+    env_path = Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else DEFAULT_ENV_PATH
+    load_env_file(env_path)
+
+    if env_bool("AUTO_WATCH_MODE", True):
+        poll_s = int(env_str("AUTO_WATCH_POLL_SECONDS", "15"))
+        error_sleep_s = int(env_str("AUTO_WATCH_ERROR_SLEEP_SECONDS", "30"))
+        uid = int(env_str("AUTO_UID", "93"))
+        log_file = Path(env_str("AUTO_LOG_FILE", str(SCRIPT_DIR / "log.md"))).resolve()
+        log_source = env_str("LOG_SOURCE", "wandb").strip().lower()
+        wandb_cache_dir = Path(env_str("WANDB_CACHE_DIR", str(SCRIPT_DIR / ".wandb_cache"))).resolve()
+        wandb_tailer = WandbLogTailer.from_env(cache_dir=wandb_cache_dir) if log_source == "wandb" else None
+        auto_state_path = Path(
+            env_str("AUTO_STATE_FILE", str(SCRIPT_DIR / ".full_auto_uid_state.json"))
+        ).resolve()
+        notify(
+            f"[WATCH] uid={uid} source={log_source} poll={poll_s}s "
+            "(trigger only on new completed eval)",
+            telegram=False,
+        )
+        if log_source == "wandb":
+            notify(f"[WATCH] wandb run={wandb_tailer.run_path if wandb_tailer else '?'}", telegram=False)
+        else:
+            notify(f"[WATCH] log file={log_file}", telegram=False)
+        while True:
+            try:
+                load_env_file(env_path)
+                state = load_state(auto_state_path)
+                try:
+                    eval_rec = fetch_latest_eval(
+                        uid,
+                        log_source=log_source,
+                        log_file=log_file,
+                        wandb_tailer=wandb_tailer,
+                    )
+                except RuntimeError as exc:
+                    notify(f"[WATCH] {exc}", telegram=False)
+                    time.sleep(poll_s)
+                    continue
+
+                if not eval_is_complete(eval_rec):
+                    time.sleep(poll_s)
+                    continue
+
+                eval_rev = str(eval_rec.get("model_revision") or "").lower()
+                trigger_key = watch_eval_trigger_key(uid)
+                if not is_valid_sha(eval_rev):
+                    time.sleep(poll_s)
+                    continue
+                if state.get(trigger_key) == eval_rev:
+                    time.sleep(poll_s)
+                    continue
+
+                state[trigger_key] = eval_rev
+                save_state(auto_state_path, state)
+                eval_rec["pipeline_trigger_unix"] = time.time()
+                os.environ["PIPELINE_TRIGGER_UNIX"] = str(eval_rec["pipeline_trigger_unix"])
+
+                notify(
+                    f"[WATCH] New eval {eval_rev[:12]} gate={eval_rec.get('gate')} "
+                    "— starting pipeline",
+                    telegram=True,
+                )
+                code = run_pipeline(env_path)
+                if code != 0:
+                    state = load_state(auto_state_path)
+                    if state.get(trigger_key) == eval_rev:
+                        state.pop(trigger_key, None)
+                        save_state(auto_state_path, state)
+                        notify(
+                            f"[WATCH] Pipeline failed; will retry eval {eval_rev[:12]}",
+                            telegram=False,
+                        )
+                os.environ.pop("PIPELINE_TRIGGER_UNIX", None)
+                sleep_s = error_sleep_s if code != 0 else poll_s
+                time.sleep(sleep_s)
+            except KeyboardInterrupt:
+                notify("[WATCH] stopped by user", telegram=False)
+                return 0
+
+    return run_pipeline(env_path)
 
 
 if __name__ == "__main__":

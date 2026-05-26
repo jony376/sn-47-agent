@@ -53,6 +53,7 @@ def _avg_ce(
     tokenizer,
     rows: list[dict[str, Any]],
     max_seq_len: int,
+    device: torch.device,
     limit: int = 64,
 ) -> float:
     if not rows:
@@ -67,15 +68,32 @@ def _avg_ce(
             if not ins:
                 continue
             input_ids, labels = _build_text_and_labels(tokenizer, ins, resp, max_seq_len)
-            input_ids = input_ids.unsqueeze(0)
-            labels = labels.unsqueeze(0)
+            input_ids = input_ids.unsqueeze(0).to(device)
+            labels = labels.unsqueeze(0).to(device)
             out = model(input_ids=input_ids, labels=labels, use_cache=False)
             losses.append(float(out.loss.detach().float().item()))
     return float(sum(losses) / max(1, len(losses)))
 
 
+def _resolve_device(name: str) -> torch.device:
+    choice = (name or "auto").strip().lower()
+    if choice == "auto":
+        return torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    if choice == "cuda" and not torch.cuda.is_available():
+        raise SystemExit("CUDA requested but torch.cuda.is_available() is False")
+    return torch.device(choice)
+
+
+def _model_dtype(device: torch.device) -> torch.dtype:
+    if device.type != "cuda":
+        return torch.float32
+    if torch.cuda.is_bf16_supported():
+        return torch.bfloat16
+    return torch.float16
+
+
 def parse_args() -> argparse.Namespace:
-    p = argparse.ArgumentParser(description="Real CPU training step (lm_head-only fine-tune).")
+    p = argparse.ArgumentParser(description="Fine-tune miner model on challenge data (CPU or GPU).")
     p.add_argument("--uid", required=True)
     p.add_argument("--challenge-json", required=True)
     p.add_argument("--eval-json", required=True)
@@ -99,6 +117,12 @@ def parse_args() -> argparse.Namespace:
             "lm_head: train full lm_head (heavy on CPU). "
             "super_light: train only bias/LayerNorm/lm_head bias tensors (much lighter)."
         ),
+    )
+    p.add_argument(
+        "--device",
+        default="auto",
+        choices=("auto", "cpu", "cuda"),
+        help="Training device. auto prefers CUDA when available.",
     )
     return p.parse_args()
 
@@ -213,6 +237,9 @@ def main() -> int:
     }
 
     t0 = time.time()
+    device = _resolve_device(args.device)
+    dtype = _model_dtype(device)
+    print(f"[TRAIN] device={device} dtype={dtype}", flush=True)
     print(f"[TRAIN] loading tokenizer/model from: {model_dir}", flush=True)
     _ensure_local_model_metadata(model_dir)
     tokenizer = AutoTokenizer.from_pretrained(str(model_dir), local_files_only=True)
@@ -222,10 +249,11 @@ def main() -> int:
 
     model = AutoModelForCausalLM.from_pretrained(
         str(model_dir),
-        torch_dtype=torch.float32,
+        torch_dtype=dtype if device.type == "cuda" else torch.float32,
         low_cpu_mem_usage=True,
         local_files_only=True,
     )
+    model.to(device)
     model.train()
     print(f"[TRAIN] model loaded in {time.time()-t0:.1f}s", flush=True)
 
@@ -262,9 +290,9 @@ def main() -> int:
         raise SystemExit(f"No trainable parameters found for train_mode={args.train_mode}.")
     print(f"[TRAIN] train_mode={args.train_mode} trainable_parameters={trainable}", flush=True)
 
-    before_union = _avg_ce(model, tokenizer, union_rows, args.max_seq_len)
+    before_union = _avg_ce(model, tokenizer, union_rows, args.max_seq_len, device)
     before_by_validator = {
-        vid: _avg_ce(model, tokenizer, rows, args.max_seq_len)
+        vid: _avg_ce(model, tokenizer, rows, args.max_seq_len, device)
         for vid, rows in per_val_rows.items()
     }
 
@@ -286,8 +314,8 @@ def main() -> int:
         ins = (r.get("instruction") or "").strip()
         resp = (r.get("response") or "").strip()
         input_ids, labels = _build_text_and_labels(tokenizer, ins, resp, args.max_seq_len)
-        input_ids = input_ids.unsqueeze(0)
-        labels = labels.unsqueeze(0)
+        input_ids = input_ids.unsqueeze(0).to(device)
+        labels = labels.unsqueeze(0).to(device)
 
         out = model(input_ids=input_ids, labels=labels, use_cache=False)
         loss = out.loss
@@ -317,15 +345,17 @@ def main() -> int:
     tokenizer.save_pretrained(str(model_dir))
     print("[TRAIN] save complete", flush=True)
 
-    after_union = _avg_ce(model, tokenizer, union_rows, args.max_seq_len)
+    after_union = _avg_ce(model, tokenizer, union_rows, args.max_seq_len, device)
     after_by_validator = {
-        vid: _avg_ce(model, tokenizer, rows, args.max_seq_len)
+        vid: _avg_ce(model, tokenizer, rows, args.max_seq_len, device)
         for vid, rows in per_val_rows.items()
     }
 
     report = {
         "uid": int(args.uid),
         "model_dir": str(model_dir),
+        "device": str(device),
+        "dtype": str(dtype),
         "train_mode": args.train_mode,
         "max_steps": int(args.max_steps),
         "lr": float(args.lr),

@@ -1,1176 +1,3 @@
-2026-05-24 08:09:25 ✓ W&B initialized | Run:
-2026-05-24 08:09:25 validator_5E9fVY1jexCNVMjd2rdBsAxeamFGEMfzHcyTn2fHgdHeYc5p_20260524_080924
-2026-05-24 08:09:25 
-2026-05-24 08:09:25 Loading reference tokenizer: Qwen/Qwen3.5-9B…
-2026-05-24 08:09:26 ✓ Reference tokenizer loaded (vocab_size=248044)
-2026-05-24 08:09:26 Starting ref vLLM server (Qwen/Qwen3.5-9B) on port 8002…
-2026-05-24 08:09:26 08:09:26 [evolai.validator.vllm_client] INFO: Starting vLLM server for Qwen/Qwen3.5-9B@main on port 8002 (CUDA device=0, tp=1)
-2026-05-24 08:09:26 08:09:26 [evolai.validator.vllm_client] INFO: vLLM stdout → /tmp/vllm_server_8002.log  (tail -f /tmp/vllm_server_8002.log)
-2026-05-24 08:09:26 08:09:26 [evolai.validator.vllm_client] INFO: vLLM cmd: /root/.bittensor/subnets/evolai/vllm_env/bin/vllm serve Qwen/Qwen3.5-9B --host 127.0.0.1 --port 8002 --revision main --dtype bfloat16 --gpu-memory-utilization 0.5 --max-model-len 4096 --tensor-parallel-size 1 --served-model-name Qwen/Qwen3.5-9B --no-enable-prefix-caching
-2026-05-24 08:09:26 08:09:26 [evolai.validator.vllm_client] INFO: Waiting for vLLM server to be ready (max 600.0s)...
-2026-05-24 08:09:41 08:09:41 [evolai.validator.vllm_client] INFO:   Still waiting for vLLM server... (15s elapsed)
-2026-05-24 08:09:56 08:09:56 [evolai.validator.vllm_client] INFO:   Still waiting for vLLM server... (30s elapsed)
-2026-05-24 08:10:11 08:10:11 [evolai.validator.vllm_client] INFO:   Still waiting for vLLM server... (45s elapsed)
-2026-05-24 08:10:26 08:10:26 [evolai.validator.vllm_client] INFO:   Still waiting for vLLM server... (60s elapsed)
-2026-05-24 08:10:41 08:10:41 [evolai.validator.vllm_client] INFO:   Still waiting for vLLM server... (75s elapsed)
-2026-05-24 08:10:56 08:10:56 [evolai.validator.vllm_client] INFO:   Still waiting for vLLM server... (90s elapsed)
-2026-05-24 08:11:11 08:11:11 [evolai.validator.vllm_client] INFO:   Still waiting for vLLM server... (105s elapsed)
-2026-05-24 08:11:26 08:11:26 [evolai.validator.vllm_client] INFO:   Still waiting for vLLM server... (120s elapsed)
-2026-05-24 08:11:41 08:11:41 [evolai.validator.vllm_client] INFO:   Still waiting for vLLM server... (135s elapsed)
-2026-05-24 08:11:56 08:11:56 [evolai.validator.vllm_client] INFO:   Still waiting for vLLM server... (150s elapsed)
-2026-05-24 08:12:11 08:12:11 [evolai.validator.vllm_client] INFO:   Still waiting for vLLM server... (165s elapsed)
-2026-05-24 08:12:26 08:12:26 [evolai.validator.vllm_client] INFO:   Still waiting for vLLM server... (180s elapsed)
-2026-05-24 08:12:29 08:12:29 [evolai.validator.vllm_client] INFO: vLLM server ready at http://127.0.0.1:8002/v1 (183s)
-2026-05-24 08:12:29 ✓ Ref vLLM server running at http://127.0.0.1:8002/v1
-2026-05-24 08:12:30 
-2026-05-24 08:12:30 ╭─────────────────────── Starting Validator Loop ────────────────────────╮
-2026-05-24 08:12:30 │ Validator Configuration                                                │
-2026-05-24 08:12:30 │                                                                        │
-2026-05-24 08:12:30 │ Netuid: 47                                                             │
-2026-05-24 08:12:30 │ Tracks: transformer, mamba2                                            │
-2026-05-24 08:12:30 │ Eval Mode: Continuous round-seeded decentralised                       │
-2026-05-24 08:12:30 │ Epoch Blocks: 360 (~72 min/chain epoch)                                │
-2026-05-24 08:12:30 │ Eval rows per dataset: transformer=20, mamba2=20                       │
-2026-05-24 08:12:30 │ Fast transformer: True (flat_turns=True, skip_ce=False, skip_sq=False) │
-2026-05-24 08:12:30 │ Active datasets: evolai/universal_qa                                   │
-2026-05-24 08:12:30 │ Score weights: abs=0.6 flow=0.3 sq=0.1                                 │
-2026-05-24 08:12:30 │ Quality gates: improve=True consistency=True next/current≤1.20         │
-2026-05-24 08:12:30 │ EMA alpha: 0.1  Min flow epochs: 10  Emission λ: 0.1                   │
-2026-05-24 08:12:30 │ History epochs: 1800                                                   │
-2026-05-24 08:12:30 │ W&B Logging: True                                                      │
-2026-05-24 08:12:30 │ W&B Project: evol-validator                                            │
-2026-05-24 08:12:30 │ Owner API (telemetry only): https://evolai-gate.hf.space               │
-2026-05-24 08:12:30 ╰────────────────────────────────────────────────────────────────────────╯
-2026-05-24 08:12:30 
-2026-05-24 08:12:30 Start continuous evaluation loop? [y/n]:
-2026-05-24 08:12:30 Validator loop started (Press Ctrl+C to stop)
-2026-05-24 08:12:30 
-2026-05-24 08:12:30 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-2026-05-24 08:12:30 
-2026-05-24 08:12:30 ━━━ Epoch #22924 (Loop #1) ━━━ block=8252673, ~65m remaining
-2026-05-24 08:12:36 
-2026-05-24 08:12:36   Using seed from validator UID 4 (epoch 22923)
-2026-05-24 08:12:46   ⚠ UID 86: revision lock failed: RepositoryNotFoundError: 401 Client Error.
-2026-05-24 08:12:46 (Request ID:
-2026-05-24 08:12:46 Root=1-6a12b2fe-500d79e74be9f4805cefa530;6cbe02bd-9da4-4d8e-9807-a1a9225a4ea8)
-2026-05-24 08:12:46 
-2026-05-24 08:12:46 Repository Not Found for url:
-2026-05-24 08:12:46 https://huggingface.co/api/models/clear-blue-sky/evolai-tfm-012/revision/main.
-2026-05-24 08:12:46 Please make sure you specified the correct `repo_id` and `repo_type`.
-2026-05-24 08:12:46 If you are trying to access a private or gated repo, make sure you are
-2026-05-24 08:12:46 authenticated and your token has the required permissions.
-2026-05-24 08:12:46 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
-2026-05-24 08:12:46 Invalid username or password.
-2026-05-24 08:12:46   ⚠ UID 87: revision lock failed: RepositoryNotFoundError: 401 Client Error.
-2026-05-24 08:12:46 (Request ID:
-2026-05-24 08:12:46 Root=1-6a12b2fe-1d8d307177b773c37bd9fd6e;bd23a4db-6658-4f1d-b9f5-3646b9c5ab11)
-2026-05-24 08:12:46 
-2026-05-24 08:12:46 Repository Not Found for url:
-2026-05-24 08:12:46 https://huggingface.co/api/models/clear-blue-sky/evolai-tfm-013/revision/main.
-2026-05-24 08:12:46 Please make sure you specified the correct `repo_id` and `repo_type`.
-2026-05-24 08:12:46 If you are trying to access a private or gated repo, make sure you are
-2026-05-24 08:12:46 authenticated and your token has the required permissions.
-2026-05-24 08:12:46 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
-2026-05-24 08:12:46 Invalid username or password.
-2026-05-24 08:12:46   ⚠ UID 88: revision lock failed: RepositoryNotFoundError: 401 Client Error.
-2026-05-24 08:12:46 (Request ID:
-2026-05-24 08:12:46 Root=1-6a12b2fe-0302ae027d76a3bf24cf427b;61ad86aa-1ae0-47df-b721-77efd2c44a23)
-2026-05-24 08:12:46 
-2026-05-24 08:12:46 Repository Not Found for url:
-2026-05-24 08:12:46 https://huggingface.co/api/models/clear-blue-sky/evolai-tfm-014/revision/main.
-2026-05-24 08:12:46 Please make sure you specified the correct `repo_id` and `repo_type`.
-2026-05-24 08:12:46 If you are trying to access a private or gated repo, make sure you are
-2026-05-24 08:12:46 authenticated and your token has the required permissions.
-2026-05-24 08:12:46 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
-2026-05-24 08:12:46 Invalid username or password.
-2026-05-24 08:12:47   Locked transformer revisions (50 miner(s), 3 skipped)
-2026-05-24 08:12:54   ⚠ UID 63: revision lock failed: RepositoryNotFoundError: 401 Client Error.
-2026-05-24 08:12:54 (Request ID:
-2026-05-24 08:12:54 Root=1-6a12b306-674c7d386ce57a8b2174b953;30874abd-2dab-4fe1-b973-958c64e6b652)
-2026-05-24 08:12:54 
-2026-05-24 08:12:54 Repository Not Found for url:
-2026-05-24 08:12:54 https://huggingface.co/api/models/clear-blue-sky/evolai-mb2-009/revision/main.
-2026-05-24 08:12:54 Please make sure you specified the correct `repo_id` and `repo_type`.
-2026-05-24 08:12:54 If you are trying to access a private or gated repo, make sure you are
-2026-05-24 08:12:54 authenticated and your token has the required permissions.
-2026-05-24 08:12:54 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
-2026-05-24 08:12:54 Invalid username or password.
-2026-05-24 08:12:54   ⚠ UID 64: revision lock failed: RepositoryNotFoundError: 401 Client Error.
-2026-05-24 08:12:54 (Request ID:
-2026-05-24 08:12:54 Root=1-6a12b306-54c9725b779ef04601cf9f0f;8a401921-931f-4a86-918e-8b1cfe54c83b)
-2026-05-24 08:12:54 
-2026-05-24 08:12:54 Repository Not Found for url:
-2026-05-24 08:12:54 https://huggingface.co/api/models/clear-blue-sky/evolai-mb2-002/revision/main.
-2026-05-24 08:12:54 Please make sure you specified the correct `repo_id` and `repo_type`.
-2026-05-24 08:12:54 If you are trying to access a private or gated repo, make sure you are
-2026-05-24 08:12:54 authenticated and your token has the required permissions.
-2026-05-24 08:12:54 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
-2026-05-24 08:12:54 Invalid username or password.
-2026-05-24 08:12:54   ⚠ UID 68: revision lock failed: RepositoryNotFoundError: 401 Client Error.
-2026-05-24 08:12:54 (Request ID:
-2026-05-24 08:12:54 Root=1-6a12b306-20ca26662706fcd920c07566;0be9da23-719f-403b-87e5-2ff731da983f)
-2026-05-24 08:12:54 
-2026-05-24 08:12:54 Repository Not Found for url:
-2026-05-24 08:12:54 https://huggingface.co/api/models/clear-blue-sky/evolai-mb2-008/revision/main.
-2026-05-24 08:12:54 Please make sure you specified the correct `repo_id` and `repo_type`.
-2026-05-24 08:12:54 If you are trying to access a private or gated repo, make sure you are
-2026-05-24 08:12:54 authenticated and your token has the required permissions.
-2026-05-24 08:12:54 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
-2026-05-24 08:12:54 Invalid username or password.
-2026-05-24 08:12:54   ⚠ UID 71: revision lock failed: RepositoryNotFoundError: 401 Client Error.
-2026-05-24 08:12:54 (Request ID:
-2026-05-24 08:12:54 Root=1-6a12b306-5b4069777c61a7227fba5124;17e88a47-170e-424f-818a-2a2d805bada8)
-2026-05-24 08:12:54 
-2026-05-24 08:12:54 Repository Not Found for url:
-2026-05-24 08:12:54 https://huggingface.co/api/models/clear-blue-sky/evolai-mb2-001/revision/main.
-2026-05-24 08:12:54 Please make sure you specified the correct `repo_id` and `repo_type`.
-2026-05-24 08:12:54 If you are trying to access a private or gated repo, make sure you are
-2026-05-24 08:12:54 authenticated and your token has the required permissions.
-2026-05-24 08:12:54 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
-2026-05-24 08:12:54 Invalid username or password.
-2026-05-24 08:12:55   ⚠ UID 74: revision lock failed: RepositoryNotFoundError: 401 Client Error.
-2026-05-24 08:12:55 (Request ID:
-2026-05-24 08:12:55 Root=1-6a12b306-666101cb7849b0033957e38f;5331610e-42ed-47ea-886b-ee299efcf1d8)
-2026-05-24 08:12:55 
-2026-05-24 08:12:55 Repository Not Found for url:
-2026-05-24 08:12:55 https://huggingface.co/api/models/clear-blue-sky/evolai-mb2-007/revision/main.
-2026-05-24 08:12:55 Please make sure you specified the correct `repo_id` and `repo_type`.
-2026-05-24 08:12:55 If you are trying to access a private or gated repo, make sure you are
-2026-05-24 08:12:55 authenticated and your token has the required permissions.
-2026-05-24 08:12:55 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
-2026-05-24 08:12:55 Invalid username or password.
-2026-05-24 08:12:55   ⚠ UID 81: revision lock failed: RepositoryNotFoundError: 401 Client Error.
-2026-05-24 08:12:55 (Request ID:
-2026-05-24 08:12:55 Root=1-6a12b307-718fc42238bad4a33d2040c6;52a7c7fd-a772-44d1-a9b9-72dab00c9056)
-2026-05-24 08:12:55 
-2026-05-24 08:12:55 Repository Not Found for url:
-2026-05-24 08:12:55 https://huggingface.co/api/models/clear-blue-sky/evolai-mb2-010/revision/main.
-2026-05-24 08:12:55 Please make sure you specified the correct `repo_id` and `repo_type`.
-2026-05-24 08:12:55 If you are trying to access a private or gated repo, make sure you are
-2026-05-24 08:12:55 authenticated and your token has the required permissions.
-2026-05-24 08:12:55 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
-2026-05-24 08:12:55 Invalid username or password.
-2026-05-24 08:12:55   Locked mamba2 revisions (15 miner(s), 6 skipped)
-2026-05-24 08:13:26   Committed round seed epoch=22924 seed=d05a5edc...
-2026-05-24 08:13:27 Evaluating TRANSFORMER track…
-2026-05-24 08:13:27 
-2026-05-24 08:13:27   Found 50 locked transformer miners
-2026-05-24 08:13:27 Pre-building current/next challenges for 50 miners…
-2026-05-24 08:13:27    Downloading
-2026-05-24 08:13:27 andrebarrosilva1123/evolai-b@3414c0abb8793ed4af56fd5e6e536b8b0f5ac520…
-2026-05-24 08:13:27 Fetching 7 files: 100%|██████████| 7/7 [00:06<00:00,  1.06it/s]
-2026-05-24 08:13:31    alpha=0.005511 TAO/α  budget=0.049177
-2026-05-24 08:13:33    Ready: andrebarrosilva1123/evolai-b@3414c0abb8793ed4af56fd5e6e536b8b0f5ac520
-2026-05-24 08:13:33    Downloading
-2026-05-24 08:13:33 logosnodos/evolai-qwen-1.5b@7e121e8efe6c6b93d622e9a53972d221e763d10b…
-2026-05-24 08:13:34 Fetching 17 files: 100%|██████████| 17/17 [00:56<00:00,  3.35s/it]
-2026-05-24 08:14:08    emission scale=1.000 (active miners)
-2026-05-24 08:14:08    emission scale=1.000 (active miners)
-2026-05-24 08:14:08    all quality scores zero after gates — emission share redistributed to
-2026-05-24 08:14:08 productive tracks
-2026-05-24 08:14:09   ✓  set at 08:14:09 UTC
-2026-05-24 08:14:31    Ready: logosnodos/evolai-qwen-1.5b@7e121e8efe6c6b93d622e9a53972d221e763d10b
-2026-05-24 08:15:24 ✓ Ref data ready: submitted=100, cached=0
-2026-05-24 08:15:24   [1/50] UID 50 | andrebarrosilva1123/evolai-b @
-2026-05-24 08:15:24 3414c0abb8793ed4af56fd5e6e536b8b0f5ac520 | hotkey 5FXELcBK4WiD…
-2026-05-24 08:15:24     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:15:24     Fetched 20 texts (20 indices)
-2026-05-24 08:15:24    Downloading
-2026-05-24 08:15:24 andrebarrosilva1123/evolai-0.4b@fa913c93aa7a7449066ce870427387bd3fc7e841…
-2026-05-24 08:15:24 Fetching 7 files: 100%|██████████| 7/7 [00:07<00:00,  1.00s/it]
-2026-05-24 08:15:29     Loaded (local prefetch)
-2026-05-24 08:15:30     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
-2026-05-24 08:15:31    Ready:
-2026-05-24 08:15:31 andrebarrosilva1123/evolai-0.4b@fa913c93aa7a7449066ce870427387bd3fc7e841
-2026-05-24 08:15:32   [2/50] UID 61 | logosnodos/evolai-qwen-1.5b @
-2026-05-24 08:15:32 7e121e8efe6c6b93d622e9a53972d221e763d10b | hotkey 5FNTU6ZYgKup…
-2026-05-24 08:15:32     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:15:32    Downloading
-2026-05-24 08:15:32 mrthor102/evolai-tfm-super-003@81700a3fcf9c5db81d016022dfcb41ba57ff1801…
-2026-05-24 08:15:32     Fetched 20 texts (20 indices)
-2026-05-24 08:15:36     Loaded (local prefetch)
-2026-05-24 08:15:39    Ready:
-2026-05-24 08:15:39 mrthor102/evolai-tfm-super-003@81700a3fcf9c5db81d016022dfcb41ba57ff1801
-2026-05-24 08:15:41     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
-2026-05-24 08:15:42   [3/50] UID 49 | andrebarrosilva1123/evolai-0.4b @
-2026-05-24 08:15:42 fa913c93aa7a7449066ce870427387bd3fc7e841 | hotkey 5DULz3AJEisH…
-2026-05-24 08:15:42     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:15:42     Fetched 20 texts (20 indices)
-2026-05-24 08:15:42    Downloading
-2026-05-24 08:15:42 clear-blue-sky/evolai-reborn-tfm-011@ad7a4cffc147267f7c81848b5c5ebdfb3ede9818…
-2026-05-24 08:15:44     Loaded (local prefetch)
-2026-05-24 08:15:45     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
-2026-05-24 08:15:47   [4/50] UID 98 | mrthor102/evolai-tfm-super-003 @
-2026-05-24 08:15:47 81700a3fcf9c5db81d016022dfcb41ba57ff1801 | hotkey 5Hgy59m2Hzm1…
-2026-05-24 08:15:47     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:15:47     Fetched 20 texts (20 indices)
-2026-05-24 08:15:47    Ready:
-2026-05-24 08:15:47 clear-blue-sky/evolai-reborn-tfm-011@ad7a4cffc147267f7c81848b5c5ebdfb3ede9818
-2026-05-24 08:15:47    Downloading
-2026-05-24 08:15:47 Radiant28/evolai-transformer-0.4b-b2@808b61992e043ca99ff5b412a6cf61bfbb3fd793…
-2026-05-24 08:15:50     Loaded (local prefetch)
-2026-05-24 08:15:50     Model 0.46B → batch=512, seq=16384
-2026-05-24 08:15:53    Ready:
-2026-05-24 08:15:53 Radiant28/evolai-transformer-0.4b-b2@808b61992e043ca99ff5b412a6cf61bfbb3fd793
-2026-05-24 08:19:16     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:56
-2026-05-24 08:19:16     Loss 3.8961 | Size ×0.50 | Think 3.8961 | ThinkGain 0 (+0.4591) | Flow
-2026-05-24 08:19:16 0.1390 | KL 2.0310 | NextKL 2.0076 | SideQ 0% | Score 0.0000 (205.9s)
-2026-05-24 08:19:16     Gate FAIL | Improve seed/ref mismatch cur=2.0310 req<=0.0000 prev=mismatch |
-2026-05-24 08:19:16 Consist ok ema_cur=1.9060 ema_next=1.9134 ratio=1.004 max<=1.20
-2026-05-24 08:19:17   [5/50] UID 73 | clear-blue-sky/evolai-reborn-tfm-011 @
-2026-05-24 08:19:17 ad7a4cffc147267f7c81848b5c5ebdfb3ede9818 | hotkey 5CSAM6rnGRPk…
-2026-05-24 08:19:17     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:19:17     Fetched 20 texts (20 indices)
-2026-05-24 08:19:17    Downloading
-2026-05-24 08:19:17 mrthor102/evolai-tfm-super-002@71e1421aeba07a1a80e1455d15564e1efcd2b72b…
-2026-05-24 08:19:20     Loaded (local prefetch)
-2026-05-24 08:19:21     Model 0.46B → batch=512, seq=16384
-2026-05-24 08:19:22    Ready:
-2026-05-24 08:19:22 mrthor102/evolai-tfm-super-002@71e1421aeba07a1a80e1455d15564e1efcd2b72b
-2026-05-24 08:20:15     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:51
-2026-05-24 08:20:16     Loss 3.8153 | Size ×0.50 | Think 3.8153 | ThinkGain 0 (+0.4631) | Flow
-2026-05-24 08:20:16 0.0000 | KL 1.8722 | NextKL 1.8450 | SideQ 0% | Score 0.0000 (54.8s)
-2026-05-24 08:20:16     Gate FAIL | Improve seed/ref mismatch cur=1.8722 req<=0.0000 prev=mismatch |
-2026-05-24 08:20:16 Consist ok ema_cur=2.5893 ema_next=1.8613 ratio=0.719 max<=1.20
-2026-05-24 08:20:17   [6/50] UID 37 | Radiant28/evolai-transformer-0.4b-b2 @
-2026-05-24 08:20:17 808b61992e043ca99ff5b412a6cf61bfbb3fd793 | hotkey 5HjbzF3e9waA…
-2026-05-24 08:20:17     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:20:17    Downloading
-2026-05-24 08:20:17 mihai-777/evolai-tfm-1p5b@594894f806fb4c014675d89aad14f1c68976d52c…
-2026-05-24 08:20:17     Fetched 20 texts (20 indices)
-2026-05-24 08:20:19     Loaded (local prefetch)
-2026-05-24 08:20:20     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
-2026-05-24 08:20:20    Ready: mihai-777/evolai-tfm-1p5b@594894f806fb4c014675d89aad14f1c68976d52c
-2026-05-24 08:20:22   [7/50] UID 97 | mrthor102/evolai-tfm-super-002 @
-2026-05-24 08:20:22 71e1421aeba07a1a80e1455d15564e1efcd2b72b | hotkey 5EcJYRJBVF5K…
-2026-05-24 08:20:22     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:20:22     Fetched 20 texts (20 indices)
-2026-05-24 08:20:22    Downloading
-2026-05-24 08:20:22 mrthor102/evolai-tfm-super-001@f7d9445d9182dd4333dbe32ebd6a7853649a8f41…
-2026-05-24 08:20:25     Loaded (local prefetch)
-2026-05-24 08:20:25     Model 0.46B → batch=512, seq=16384
-2026-05-24 08:20:27    Ready:
-2026-05-24 08:20:27 mrthor102/evolai-tfm-super-001@f7d9445d9182dd4333dbe32ebd6a7853649a8f41
-2026-05-24 08:21:24     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:56
-2026-05-24 08:21:25     Loss 3.9830 | Size ×0.50 | Think 3.9830 | ThinkGain 0 (+0.4636) | Flow
-2026-05-24 08:21:25 0.0000 | KL 1.8816 | NextKL 1.9169 | SideQ 0% | Score 0.0000 (59.2s)
-2026-05-24 08:21:25     Gate FAIL | Improve seed/ref mismatch cur=1.8816 req<=0.0000 prev=mismatch |
-2026-05-24 08:21:25 Consist ok ema_cur=1.9320 ema_next=1.9280 ratio=0.998 max<=1.20
-2026-05-24 08:21:26   [8/50] UID 33 | mihai-777/evolai-tfm-1p5b @
-2026-05-24 08:21:26 594894f806fb4c014675d89aad14f1c68976d52c | hotkey 5F22JM4of6TR…
-2026-05-24 08:21:26     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:21:26     Fetched 20 texts (20 indices)
-2026-05-24 08:21:26    Downloading snx999/evolai_qw_4b@69eff663b4e9a2b5bf76dde6cdecc5dce29759d3…
-2026-05-24 08:21:27     Loaded (local prefetch)
-2026-05-24 08:21:27     Model 0.46B → batch=512, seq=16384
-2026-05-24 08:21:41    Ready: snx999/evolai_qw_4b@69eff663b4e9a2b5bf76dde6cdecc5dce29759d3
-2026-05-24 08:22:30     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:59
-2026-05-24 08:22:30     Loss 2.8796 | Size ×0.50 | Think 2.8796 | ThinkGain 0 (+0.4519) | Flow
-2026-05-24 08:22:30 0.0420 | KL 2.2918 | NextKL 2.5351 | SideQ 0% | Score 0.0000 (62.3s)
-2026-05-24 08:22:30     Gate FAIL | Improve seed/ref mismatch cur=2.2918 req<=0.0000 prev=mismatch |
-2026-05-24 08:22:30 Consist ok ema_cur=2.4013 ema_next=2.4350 ratio=1.014 max<=1.20
-2026-05-24 08:22:31   [9/50] UID 94 | mrthor102/evolai-tfm-super-001 @
-2026-05-24 08:22:31 f7d9445d9182dd4333dbe32ebd6a7853649a8f41 | hotkey 5CPXihPMoGQ2…
-2026-05-24 08:22:31     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:22:31     Fetched 20 texts (20 indices)
-2026-05-24 08:22:31    Downloading
-2026-05-24 08:22:31 Radiant28/evolai-transformer-0.4b-b0@7a08a8009fa8b8f82d1ad0febc442a89020082d1…
-2026-05-24 08:22:33     Loaded (local prefetch)
-2026-05-24 08:22:33     Model 0.46B → batch=512, seq=16384
-2026-05-24 08:22:37    Ready:
-2026-05-24 08:22:37 Radiant28/evolai-transformer-0.4b-b0@7a08a8009fa8b8f82d1ad0febc442a89020082d1
-2026-05-24 08:23:33     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:55
-2026-05-24 08:23:33     Loss 3.7989 | Size ×0.50 | Think 3.7989 | ThinkGain 0 (+0.4579) | Flow
-2026-05-24 08:23:33 0.0000 | KL 1.7722 | NextKL 1.9535 | SideQ 0% | Score 0.0000 (59.6s)
-2026-05-24 08:23:33     Gate FAIL | Improve seed/ref mismatch cur=1.7722 req<=0.0000 prev=mismatch |
-2026-05-24 08:23:33 Consist ok ema_cur=1.9267 ema_next=1.9433 ratio=1.009 max<=1.20
-2026-05-24 08:23:34   [10/50] UID 25 | snx999/evolai_qw_4b @
-2026-05-24 08:23:34 69eff663b4e9a2b5bf76dde6cdecc5dce29759d3 | hotkey 5HBJoNWv4nAi…
-2026-05-24 08:23:34     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:23:34    Downloading
-2026-05-24 08:23:34 clear-blue-sky/evolai-reborn-tfm-002@3c1af863d3a626ef7f225f335e95f12a17870386…
-2026-05-24 08:23:34     Fetched 20 texts (20 indices)
-2026-05-24 08:23:39    Ready:
-2026-05-24 08:23:39 clear-blue-sky/evolai-reborn-tfm-002@3c1af863d3a626ef7f225f335e95f12a17870386
-2026-05-24 08:23:39     Loaded (local prefetch)
-2026-05-24 08:23:40     ⚠ Invalid model size (4.21B; allowed 0.45-0.48B, 1.50-1.80B) — skipping
-2026-05-24 08:23:42   [11/50] UID 45 | Radiant28/evolai-transformer-0.4b-b0 @
-2026-05-24 08:23:42 7a08a8009fa8b8f82d1ad0febc442a89020082d1 | hotkey 5F1B3j7EyjuE…
-2026-05-24 08:23:42     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:23:42     Fetched 20 texts (20 indices)
-2026-05-24 08:23:42    Downloading
-2026-05-24 08:23:42 clear-blue-sky/evolai-reborn-tfm-010@29651f934f3b275247eaca45fd35518d83e94a0d…
-2026-05-24 08:23:44     Loaded (local prefetch)
-2026-05-24 08:23:45     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
-2026-05-24 08:23:46    Ready:
-2026-05-24 08:23:46 clear-blue-sky/evolai-reborn-tfm-010@29651f934f3b275247eaca45fd35518d83e94a0d
-2026-05-24 08:23:47   [12/50] UID 67 | clear-blue-sky/evolai-reborn-tfm-002 @
-2026-05-24 08:23:47 3c1af863d3a626ef7f225f335e95f12a17870386 | hotkey 5GC7k2mkTKGF…
-2026-05-24 08:23:47     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:23:47     Fetched 20 texts (20 indices)
-2026-05-24 08:23:47    Downloading
-2026-05-24 08:23:47 mihai-777/evolai-tfm-1p5b-v5@bd42aeb0828dfa0126f7fc825e13b49209fec678…
-2026-05-24 08:23:50     Loaded (local prefetch)
-2026-05-24 08:23:50     Model 0.46B → batch=512, seq=16384
-2026-05-24 08:23:50    Ready: mihai-777/evolai-tfm-1p5b-v5@bd42aeb0828dfa0126f7fc825e13b49209fec678
-2026-05-24 08:24:49     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:56
-2026-05-24 08:24:50     Loss 3.6892 | Size ×0.50 | Think 3.6892 | ThinkGain 0 (+0.4584) | Flow
-2026-05-24 08:24:50 0.4569 | KL 1.8500 | NextKL 1.9166 | SideQ 0% | Score 0.0000 (59.6s)
-2026-05-24 08:24:50     Gate FAIL | Improve seed/ref mismatch cur=1.8500 req<=0.0000 prev=mismatch |
-2026-05-24 08:24:50 Consist ok ema_cur=1.8913 ema_next=1.8944 ratio=1.002 max<=1.20
-2026-05-24 08:24:50   [13/50] UID 72 | clear-blue-sky/evolai-reborn-tfm-010 @
-2026-05-24 08:24:50 29651f934f3b275247eaca45fd35518d83e94a0d | hotkey 5H3rMcqJQcbK…
-2026-05-24 08:24:50     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:24:50     Fetched 20 texts (20 indices)
-2026-05-24 08:24:50    Downloading
-2026-05-24 08:24:50 mihai-777/evolai-tfm-1p5b-04@fb289dbfe35c595b1a586f786a19e118cc1bfc9a…
-2026-05-24 08:24:52     Loaded (local prefetch)
-2026-05-24 08:24:52     Model 0.46B → batch=512, seq=16384
-2026-05-24 08:24:54    Ready: mihai-777/evolai-tfm-1p5b-04@fb289dbfe35c595b1a586f786a19e118cc1bfc9a
-2026-05-24 08:25:52     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:56
-2026-05-24 08:25:53     Loss 3.5856 | Size ×0.50 | Think 3.5856 | ThinkGain 0 (+0.4598) | Flow
-2026-05-24 08:25:53 0.0000 | KL 1.9312 | NextKL 1.6153 | SideQ 0% | Score 0.0000 (60.0s)
-2026-05-24 08:25:53     Gate FAIL | Improve seed/ref mismatch cur=1.9312 req<=0.0000 prev=mismatch |
-2026-05-24 08:25:53 Consist ok ema_cur=1.9073 ema_next=1.8996 ratio=0.996 max<=1.20
-2026-05-24 08:25:54   [14/50] UID 42 | mihai-777/evolai-tfm-1p5b-v5 @
-2026-05-24 08:25:54 bd42aeb0828dfa0126f7fc825e13b49209fec678 | hotkey 5C5WCYnsrXRz…
-2026-05-24 08:25:54     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:25:54     Fetched 20 texts (20 indices)
-2026-05-24 08:25:54    Downloading
-2026-05-24 08:25:54 andrebarrosilva1123/evolai-e@806394ca7f2f7c1edbe962a9471647f4d67b5e72…
-2026-05-24 08:25:55     Loaded (local prefetch)
-2026-05-24 08:25:56     Model 0.46B → batch=512, seq=16384
-2026-05-24 08:26:01    Ready: andrebarrosilva1123/evolai-e@806394ca7f2f7c1edbe962a9471647f4d67b5e72
-2026-05-24 08:26:30     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:32
-2026-05-24 08:26:30     Loss 2.9319 | Size ×0.50 | Think 2.9319 | ThinkGain 0 (+0.4562) | Flow
-2026-05-24 08:26:30 0.1891 | KL 2.4191 | NextKL 2.4519 | SideQ 0% | Score 0.0000 (34.3s)
-2026-05-24 08:26:30     Gate FAIL | Improve seed/ref mismatch cur=2.4191 req<=0.0000 prev=mismatch |
-2026-05-24 08:26:30 Consist ok ema_cur=2.4356 ema_next=2.4515 ratio=1.007 max<=1.20
-2026-05-24 08:26:31   Evicted cached model:
-2026-05-24 08:26:31 mrthor102/evolai-tfm-super-003@81700a3fcf9c5db81d016022dfcb41ba57ff1801
-2026-05-24 08:26:32   [15/50] UID 75 | mihai-777/evolai-tfm-1p5b-04 @
-2026-05-24 08:26:32 fb289dbfe35c595b1a586f786a19e118cc1bfc9a | hotkey 5Dnz76SAsEv8…
-2026-05-24 08:26:32     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:26:32     Fetched 20 texts (20 indices)
-2026-05-24 08:26:32    Downloading
-2026-05-24 08:26:32 clear-blue-sky/evolai-reborn-tfm-006@27bbbdbe12605a00573f2af96d1d99d61e430ce6…
-2026-05-24 08:26:33     Loaded (local prefetch)
-2026-05-24 08:26:33     Model 0.46B → batch=512, seq=16384
-2026-05-24 08:26:36    Ready:
-2026-05-24 08:26:36 clear-blue-sky/evolai-reborn-tfm-006@27bbbdbe12605a00573f2af96d1d99d61e430ce6
-2026-05-24 08:27:09     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:33
-2026-05-24 08:27:09     Loss 2.9821 | Size ×0.50 | Think 2.9821 | ThinkGain 0 (+0.4494) | Flow
-2026-05-24 08:27:09 0.2608 | KL 2.2377 | NextKL 2.2630 | SideQ 0% | Score 0.0000 (35.5s)
-2026-05-24 08:27:09     Gate FAIL | Improve seed/ref mismatch cur=2.2377 req<=0.0000 prev=mismatch |
-2026-05-24 08:27:09 Consist ok ema_cur=2.3413 ema_next=2.3526 ratio=1.005 max<=1.20
-2026-05-24 08:27:11   Evicted cached model:
-2026-05-24 08:27:11 clear-blue-sky/evolai-reborn-tfm-011@ad7a4cffc147267f7c81848b5c5ebdfb3ede9818
-2026-05-24 08:27:11   [16/50] UID 53 | andrebarrosilva1123/evolai-e @
-2026-05-24 08:27:11 806394ca7f2f7c1edbe962a9471647f4d67b5e72 | hotkey 5EFgFa93M5Vx…
-2026-05-24 08:27:11     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:27:11     Fetched 20 texts (20 indices)
-2026-05-24 08:27:11    Downloading
-2026-05-24 08:27:11 Radiant28/evolai-transformer-0.4b-b1@18231d7d50096d8b2744fdff1b38a7b90246ddf0…
-2026-05-24 08:27:13     Loaded (local prefetch)
-2026-05-24 08:27:13     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
-2026-05-24 08:27:15   [17/50] UID 66 | clear-blue-sky/evolai-reborn-tfm-006 @
-2026-05-24 08:27:15 27bbbdbe12605a00573f2af96d1d99d61e430ce6 | hotkey 5E4M4B5sVED5…
-2026-05-24 08:27:15     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:27:15     Fetched 20 texts (20 indices)
-2026-05-24 08:27:17     Loaded (local prefetch)
-2026-05-24 08:27:17     Model 0.46B → batch=512, seq=16384
-2026-05-24 08:27:17    Ready:
-2026-05-24 08:27:17 Radiant28/evolai-transformer-0.4b-b1@18231d7d50096d8b2744fdff1b38a7b90246ddf0
-2026-05-24 08:27:17    Downloading
-2026-05-24 08:27:17 clear-blue-sky/evolai-reborn-tfm-007@ba9045012f93d80b69da2201376756708f45f355…
-2026-05-24 08:27:17 Fetching 7 files: 100%|██████████| 7/7 [00:04<00:00,  1.70it/s]
-2026-05-24 08:27:22    Ready:
-2026-05-24 08:27:22 clear-blue-sky/evolai-reborn-tfm-007@ba9045012f93d80b69da2201376756708f45f355
-2026-05-24 08:27:54     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:34
-2026-05-24 08:27:54     Loss 3.9005 | Size ×0.50 | Think 3.9005 | ThinkGain 0 (+0.4594) | Flow
-2026-05-24 08:27:54 0.0000 | KL 2.0171 | NextKL 1.9499 | SideQ 0% | Score 0.0000 (36.8s)
-2026-05-24 08:27:54     Gate FAIL | Improve seed/ref mismatch cur=2.0171 req<=0.0000 prev=mismatch |
-2026-05-24 08:27:54 Consist ok ema_cur=1.9693 ema_next=1.9609 ratio=0.996 max<=1.20
-2026-05-24 08:27:56   Evicted cached model:
-2026-05-24 08:27:56 mrthor102/evolai-tfm-super-002@71e1421aeba07a1a80e1455d15564e1efcd2b72b
-2026-05-24 08:27:56   [18/50] UID 35 | Radiant28/evolai-transformer-0.4b-b1 @
-2026-05-24 08:27:56 18231d7d50096d8b2744fdff1b38a7b90246ddf0 | hotkey 5EXZBq3wQzTK…
-2026-05-24 08:27:56    Downloading Lin2es/evolai-tfm-03o@2fcb3445759b5cb5d5d6a9be9e5731f72cc0f600…
-2026-05-24 08:27:56     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:27:56     Fetched 20 texts (20 indices)
-2026-05-24 08:27:58     Loaded (local prefetch)
-2026-05-24 08:27:58    Ready: Lin2es/evolai-tfm-03o@2fcb3445759b5cb5d5d6a9be9e5731f72cc0f600
-2026-05-24 08:27:59     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
-2026-05-24 08:28:00   [19/50] UID 84 | clear-blue-sky/evolai-reborn-tfm-007 @
-2026-05-24 08:28:00 ba9045012f93d80b69da2201376756708f45f355 | hotkey 5H1DaT8Dtt4N…
-2026-05-24 08:28:00     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:28:00    Downloading
-2026-05-24 08:28:00 clear-blue-sky/evolai-reborn-tfm-003@db37ac46734d13b9f00d6049d02ad79254bcd03f…
-2026-05-24 08:28:00     Fetched 20 texts (20 indices)
-2026-05-24 08:28:02     Loaded (local prefetch)
-2026-05-24 08:28:02     Model 0.46B → batch=512, seq=16384
-2026-05-24 08:28:04    Ready:
-2026-05-24 08:28:04 clear-blue-sky/evolai-reborn-tfm-003@db37ac46734d13b9f00d6049d02ad79254bcd03f
-2026-05-24 08:28:37     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:33
-2026-05-24 08:28:38     Loss 3.7714 | Size ×0.50 | Think 3.7714 | ThinkGain 0 (+0.4617) | Flow
-2026-05-24 08:28:38 0.0000 | KL 1.8660 | NextKL 1.8705 | SideQ 0% | Score 0.0000 (35.4s)
-2026-05-24 08:28:38     Gate FAIL | Improve seed/ref mismatch cur=1.8660 req<=0.0000 prev=mismatch |
-2026-05-24 08:28:38 Consist ok ema_cur=1.9526 ema_next=1.9683 ratio=1.008 max<=1.20
-2026-05-24 08:28:39   Evicted cached model:
-2026-05-24 08:28:39 mihai-777/evolai-tfm-1p5b@594894f806fb4c014675d89aad14f1c68976d52c
-2026-05-24 08:28:40   [20/50] UID 79 | Lin2es/evolai-tfm-03o @
-2026-05-24 08:28:40 2fcb3445759b5cb5d5d6a9be9e5731f72cc0f600 | hotkey 5D4eNqXRjWmX…
-2026-05-24 08:28:40     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:28:40     Fetched 20 texts (20 indices)
-2026-05-24 08:28:40    Downloading
-2026-05-24 08:28:40 mihai-777/evolai-tfm-1p5b-05@a66a1beeefdbc6ff871ea4854b4e71ed5c3a44ba…
-2026-05-24 08:28:41     Loaded (local prefetch)
-2026-05-24 08:28:41     Model 0.46B → batch=512, seq=16384
-2026-05-24 08:28:45    Ready: mihai-777/evolai-tfm-1p5b-05@a66a1beeefdbc6ff871ea4854b4e71ed5c3a44ba
-2026-05-24 08:29:16     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:32
-2026-05-24 08:29:16     Loss 2.2274 | Size ×0.50 | Think 2.2274 | ThinkGain 0 (+0.4565) | Flow
-2026-05-24 08:29:16 0.1568 | KL 2.3798 | NextKL 2.6815 | SideQ 0% | Score 0.0000 (34.8s)
-2026-05-24 08:29:16     Gate FAIL | Improve seed/ref mismatch cur=2.3798 req<=0.0000 prev=mismatch |
-2026-05-24 08:29:16 Consist ok ema_cur=2.4029 ema_next=2.4343 ratio=1.013 max<=1.20
-2026-05-24 08:29:17   Evicted cached model:
-2026-05-24 08:29:17 mrthor102/evolai-tfm-super-001@f7d9445d9182dd4333dbe32ebd6a7853649a8f41
-2026-05-24 08:29:18   [21/50] UID 82 | clear-blue-sky/evolai-reborn-tfm-003 @
-2026-05-24 08:29:18 db37ac46734d13b9f00d6049d02ad79254bcd03f | hotkey 5EtDxpyqHywK…
-2026-05-24 08:29:18     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:29:18     Fetched 20 texts (20 indices)
-2026-05-24 08:29:18    Downloading
-2026-05-24 08:29:18 dreamiii0406/evolai-0p47b-v1@fea2659bdf8bd35e5382c50e4857f1ab20f20262…
-2026-05-24 08:29:19     Loaded (local prefetch)
-2026-05-24 08:29:20     Model 0.46B → batch=512, seq=16384
-2026-05-24 08:29:21    Ready: dreamiii0406/evolai-0p47b-v1@fea2659bdf8bd35e5382c50e4857f1ab20f20262
-2026-05-24 08:29:56     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:33
-2026-05-24 08:29:56     Loss 3.7075 | Size ×0.50 | Think 3.7075 | ThinkGain 0 (+0.4598) | Flow
-2026-05-24 08:29:56 0.1898 | KL 1.6882 | NextKL 1.8410 | SideQ 0% | Score 0.0000 (36.2s)
-2026-05-24 08:29:56     Gate FAIL | Improve seed/ref mismatch cur=1.6882 req<=0.0000 prev=mismatch |
-2026-05-24 08:29:56 Consist ok ema_cur=1.8934 ema_next=1.9174 ratio=1.013 max<=1.20
-2026-05-24 08:29:57   Evicted cached model:
-2026-05-24 08:29:57 clear-blue-sky/evolai-reborn-tfm-002@3c1af863d3a626ef7f225f335e95f12a17870386
-2026-05-24 08:29:58   [22/50] UID 76 | mihai-777/evolai-tfm-1p5b-05 @
-2026-05-24 08:29:58 a66a1beeefdbc6ff871ea4854b4e71ed5c3a44ba | hotkey 5GLBxPtoiB7R…
-2026-05-24 08:29:58     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:29:58     Fetched 20 texts (20 indices)
-2026-05-24 08:29:58    Downloading Radiant28/evolai-1p5b@e351598db6d77f85b5081768df04d37c132750f0…
-2026-05-24 08:29:59     Loaded (local prefetch)
-2026-05-24 08:29:59     Model 0.46B → batch=512, seq=16384
-2026-05-24 08:30:04    Ready: Radiant28/evolai-1p5b@e351598db6d77f85b5081768df04d37c132750f0
-2026-05-24 08:30:36     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:34
-2026-05-24 08:30:36     Loss 2.8645 | Size ×0.50 | Think 2.8645 | ThinkGain 0 (+0.4554) | Flow
-2026-05-24 08:30:36 0.0000 | KL 2.7470 | NextKL 1.9994 | SideQ 0% | Score 0.0000 (36.9s)
-2026-05-24 08:30:36     Gate FAIL | Improve seed/ref mismatch cur=2.7470 req<=0.0000 prev=mismatch |
-2026-05-24 08:30:36 Consist ok ema_cur=2.4986 ema_next=2.4293 ratio=0.972 max<=1.20
-2026-05-24 08:30:38   Evicted cached model:
-2026-05-24 08:30:38 clear-blue-sky/evolai-reborn-tfm-010@29651f934f3b275247eaca45fd35518d83e94a0d
-2026-05-24 08:30:38   [23/50] UID 80 | dreamiii0406/evolai-0p47b-v1 @
-2026-05-24 08:30:38 fea2659bdf8bd35e5382c50e4857f1ab20f20262 | hotkey 5Cd2zZyMQnvp…
-2026-05-24 08:30:38     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:30:38     Fetched 20 texts (20 indices)
-2026-05-24 08:30:38    Downloading
-2026-05-24 08:30:38 mihai-777/evolai-tfm-1p5b-alt@5ebb4a406916abe39e32823ff1f635b70e707e5a…
-2026-05-24 08:30:40     Loaded (local prefetch)
-2026-05-24 08:30:40     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
-2026-05-24 08:30:42   [24/50] UID 43 | Radiant28/evolai-1p5b @
-2026-05-24 08:30:42 e351598db6d77f85b5081768df04d37c132750f0 | hotkey 5HSz4knZnWHY…
-2026-05-24 08:30:42     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:30:42     Fetched 20 texts (20 indices)
-2026-05-24 08:30:42    Ready: mihai-777/evolai-tfm-1p5b-alt@5ebb4a406916abe39e32823ff1f635b70e707e5a
-2026-05-24 08:30:42    Downloading
-2026-05-24 08:30:42 mrthor102/evolai-tfm-super-004@8e2e1c6b0c7c398bcb2c6db8887b2af4679c1f16…
-2026-05-24 08:30:44     Loaded (local prefetch)
-2026-05-24 08:30:44     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
-2026-05-24 08:30:46   [25/50] UID 38 | mihai-777/evolai-tfm-1p5b-alt @
-2026-05-24 08:30:46 5ebb4a406916abe39e32823ff1f635b70e707e5a | hotkey 5FbfiXysyCtC…
-2026-05-24 08:30:46     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:30:46     Fetched 20 texts (20 indices)
-2026-05-24 08:30:47    Ready:
-2026-05-24 08:30:47 mrthor102/evolai-tfm-super-004@8e2e1c6b0c7c398bcb2c6db8887b2af4679c1f16
-2026-05-24 08:30:47    Downloading
-2026-05-24 08:30:47 Radiant28/evolai-0.4b-V1@5e0cb9981c5c7ec29fe92d5cf1ebddcbcc002af5…
-2026-05-24 08:30:47 Fetching 7 files: 100%|██████████| 7/7 [00:06<00:00,  1.11it/s]
-2026-05-24 08:30:47     Loaded (local prefetch)
-2026-05-24 08:30:48     Model 0.46B → batch=512, seq=16384
-2026-05-24 08:30:53    Ready: Radiant28/evolai-0.4b-V1@5e0cb9981c5c7ec29fe92d5cf1ebddcbcc002af5
-2026-05-24 08:31:22     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:31
-2026-05-24 08:31:22     Loss 2.8907 | Size ×0.50 | Think 2.8907 | ThinkGain 0 (+0.4537) | Flow
-2026-05-24 08:31:22 0.2451 | KL 2.2559 | NextKL 2.4190 | SideQ 0% | Score 0.0000 (33.9s)
-2026-05-24 08:31:22     Gate FAIL | Improve seed/ref mismatch cur=2.2559 req<=0.0000 prev=mismatch |
-2026-05-24 08:31:22 Consist ok ema_cur=2.3669 ema_next=2.3919 ratio=1.011 max<=1.20
-2026-05-24 08:31:23   Evicted cached model:
-2026-05-24 08:31:23 mihai-777/evolai-tfm-1p5b-v5@bd42aeb0828dfa0126f7fc825e13b49209fec678
-2026-05-24 08:31:23   [26/50] UID 99 | mrthor102/evolai-tfm-super-004 @
-2026-05-24 08:31:23 8e2e1c6b0c7c398bcb2c6db8887b2af4679c1f16 | hotkey 5EnuPuwNaqmP…
-2026-05-24 08:31:23     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:31:23     Fetched 20 texts (20 indices)
-2026-05-24 08:31:23    Downloading evolai/evolai_naive_kl@da8203b6900f14ec1b724f3dd8c6dc35576fc3e4…
-2026-05-24 08:31:25     Loaded (local prefetch)
-2026-05-24 08:31:25     Model 0.46B → batch=512, seq=16384
-2026-05-24 08:31:26    Ready: evolai/evolai_naive_kl@da8203b6900f14ec1b724f3dd8c6dc35576fc3e4
-2026-05-24 08:32:02     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:34
-2026-05-24 08:32:03     Loss 4.2079 | Size ×0.50 | Think 4.2079 | ThinkGain 0 (+0.4594) | Flow
-2026-05-24 08:32:03 0.0000 | KL 2.0532 | NextKL 1.9794 | SideQ 0% | Score 0.0000 (37.2s)
-2026-05-24 08:32:03     Gate FAIL | Improve seed/ref mismatch cur=2.0532 req<=0.0000 prev=mismatch |
-2026-05-24 08:32:03 Consist ok ema_cur=1.9582 ema_next=1.9538 ratio=0.998 max<=1.20
-2026-05-24 08:32:04   Evicted cached model:
-2026-05-24 08:32:04 mihai-777/evolai-tfm-1p5b-04@fb289dbfe35c595b1a586f786a19e118cc1bfc9a
-2026-05-24 08:32:05   [27/50] UID 44 | Radiant28/evolai-0.4b-V1 @
-2026-05-24 08:32:05 5e0cb9981c5c7ec29fe92d5cf1ebddcbcc002af5 | hotkey 5DXm2ShZGmwG…
-2026-05-24 08:32:05     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:32:05     Fetched 20 texts (20 indices)
-2026-05-24 08:32:05    Downloading philk11/evolai-0.4b@822950352d63cdd145c3a7449ebfd4b51ad5ae6a…
-2026-05-24 08:32:07     Loaded (local prefetch)
-2026-05-24 08:32:07     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
-2026-05-24 08:32:08    Ready: philk11/evolai-0.4b@822950352d63cdd145c3a7449ebfd4b51ad5ae6a
-2026-05-24 08:32:09   [28/50] UID 95 | evolai/evolai_naive_kl @
-2026-05-24 08:32:09 da8203b6900f14ec1b724f3dd8c6dc35576fc3e4 | hotkey 5CXwmm7R4U6o…
-2026-05-24 08:32:09     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:32:09    Downloading
-2026-05-24 08:32:09 Phoenix9781/evolai-tf-model@b05038fcfdcc79fa8d8e79730074b65cd68c73f9…
-2026-05-24 08:32:09     Fetched 20 texts (20 indices)
-2026-05-24 08:32:10     Loaded (local prefetch)
-2026-05-24 08:32:10     Model 0.46B → batch=512, seq=16384
-2026-05-24 08:32:13    Ready: Phoenix9781/evolai-tf-model@b05038fcfdcc79fa8d8e79730074b65cd68c73f9
-2026-05-24 08:32:45     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:32
-2026-05-24 08:32:45     Loss 2.5799 | Size ×0.50 | Think 2.5799 | ThinkGain 0 (+0.4848) | Flow
-2026-05-24 08:32:45 0.0166 | KL 2.8590 | NextKL 2.6833 | SideQ 0% | Score 0.0000 (34.5s)
-2026-05-24 08:32:45     Gate FAIL | Improve seed/ref mismatch cur=2.8590 req<=0.0000 prev=mismatch |
-2026-05-24 08:32:45 Consist ok ema_cur=2.8644 ema_next=2.8292 ratio=0.988 max<=1.20
-2026-05-24 08:32:47   Evicted cached model:
-2026-05-24 08:32:47 clear-blue-sky/evolai-reborn-tfm-006@27bbbdbe12605a00573f2af96d1d99d61e430ce6
-2026-05-24 08:32:47   [29/50] UID 65 | philk11/evolai-0.4b @
-2026-05-24 08:32:47 822950352d63cdd145c3a7449ebfd4b51ad5ae6a | hotkey 5GvHE1tHbhGv…
-2026-05-24 08:32:47     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:32:47     Fetched 20 texts (20 indices)
-2026-05-24 08:32:47    Downloading
-2026-05-24 08:32:47 andrebarrosilva1123/evolai-f@89654c7b1e351cce36bab65fe09692eb0e109f72…
-2026-05-24 08:32:48     Loaded (local prefetch)
-2026-05-24 08:32:49     ⚠ Invalid model size (0.60B; allowed 0.45-0.48B, 1.50-1.80B) — skipping
-2026-05-24 08:32:50   [30/50] UID 93 | Phoenix9781/evolai-tf-model @
-2026-05-24 08:32:50 b05038fcfdcc79fa8d8e79730074b65cd68c73f9 | hotkey 5F4R25t78FSF…
-2026-05-24 08:32:50     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:32:50     Fetched 20 texts (20 indices)
-2026-05-24 08:32:52     Loaded (local prefetch)
-2026-05-24 08:32:52     Model 0.46B → batch=512, seq=16384
-2026-05-24 08:32:53    Ready: andrebarrosilva1123/evolai-f@89654c7b1e351cce36bab65fe09692eb0e109f72
-2026-05-24 08:32:53    Downloading
-2026-05-24 08:32:53 clear-blue-sky/evolai-reborn-tfm-004@6e3b9a12cfe424e71568aedf62377377d49e4346…
-2026-05-24 08:32:53 Fetching 7 files: 100%|██████████| 7/7 [00:03<00:00,  1.96it/s]
-2026-05-24 08:32:57    Ready:
-2026-05-24 08:32:57 clear-blue-sky/evolai-reborn-tfm-004@6e3b9a12cfe424e71568aedf62377377d49e4346
-2026-05-24 08:33:30     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:35
-2026-05-24 08:33:30     Loss 3.8102 | Size ×0.50 | Think 3.8102 | ThinkGain 0 (+0.4581) | Flow
-2026-05-24 08:33:30 0.0169 | KL 1.9333 | NextKL 2.1836 | SideQ 0% | Score 0.0000 (37.5s)
-2026-05-24 08:33:30     Gate FAIL | Improve seed/ref mismatch cur=1.9333 req<=0.0000 prev=mismatch |
-2026-05-24 08:33:30 Consist ok ema_cur=1.9503 ema_next=1.9643 ratio=1.007 max<=1.20
-2026-05-24 08:33:32   Evicted cached model:
-2026-05-24 08:33:32 clear-blue-sky/evolai-reborn-tfm-007@ba9045012f93d80b69da2201376756708f45f355
-2026-05-24 08:33:32   [31/50] UID 52 | andrebarrosilva1123/evolai-f @
-2026-05-24 08:33:32 89654c7b1e351cce36bab65fe09692eb0e109f72 | hotkey 5HTZZEb5oxv9…
-2026-05-24 08:33:32    Downloading
-2026-05-24 08:33:32 evolai/evolai_test_challenge@c9122c31993eb1d9385cd65d609605619ec92d9b…
-2026-05-24 08:33:32     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:33:32     Fetched 20 texts (20 indices)
-2026-05-24 08:33:34     Loaded (local prefetch)
-2026-05-24 08:33:35     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
-2026-05-24 08:33:36    Ready: evolai/evolai_test_challenge@c9122c31993eb1d9385cd65d609605619ec92d9b
-2026-05-24 08:33:37   [32/50] UID 70 | clear-blue-sky/evolai-reborn-tfm-004 @
-2026-05-24 08:33:37 6e3b9a12cfe424e71568aedf62377377d49e4346 | hotkey 5Hdg2gHopWQK…
-2026-05-24 08:33:37     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:33:37     Fetched 20 texts (20 indices)
-2026-05-24 08:33:37    Downloading
-2026-05-24 08:33:37 sangerno63/evolai-transformer-v2@4b325f440c9ab4b8cc501454c5c5dc5f8e890ebb…
-2026-05-24 08:33:38     Loaded (local prefetch)
-2026-05-24 08:33:39     Model 0.46B → batch=512, seq=16384
-2026-05-24 08:33:41    Ready:
-2026-05-24 08:33:41 sangerno63/evolai-transformer-v2@4b325f440c9ab4b8cc501454c5c5dc5f8e890ebb
-2026-05-24 08:34:16     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:34
-2026-05-24 08:34:16     Loss 4.0898 | Size ×0.50 | Think 4.0898 | ThinkGain 0 (+0.4639) | Flow
-2026-05-24 08:34:16 0.0000 | KL 1.9655 | NextKL 1.9158 | SideQ 0% | Score 0.0000 (37.2s)
-2026-05-24 08:34:16     Gate FAIL | Improve seed/ref mismatch cur=1.9655 req<=0.0000 prev=mismatch |
-2026-05-24 08:34:16 Consist ok ema_cur=1.9030 ema_next=1.9056 ratio=1.001 max<=1.20
-2026-05-24 08:34:17   Evicted cached model:
-2026-05-24 08:34:17 Lin2es/evolai-tfm-03o@2fcb3445759b5cb5d5d6a9be9e5731f72cc0f600
-2026-05-24 08:34:18   [33/50] UID 8 | evolai/evolai_test_challenge @
-2026-05-24 08:34:18 c9122c31993eb1d9385cd65d609605619ec92d9b | hotkey 5ENhqnBoyFdz…
-2026-05-24 08:34:18     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:34:18     Fetched 20 texts (20 indices)
-2026-05-24 08:34:18    Downloading
-2026-05-24 08:34:18 Danieli1021/evolai-qwen047-v3@e01dfd3b9c54325c98bf12966bdebadace391002…
-2026-05-24 08:34:19     Loaded (local prefetch)
-2026-05-24 08:34:20     Model 0.46B → batch=512, seq=16384
-2026-05-24 08:34:22    Ready: Danieli1021/evolai-qwen047-v3@e01dfd3b9c54325c98bf12966bdebadace391002
-2026-05-24 08:34:57     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:34
-2026-05-24 08:34:57     Loss 3.6027 | Size ×0.50 | Think 3.6027 | ThinkGain 0 (+0.4518) | Flow
-2026-05-24 08:34:57 0.0171 | KL 1.7487 | NextKL 1.9632 | SideQ 0% | Score 0.0000 (37.4s)
-2026-05-24 08:34:57     Gate FAIL | Improve seed/ref mismatch cur=1.7487 req<=0.0000 prev=mismatch |
-2026-05-24 08:34:57 Consist ok ema_cur=1.7302 ema_next=1.9454 ratio=1.124 max<=1.20
-2026-05-24 08:34:59   Evicted cached model:
-2026-05-24 08:34:59 clear-blue-sky/evolai-reborn-tfm-003@db37ac46734d13b9f00d6049d02ad79254bcd03f
-2026-05-24 08:34:59   [34/50] UID 48 | sangerno63/evolai-transformer-v2 @
-2026-05-24 08:34:59 4b325f440c9ab4b8cc501454c5c5dc5f8e890ebb | hotkey 5ED3KNj5uEVS…
-2026-05-24 08:34:59     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:34:59     Fetched 20 texts (20 indices)
-2026-05-24 08:34:59    Downloading Lin2es/evolai-tfm-01o@d5af8d4f7543ee9e09ef3f668a29f2e09daeea8d…
-2026-05-24 08:35:01     Loaded (local prefetch)
-2026-05-24 08:35:01     Model 0.46B → batch=512, seq=16384
-2026-05-24 08:35:03    Ready: Lin2es/evolai-tfm-01o@d5af8d4f7543ee9e09ef3f668a29f2e09daeea8d
-2026-05-24 08:35:35     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:31
-2026-05-24 08:35:36     Loss 4.1999 | Size ×0.50 | Think 4.1999 | ThinkGain 0 (+0.4473) | Flow
-2026-05-24 08:35:36 0.0000 | KL 2.3440 | NextKL 1.9501 | SideQ 0% | Score 0.0000 (34.1s)
-2026-05-24 08:35:36     Gate FAIL | Improve seed/ref mismatch cur=2.3440 req<=0.0000 prev=mismatch |
-2026-05-24 08:35:36 Consist ok ema_cur=2.2160 ema_next=2.1799 ratio=0.984 max<=1.20
-2026-05-24 08:35:37   Evicted cached model:
-2026-05-24 08:35:37 mihai-777/evolai-tfm-1p5b-05@a66a1beeefdbc6ff871ea4854b4e71ed5c3a44ba
-2026-05-24 08:35:38   [35/50] UID 100 | Danieli1021/evolai-qwen047-v3 @
-2026-05-24 08:35:38 e01dfd3b9c54325c98bf12966bdebadace391002 | hotkey 5DMH2VrrukYd…
-2026-05-24 08:35:38     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:35:38     Fetched 20 texts (20 indices)
-2026-05-24 08:35:38    Downloading galuis116/evolai-future@9e86122b813ff73727cbe5711727895bd03d293a…
-2026-05-24 08:35:39     Loaded (local prefetch)
-2026-05-24 08:35:39     Model 0.47B → batch=512, seq=16384
-2026-05-24 08:35:42    Ready: galuis116/evolai-future@9e86122b813ff73727cbe5711727895bd03d293a
-2026-05-24 08:35:58     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:16
-2026-05-24 08:35:59     Loss 4.1601 | Size ×0.51 | Think 4.1601 | ThinkGain 0 (+0.4819) | Flow
-2026-05-24 08:35:59 0.0000 | KL 4.1897 | NextKL 3.8966 | SideQ 0% | Score 0.0000 (19.1s)
-2026-05-24 08:35:59     Gate FAIL | Improve seed/ref mismatch cur=4.1897 req<=0.0000 prev=mismatch |
-2026-05-24 08:35:59 Consist ok ema_cur=4.5086 ema_next=3.9373 ratio=0.873 max<=1.20
-2026-05-24 08:35:59   Evicted cached model:
-2026-05-24 08:35:59 mihai-777/evolai-tfm-1p5b-alt@5ebb4a406916abe39e32823ff1f635b70e707e5a
-2026-05-24 08:36:00   [36/50] UID 77 | Lin2es/evolai-tfm-01o @
-2026-05-24 08:36:00 d5af8d4f7543ee9e09ef3f668a29f2e09daeea8d | hotkey 5GQydjNVEhMb…
-2026-05-24 08:36:00     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:36:00     Fetched 20 texts (20 indices)
-2026-05-24 08:36:00    Downloading
-2026-05-24 08:36:00 clear-blue-sky/evolai-reborn-tfm-009@8b9297c32ac0472e1ac5165bbad3f96aac68a159…
-2026-05-24 08:36:02     Loaded (local prefetch)
-2026-05-24 08:36:02     Model 0.46B → batch=512, seq=16384
-2026-05-24 08:36:05    Ready:
-2026-05-24 08:36:05 clear-blue-sky/evolai-reborn-tfm-009@8b9297c32ac0472e1ac5165bbad3f96aac68a159
-2026-05-24 08:36:38     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:33
-2026-05-24 08:36:39     Loss 2.8218 | Size ×0.50 | Think 2.8218 | ThinkGain 0 (+0.4381) | Flow
-2026-05-24 08:36:39 0.0000 | KL 2.7014 | NextKL 2.3550 | SideQ 0% | Score 0.0000 (36.4s)
-2026-05-24 08:36:39     Gate FAIL | Improve seed/ref mismatch cur=2.7014 req<=0.0000 prev=mismatch |
-2026-05-24 08:36:39 Consist ok ema_cur=2.6526 ema_next=2.6006 ratio=0.980 max<=1.20
-2026-05-24 08:36:40   Evicted cached model:
-2026-05-24 08:36:40 mrthor102/evolai-tfm-super-004@8e2e1c6b0c7c398bcb2c6db8887b2af4679c1f16
-2026-05-24 08:36:41   [37/50] UID 101 | galuis116/evolai-future @
-2026-05-24 08:36:41 9e86122b813ff73727cbe5711727895bd03d293a | hotkey 5DPz76uobJLT…
-2026-05-24 08:36:41     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:36:41     Fetched 20 texts (20 indices)
-2026-05-24 08:36:41    Downloading
-2026-05-24 08:36:41 andrebarrosilva1123/evolai-d@89649e9376dace64f631711d3d270198e376702e…
-2026-05-24 08:36:42     Loaded (local prefetch)
-2026-05-24 08:36:42     Model 0.46B → batch=512, seq=16384
-2026-05-24 08:36:47    Ready: andrebarrosilva1123/evolai-d@89649e9376dace64f631711d3d270198e376702e
-2026-05-24 08:37:19     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:34
-2026-05-24 08:37:19     Loss 3.8400 | Size ×0.50 | Think 3.8400 | ThinkGain 0 (+0.4596) | Flow
-2026-05-24 08:37:19 0.2269 | KL 1.8151 | NextKL 1.7305 | SideQ 0% | Score 0.0000 (36.5s)
-2026-05-24 08:37:19     Gate FAIL | Improve seed/ref mismatch cur=1.8151 req<=0.0000 prev=mismatch |
-2026-05-24 08:37:19 Consist ok ema_cur=1.9082 ema_next=1.8917 ratio=0.991 max<=1.20
-2026-05-24 08:37:21   Evicted cached model:
-2026-05-24 08:37:21 evolai/evolai_naive_kl@da8203b6900f14ec1b724f3dd8c6dc35576fc3e4
-2026-05-24 08:37:21   [38/50] UID 69 | clear-blue-sky/evolai-reborn-tfm-009 @
-2026-05-24 08:37:21 8b9297c32ac0472e1ac5165bbad3f96aac68a159 | hotkey 5ChUCf3NjrgS…
-2026-05-24 08:37:21     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:37:21     Fetched 20 texts (20 indices)
-2026-05-24 08:37:21    Downloading
-2026-05-24 08:37:21 andrebarrosilva1123/evolai-c@6fc3d7f7c514cf3d5e4fc44dd8ef6b4ef883827c…
-2026-05-24 08:37:22     Loaded (local prefetch)
-2026-05-24 08:37:23     Model 0.46B → batch=512, seq=16384
-2026-05-24 08:37:28    Ready: andrebarrosilva1123/evolai-c@6fc3d7f7c514cf3d5e4fc44dd8ef6b4ef883827c
-2026-05-24 08:38:00     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:34
-2026-05-24 08:38:00     Loss 3.9368 | Size ×0.50 | Think 3.9368 | ThinkGain 0 (+0.4622) | Flow
-2026-05-24 08:38:00 0.2604 | KL 2.0164 | NextKL 1.6814 | SideQ 0% | Score 0.0000 (37.1s)
-2026-05-24 08:38:00     Gate FAIL | Improve seed/ref mismatch cur=2.0164 req<=0.0000 prev=mismatch |
-2026-05-24 08:38:00 Consist ok ema_cur=1.9247 ema_next=1.9065 ratio=0.991 max<=1.20
-2026-05-24 08:38:02   Evicted cached model:
-2026-05-24 08:38:02 Phoenix9781/evolai-tf-model@b05038fcfdcc79fa8d8e79730074b65cd68c73f9
-2026-05-24 08:38:02   [39/50] UID 51 | andrebarrosilva1123/evolai-d @
-2026-05-24 08:38:02 89649e9376dace64f631711d3d270198e376702e | hotkey 5EhLiPB1GHwH…
-2026-05-24 08:38:02     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:38:02     Fetched 20 texts (20 indices)
-2026-05-24 08:38:02    Downloading
-2026-05-24 08:38:02 Roystar/evolai-qwen2.5-1.5b@47e6a605a62ff328096c1d7bd160b8eaf9ec5ff1…
-2026-05-24 08:38:04     Loaded (local prefetch)
-2026-05-24 08:38:05     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
-2026-05-24 08:38:07   [40/50] UID 54 | andrebarrosilva1123/evolai-c @
-2026-05-24 08:38:07 6fc3d7f7c514cf3d5e4fc44dd8ef6b4ef883827c | hotkey 5D7HPRR2QdDB…
-2026-05-24 08:38:07     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:38:07     Fetched 20 texts (20 indices)
-2026-05-24 08:38:09    Ready: Roystar/evolai-qwen2.5-1.5b@47e6a605a62ff328096c1d7bd160b8eaf9ec5ff1
-2026-05-24 08:38:09    Downloading Jubilant/evolai-1.54b@d8681d30b14cb5a597d2ff7c909998cf9d217599…
-2026-05-24 08:38:09     Loaded (local prefetch)
-2026-05-24 08:38:09 Fetching 7 files: 100%|██████████| 7/7 [00:06<00:00,  1.08it/s]
-2026-05-24 08:38:09     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
-2026-05-24 08:38:11   [41/50] UID 55 | Roystar/evolai-qwen2.5-1.5b @
-2026-05-24 08:38:11 47e6a605a62ff328096c1d7bd160b8eaf9ec5ff1 | hotkey 5DhRJtUeVA6P…
-2026-05-24 08:38:11     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:38:11     Fetched 20 texts (20 indices)
-2026-05-24 08:38:13     Loaded (local prefetch)
-2026-05-24 08:38:14     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
-2026-05-24 08:38:15    Ready: Jubilant/evolai-1.54b@d8681d30b14cb5a597d2ff7c909998cf9d217599
-2026-05-24 08:38:15    Downloading Lin2es/evolai-tfm-02o@fc5fc3ee4a3877b825b404dc85c9367c1f248c59…
-2026-05-24 08:38:16   [42/50] UID 36 | Jubilant/evolai-1.54b @
-2026-05-24 08:38:16 d8681d30b14cb5a597d2ff7c909998cf9d217599 | hotkey 5G7Co5VNfQio…
-2026-05-24 08:38:16     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:38:16     Fetched 20 texts (20 indices)
-2026-05-24 08:38:18     Loaded (local prefetch)
-2026-05-24 08:38:18     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
-2026-05-24 08:38:19    Ready: Lin2es/evolai-tfm-02o@fc5fc3ee4a3877b825b404dc85c9367c1f248c59
-2026-05-24 08:38:19    Downloading
-2026-05-24 08:38:19 clear-blue-sky/evolai-reborn-tfm-001@a9b8015b9bcc040b74f8c328190566bef5b1d25e…
-2026-05-24 08:38:20   [43/50] UID 78 | Lin2es/evolai-tfm-02o @
-2026-05-24 08:38:20 fc5fc3ee4a3877b825b404dc85c9367c1f248c59 | hotkey 5FA2kgLNs36d…
-2026-05-24 08:38:20     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:38:20     Fetched 20 texts (20 indices)
-2026-05-24 08:38:21     Loaded (local prefetch)
-2026-05-24 08:38:22     Model 0.46B → batch=512, seq=16384
-2026-05-24 08:38:24    Ready:
-2026-05-24 08:38:24 clear-blue-sky/evolai-reborn-tfm-001@a9b8015b9bcc040b74f8c328190566bef5b1d25e
-2026-05-24 08:38:24    Downloading
-2026-05-24 08:38:24 Jubilant/evolai-1.50b-v1@074810c41bab77c52a216e0c2f7886484e12deeb…
-2026-05-24 08:38:24 Fetching 7 files: 100%|██████████| 7/7 [00:06<00:00,  1.09it/s]
-2026-05-24 08:38:31    Ready: Jubilant/evolai-1.50b-v1@074810c41bab77c52a216e0c2f7886484e12deeb
-2026-05-24 08:38:59     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:35
-2026-05-24 08:38:59     Loss 2.9082 | Size ×0.50 | Think 2.9082 | ThinkGain 0 (+0.4256) | Flow
-2026-05-24 08:38:59 0.0000 | KL 2.8450 | NextKL 2.8060 | SideQ 0% | Score 0.0000 (37.5s)
-2026-05-24 08:38:59     Gate FAIL | Improve seed/ref mismatch cur=2.8450 req<=0.0000 prev=mismatch |
-2026-05-24 08:38:59 Consist ok ema_cur=2.8081 ema_next=2.8042 ratio=0.999 max<=1.20
-2026-05-24 08:39:00   Evicted cached model:
-2026-05-24 08:39:00 clear-blue-sky/evolai-reborn-tfm-004@6e3b9a12cfe424e71568aedf62377377d49e4346
-2026-05-24 08:39:01   [44/50] UID 62 | clear-blue-sky/evolai-reborn-tfm-001 @
-2026-05-24 08:39:01 a9b8015b9bcc040b74f8c328190566bef5b1d25e | hotkey 5EjjVuNJsjqP…
-2026-05-24 08:39:01    Downloading
-2026-05-24 08:39:01 dexserbia/evolai-gemma2-9b@7fe66309a3847239a4da5b712477f2105e88399b…
-2026-05-24 08:39:01     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:39:01     Fetched 20 texts (20 indices)
-2026-05-24 08:39:03     Loaded (local prefetch)
-2026-05-24 08:39:03     Model 0.46B → batch=512, seq=16384
-2026-05-24 08:39:32    Ready: dexserbia/evolai-gemma2-9b@7fe66309a3847239a4da5b712477f2105e88399b
-2026-05-24 08:39:43     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:37
-2026-05-24 08:39:43     Loss 4.0717 | Size ×0.50 | Think 4.0717 | ThinkGain 0 (+0.4623) | Flow
-2026-05-24 08:39:43 0.0000 | KL 2.0717 | NextKL 1.8757 | SideQ 0% | Score 0.0000 (39.5s)
-2026-05-24 08:39:43     Gate FAIL | Improve seed/ref mismatch cur=2.0717 req<=0.0000 prev=mismatch |
-2026-05-24 08:39:43 Consist ok ema_cur=1.9533 ema_next=1.9239 ratio=0.985 max<=1.20
-2026-05-24 08:39:44   Evicted cached model:
-2026-05-24 08:39:44 evolai/evolai_test_challenge@c9122c31993eb1d9385cd65d609605619ec92d9b
-2026-05-24 08:39:45   [45/50] UID 40 | Jubilant/evolai-1.50b-v1 @
-2026-05-24 08:39:45 074810c41bab77c52a216e0c2f7886484e12deeb | hotkey 5Fuv43yR7tjJ…
-2026-05-24 08:39:45     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:39:45     Fetched 20 texts (20 indices)
-2026-05-24 08:39:45    Downloading
-2026-05-24 08:39:45 clear-blue-sky/evolai-reborn-tfm-005@4e2c98f78611b6f2e63d6baad12b51c589f8afb3…
-2026-05-24 08:39:46     Loaded (local prefetch)
-2026-05-24 08:39:47     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
-2026-05-24 08:39:49   [46/50] UID 9 | dexserbia/evolai-gemma2-9b @
-2026-05-24 08:39:49 7fe66309a3847239a4da5b712477f2105e88399b | hotkey 5EbpxBkVKVNV…
-2026-05-24 08:39:49     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:39:49     Fetched 20 texts (20 indices)
-2026-05-24 08:39:49    Ready:
-2026-05-24 08:39:49 clear-blue-sky/evolai-reborn-tfm-005@4e2c98f78611b6f2e63d6baad12b51c589f8afb3
-2026-05-24 08:39:49    Downloading Lin2es/evolai-tfm-04o@52061d203723fdc8be09324d0c827898fcb7bdc4…
-2026-05-24 08:39:51    Ready: Lin2es/evolai-tfm-04o@52061d203723fdc8be09324d0c827898fcb7bdc4
-2026-05-24 08:39:54     Loaded (local prefetch)
-2026-05-24 08:39:56     ⚠ Invalid model size (9.24B; allowed 0.45-0.48B, 1.50-1.80B) — skipping
-2026-05-24 08:39:58   [47/50] UID 83 | clear-blue-sky/evolai-reborn-tfm-005 @
-2026-05-24 08:39:58 4e2c98f78611b6f2e63d6baad12b51c589f8afb3 | hotkey 5G8tRiKdn5cC…
-2026-05-24 08:39:58     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:39:58     Fetched 20 texts (20 indices)
-2026-05-24 08:39:58    Downloading
-2026-05-24 08:39:58 batster4/evolai-phi4-mini-dpo-v1@8217794abaf74f8e15f578a507e27b5f9b1df4c9…
-2026-05-24 08:40:00     Loaded (local prefetch)
-2026-05-24 08:40:00     Model 0.46B → batch=512, seq=16384
-2026-05-24 08:40:13    Ready:
-2026-05-24 08:40:13 batster4/evolai-phi4-mini-dpo-v1@8217794abaf74f8e15f578a507e27b5f9b1df4c9
-2026-05-24 08:40:38     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:35
-2026-05-24 08:40:39     Loss 3.7473 | Size ×0.50 | Think 3.7473 | ThinkGain 0 (+0.4632) | Flow
-2026-05-24 08:40:39 0.0000 | KL 1.9585 | NextKL 1.8621 | SideQ 0% | Score 0.0000 (38.3s)
-2026-05-24 08:40:39     Gate FAIL | Improve seed/ref mismatch cur=1.9585 req<=0.0000 prev=mismatch |
-2026-05-24 08:40:39 Consist ok ema_cur=2.6802 ema_next=1.9396 ratio=0.724 max<=1.20
-2026-05-24 08:40:40   Evicted cached model:
-2026-05-24 08:40:40 sangerno63/evolai-transformer-v2@4b325f440c9ab4b8cc501454c5c5dc5f8e890ebb
-2026-05-24 08:40:40   [48/50] UID 92 | Lin2es/evolai-tfm-04o @
-2026-05-24 08:40:40 52061d203723fdc8be09324d0c827898fcb7bdc4 | hotkey 5GefYX69KUVQ…
-2026-05-24 08:40:40     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:40:40    Downloading
-2026-05-24 08:40:40 clear-blue-sky/evolai-reborn-tfm-008@47961a2955038f307126b383cedfcaf3c83fc00e…
-2026-05-24 08:40:40     Fetched 20 texts (20 indices)
-2026-05-24 08:40:42     Loaded (local prefetch)
-2026-05-24 08:40:42     Model 0.46B → batch=512, seq=16384
-2026-05-24 08:40:45    Ready:
-2026-05-24 08:40:45 clear-blue-sky/evolai-reborn-tfm-008@47961a2955038f307126b383cedfcaf3c83fc00e
-2026-05-24 08:41:16     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:31
-2026-05-24 08:41:17     Loss 2.9164 | Size ×0.50 | Think 2.9164 | ThinkGain 0 (+0.4483) | Flow
-2026-05-24 08:41:17 0.0000 | KL 2.4377 | NextKL 2.1930 | SideQ 0% | Score 0.0000 (34.1s)
-2026-05-24 08:41:17     Gate FAIL | Improve seed/ref mismatch cur=2.4377 req<=0.0000 prev=mismatch |
-2026-05-24 08:41:17 Consist ok ema_cur=3.2060 ema_next=2.5218 ratio=0.787 max<=1.20
-2026-05-24 08:41:17   Evicted cached model:
-2026-05-24 08:41:17 Danieli1021/evolai-qwen047-v3@e01dfd3b9c54325c98bf12966bdebadace391002
-2026-05-24 08:41:18   [49/50] UID 59 | batster4/evolai-phi4-mini-dpo-v1 @
-2026-05-24 08:41:18 8217794abaf74f8e15f578a507e27b5f9b1df4c9 | hotkey 5GCA2s6m4RRM…
-2026-05-24 08:41:18     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:41:18     Fetched 20 texts (20 indices)
-2026-05-24 08:41:21     Loaded (local prefetch)
-2026-05-24 08:41:22     ⚠ Invalid model size (3.84B; allowed 0.45-0.48B, 1.50-1.80B) — skipping
-2026-05-24 08:41:23   [50/50] UID 85 | clear-blue-sky/evolai-reborn-tfm-008 @
-2026-05-24 08:41:23 47961a2955038f307126b383cedfcaf3c83fc00e | hotkey 5EC5MzPj6dGb…
-2026-05-24 08:41:23     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:41:23     Fetched 20 texts (20 indices)
-2026-05-24 08:41:24     Loaded (local prefetch)
-2026-05-24 08:41:25     Model 0.46B → batch=512, seq=16384
-2026-05-24 08:41:58     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:30
-2026-05-24 08:41:58     Loss 3.8056 | Size ×0.50 | Think 3.8056 | ThinkGain 0 (+0.4616) | Flow
-2026-05-24 08:41:58 0.0000 | KL 1.9754 | NextKL 2.0239 | SideQ 0% | Score 0.0000 (33.0s)
-2026-05-24 08:41:58     Gate FAIL | Improve seed/ref mismatch cur=1.9754 req<=0.0000 prev=mismatch |
-2026-05-24 08:41:58 Consist ok ema_cur=2.6665 ema_next=1.9659 ratio=0.737 max<=1.20
-2026-05-24 08:41:59   Evicted cached model:
-2026-05-24 08:41:59 Lin2es/evolai-tfm-01o@d5af8d4f7543ee9e09ef3f668a29f2e09daeea8d
-2026-05-24 08:42:00   Cached next refs for transformer: 50 miner(s)
-2026-05-24 08:42:00 
-2026-05-24 08:42:00   ✓ TRANSFORMER: 30 evaluated, 23 skipped —
-2026-05-24 08:42:00 epoch_22924_transformer_20260524_081230.json
-2026-05-24 08:42:00   ✓ Telemetry sent (30 records)
-2026-05-24 08:42:00 Evaluating MAMBA2 track…
-2026-05-24 08:42:00 
-2026-05-24 08:42:00   Found 15 locked mamba2 miners
-2026-05-24 08:42:00    Downloading Lin2es/evolai-mb2-02v@c1ad3d94c5929dcc0e3a40d9d9034bd80da9a1f8…
-2026-05-24 08:42:00 Pre-building current/next challenges for 15 miners…
-2026-05-24 08:42:00 Fetching 7 files: 100%|██████████| 7/7 [00:02<00:00,  2.50it/s]
-2026-05-24 08:42:03    Ready: Lin2es/evolai-mb2-02v@c1ad3d94c5929dcc0e3a40d9d9034bd80da9a1f8
-2026-05-24 08:42:03    Downloading
-2026-05-24 08:42:03 elgin-group/evolai-mamba2-0p47b-v1@39b2f90ad08643d34503c88f5c7224fd3dabeed7…
-2026-05-24 08:42:03 Fetching 8 files: 100%|██████████| 8/8 [00:03<00:00,  2.24it/s]
-2026-05-24 08:42:08    Ready:
-2026-05-24 08:42:08 elgin-group/evolai-mamba2-0p47b-v1@39b2f90ad08643d34503c88f5c7224fd3dabeed7
-2026-05-24 08:42:37 ✓ Ref data ready: submitted=30, cached=0
-2026-05-24 08:42:37   [1/15] UID 90 | Lin2es/evolai-mb2-02v @
-2026-05-24 08:42:37 c1ad3d94c5929dcc0e3a40d9d9034bd80da9a1f8 | hotkey 5CtLLhrw6Lxa…
-2026-05-24 08:42:37     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:42:37     Fetched 20 texts (20 indices)
-2026-05-24 08:42:37    Downloading
-2026-05-24 08:42:37 andrebarrosilva1123/evolai-mamba2-a@55b92d373b1c219a4cfbac7034c154ddbcdc854d…
-2026-05-24 08:42:40    Ready:
-2026-05-24 08:42:40 andrebarrosilva1123/evolai-mamba2-a@55b92d373b1c219a4cfbac7034c154ddbcdc854d
-2026-05-24 08:42:47     Loaded (local prefetch)
-2026-05-24 08:42:47     Model 0.48B → batch=512, seq=16384
-2026-05-24 08:43:09     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:16
-2026-05-24 08:43:09     Loss 4.6753 | Size ×0.52 | Think 0.0000 | ThinkGain 0 (+0.5000) | Flow
-2026-05-24 08:43:09 0.0000 | KL 4.6753 | NextKL 4.7356 | SideQ 0% | Score 0.0000 (22.0s)
-2026-05-24 08:43:09     Gate FAIL | Improve seed/ref mismatch cur=4.6753 req<=0.0000 prev=mismatch |
-2026-05-24 08:43:09 Consist ok ema_cur=5.1888 ema_next=4.7152 ratio=0.909 max<=1.20
-2026-05-24 08:43:11   Evicted cached model:
-2026-05-24 08:43:11 galuis116/evolai-future@9e86122b813ff73727cbe5711727895bd03d293a
-2026-05-24 08:43:12   [2/15] UID 34 | elgin-group/evolai-mamba2-0p47b-v1 @
-2026-05-24 08:43:12 39b2f90ad08643d34503c88f5c7224fd3dabeed7 | hotkey 5GNJr9NfE9e9…
-2026-05-24 08:43:12     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:43:12     Fetched 20 texts (20 indices)
-2026-05-24 08:43:12    Downloading
-2026-05-24 08:43:12 mihai-777/evolai-mamba2-1p6b-alt@131bd3907f9816bbf184f5651ba63af66046e84c…
-2026-05-24 08:43:15    Ready:
-2026-05-24 08:43:15 mihai-777/evolai-mamba2-1p6b-alt@131bd3907f9816bbf184f5651ba63af66046e84c
-2026-05-24 08:43:16     Loaded (local prefetch)
-2026-05-24 08:43:17     ⚠ Vocab incompatible (model=151669 < ref=248077) — skipping
-2026-05-24 08:43:18   [3/15] UID 56 | andrebarrosilva1123/evolai-mamba2-a @
-2026-05-24 08:43:18 55b92d373b1c219a4cfbac7034c154ddbcdc854d | hotkey 5D1zGn2n3mzF…
-2026-05-24 08:43:18     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:43:18     Fetched 20 texts (20 indices)
-2026-05-24 08:43:18    Downloading
-2026-05-24 08:43:18 andrebarrosilva1123/evolai-mamba2-b@62336a49df6d6014f779575adfd29373c228edd4…
-2026-05-24 08:43:21    Ready:
-2026-05-24 08:43:21 andrebarrosilva1123/evolai-mamba2-b@62336a49df6d6014f779575adfd29373c228edd4
-2026-05-24 08:43:23     Loaded (local prefetch)
-2026-05-24 08:43:23     ⚠ Vocab incompatible (model=151669 < ref=248077) — skipping
-2026-05-24 08:43:25   [4/15] UID 32 | mihai-777/evolai-mamba2-1p6b-alt @
-2026-05-24 08:43:25 131bd3907f9816bbf184f5651ba63af66046e84c | hotkey 5GL84HKDau7C…
-2026-05-24 08:43:25     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:43:25    Downloading
-2026-05-24 08:43:25 Radiant28/evolai-mamba2-0.47b-v3@97f692fb0b295aa29075d3f9d592bfb4e7625b16…
-2026-05-24 08:43:25     Fetched 20 texts (20 indices)
-2026-05-24 08:43:28    Ready:
-2026-05-24 08:43:28 Radiant28/evolai-mamba2-0.47b-v3@97f692fb0b295aa29075d3f9d592bfb4e7625b16
-2026-05-24 08:43:29     Loaded (local prefetch)
-2026-05-24 08:43:30     Model 0.48B → batch=512, seq=16384
-2026-05-24 08:43:31    alpha=0.005459 TAO/α  budget=0.049646
-2026-05-24 08:43:38     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:04
-2026-05-24 08:43:38     Loss 5.0221 | Size ×0.52 | Think 0.0000 | ThinkGain 0 (+0.5000) | Flow
-2026-05-24 08:43:38 0.0000 | KL 5.0221 | NextKL 4.7938 | SideQ 0% | Score 0.0000 (7.9s)
-2026-05-24 08:43:38     Gate FAIL | Improve seed/ref mismatch cur=5.0221 req<=0.0000 prev=mismatch |
-2026-05-24 08:43:38 Consist ok ema_cur=4.8986 ema_next=4.8772 ratio=0.996 max<=1.20
-2026-05-24 08:43:40   Evicted cached model:
-2026-05-24 08:43:40 clear-blue-sky/evolai-reborn-tfm-009@8b9297c32ac0472e1ac5165bbad3f96aac68a159
-2026-05-24 08:43:40   [5/15] UID 57 | andrebarrosilva1123/evolai-mamba2-b @
-2026-05-24 08:43:40 62336a49df6d6014f779575adfd29373c228edd4 | hotkey 5EZx1DRvpMGK…
-2026-05-24 08:43:40     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:43:40    Downloading Lin2es/evolai-mb2-04v@9c0198682f16cc8595fec849aa37227f7160e92c…
-2026-05-24 08:43:40     Fetched 20 texts (20 indices)
-2026-05-24 08:43:42     Loaded (local prefetch)
-2026-05-24 08:43:43     ⚠ Vocab incompatible (model=151669 < ref=248077) — skipping
-2026-05-24 08:43:43    Ready: Lin2es/evolai-mb2-04v@9c0198682f16cc8595fec849aa37227f7160e92c
-2026-05-24 08:43:44   [6/15] UID 41 | Radiant28/evolai-mamba2-0.47b-v3 @
-2026-05-24 08:43:44 97f692fb0b295aa29075d3f9d592bfb4e7625b16 | hotkey 5CP5QrWuFe93…
-2026-05-24 08:43:44     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:43:44     Fetched 20 texts (20 indices)
-2026-05-24 08:43:44    Downloading
-2026-05-24 08:43:44 mihai-777/evolai-mamba2-0p47b-v3@c2a96b92acf632d51a2c21da4482f77f98256518…
-2026-05-24 08:43:47     Loaded (local prefetch)
-2026-05-24 08:43:47     ⚠ Vocab incompatible (model=151669 < ref=248077) — skipping
-2026-05-24 08:43:48    Ready:
-2026-05-24 08:43:48 mihai-777/evolai-mamba2-0p47b-v3@c2a96b92acf632d51a2c21da4482f77f98256518
-2026-05-24 08:43:49   [7/15] UID 89 | Lin2es/evolai-mb2-04v @
-2026-05-24 08:43:49 9c0198682f16cc8595fec849aa37227f7160e92c | hotkey 5DkZf6V3X8Za…
-2026-05-24 08:43:49     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:43:49     Fetched 20 texts (20 indices)
-2026-05-24 08:43:49    Downloading Lin2es/evolai-mb2-03v@3047597c4e4b4430450ddcd633240b88d781fdbd…
-2026-05-24 08:43:50     Loaded (local prefetch)
-2026-05-24 08:43:51     ⚠ Vocab incompatible (model=151665 < ref=248077) — skipping
-2026-05-24 08:43:51    Ready: Lin2es/evolai-mb2-03v@3047597c4e4b4430450ddcd633240b88d781fdbd
-2026-05-24 08:43:53   [8/15] UID 30 | mihai-777/evolai-mamba2-0p47b-v3 @
-2026-05-24 08:43:53 c2a96b92acf632d51a2c21da4482f77f98256518 | hotkey 5GGsbuVKDrTA…
-2026-05-24 08:43:53     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:43:53     Fetched 20 texts (20 indices)
-2026-05-24 08:43:53    Downloading
-2026-05-24 08:43:53 mihai-777/evolai-mamba2-0p47b@7b6564c9a46f602702c260185aa43867f321dee7…
-2026-05-24 08:43:54     Loaded (local prefetch)
-2026-05-24 08:43:54     Model 0.48B → batch=512, seq=16384
-2026-05-24 08:43:56    Ready: mihai-777/evolai-mamba2-0p47b@7b6564c9a46f602702c260185aa43867f321dee7
-2026-05-24 08:43:59     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:01
-2026-05-24 08:43:59     Loss 4.7515 | Size ×0.52 | Think 0.0000 | ThinkGain 0 (+0.5000) | Flow
-2026-05-24 08:43:59 0.2275 | KL 4.7515 | NextKL 4.8587 | SideQ 0% | Score 0.0000 (4.2s)
-2026-05-24 08:43:59     Gate FAIL | Improve seed/ref mismatch cur=4.7515 req<=0.0000 prev=mismatch |
-2026-05-24 08:43:59 Consist ok ema_cur=4.7885 ema_next=4.8020 ratio=1.003 max<=1.20
-2026-05-24 08:44:00   Evicted cached model:
-2026-05-24 08:44:00 Lin2es/evolai-tfm-02o@fc5fc3ee4a3877b825b404dc85c9367c1f248c59
-2026-05-24 08:44:01   [9/15] UID 91 | Lin2es/evolai-mb2-03v @
-2026-05-24 08:44:01 3047597c4e4b4430450ddcd633240b88d781fdbd | hotkey 5EcdUqvUBCSp…
-2026-05-24 08:44:01     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:44:01     Fetched 20 texts (20 indices)
-2026-05-24 08:44:01    Downloading Lin2es/evolai-mb2-01v@a7f32e5ce7f8d307c98560e5025525f3703310c0…
-2026-05-24 08:44:02     Loaded (local prefetch)
-2026-05-24 08:44:03     Model 0.48B → batch=512, seq=16384
-2026-05-24 08:44:04    Ready: Lin2es/evolai-mb2-01v@a7f32e5ce7f8d307c98560e5025525f3703310c0
-2026-05-24 08:44:07     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:01
-2026-05-24 08:44:07     Loss 4.6669 | Size ×0.52 | Think 0.0000 | ThinkGain 0 (+0.5000) | Flow
-2026-05-24 08:44:07 0.0066 | KL 4.6669 | NextKL 4.7157 | SideQ 0% | Score 0.0000 (4.2s)
-2026-05-24 08:44:07     Gate FAIL | Improve seed/ref mismatch cur=4.6669 req<=0.0000 prev=mismatch |
-2026-05-24 08:44:07 Consist ok ema_cur=4.6624 ema_next=4.6713 ratio=1.002 max<=1.20
-2026-05-24 08:44:09   Evicted cached model:
-2026-05-24 08:44:09 clear-blue-sky/evolai-reborn-tfm-001@a9b8015b9bcc040b74f8c328190566bef5b1d25e
-2026-05-24 08:44:09   [10/15] UID 31 | mihai-777/evolai-mamba2-0p47b @
-2026-05-24 08:44:09 7b6564c9a46f602702c260185aa43867f321dee7 | hotkey 5CJuKKq16FkR…
-2026-05-24 08:44:09     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:44:09     Fetched 20 texts (20 indices)
-2026-05-24 08:44:09    Downloading
-2026-05-24 08:44:09 andrebarrosilva1123/evolai-mamba2-c@dc37c985d66c77e3d10bf9eaf16e6dc952c62e17…
-2026-05-24 08:44:11     Loaded (local prefetch)
-2026-05-24 08:44:11     Model 0.48B → batch=512, seq=16384
-2026-05-24 08:44:12    Ready:
-2026-05-24 08:44:12 andrebarrosilva1123/evolai-mamba2-c@dc37c985d66c77e3d10bf9eaf16e6dc952c62e17
-2026-05-24 08:44:15     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:01
-2026-05-24 08:44:15     Loss 4.9396 | Size ×0.52 | Think 0.0000 | ThinkGain 0 (+0.5000) | Flow
-2026-05-24 08:44:15 0.0000 | KL 4.9396 | NextKL 4.8183 | SideQ 0% | Score 0.0000 (3.9s)
-2026-05-24 08:44:15     Gate FAIL | Improve seed/ref mismatch cur=4.9396 req<=0.0000 prev=mismatch |
-2026-05-24 08:44:15 Consist ok ema_cur=4.7705 ema_next=4.7693 ratio=1.000 max<=1.20
-2026-05-24 08:44:17   Evicted cached model:
-2026-05-24 08:44:17 clear-blue-sky/evolai-reborn-tfm-005@4e2c98f78611b6f2e63d6baad12b51c589f8afb3
-2026-05-24 08:44:17   [11/15] UID 11 | Lin2es/evolai-mb2-01v @
-2026-05-24 08:44:17 a7f32e5ce7f8d307c98560e5025525f3703310c0 | hotkey 5HYuS4jrJJ56…
-2026-05-24 08:44:17     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:44:17    Downloading
-2026-05-24 08:44:17 evolai/evolai_mamba_naive_kl@b7c8842d1d5a700bd6a36b834fe6f0b3dc5d321a…
-2026-05-24 08:44:17     Fetched 20 texts (20 indices)
-2026-05-24 08:44:18    emission scale=1.000 (active miners)
-2026-05-24 08:44:19    emission scale=1.000 (active miners)
-2026-05-24 08:44:19    all quality scores zero after gates — emission share redistributed to
-2026-05-24 08:44:19 productive tracks
-2026-05-24 08:44:19     Loaded (local prefetch)
-2026-05-24 08:44:19     Model 0.48B → batch=512, seq=16384
-2026-05-24 08:44:21    Ready: evolai/evolai_mamba_naive_kl@b7c8842d1d5a700bd6a36b834fe6f0b3dc5d321a
-2026-05-24 08:44:22   ✓  set at 08:44:22 UTC
-2026-05-24 08:44:23     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:01
-2026-05-24 08:44:23     Loss 4.6542 | Size ×0.52 | Think 0.0000 | ThinkGain 0 (+0.5000) | Flow
-2026-05-24 08:44:23 0.1465 | KL 4.6542 | NextKL 4.6361 | SideQ 0% | Score 0.0000 (3.6s)
-2026-05-24 08:44:23     Gate FAIL | Improve seed/ref mismatch cur=4.6542 req<=0.0000 prev=mismatch |
-2026-05-24 08:44:23 Consist ok ema_cur=4.6515 ema_next=4.6594 ratio=1.002 max<=1.20
-2026-05-24 08:44:25   Evicted cached model:
-2026-05-24 08:44:25 Lin2es/evolai-tfm-04o@52061d203723fdc8be09324d0c827898fcb7bdc4
-2026-05-24 08:44:25   [12/15] UID 58 | andrebarrosilva1123/evolai-mamba2-c @
-2026-05-24 08:44:25 dc37c985d66c77e3d10bf9eaf16e6dc952c62e17 | hotkey 5EgtSzXJbjpV…
-2026-05-24 08:44:25     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:44:25    Downloading
-2026-05-24 08:44:25 Radiant28/evolai-mamba2-0.47b-v2@475bf7bf65af1192ed824d58816c1d83f3475983…
-2026-05-24 08:44:25     Fetched 20 texts (20 indices)
-2026-05-24 08:44:27     Loaded (local prefetch)
-2026-05-24 08:44:27     ⚠ Vocab incompatible (model=151669 < ref=248077) — skipping
-2026-05-24 08:44:28    Ready:
-2026-05-24 08:44:28 Radiant28/evolai-mamba2-0.47b-v2@475bf7bf65af1192ed824d58816c1d83f3475983
-2026-05-24 08:44:29   [13/15] UID 96 | evolai/evolai_mamba_naive_kl @
-2026-05-24 08:44:29 b7c8842d1d5a700bd6a36b834fe6f0b3dc5d321a | hotkey 5HQuJVXBXGrW…
-2026-05-24 08:44:29     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:44:29     Fetched 20 texts (20 indices)
-2026-05-24 08:44:29    Downloading
-2026-05-24 08:44:29 batster4/evolai-mamba2-v1@142f14d218be618e3161d86926085b3a9cefed55…
-2026-05-24 08:44:30     Loaded (local prefetch)
-2026-05-24 08:44:30     Model 0.46B → batch=512, seq=16384
-2026-05-24 08:44:32    Ready: batster4/evolai-mamba2-v1@142f14d218be618e3161d86926085b3a9cefed55
-2026-05-24 08:44:38     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:05
-2026-05-24 08:44:39     Loss 3.5728 | Size ×0.50 | Think 0.0000 | ThinkGain 0 (+0.5000) | Flow
-2026-05-24 08:44:39 0.0000 | KL 3.5728 | NextKL 3.5533 | SideQ 0% | Score 0.0000 (8.3s)
-2026-05-24 08:44:39     Gate FAIL | Improve seed/ref mismatch cur=3.5728 req<=0.0000 prev=mismatch |
-2026-05-24 08:44:39 Consist ok ema_cur=4.0780 ema_next=3.5055 ratio=0.860 max<=1.20
-2026-05-24 08:44:40   Evicted cached model:
-2026-05-24 08:44:40 clear-blue-sky/evolai-reborn-tfm-008@47961a2955038f307126b383cedfcaf3c83fc00e
-2026-05-24 08:44:41   [14/15] UID 39 | Radiant28/evolai-mamba2-0.47b-v2 @
-2026-05-24 08:44:41 475bf7bf65af1192ed824d58816c1d83f3475983 | hotkey 5FvTt3gVVhFT…
-2026-05-24 08:44:41     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:44:41     Fetched 20 texts (20 indices)
-2026-05-24 08:44:42     Loaded (local prefetch)
-2026-05-24 08:44:43     ⚠ Vocab incompatible (model=151669 < ref=248077) — skipping
-2026-05-24 08:44:44   [15/15] UID 60 | batster4/evolai-mamba2-v1 @
-2026-05-24 08:44:44 142f14d218be618e3161d86926085b3a9cefed55 | hotkey 5Dc8EpAixcqc…
-2026-05-24 08:44:44     Challenge: evolai/universal_qa(20 idx)
-2026-05-24 08:44:44     Fetched 20 texts (20 indices)
-2026-05-24 08:44:46     Loaded (local prefetch)
-2026-05-24 08:44:46     ⚠ Invalid model size (0.82B; allowed 0.45-0.48B, 1.50-1.80B) — skipping
-2026-05-24 08:44:48   Cached next refs for mamba2: 15 miner(s)
-2026-05-24 08:44:48 
-2026-05-24 08:44:48   ✓ MAMBA2: 7 evaluated, 14 skipped — epoch_22924_mamba2_20260524_081230.json
-2026-05-24 08:44:48   ✓ Telemetry sent (7 records)
-2026-05-24 08:44:48 Current Leaderboard:
-2026-05-24 08:45:03 
-2026-05-24 08:45:03 TRANSFORMER
-2026-05-24 08:45:03 ┏━━━━━━┳━━━━━┳━━━━━━━━┳━━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━┳━━━━━┳━━━━━━━━━┳━━━━━━━┓
-2026-05-24 08:45:03 ┃      ┃     ┃        ┃     Latest ┃           ┃       ┃     ┃         ┃       ┃
-2026-05-24 08:45:03 ┃ Rank ┃ UID ┃  Score ┃       Loss ┃ ThinkGain ┃  Flow ┃ SQ% ┃      KL ┃ Evals ┃
-2026-05-24 08:45:03 ┡━━━━━━╇━━━━━╇━━━━━━━━╇━━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━╇━━━━━╇━━━━━━━━━╇━━━━━━━┩
-2026-05-24 08:45:03 │    1 │  87 │ 0.0000 │     4.0577 │  0 FAIL   │ 0.133 │  0% │  2.2495 │   147 │
-2026-05-24 08:45:03 │    2 │  86 │ 0.0000 │     4.1094 │  0 FAIL   │ 0.139 │  0% │  2.3171 │   148 │
-2026-05-24 08:45:03 │    3 │   8 │ 0.0000 │     3.6027 │  0 FAIL   │ 0.017 │  0% │  1.7487 │   307 │
-2026-05-24 08:45:03 │    4 │   9 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   346 │
-2026-05-24 08:45:03 │    5 │  25 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   343 │
-2026-05-24 08:45:03 │    6 │  33 │ 0.0000 │     2.8796 │  0 FAIL   │ 0.042 │  0% │  2.2918 │   344 │
-2026-05-24 08:45:03 │    7 │  35 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   344 │
-2026-05-24 08:45:03 │    8 │  36 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   343 │
-2026-05-24 08:45:03 │    9 │  37 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   344 │
-2026-05-24 08:45:03 │   10 │  38 │ 0.0000 │     2.8907 │  0 FAIL   │ 0.245 │  0% │  2.2559 │   343 │
-2026-05-24 08:45:03 │   11 │  40 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   344 │
-2026-05-24 08:45:03 │   12 │  42 │ 0.0000 │     2.9319 │  0 FAIL   │ 0.189 │  0% │  2.4191 │   344 │
-2026-05-24 08:45:03 │   13 │  43 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   344 │
-2026-05-24 08:45:03 │   14 │  44 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   345 │
-2026-05-24 08:45:03 │   15 │  45 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   344 │
-2026-05-24 08:45:03 │   16 │  48 │ 0.0000 │     4.1999 │  0 FAIL   │ 0.000 │  0% │  2.3440 │   131 │
-2026-05-24 08:45:03 │   17 │  49 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   343 │
-2026-05-24 08:45:03 │   18 │  50 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   343 │
-2026-05-24 08:45:03 │   19 │  51 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   316 │
-2026-05-24 08:45:03 │   20 │  52 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   317 │
-2026-05-24 08:45:03 │   21 │  53 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   344 │
-2026-05-24 08:45:03 │   22 │  54 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   315 │
-2026-05-24 08:45:03 │   23 │  55 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   347 │
-2026-05-24 08:45:03 │   24 │  59 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   344 │
-2026-05-24 08:45:03 │   25 │  61 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   344 │
-2026-05-24 08:45:03 │   26 │  62 │ 0.0000 │     4.0717 │  0 FAIL   │ 0.000 │  0% │  2.0717 │   344 │
-2026-05-24 08:45:03 │   27 │  65 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   344 │
-2026-05-24 08:45:03 │   28 │  66 │ 0.0000 │     3.9005 │  0 FAIL   │ 0.000 │  0% │  2.0171 │   342 │
-2026-05-24 08:45:03 │   29 │  67 │ 0.0000 │     3.6892 │  0 FAIL   │ 0.457 │  0% │  1.8500 │   344 │
-2026-05-24 08:45:03 │   30 │  69 │ 0.0000 │     3.9368 │  0 FAIL   │ 0.260 │  0% │  2.0164 │   127 │
-2026-05-24 08:45:03 │   31 │  70 │ 0.0000 │     4.0898 │  0 FAIL   │ 0.000 │  0% │  1.9655 │   342 │
-2026-05-24 08:45:03 │   32 │  72 │ 0.0000 │     3.5856 │  0 FAIL   │ 0.000 │  0% │  1.9312 │   126 │
-2026-05-24 08:45:03 │   33 │  73 │ 0.0000 │     3.8153 │  0 FAIL   │ 0.000 │  0% │  1.8722 │   127 │
-2026-05-24 08:45:03 │   34 │  75 │ 0.0000 │     2.9821 │  0 FAIL   │ 0.261 │  0% │  2.2377 │   345 │
-2026-05-24 08:45:03 │   35 │  76 │ 0.0000 │     2.8645 │  0 FAIL   │ 0.000 │  0% │  2.7470 │   343 │
-2026-05-24 08:45:03 │   36 │  77 │ 0.0000 │     2.8218 │  0 FAIL   │ 0.000 │  0% │  2.7014 │   246 │
-2026-05-24 08:45:03 │   37 │  78 │ 0.0000 │     2.9082 │  0 FAIL   │ 0.000 │  0% │  2.8450 │   246 │
-2026-05-24 08:45:03 │   38 │  79 │ 0.0000 │     2.2274 │  0 FAIL   │ 0.157 │  0% │  2.3798 │   246 │
-2026-05-24 08:45:03 │   39 │  80 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   345 │
-2026-05-24 08:45:03 │   40 │  82 │ 0.0000 │     3.7075 │  0 FAIL   │ 0.190 │  0% │  1.6882 │   342 │
-2026-05-24 08:45:03 │   41 │  83 │ 0.0000 │     3.7473 │  0 FAIL   │ 0.000 │  0% │  1.9585 │   344 │
-2026-05-24 08:45:03 │   42 │  84 │ 0.0000 │     3.7714 │  0 FAIL   │ 0.000 │  0% │  1.8660 │   328 │
-2026-05-24 08:45:03 │   43 │  85 │ 0.0000 │     3.8056 │  0 FAIL   │ 0.000 │  0% │  1.9754 │   331 │
-2026-05-24 08:45:03 │   44 │  88 │ 0.0000 │     3.9147 │  0 FAIL   │ 0.290 │  0% │  1.9992 │   146 │
-2026-05-24 08:45:03 │   45 │  92 │ 0.0000 │     2.9164 │  0 FAIL   │ 0.000 │  0% │  2.4377 │   247 │
-2026-05-24 08:45:03 │   46 │  93 │ 0.0000 │     3.8102 │  0 FAIL   │ 0.017 │  0% │  1.9333 │   127 │
-2026-05-24 08:45:03 │   47 │  94 │ 0.0000 │     3.7989 │  0 FAIL   │ 0.000 │  0% │  1.7722 │   257 │
-2026-05-24 08:45:03 │   48 │  95 │ 0.0000 │     2.5799 │  0 FAIL   │ 0.017 │  0% │  2.8590 │   256 │
-2026-05-24 08:45:03 │   49 │  97 │ 0.0000 │     3.9830 │  0 FAIL   │ 0.000 │  0% │  1.8816 │   257 │
-2026-05-24 08:45:03 │   50 │  98 │ 0.0000 │     3.8961 │  0 FAIL   │ 0.139 │  0% │  2.0310 │   256 │
-2026-05-24 08:45:03 │   51 │  99 │ 0.0000 │     4.2079 │  0 FAIL   │ 0.000 │  0% │  2.0532 │   125 │
-2026-05-24 08:45:03 │   52 │ 100 │ 0.0000 │     4.1601 │  0 FAIL   │ 0.000 │  0% │  4.1897 │   255 │
-2026-05-24 08:45:03 │   53 │ 101 │ 0.0000 │     3.8400 │  0 FAIL   │ 0.227 │  0% │  1.8151 │    77 │
-2026-05-24 08:45:03 └──────┴─────┴────────┴────────────┴───────────┴───────┴─────┴─────────┴───────┘
-2026-05-24 08:45:03 
-2026-05-24 08:45:03 MAMBA2
-2026-05-24 08:45:03 ┏━━━━━━┳━━━━━┳━━━━━━━━┳━━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━┳━━━━━┳━━━━━━━━━┳━━━━━━━┓
-2026-05-24 08:45:03 ┃      ┃     ┃        ┃     Latest ┃           ┃       ┃     ┃         ┃       ┃
-2026-05-24 08:45:03 ┃ Rank ┃ UID ┃  Score ┃       Loss ┃ ThinkGain ┃  Flow ┃ SQ% ┃      KL ┃ Evals ┃
-2026-05-24 08:45:03 ┡━━━━━━╇━━━━━╇━━━━━━━━╇━━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━╇━━━━━╇━━━━━━━━━╇━━━━━━━┩
-2026-05-24 08:45:03 │    1 │  11 │ 0.0000 │     4.6542 │  0 FAIL   │ 0.147 │  0% │  4.6542 │   246 │
-2026-05-24 08:45:03 │    2 │  30 │ 0.0000 │     4.7515 │  0 FAIL   │ 0.228 │  0% │  4.7515 │   341 │
-2026-05-24 08:45:03 │    3 │  31 │ 0.0000 │     4.9396 │  0 FAIL   │ 0.000 │  0% │  4.9396 │   341 │
-2026-05-24 08:45:03 │    4 │  32 │ 0.0000 │     5.0221 │  0 FAIL   │ 0.000 │  0% │  5.0221 │   341 │
-2026-05-24 08:45:03 │    5 │  34 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   341 │
-2026-05-24 08:45:03 │    6 │  39 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   342 │
-2026-05-24 08:45:03 │    7 │  41 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   341 │
-2026-05-24 08:45:03 │    8 │  56 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   341 │
-2026-05-24 08:45:03 │    9 │  57 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   341 │
-2026-05-24 08:45:03 │   10 │  58 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   341 │
-2026-05-24 08:45:03 │   11 │  60 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   341 │
-2026-05-24 08:45:03 │   12 │  63 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   271 │
-2026-05-24 08:45:03 │   13 │  64 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   272 │
-2026-05-24 08:45:03 │   14 │  68 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   272 │
-2026-05-24 08:45:03 │   15 │  71 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   271 │
-2026-05-24 08:45:03 │   16 │  74 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   272 │
-2026-05-24 08:45:03 │   17 │  81 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   273 │
-2026-05-24 08:45:03 │   18 │  89 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   246 │
-2026-05-24 08:45:03 │   19 │  90 │ 0.0000 │     4.6753 │  0 FAIL   │ 0.000 │  0% │  4.6753 │   256 │
-2026-05-24 08:45:03 │   20 │  91 │ 0.0000 │     4.6669 │  0 FAIL   │ 0.007 │  0% │  4.6669 │   256 │
-2026-05-24 08:45:03 │   21 │  96 │ 0.0000 │     3.5728 │  0 FAIL   │ 0.000 │  0% │  3.5728 │   256 │
-2026-05-24 08:45:03 └──────┴─────┴────────┴────────────┴───────────┴───────┴─────┴─────────┴───────┘
-2026-05-24 08:45:03 
-2026-05-24 08:45:03 Round complete in epoch 22924 (1953s elapsed). Starting next round immediately…
-2026-05-24 08:45:03 
-2026-05-24 08:45:03 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-2026-05-24 08:45:03 
-2026-05-24 08:45:03 ━━━ Epoch #22924 (Loop #2) ━━━ block=8252836, ~32m remaining
-2026-05-24 08:45:12 
-2026-05-24 08:45:12   ⚠ UID 86: revision lock failed: RepositoryNotFoundError: 401 Client Error.
-2026-05-24 08:45:12 (Request ID:
-2026-05-24 08:45:12 Root=1-6a12ba98-7ce4abf5064676b56cf71bd1;39cd6986-d4fc-469c-b743-d9b232722460)
-2026-05-24 08:45:12 
-2026-05-24 08:45:12 Repository Not Found for url:
-2026-05-24 08:45:12 https://huggingface.co/api/models/clear-blue-sky/evolai-tfm-012/revision/main.
-2026-05-24 08:45:12 Please make sure you specified the correct `repo_id` and `repo_type`.
-2026-05-24 08:45:12 If you are trying to access a private or gated repo, make sure you are
-2026-05-24 08:45:12 authenticated and your token has the required permissions.
-2026-05-24 08:45:12 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
-2026-05-24 08:45:12 Invalid username or password.
-2026-05-24 08:45:12   ⚠ UID 87: revision lock failed: RepositoryNotFoundError: 401 Client Error.
-2026-05-24 08:45:12 (Request ID:
-2026-05-24 08:45:12 Root=1-6a12ba98-03846ed66b108e533f2891ee;963453cf-5452-4729-bda9-0b60b2413b9a)
-2026-05-24 08:45:12 
-2026-05-24 08:45:12 Repository Not Found for url:
-2026-05-24 08:45:12 https://huggingface.co/api/models/clear-blue-sky/evolai-tfm-013/revision/main.
-2026-05-24 08:45:12 Please make sure you specified the correct `repo_id` and `repo_type`.
-2026-05-24 08:45:12 If you are trying to access a private or gated repo, make sure you are
-2026-05-24 08:45:12 authenticated and your token has the required permissions.
-2026-05-24 08:45:12 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
-2026-05-24 08:45:12 Invalid username or password.
-2026-05-24 08:45:12   ⚠ UID 88: revision lock failed: RepositoryNotFoundError: 401 Client Error.
-2026-05-24 08:45:12 (Request ID:
-2026-05-24 08:45:12 Root=1-6a12ba98-455b9c11241abdbf2ad00320;45c257b1-8c5b-438d-be66-009c4fa139d2)
-2026-05-24 08:45:12 
-2026-05-24 08:45:12 Repository Not Found for url:
-2026-05-24 08:45:12 https://huggingface.co/api/models/clear-blue-sky/evolai-tfm-014/revision/main.
-2026-05-24 08:45:12 Please make sure you specified the correct `repo_id` and `repo_type`.
-2026-05-24 08:45:12 If you are trying to access a private or gated repo, make sure you are
-2026-05-24 08:45:12 authenticated and your token has the required permissions.
-2026-05-24 08:45:12 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
-2026-05-24 08:45:12 Invalid username or password.
-2026-05-24 08:45:13   Locked transformer revisions (50 miner(s), 3 skipped)
-2026-05-24 08:45:21   ⚠ UID 63: revision lock failed: RepositoryNotFoundError: 401 Client Error.
-2026-05-24 08:45:21 (Request ID:
-2026-05-24 08:45:21 Root=1-6a12baa1-579c1dda4f428eed56bd56bb;c33b922f-1303-4a5c-a144-3b8f51a2d1e0)
 2026-05-24 08:45:21 
 2026-05-24 08:45:21 Repository Not Found for url:
 2026-05-24 08:45:21 https://huggingface.co/api/models/clear-blue-sky/evolai-mb2-009/revision/main.
@@ -5830,3 +4657,5344 @@
 2026-05-24 10:51:54     Fetched 20 texts (20 indices)
 2026-05-24 10:51:54    Downloading
 2026-05-24 10:51:54 mihai-777/evolai-tfm-1p5b@594894f806fb4c014675d89aad14f1c68976d52c…
+2026-05-24 10:51:56     Loaded (local prefetch)
+2026-05-24 10:51:56     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 10:51:57    Ready: mihai-777/evolai-tfm-1p5b@594894f806fb4c014675d89aad14f1c68976d52c
+2026-05-24 10:51:58   [16/50] UID 101 | galuis116/evolai-future @
+2026-05-24 10:51:58 5f3808c2d4773a03c3ac1eaf8e8daff12986c528 | hotkey 5DPz76uobJLT…
+2026-05-24 10:51:58     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 10:51:58     Fetched 20 texts (20 indices)
+2026-05-24 10:51:58    Downloading
+2026-05-24 10:51:58 mihai-777/evolai-tfm-1p5b-v5@bd42aeb0828dfa0126f7fc825e13b49209fec678…
+2026-05-24 10:51:59     Loaded (local prefetch)
+2026-05-24 10:52:00     Model 0.46B → batch=512, seq=16384
+2026-05-24 10:52:01    Ready: mihai-777/evolai-tfm-1p5b-v5@bd42aeb0828dfa0126f7fc825e13b49209fec678
+2026-05-24 10:52:38     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:35
+2026-05-24 10:52:38     Loss 3.6576 | Size ×0.50 | Think 3.6576 | ThinkGain 0 (+0.4583) | Flow
+2026-05-24 10:52:38 0.4312 | KL 1.7309 | NextKL 1.8391 | SideQ 0% | Score 0.0000 (38.1s)
+2026-05-24 10:52:38     Gate FAIL | Improve FAIL cur=1.7309 req<=1.7085 prev=1.7434 | Consist ok
+2026-05-24 10:52:38 ema_cur=1.8583 ema_next=1.8566 ratio=0.999 max<=1.20
+2026-05-24 10:52:40   Evicted cached model:
+2026-05-24 10:52:40 clear-blue-sky/evolai-reborn-tfm-006@75630f5ca4d50de58eadd7c82d62d5e97b9d27be
+2026-05-24 10:52:41   [17/50] UID 33 | mihai-777/evolai-tfm-1p5b @
+2026-05-24 10:52:41 594894f806fb4c014675d89aad14f1c68976d52c | hotkey 5F22JM4of6TR…
+2026-05-24 10:52:41     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 10:52:41     Fetched 20 texts (20 indices)
+2026-05-24 10:52:41    Downloading
+2026-05-24 10:52:41 clear-blue-sky/evolai-reborn-tfm-011@96fec5960250af92d9b4d7d2d69d7a0cf084b1d7…
+2026-05-24 10:52:42     Loaded (local prefetch)
+2026-05-24 10:52:42     Model 0.46B → batch=512, seq=16384
+2026-05-24 10:52:45    Ready:
+2026-05-24 10:52:45 clear-blue-sky/evolai-reborn-tfm-011@96fec5960250af92d9b4d7d2d69d7a0cf084b1d7
+2026-05-24 10:53:21     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:35
+2026-05-24 10:53:21     Loss 3.0353 | Size ×0.50 | Think 3.0353 | ThinkGain 0 (+0.4539) | Flow
+2026-05-24 10:53:21 0.0000 | KL 2.4184 | NextKL 2.6136 | SideQ 0% | Score 0.0000 (38.7s)
+2026-05-24 10:53:21     Gate FAIL | Improve same SHA cur=2.4184 req<=2.3700 prev=2.4184 | Consist ok
+2026-05-24 10:53:21 ema_cur=2.4117 ema_next=2.4439 ratio=1.013 max<=1.20
+2026-05-24 10:53:22   Evicted cached model:
+2026-05-24 10:53:22 sangerno63/evolai-transformer-v2@4b325f440c9ab4b8cc501454c5c5dc5f8e890ebb
+2026-05-24 10:53:23   [18/50] UID 42 | mihai-777/evolai-tfm-1p5b-v5 @
+2026-05-24 10:53:23 bd42aeb0828dfa0126f7fc825e13b49209fec678 | hotkey 5C5WCYnsrXRz…
+2026-05-24 10:53:23     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 10:53:23     Fetched 20 texts (20 indices)
+2026-05-24 10:53:23    Downloading
+2026-05-24 10:53:23 dexserbia/evolai-gemma2-9b@7fe66309a3847239a4da5b712477f2105e88399b…
+2026-05-24 10:53:25     Loaded (local prefetch)
+2026-05-24 10:53:25     Model 0.46B → batch=512, seq=16384
+2026-05-24 10:53:52    Ready: dexserbia/evolai-gemma2-9b@7fe66309a3847239a4da5b712477f2105e88399b
+2026-05-24 10:54:06     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:38
+2026-05-24 10:54:06     Loss 2.9022 | Size ×0.50 | Think 2.9022 | ThinkGain 0 (+0.4534) | Flow
+2026-05-24 10:54:06 0.2821 | KL 2.3438 | NextKL 2.5854 | SideQ 0% | Score 0.0000 (40.9s)
+2026-05-24 10:54:06     Gate FAIL | Improve same SHA cur=2.3438 req<=2.2969 prev=2.3438 | Consist ok
+2026-05-24 10:54:06 ema_cur=2.4117 ema_next=2.4375 ratio=1.011 max<=1.20
+2026-05-24 10:54:08   Evicted cached model:
+2026-05-24 10:54:08 mihai-777/evolai-tfm-1p5b-05@a66a1beeefdbc6ff871ea4854b4e71ed5c3a44ba
+2026-05-24 10:54:08   [19/50] UID 73 | clear-blue-sky/evolai-reborn-tfm-011 @
+2026-05-24 10:54:08 96fec5960250af92d9b4d7d2d69d7a0cf084b1d7 | hotkey 5CSAM6rnGRPk…
+2026-05-24 10:54:08     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 10:54:08     Fetched 20 texts (20 indices)
+2026-05-24 10:54:08    Downloading
+2026-05-24 10:54:08 dreamiii0406/evolai-0p47b-v1@fea2659bdf8bd35e5382c50e4857f1ab20f20262…
+2026-05-24 10:54:10     Loaded (local prefetch)
+2026-05-24 10:54:10     Model 0.46B → batch=512, seq=16384
+2026-05-24 10:54:11    Ready: dreamiii0406/evolai-0p47b-v1@fea2659bdf8bd35e5382c50e4857f1ab20f20262
+2026-05-24 10:54:47     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:34
+2026-05-24 10:54:48     Loss 3.7415 | Size ×0.50 | Think 3.7415 | ThinkGain 0 (+0.4608) | Flow
+2026-05-24 10:54:48 0.0000 | KL 1.9573 | NextKL 1.6460 | SideQ 0% | Score 0.0000 (37.5s)
+2026-05-24 10:54:48     Gate FAIL | Improve FAIL cur=1.9573 req<=1.9038 prev=1.9427 | Consist ok
+2026-05-24 10:54:48 ema_cur=2.2903 ema_next=1.8389 ratio=0.803 max<=1.20
+2026-05-24 10:54:49   Evicted cached model:
+2026-05-24 10:54:49 clear-blue-sky/evolai-reborn-tfm-003@ee61abb738c3d06872e7ee8a2c59c7287fbc632c
+2026-05-24 10:54:50   [20/50] UID 9 | dexserbia/evolai-gemma2-9b @
+2026-05-24 10:54:50 7fe66309a3847239a4da5b712477f2105e88399b | hotkey 5EbpxBkVKVNV…
+2026-05-24 10:54:50     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 10:54:50     Fetched 20 texts (20 indices)
+2026-05-24 10:54:50    Downloading
+2026-05-24 10:54:50 clear-blue-sky/evolai-reborn-tfm-009@483cbf071d1bf970c632df2665dbb7fe1d1c4a7c…
+2026-05-24 10:54:54    Ready:
+2026-05-24 10:54:54 clear-blue-sky/evolai-reborn-tfm-009@483cbf071d1bf970c632df2665dbb7fe1d1c4a7c
+2026-05-24 10:54:55     Loaded (local prefetch)
+2026-05-24 10:54:57     ⚠ Invalid model size (9.24B; allowed 0.45-0.48B, 1.50-1.80B) — skipping
+2026-05-24 10:54:59   [21/50] UID 80 | dreamiii0406/evolai-0p47b-v1 @
+2026-05-24 10:54:59 fea2659bdf8bd35e5382c50e4857f1ab20f20262 | hotkey 5Cd2zZyMQnvp…
+2026-05-24 10:54:59     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 10:54:59     Fetched 20 texts (20 indices)
+2026-05-24 10:54:59    Downloading
+2026-05-24 10:54:59 Phoenix9781/evolai-tf-model@b05038fcfdcc79fa8d8e79730074b65cd68c73f9…
+2026-05-24 10:55:01     Loaded (local prefetch)
+2026-05-24 10:55:01     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 10:55:03   [22/50] UID 69 | clear-blue-sky/evolai-reborn-tfm-009 @
+2026-05-24 10:55:03 483cbf071d1bf970c632df2665dbb7fe1d1c4a7c | hotkey 5ChUCf3NjrgS…
+2026-05-24 10:55:03     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 10:55:03     Fetched 20 texts (20 indices)
+2026-05-24 10:55:04    Ready: Phoenix9781/evolai-tf-model@b05038fcfdcc79fa8d8e79730074b65cd68c73f9
+2026-05-24 10:55:04    Downloading
+2026-05-24 10:55:04 Radiant28/evolai-transformer-0.4b-b0@7a08a8009fa8b8f82d1ad0febc442a89020082d1…
+2026-05-24 10:55:04 Fetching 7 files: 100%|██████████| 7/7 [00:06<00:00,  1.08it/s]
+2026-05-24 10:55:04     Loaded (local prefetch)
+2026-05-24 10:55:05     Model 0.46B → batch=512, seq=16384
+2026-05-24 10:55:11    Ready:
+2026-05-24 10:55:11 Radiant28/evolai-transformer-0.4b-b0@7a08a8009fa8b8f82d1ad0febc442a89020082d1
+2026-05-24 10:55:43     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:35
+2026-05-24 10:55:43     Loss 3.5815 | Size ×0.50 | Think 3.5815 | ThinkGain 0 (+0.4618) | Flow
+2026-05-24 10:55:43 0.2382 | KL 1.8682 | NextKL 1.9898 | SideQ 0% | Score 0.0000 (38.4s)
+2026-05-24 10:55:43     Gate FAIL | Improve FAIL cur=1.8682 req<=1.8380 prev=1.8755 | Consist ok
+2026-05-24 10:55:43 ema_cur=1.9025 ema_next=1.9148 ratio=1.006 max<=1.20
+2026-05-24 10:55:45   Evicted cached model:
+2026-05-24 10:55:45 Lin2es/evolai-tfm-01o@d5af8d4f7543ee9e09ef3f668a29f2e09daeea8d
+2026-05-24 10:55:46   [23/50] UID 93 | Phoenix9781/evolai-tf-model @
+2026-05-24 10:55:46 b05038fcfdcc79fa8d8e79730074b65cd68c73f9 | hotkey 5F4R25t78FSF…
+2026-05-24 10:55:46     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 10:55:46     Fetched 20 texts (20 indices)
+2026-05-24 10:55:46    Downloading
+2026-05-24 10:55:46 clear-blue-sky/evolai-reborn-tfm-004@1d539f8e15c69d861224e34c6e36e96ada6a3f9f…
+2026-05-24 10:55:47     Loaded (local prefetch)
+2026-05-24 10:55:48     Model 0.46B → batch=512, seq=16384
+2026-05-24 10:55:50    Ready:
+2026-05-24 10:55:50 clear-blue-sky/evolai-reborn-tfm-004@1d539f8e15c69d861224e34c6e36e96ada6a3f9f
+2026-05-24 10:56:25     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:35
+2026-05-24 10:56:26     Loss 3.7968 | Size ×0.50 | Think 3.7968 | ThinkGain 0 (+0.4588) | Flow
+2026-05-24 10:56:26 0.0000 | KL 1.8798 | NextKL 2.0812 | SideQ 0% | Score 0.0000 (37.9s)
+2026-05-24 10:56:26     Gate FAIL | Improve same SHA cur=1.8798 req<=1.8422 prev=1.8798 | Consist ok
+2026-05-24 10:56:26 ema_cur=1.9738 ema_next=1.9791 ratio=1.003 max<=1.20
+2026-05-24 10:56:27   Evicted cached model:
+2026-05-24 10:56:27 clear-blue-sky/evolai-reborn-tfm-001@c9f7f10bd22cb9bfaed57700fbfa673f28f7191a
+2026-05-24 10:56:28   [24/50] UID 45 | Radiant28/evolai-transformer-0.4b-b0 @
+2026-05-24 10:56:28 7a08a8009fa8b8f82d1ad0febc442a89020082d1 | hotkey 5F1B3j7EyjuE…
+2026-05-24 10:56:28     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 10:56:28     Fetched 20 texts (20 indices)
+2026-05-24 10:56:28    Downloading
+2026-05-24 10:56:28 mrthor102/evolai-tfm-super-003@2110f36f94f450ca8616079cda16e90213a551df…
+2026-05-24 10:56:30     Loaded (local prefetch)
+2026-05-24 10:56:30     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 10:56:32    Ready:
+2026-05-24 10:56:32 mrthor102/evolai-tfm-super-003@2110f36f94f450ca8616079cda16e90213a551df
+2026-05-24 10:56:33   [25/50] UID 70 | clear-blue-sky/evolai-reborn-tfm-004 @
+2026-05-24 10:56:33 1d539f8e15c69d861224e34c6e36e96ada6a3f9f | hotkey 5Hdg2gHopWQK…
+2026-05-24 10:56:33     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 10:56:33    Downloading
+2026-05-24 10:56:33 Danieli1021/evolai-qwen047-v3@e01dfd3b9c54325c98bf12966bdebadace391002…
+2026-05-24 10:56:33     Fetched 20 texts (20 indices)
+2026-05-24 10:56:34     Loaded (local prefetch)
+2026-05-24 10:56:34     Model 0.46B → batch=512, seq=16384
+2026-05-24 10:56:36    Ready: Danieli1021/evolai-qwen047-v3@e01dfd3b9c54325c98bf12966bdebadace391002
+2026-05-24 10:57:13     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:35
+2026-05-24 10:57:13     Loss 4.0310 | Size ×0.50 | Think 4.0310 | ThinkGain 0 (+0.4638) | Flow
+2026-05-24 10:57:13 0.0000 | KL 2.0317 | NextKL 1.6709 | SideQ 0% | Score 0.0000 (38.6s)
+2026-05-24 10:57:13     Gate FAIL | Improve FAIL cur=2.0317 req<=2.0014 prev=2.0423 | Consist ok
+2026-05-24 10:57:13 ema_cur=1.9376 ema_next=1.9123 ratio=0.987 max<=1.20
+2026-05-24 10:57:14   Evicted cached model:
+2026-05-24 10:57:14 Lin2es/evolai-tfm-03o@2fcb3445759b5cb5d5d6a9be9e5731f72cc0f600
+2026-05-24 10:57:15   [26/50] UID 98 | mrthor102/evolai-tfm-super-003 @
+2026-05-24 10:57:15 2110f36f94f450ca8616079cda16e90213a551df | hotkey 5Hgy59m2Hzm1…
+2026-05-24 10:57:15     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 10:57:15     Fetched 20 texts (20 indices)
+2026-05-24 10:57:15    Downloading
+2026-05-24 10:57:15 andrebarrosilva1123/evolai-c@6fc3d7f7c514cf3d5e4fc44dd8ef6b4ef883827c…
+2026-05-24 10:57:17     Loaded (local prefetch)
+2026-05-24 10:57:17     Model 0.46B → batch=512, seq=16384
+2026-05-24 10:57:23    Ready: andrebarrosilva1123/evolai-c@6fc3d7f7c514cf3d5e4fc44dd8ef6b4ef883827c
+2026-05-24 10:57:56     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:36
+2026-05-24 10:57:57     Loss 3.4699 | Size ×0.50 | Think 3.4699 | ThinkGain 0 (+0.4616) | Flow
+2026-05-24 10:57:57 0.1623 | KL 1.6701 | NextKL 2.0216 | SideQ 0% | Score 0.0000 (39.1s)
+2026-05-24 10:57:57     Gate FAIL | Improve FAIL cur=1.6701 req<=1.6500 prev=1.6837 | Consist ok
+2026-05-24 10:57:57 ema_cur=1.8963 ema_next=1.9114 ratio=1.008 max<=1.20
+2026-05-24 10:57:58   Evicted cached model:
+2026-05-24 10:57:58 galuis116/evolai-future@5f3808c2d4773a03c3ac1eaf8e8daff12986c528
+2026-05-24 10:57:59   [27/50] UID 100 | Danieli1021/evolai-qwen047-v3 @
+2026-05-24 10:57:59 e01dfd3b9c54325c98bf12966bdebadace391002 | hotkey 5DMH2VrrukYd…
+2026-05-24 10:57:59     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 10:57:59     Fetched 20 texts (20 indices)
+2026-05-24 10:57:59    Downloading
+2026-05-24 10:57:59 mrthor102/evolai-tfm-super-004@6c3e1aeb8033b0093d380928b92f689c64a90095…
+2026-05-24 10:58:00     Loaded (local prefetch)
+2026-05-24 10:58:00     Model 0.47B → batch=512, seq=16384
+2026-05-24 10:58:03    Ready:
+2026-05-24 10:58:03 mrthor102/evolai-tfm-super-004@6c3e1aeb8033b0093d380928b92f689c64a90095
+2026-05-24 10:58:20     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:16
+2026-05-24 10:58:21     Loss 4.0758 | Size ×0.51 | Think 4.0758 | ThinkGain 0 (+0.4788) | Flow
+2026-05-24 10:58:21 0.0000 | KL 3.9907 | NextKL 4.0594 | SideQ 0% | Score 0.0000 (19.9s)
+2026-05-24 10:58:21     Gate FAIL | Improve same SHA cur=3.9907 req<=3.9109 prev=3.9907 | Consist ok
+2026-05-24 10:58:21 ema_cur=4.2650 ema_next=3.9433 ratio=0.925 max<=1.20
+2026-05-24 10:58:22   Evicted cached model:
+2026-05-24 10:58:22 mihai-777/evolai-tfm-1p5b@594894f806fb4c014675d89aad14f1c68976d52c
+2026-05-24 10:58:23   [28/50] UID 54 | andrebarrosilva1123/evolai-c @
+2026-05-24 10:58:23 6fc3d7f7c514cf3d5e4fc44dd8ef6b4ef883827c | hotkey 5D7HPRR2QdDB…
+2026-05-24 10:58:23     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 10:58:23     Fetched 20 texts (20 indices)
+2026-05-24 10:58:23    Downloading Lin2es/evolai-tfm-04o@52061d203723fdc8be09324d0c827898fcb7bdc4…
+2026-05-24 10:58:25     Loaded (local prefetch)
+2026-05-24 10:58:26     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 10:58:27    Ready: Lin2es/evolai-tfm-04o@52061d203723fdc8be09324d0c827898fcb7bdc4
+2026-05-24 10:58:28   [29/50] UID 99 | mrthor102/evolai-tfm-super-004 @
+2026-05-24 10:58:28 6c3e1aeb8033b0093d380928b92f689c64a90095 | hotkey 5EnuPuwNaqmP…
+2026-05-24 10:58:28     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 10:58:28     Fetched 20 texts (20 indices)
+2026-05-24 10:58:28    Downloading
+2026-05-24 10:58:28 logosnodos/evolai-qwen-1.5b@7e121e8efe6c6b93d622e9a53972d221e763d10b…
+2026-05-24 10:58:29     Loaded (local prefetch)
+2026-05-24 10:58:29     Model 0.46B → batch=512, seq=16384
+2026-05-24 10:59:12    Ready: logosnodos/evolai-qwen-1.5b@7e121e8efe6c6b93d622e9a53972d221e763d10b
+2026-05-24 10:59:13     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:39
+2026-05-24 10:59:13     Loss 3.9530 | Size ×0.50 | Think 3.9530 | ThinkGain 0 (+0.4636) | Flow
+2026-05-24 10:59:13 0.0000 | KL 2.0362 | NextKL 1.6526 | SideQ 0% | Score 0.0000 (43.3s)
+2026-05-24 10:59:13     Gate FAIL | Improve FAIL cur=2.0362 req<=1.9979 prev=2.0386 | Consist ok
+2026-05-24 10:59:13 ema_cur=1.9549 ema_next=1.9219 ratio=0.983 max<=1.20
+2026-05-24 10:59:15   Evicted cached model:
+2026-05-24 10:59:15 mihai-777/evolai-tfm-1p5b-v5@bd42aeb0828dfa0126f7fc825e13b49209fec678
+2026-05-24 10:59:15   [30/50] UID 92 | Lin2es/evolai-tfm-04o @
+2026-05-24 10:59:15 52061d203723fdc8be09324d0c827898fcb7bdc4 | hotkey 5GefYX69KUVQ…
+2026-05-24 10:59:15     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 10:59:15     Fetched 20 texts (20 indices)
+2026-05-24 10:59:15    Downloading
+2026-05-24 10:59:15 mihai-777/evolai-tfm-1p5b-04@fb289dbfe35c595b1a586f786a19e118cc1bfc9a…
+2026-05-24 10:59:17     Loaded (local prefetch)
+2026-05-24 10:59:17     Model 0.46B → batch=512, seq=16384
+2026-05-24 10:59:19    Ready: mihai-777/evolai-tfm-1p5b-04@fb289dbfe35c595b1a586f786a19e118cc1bfc9a
+2026-05-24 10:59:55     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:34
+2026-05-24 10:59:55     Loss 2.7933 | Size ×0.50 | Think 2.7933 | ThinkGain 0 (+0.4496) | Flow
+2026-05-24 10:59:55 0.0000 | KL 2.6926 | NextKL 2.5704 | SideQ 0% | Score 0.0000 (37.5s)
+2026-05-24 10:59:55     Gate FAIL | Improve same SHA cur=2.6926 req<=2.6387 prev=2.6926 | Consist ok
+2026-05-24 10:59:55 ema_cur=2.9574 ema_next=2.5745 ratio=0.871 max<=1.20
+2026-05-24 10:59:57   Evicted cached model:
+2026-05-24 10:59:57 clear-blue-sky/evolai-reborn-tfm-011@96fec5960250af92d9b4d7d2d69d7a0cf084b1d7
+2026-05-24 10:59:57   [31/50] UID 61 | logosnodos/evolai-qwen-1.5b @
+2026-05-24 10:59:57 7e121e8efe6c6b93d622e9a53972d221e763d10b | hotkey 5FNTU6ZYgKup…
+2026-05-24 10:59:57     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 10:59:57     Fetched 20 texts (20 indices)
+2026-05-24 10:59:57    Downloading
+2026-05-24 10:59:57 clear-blue-sky/evolai-reborn-tfm-010@ea18fae23f980bf6034aca61c89cb2058e303a24…
+2026-05-24 10:59:59     Loaded (local prefetch)
+2026-05-24 11:00:01    Ready:
+2026-05-24 11:00:01 clear-blue-sky/evolai-reborn-tfm-010@ea18fae23f980bf6034aca61c89cb2058e303a24
+2026-05-24 11:00:03     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 11:00:05   [32/50] UID 75 | mihai-777/evolai-tfm-1p5b-04 @
+2026-05-24 11:00:05 fb289dbfe35c595b1a586f786a19e118cc1bfc9a | hotkey 5Dnz76SAsEv8…
+2026-05-24 11:00:05     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:00:05     Fetched 20 texts (20 indices)
+2026-05-24 11:00:05    Downloading
+2026-05-24 11:00:05 andrebarrosilva1123/evolai-0.4b@fa913c93aa7a7449066ce870427387bd3fc7e841…
+2026-05-24 11:00:06     Loaded (local prefetch)
+2026-05-24 11:00:07     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:00:11    Ready:
+2026-05-24 11:00:11 andrebarrosilva1123/evolai-0.4b@fa913c93aa7a7449066ce870427387bd3fc7e841
+2026-05-24 11:00:42     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:33
+2026-05-24 11:00:42     Loss 2.7653 | Size ×0.50 | Think 2.7653 | ThinkGain 0 (+0.4545) | Flow
+2026-05-24 11:00:42 0.0000 | KL 2.4272 | NextKL 2.4377 | SideQ 0% | Score 0.0000 (35.6s)
+2026-05-24 11:00:42     Gate FAIL | Improve same SHA cur=2.4272 req<=2.3786 prev=2.4272 | Consist ok
+2026-05-24 11:00:42 ema_cur=2.4229 ema_next=2.4356 ratio=1.005 max<=1.20
+2026-05-24 11:00:44   Evicted cached model:
+2026-05-24 11:00:44 clear-blue-sky/evolai-reborn-tfm-009@483cbf071d1bf970c632df2665dbb7fe1d1c4a7c
+2026-05-24 11:00:44   [33/50] UID 72 | clear-blue-sky/evolai-reborn-tfm-010 @
+2026-05-24 11:00:44 ea18fae23f980bf6034aca61c89cb2058e303a24 | hotkey 5H3rMcqJQcbK…
+2026-05-24 11:00:44     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:00:44     Fetched 20 texts (20 indices)
+2026-05-24 11:00:44    Downloading
+2026-05-24 11:00:44 mihai-777/evolai-tfm-1p5b-alt@5ebb4a406916abe39e32823ff1f635b70e707e5a…
+2026-05-24 11:00:46     Loaded (local prefetch)
+2026-05-24 11:00:46     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:00:48    Ready: mihai-777/evolai-tfm-1p5b-alt@5ebb4a406916abe39e32823ff1f635b70e707e5a
+2026-05-24 11:01:23     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:34
+2026-05-24 11:01:23     Loss 3.3910 | Size ×0.50 | Think 3.3910 | ThinkGain 0 (+0.4607) | Flow
+2026-05-24 11:01:23 0.2024 | KL 1.7179 | NextKL 1.8273 | SideQ 0% | Score 0.0000 (36.9s)
+2026-05-24 11:01:23     Gate FAIL | Improve FAIL cur=1.7179 req<=1.6920 prev=1.7265 | Consist ok
+2026-05-24 11:01:23 ema_cur=1.8730 ema_next=1.8813 ratio=1.004 max<=1.20
+2026-05-24 11:01:25   Evicted cached model:
+2026-05-24 11:01:25 Phoenix9781/evolai-tf-model@b05038fcfdcc79fa8d8e79730074b65cd68c73f9
+2026-05-24 11:01:25   [34/50] UID 49 | andrebarrosilva1123/evolai-0.4b @
+2026-05-24 11:01:25 fa913c93aa7a7449066ce870427387bd3fc7e841 | hotkey 5DULz3AJEisH…
+2026-05-24 11:01:25     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:01:25     Fetched 20 texts (20 indices)
+2026-05-24 11:01:25    Downloading
+2026-05-24 11:01:25 Radiant28/evolai-transformer-0.4b-b2@808b61992e043ca99ff5b412a6cf61bfbb3fd793…
+2026-05-24 11:01:27     Loaded (local prefetch)
+2026-05-24 11:01:28     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 11:01:30   [35/50] UID 38 | mihai-777/evolai-tfm-1p5b-alt @
+2026-05-24 11:01:30 5ebb4a406916abe39e32823ff1f635b70e707e5a | hotkey 5FbfiXysyCtC…
+2026-05-24 11:01:30     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:01:30     Fetched 20 texts (20 indices)
+2026-05-24 11:01:32     Loaded (local prefetch)
+2026-05-24 11:01:32     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:01:32    Ready:
+2026-05-24 11:01:32 Radiant28/evolai-transformer-0.4b-b2@808b61992e043ca99ff5b412a6cf61bfbb3fd793
+2026-05-24 11:01:32    Downloading
+2026-05-24 11:01:32 clear-blue-sky/evolai-reborn-tfm-007@8b0164a3edd17ff29ea1e71fde39d93ed32e9790…
+2026-05-24 11:01:32 Fetching 7 files: 100%|██████████| 7/7 [00:03<00:00,  1.85it/s]
+2026-05-24 11:01:36    Ready:
+2026-05-24 11:01:36 clear-blue-sky/evolai-reborn-tfm-007@8b0164a3edd17ff29ea1e71fde39d93ed32e9790
+2026-05-24 11:02:10     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:35
+2026-05-24 11:02:11     Loss 3.2580 | Size ×0.50 | Think 3.2580 | ThinkGain 0 (+0.4555) | Flow
+2026-05-24 11:02:11 0.0000 | KL 2.7758 | NextKL 2.7156 | SideQ 0% | Score 0.0000 (38.4s)
+2026-05-24 11:02:11     Gate FAIL | Improve same SHA cur=2.7758 req<=2.7202 prev=2.7758 | Consist ok
+2026-05-24 11:02:11 ema_cur=2.4655 ema_next=2.5022 ratio=1.015 max<=1.20
+2026-05-24 11:02:12   Evicted cached model:
+2026-05-24 11:02:12 clear-blue-sky/evolai-reborn-tfm-004@1d539f8e15c69d861224e34c6e36e96ada6a3f9f
+2026-05-24 11:02:13   [36/50] UID 37 | Radiant28/evolai-transformer-0.4b-b2 @
+2026-05-24 11:02:13 808b61992e043ca99ff5b412a6cf61bfbb3fd793 | hotkey 5HjbzF3e9waA…
+2026-05-24 11:02:13     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:02:13    Downloading Lin2es/evolai-tfm-02o@fc5fc3ee4a3877b825b404dc85c9367c1f248c59…
+2026-05-24 11:02:13     Fetched 20 texts (20 indices)
+2026-05-24 11:02:15     Loaded (local prefetch)
+2026-05-24 11:02:15    Ready: Lin2es/evolai-tfm-02o@fc5fc3ee4a3877b825b404dc85c9367c1f248c59
+2026-05-24 11:02:15     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 11:02:17   [37/50] UID 84 | clear-blue-sky/evolai-reborn-tfm-007 @
+2026-05-24 11:02:17 8b0164a3edd17ff29ea1e71fde39d93ed32e9790 | hotkey 5H1DaT8Dtt4N…
+2026-05-24 11:02:17     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:02:17    Downloading
+2026-05-24 11:02:17 evolai/evolai_test_challenge@13516f0aab0e10e87f3c7f4fe1857e2ee3c740c1…
+2026-05-24 11:02:17     Fetched 20 texts (20 indices)
+2026-05-24 11:02:18     Loaded (local prefetch)
+2026-05-24 11:02:19     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:02:21    Ready: evolai/evolai_test_challenge@13516f0aab0e10e87f3c7f4fe1857e2ee3c740c1
+2026-05-24 11:02:58     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:36
+2026-05-24 11:02:58     Loss 3.8454 | Size ×0.50 | Think 3.8454 | ThinkGain 0 (+0.4620) | Flow
+2026-05-24 11:02:58 0.0000 | KL 2.0465 | NextKL 1.5975 | SideQ 0% | Score 0.0000 (39.2s)
+2026-05-24 11:02:58     Gate FAIL | Improve FAIL cur=2.0465 req<=2.0005 prev=2.0413 | Consist ok
+2026-05-24 11:02:58 ema_cur=1.9574 ema_next=1.9340 ratio=0.988 max<=1.20
+2026-05-24 11:02:59   Evicted cached model:
+2026-05-24 11:02:59 mrthor102/evolai-tfm-super-003@2110f36f94f450ca8616079cda16e90213a551df
+2026-05-24 11:03:00   [38/50] UID 78 | Lin2es/evolai-tfm-02o @
+2026-05-24 11:03:00 fc5fc3ee4a3877b825b404dc85c9367c1f248c59 | hotkey 5FA2kgLNs36d…
+2026-05-24 11:03:01     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:03:01    Downloading
+2026-05-24 11:03:01 mrthor102/evolai-tfm-super-002@031a0c82f0482bbe5f58fddcd566ac66b6a4cc28…
+2026-05-24 11:03:01     Fetched 20 texts (20 indices)
+2026-05-24 11:03:02     Loaded (local prefetch)
+2026-05-24 11:03:02     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:03:05    Ready:
+2026-05-24 11:03:05 mrthor102/evolai-tfm-super-002@031a0c82f0482bbe5f58fddcd566ac66b6a4cc28
+2026-05-24 11:03:41     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:36
+2026-05-24 11:03:42     Loss 2.9456 | Size ×0.50 | Think 2.9456 | ThinkGain 0 (+0.4247) | Flow
+2026-05-24 11:03:42 0.0132 | KL 2.4454 | NextKL 2.7707 | SideQ 0% | Score 0.0000 (39.2s)
+2026-05-24 11:03:42     Gate FAIL | Improve same SHA cur=2.4454 req<=2.3965 prev=2.4454 | Consist ok
+2026-05-24 11:03:42 ema_cur=2.7925 ema_next=2.7881 ratio=0.998 max<=1.20
+2026-05-24 11:03:44   Evicted cached model:
+2026-05-24 11:03:44 Danieli1021/evolai-qwen047-v3@e01dfd3b9c54325c98bf12966bdebadace391002
+2026-05-24 11:03:44   [39/50] UID 8 | evolai/evolai_test_challenge @
+2026-05-24 11:03:44 13516f0aab0e10e87f3c7f4fe1857e2ee3c740c1 | hotkey 5ENhqnBoyFdz…
+2026-05-24 11:03:44    Downloading Jubilant/evolai-1.54b@d8681d30b14cb5a597d2ff7c909998cf9d217599…
+2026-05-24 11:03:44     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:03:44     Fetched 20 texts (20 indices)
+2026-05-24 11:03:46     Loaded (local prefetch)
+2026-05-24 11:03:46     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:03:50    Ready: Jubilant/evolai-1.54b@d8681d30b14cb5a597d2ff7c909998cf9d217599
+2026-05-24 11:04:20     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:32
+2026-05-24 11:04:21     Loss 3.5329 | Size ×0.50 | Think 3.5329 | ThinkGain 0 (+0.4553) | Flow
+2026-05-24 11:04:21 0.1065 | KL 1.4176 | NextKL 1.7843 | SideQ 0% | Score 0.0332 (34.6s)
+2026-05-24 11:04:21     Gate PASS | Improve ok cur=1.4176 req<=1.5769 prev=1.6091 | Consist ok
+2026-05-24 11:04:21 ema_cur=1.7237 ema_next=1.8982 ratio=1.101 max<=1.20
+2026-05-24 11:04:22   Evicted cached model:
+2026-05-24 11:04:22 mrthor102/evolai-tfm-super-004@6c3e1aeb8033b0093d380928b92f689c64a90095
+2026-05-24 11:04:23   [40/50] UID 97 | mrthor102/evolai-tfm-super-002 @
+2026-05-24 11:04:23 031a0c82f0482bbe5f58fddcd566ac66b6a4cc28 | hotkey 5EcJYRJBVF5K…
+2026-05-24 11:04:23     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:04:23     Fetched 20 texts (20 indices)
+2026-05-24 11:04:23    Downloading evolai/evolai_naive_kl@da8203b6900f14ec1b724f3dd8c6dc35576fc3e4…
+2026-05-24 11:04:24     Loaded (local prefetch)
+2026-05-24 11:04:24     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:04:25    Ready: evolai/evolai_naive_kl@da8203b6900f14ec1b724f3dd8c6dc35576fc3e4
+2026-05-24 11:05:03     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:35
+2026-05-24 11:05:03     Loss 3.5926 | Size ×0.50 | Think 3.5926 | ThinkGain 0 (+0.4632) | Flow
+2026-05-24 11:05:03 0.0012 | KL 1.7634 | NextKL 1.9976 | SideQ 0% | Score 0.0000 (38.3s)
+2026-05-24 11:05:03     Gate FAIL | Improve FAIL cur=1.7634 req<=1.7189 prev=1.7540 | Consist ok
+2026-05-24 11:05:03 ema_cur=1.9300 ema_next=1.9337 ratio=1.002 max<=1.20
+2026-05-24 11:05:05   Evicted cached model:
+2026-05-24 11:05:05 Lin2es/evolai-tfm-04o@52061d203723fdc8be09324d0c827898fcb7bdc4
+2026-05-24 11:05:05   [41/50] UID 36 | Jubilant/evolai-1.54b @
+2026-05-24 11:05:05 d8681d30b14cb5a597d2ff7c909998cf9d217599 | hotkey 5G7Co5VNfQio…
+2026-05-24 11:05:05     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:05:05    Downloading
+2026-05-24 11:05:05 andrebarrosilva1123/evolai-e@806394ca7f2f7c1edbe962a9471647f4d67b5e72…
+2026-05-24 11:05:05     Fetched 20 texts (20 indices)
+2026-05-24 11:05:07     Loaded (local prefetch)
+2026-05-24 11:05:08     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 11:05:09   [42/50] UID 95 | evolai/evolai_naive_kl @
+2026-05-24 11:05:09 da8203b6900f14ec1b724f3dd8c6dc35576fc3e4 | hotkey 5CXwmm7R4U6o…
+2026-05-24 11:05:09     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:05:09     Fetched 20 texts (20 indices)
+2026-05-24 11:05:11     Loaded (local prefetch)
+2026-05-24 11:05:11     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:05:12    Ready: andrebarrosilva1123/evolai-e@806394ca7f2f7c1edbe962a9471647f4d67b5e72
+2026-05-24 11:05:12    Downloading
+2026-05-24 11:05:12 Radiant28/evolai-0.4b-V1@5e0cb9981c5c7ec29fe92d5cf1ebddcbcc002af5…
+2026-05-24 11:05:12 Fetching 7 files: 100%|██████████| 7/7 [00:07<00:00,  1.00s/it]
+2026-05-24 11:05:19    Ready: Radiant28/evolai-0.4b-V1@5e0cb9981c5c7ec29fe92d5cf1ebddcbcc002af5
+2026-05-24 11:05:51     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:36
+2026-05-24 11:05:51     Loss 2.2348 | Size ×0.50 | Think 2.2348 | ThinkGain 0 (+0.4762) | Flow
+2026-05-24 11:05:51 0.1793 | KL 2.8653 | NextKL 2.6847 | SideQ 0% | Score 0.0000 (39.6s)
+2026-05-24 11:05:51     Gate FAIL | Improve same SHA cur=2.8653 req<=2.8080 prev=2.8653 | Consist ok
+2026-05-24 11:05:51 ema_cur=2.7864 ema_next=2.7662 ratio=0.993 max<=1.20
+2026-05-24 11:05:52   Evicted cached model:
+2026-05-24 11:05:52 mihai-777/evolai-tfm-1p5b-04@fb289dbfe35c595b1a586f786a19e118cc1bfc9a
+2026-05-24 11:05:53   [43/50] UID 53 | andrebarrosilva1123/evolai-e @
+2026-05-24 11:05:53 806394ca7f2f7c1edbe962a9471647f4d67b5e72 | hotkey 5EFgFa93M5Vx…
+2026-05-24 11:05:53     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:05:53     Fetched 20 texts (20 indices)
+2026-05-24 11:05:53    Downloading
+2026-05-24 11:05:53 Radiant28/evolai-transformer-0.4b-b1@18231d7d50096d8b2744fdff1b38a7b90246ddf0…
+2026-05-24 11:05:55     Loaded (local prefetch)
+2026-05-24 11:05:56     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 11:05:58   [44/50] UID 44 | Radiant28/evolai-0.4b-V1 @
+2026-05-24 11:05:58 5e0cb9981c5c7ec29fe92d5cf1ebddcbcc002af5 | hotkey 5DXm2ShZGmwG…
+2026-05-24 11:05:58     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:05:58     Fetched 20 texts (20 indices)
+2026-05-24 11:06:00    Ready:
+2026-05-24 11:06:00 Radiant28/evolai-transformer-0.4b-b1@18231d7d50096d8b2744fdff1b38a7b90246ddf0
+2026-05-24 11:06:00    Downloading
+2026-05-24 11:06:00 andrebarrosilva1123/evolai-f@89654c7b1e351cce36bab65fe09692eb0e109f72…
+2026-05-24 11:06:00     Loaded (local prefetch)
+2026-05-24 11:06:00 Fetching 7 files: 100%|██████████| 7/7 [00:06<00:00,  1.07it/s]
+2026-05-24 11:06:01     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 11:06:03   [45/50] UID 35 | Radiant28/evolai-transformer-0.4b-b1 @
+2026-05-24 11:06:03 18231d7d50096d8b2744fdff1b38a7b90246ddf0 | hotkey 5EXZBq3wQzTK…
+2026-05-24 11:06:03     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:06:03     Fetched 20 texts (20 indices)
+2026-05-24 11:06:05     Loaded (local prefetch)
+2026-05-24 11:06:06     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 11:06:07    Ready: andrebarrosilva1123/evolai-f@89654c7b1e351cce36bab65fe09692eb0e109f72
+2026-05-24 11:06:07    Downloading
+2026-05-24 11:06:07 batster4/evolai-phi4-mini-dpo-v1@8217794abaf74f8e15f578a507e27b5f9b1df4c9…
+2026-05-24 11:06:08   [46/50] UID 52 | andrebarrosilva1123/evolai-f @
+2026-05-24 11:06:08 89654c7b1e351cce36bab65fe09692eb0e109f72 | hotkey 5HTZZEb5oxv9…
+2026-05-24 11:06:08     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:06:08     Fetched 20 texts (20 indices)
+2026-05-24 11:06:08 Fetching 12 files: 100%|██████████| 12/12 [00:24<00:00,  2.02s/it]
+2026-05-24 11:06:10     Loaded (local prefetch)
+2026-05-24 11:06:10     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 11:06:13   [47/50] UID 59 | batster4/evolai-phi4-mini-dpo-v1 @
+2026-05-24 11:06:13 8217794abaf74f8e15f578a507e27b5f9b1df4c9 | hotkey 5GCA2s6m4RRM…
+2026-05-24 11:06:13     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:06:13     Fetched 20 texts (20 indices)
+2026-05-24 11:06:32    Ready:
+2026-05-24 11:06:32 batster4/evolai-phi4-mini-dpo-v1@8217794abaf74f8e15f578a507e27b5f9b1df4c9
+2026-05-24 11:06:32    Downloading philk11/evolai-0.4b@822950352d63cdd145c3a7449ebfd4b51ad5ae6a…
+2026-05-24 11:06:36    Ready: philk11/evolai-0.4b@822950352d63cdd145c3a7449ebfd4b51ad5ae6a
+2026-05-24 11:06:36    Downloading snx999/evolai_qw_4b@69eff663b4e9a2b5bf76dde6cdecc5dce29759d3…
+2026-05-24 11:06:41     Loaded (HF download)
+2026-05-24 11:06:41     ⚠ Invalid model size (3.84B; allowed 0.45-0.48B, 1.50-1.80B) — skipping
+2026-05-24 11:06:44   [48/50] UID 65 | philk11/evolai-0.4b @
+2026-05-24 11:06:44 822950352d63cdd145c3a7449ebfd4b51ad5ae6a | hotkey 5GvHE1tHbhGv…
+2026-05-24 11:06:45     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:06:45     Fetched 20 texts (20 indices)
+2026-05-24 11:06:47     Loaded (local prefetch)
+2026-05-24 11:06:47     ⚠ Invalid model size (0.60B; allowed 0.45-0.48B, 1.50-1.80B) — skipping
+2026-05-24 11:06:50   [49/50] UID 25 | snx999/evolai_qw_4b @
+2026-05-24 11:06:50 69eff663b4e9a2b5bf76dde6cdecc5dce29759d3 | hotkey 5HBJoNWv4nAi…
+2026-05-24 11:06:50     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:06:50     Fetched 20 texts (20 indices)
+2026-05-24 11:06:52    Ready: snx999/evolai_qw_4b@69eff663b4e9a2b5bf76dde6cdecc5dce29759d3
+2026-05-24 11:06:52    Downloading
+2026-05-24 11:06:52 Jubilant/evolai-1.50b-v1@074810c41bab77c52a216e0c2f7886484e12deeb…
+2026-05-24 11:07:08    Ready: Jubilant/evolai-1.50b-v1@074810c41bab77c52a216e0c2f7886484e12deeb
+2026-05-24 11:07:15     Loaded (HF download)
+2026-05-24 11:07:15     ⚠ Invalid model size (4.21B; allowed 0.45-0.48B, 1.50-1.80B) — skipping
+2026-05-24 11:07:18   [50/50] UID 40 | Jubilant/evolai-1.50b-v1 @
+2026-05-24 11:07:18 074810c41bab77c52a216e0c2f7886484e12deeb | hotkey 5Fuv43yR7tjJ…
+2026-05-24 11:07:18     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:07:18     Fetched 20 texts (20 indices)
+2026-05-24 11:07:19     Loaded (local prefetch)
+2026-05-24 11:07:20     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 11:07:22   Cached next refs for transformer: 50 miner(s)
+2026-05-24 11:07:22 
+2026-05-24 11:07:22   ✓ TRANSFORMER: 30 evaluated, 23 skipped —
+2026-05-24 11:07:22 epoch_22926_transformer_20260524_104004.json
+2026-05-24 11:07:22   ✓ Telemetry sent (30 records)
+2026-05-24 11:07:22 Evaluating MAMBA2 track…
+2026-05-24 11:07:22 
+2026-05-24 11:07:22   Found 15 locked mamba2 miners
+2026-05-24 11:07:22    Downloading
+2026-05-24 11:07:22 mihai-777/evolai-mamba2-1p6b-alt@131bd3907f9816bbf184f5651ba63af66046e84c…
+2026-05-24 11:07:22 Pre-building current/next challenges for 15 miners…
+2026-05-24 11:07:22 Fetching 7 files: 100%|██████████| 7/7 [00:03<00:00,  1.84it/s]
+2026-05-24 11:07:26    Ready:
+2026-05-24 11:07:26 mihai-777/evolai-mamba2-1p6b-alt@131bd3907f9816bbf184f5651ba63af66046e84c
+2026-05-24 11:07:26    Downloading
+2026-05-24 11:07:26 andrebarrosilva1123/evolai-mamba2-b@62336a49df6d6014f779575adfd29373c228edd4…
+2026-05-24 11:07:26 Fetching 7 files: 100%|██████████| 7/7 [00:03<00:00,  2.03it/s]
+2026-05-24 11:07:30    Ready:
+2026-05-24 11:07:30 andrebarrosilva1123/evolai-mamba2-b@62336a49df6d6014f779575adfd29373c228edd4
+2026-05-24 11:07:42 ✓ Ref data ready: submitted=15, cached=15
+2026-05-24 11:07:42   [1/15] UID 32 | mihai-777/evolai-mamba2-1p6b-alt @
+2026-05-24 11:07:42 131bd3907f9816bbf184f5651ba63af66046e84c | hotkey 5GL84HKDau7C…
+2026-05-24 11:07:43     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:07:43    Downloading
+2026-05-24 11:07:43 batster4/evolai-mamba2-v1@142f14d218be618e3161d86926085b3a9cefed55…
+2026-05-24 11:07:43     Fetched 20 texts (20 indices)
+2026-05-24 11:07:45     Loaded (local prefetch)
+2026-05-24 11:07:45     Model 0.48B → batch=512, seq=16384
+2026-05-24 11:07:47    Ready: batster4/evolai-mamba2-v1@142f14d218be618e3161d86926085b3a9cefed55
+2026-05-24 11:07:55     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:04
+2026-05-24 11:07:55     Loss 4.8200 | Size ×0.52 | Think 0.0000 | ThinkGain 0 (+0.5000) | Flow
+2026-05-24 11:07:55 0.1964 | KL 4.8200 | NextKL 4.7855 | SideQ 0% | Score 0.0000 (9.8s)
+2026-05-24 11:07:55     Gate FAIL | Improve same SHA cur=4.8200 req<=4.7236 prev=4.8200 | Consist ok
+2026-05-24 11:07:55 ema_cur=4.8699 ema_next=4.8551 ratio=0.997 max<=1.20
+2026-05-24 11:07:57   Evicted cached model:
+2026-05-24 11:07:57 clear-blue-sky/evolai-reborn-tfm-010@ea18fae23f980bf6034aca61c89cb2058e303a24
+2026-05-24 11:07:58   [2/15] UID 57 | andrebarrosilva1123/evolai-mamba2-b @
+2026-05-24 11:07:58 62336a49df6d6014f779575adfd29373c228edd4 | hotkey 5EZx1DRvpMGK…
+2026-05-24 11:07:58     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:07:58     Fetched 20 texts (20 indices)
+2026-05-24 11:07:58    Downloading
+2026-05-24 11:07:58 andrebarrosilva1123/evolai-mamba2-c@dc37c985d66c77e3d10bf9eaf16e6dc952c62e17…
+2026-05-24 11:07:59     Loaded (local prefetch)
+2026-05-24 11:08:00     ⚠ Vocab incompatible (model=151669 < ref=248077) — skipping
+2026-05-24 11:08:01    Ready:
+2026-05-24 11:08:01 andrebarrosilva1123/evolai-mamba2-c@dc37c985d66c77e3d10bf9eaf16e6dc952c62e17
+2026-05-24 11:08:03   [3/15] UID 60 | batster4/evolai-mamba2-v1 @
+2026-05-24 11:08:03 142f14d218be618e3161d86926085b3a9cefed55 | hotkey 5Dc8EpAixcqc…
+2026-05-24 11:08:03     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:08:03     Fetched 20 texts (20 indices)
+2026-05-24 11:08:03    Downloading
+2026-05-24 11:08:03 evolai/evolai_mamba_naive_kl@b7c8842d1d5a700bd6a36b834fe6f0b3dc5d321a…
+2026-05-24 11:08:06    Ready: evolai/evolai_mamba_naive_kl@b7c8842d1d5a700bd6a36b834fe6f0b3dc5d321a
+2026-05-24 11:08:07     Loaded (local prefetch)
+2026-05-24 11:08:08     ⚠ Invalid model size (0.82B; allowed 0.45-0.48B, 1.50-1.80B) — skipping
+2026-05-24 11:08:10   [4/15] UID 58 | andrebarrosilva1123/evolai-mamba2-c @
+2026-05-24 11:08:10 dc37c985d66c77e3d10bf9eaf16e6dc952c62e17 | hotkey 5EgtSzXJbjpV…
+2026-05-24 11:08:10     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:08:10     Fetched 20 texts (20 indices)
+2026-05-24 11:08:10    Downloading
+2026-05-24 11:08:10 andrebarrosilva1123/evolai-mamba2-a@55b92d373b1c219a4cfbac7034c154ddbcdc854d…
+2026-05-24 11:08:11     Loaded (local prefetch)
+2026-05-24 11:08:12     ⚠ Vocab incompatible (model=151669 < ref=248077) — skipping
+2026-05-24 11:08:12    Ready:
+2026-05-24 11:08:12 andrebarrosilva1123/evolai-mamba2-a@55b92d373b1c219a4cfbac7034c154ddbcdc854d
+2026-05-24 11:08:13   [5/15] UID 96 | evolai/evolai_mamba_naive_kl @
+2026-05-24 11:08:13 b7c8842d1d5a700bd6a36b834fe6f0b3dc5d321a | hotkey 5HQuJVXBXGrW…
+2026-05-24 11:08:13     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:08:13     Fetched 20 texts (20 indices)
+2026-05-24 11:08:13    Downloading Lin2es/evolai-mb2-04v@9c0198682f16cc8595fec849aa37227f7160e92c…
+2026-05-24 11:08:15     Loaded (local prefetch)
+2026-05-24 11:08:15     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:08:17    Ready: Lin2es/evolai-mb2-04v@9c0198682f16cc8595fec849aa37227f7160e92c
+2026-05-24 11:08:20     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:01
+2026-05-24 11:08:20     Loss 3.6308 | Size ×0.50 | Think 0.0000 | ThinkGain 0 (+0.5000) | Flow
+2026-05-24 11:08:20 0.0000 | KL 3.6308 | NextKL 3.5893 | SideQ 0% | Score 0.0000 (4.7s)
+2026-05-24 11:08:20     Gate FAIL | Improve same SHA cur=3.6308 req<=3.5581 prev=3.6308 | Consist ok
+2026-05-24 11:08:20 ema_cur=3.8584 ema_next=3.5244 ratio=0.913 max<=1.20
+2026-05-24 11:08:22   Evicted cached model:
+2026-05-24 11:08:22 mihai-777/evolai-tfm-1p5b-alt@5ebb4a406916abe39e32823ff1f635b70e707e5a
+2026-05-24 11:08:22   [6/15] UID 56 | andrebarrosilva1123/evolai-mamba2-a @
+2026-05-24 11:08:22 55b92d373b1c219a4cfbac7034c154ddbcdc854d | hotkey 5D1zGn2n3mzF…
+2026-05-24 11:08:22     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:08:22     Fetched 20 texts (20 indices)
+2026-05-24 11:08:22    Downloading Lin2es/evolai-mb2-03v@3047597c4e4b4430450ddcd633240b88d781fdbd…
+2026-05-24 11:08:24     Loaded (local prefetch)
+2026-05-24 11:08:24     ⚠ Vocab incompatible (model=151669 < ref=248077) — skipping
+2026-05-24 11:08:25    Ready: Lin2es/evolai-mb2-03v@3047597c4e4b4430450ddcd633240b88d781fdbd
+2026-05-24 11:08:26   [7/15] UID 89 | Lin2es/evolai-mb2-04v @
+2026-05-24 11:08:26 9c0198682f16cc8595fec849aa37227f7160e92c | hotkey 5DkZf6V3X8Za…
+2026-05-24 11:08:26     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:08:26     Fetched 20 texts (20 indices)
+2026-05-24 11:08:26    Downloading
+2026-05-24 11:08:26 mihai-777/evolai-mamba2-0p47b-v3@c2a96b92acf632d51a2c21da4482f77f98256518…
+2026-05-24 11:08:27     Loaded (local prefetch)
+2026-05-24 11:08:27     ⚠ Vocab incompatible (model=151665 < ref=248077) — skipping
+2026-05-24 11:08:29   [8/15] UID 91 | Lin2es/evolai-mb2-03v @
+2026-05-24 11:08:29 3047597c4e4b4430450ddcd633240b88d781fdbd | hotkey 5EcdUqvUBCSp…
+2026-05-24 11:08:29     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:08:29     Fetched 20 texts (20 indices)
+2026-05-24 11:08:29    Ready:
+2026-05-24 11:08:29 mihai-777/evolai-mamba2-0p47b-v3@c2a96b92acf632d51a2c21da4482f77f98256518
+2026-05-24 11:08:29    Downloading
+2026-05-24 11:08:29 elgin-group/evolai-mamba2-0p47b-v1@39b2f90ad08643d34503c88f5c7224fd3dabeed7…
+2026-05-24 11:08:30     Loaded (local prefetch)
+2026-05-24 11:08:31     Model 0.48B → batch=512, seq=16384
+2026-05-24 11:08:33    Ready:
+2026-05-24 11:08:33 elgin-group/evolai-mamba2-0p47b-v1@39b2f90ad08643d34503c88f5c7224fd3dabeed7
+2026-05-24 11:08:35     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:01
+2026-05-24 11:08:35     Loss 4.5813 | Size ×0.52 | Think 0.0000 | ThinkGain 0 (+0.5000) | Flow
+2026-05-24 11:08:35 0.1866 | KL 4.5813 | NextKL 4.7057 | SideQ 0% | Score 0.0000 (4.1s)
+2026-05-24 11:08:35     Gate FAIL | Improve same SHA cur=4.5813 req<=4.4896 prev=4.5813 | Consist ok
+2026-05-24 11:08:35 ema_cur=4.6499 ema_next=4.6575 ratio=1.002 max<=1.20
+2026-05-24 11:08:36   Evicted cached model:
+2026-05-24 11:08:36 clear-blue-sky/evolai-reborn-tfm-007@8b0164a3edd17ff29ea1e71fde39d93ed32e9790
+2026-05-24 11:08:37   [9/15] UID 30 | mihai-777/evolai-mamba2-0p47b-v3 @
+2026-05-24 11:08:37 c2a96b92acf632d51a2c21da4482f77f98256518 | hotkey 5GGsbuVKDrTA…
+2026-05-24 11:08:37     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:08:37     Fetched 20 texts (20 indices)
+2026-05-24 11:08:37    Downloading
+2026-05-24 11:08:37 Radiant28/evolai-mamba2-0.47b-v2@475bf7bf65af1192ed824d58816c1d83f3475983…
+2026-05-24 11:08:38     Loaded (local prefetch)
+2026-05-24 11:08:39     Model 0.48B → batch=512, seq=16384
+2026-05-24 11:08:40    Ready:
+2026-05-24 11:08:40 Radiant28/evolai-mamba2-0.47b-v2@475bf7bf65af1192ed824d58816c1d83f3475983
+2026-05-24 11:08:43     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:01
+2026-05-24 11:08:43     Loss 4.9009 | Size ×0.52 | Think 0.0000 | ThinkGain 0 (+0.5000) | Flow
+2026-05-24 11:08:43 0.0981 | KL 4.9009 | NextKL 4.7695 | SideQ 0% | Score 0.0000 (3.9s)
+2026-05-24 11:08:43     Gate FAIL | Improve same SHA cur=4.9009 req<=4.8029 prev=4.9009 | Consist ok
+2026-05-24 11:08:43 ema_cur=4.7862 ema_next=4.7884 ratio=1.000 max<=1.20
+2026-05-24 11:08:44   Evicted cached model:
+2026-05-24 11:08:44 Lin2es/evolai-tfm-02o@fc5fc3ee4a3877b825b404dc85c9367c1f248c59
+2026-05-24 11:08:45   [10/15] UID 34 | elgin-group/evolai-mamba2-0p47b-v1 @
+2026-05-24 11:08:45 39b2f90ad08643d34503c88f5c7224fd3dabeed7 | hotkey 5GNJr9NfE9e9…
+2026-05-24 11:08:45     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:08:45     Fetched 20 texts (20 indices)
+2026-05-24 11:08:45    Downloading
+2026-05-24 11:08:45 Radiant28/evolai-mamba2-0.47b-v3@97f692fb0b295aa29075d3f9d592bfb4e7625b16…
+2026-05-24 11:08:46     Loaded (local prefetch)
+2026-05-24 11:08:47     ⚠ Vocab incompatible (model=151669 < ref=248077) — skipping
+2026-05-24 11:08:47    Ready:
+2026-05-24 11:08:47 Radiant28/evolai-mamba2-0.47b-v3@97f692fb0b295aa29075d3f9d592bfb4e7625b16
+2026-05-24 11:08:48   [11/15] UID 39 | Radiant28/evolai-mamba2-0.47b-v2 @
+2026-05-24 11:08:48 475bf7bf65af1192ed824d58816c1d83f3475983 | hotkey 5FvTt3gVVhFT…
+2026-05-24 11:08:48     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:08:48     Fetched 20 texts (20 indices)
+2026-05-24 11:08:48    Downloading Lin2es/evolai-mb2-01v@a7f32e5ce7f8d307c98560e5025525f3703310c0…
+2026-05-24 11:08:50     Loaded (local prefetch)
+2026-05-24 11:08:50     ⚠ Vocab incompatible (model=151669 < ref=248077) — skipping
+2026-05-24 11:08:51    Ready: Lin2es/evolai-mb2-01v@a7f32e5ce7f8d307c98560e5025525f3703310c0
+2026-05-24 11:08:52   [12/15] UID 41 | Radiant28/evolai-mamba2-0.47b-v3 @
+2026-05-24 11:08:52 97f692fb0b295aa29075d3f9d592bfb4e7625b16 | hotkey 5CP5QrWuFe93…
+2026-05-24 11:08:52     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:08:52     Fetched 20 texts (20 indices)
+2026-05-24 11:08:52    Downloading
+2026-05-24 11:08:52 mihai-777/evolai-mamba2-0p47b@7b6564c9a46f602702c260185aa43867f321dee7…
+2026-05-24 11:08:53     Loaded (local prefetch)
+2026-05-24 11:08:54     ⚠ Vocab incompatible (model=151669 < ref=248077) — skipping
+2026-05-24 11:08:56   [13/15] UID 11 | Lin2es/evolai-mb2-01v @
+2026-05-24 11:08:56 a7f32e5ce7f8d307c98560e5025525f3703310c0 | hotkey 5HYuS4jrJJ56…
+2026-05-24 11:08:56     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:08:56     Fetched 20 texts (20 indices)
+2026-05-24 11:08:56    Ready: mihai-777/evolai-mamba2-0p47b@7b6564c9a46f602702c260185aa43867f321dee7
+2026-05-24 11:08:56    Downloading Lin2es/evolai-mb2-02v@c1ad3d94c5929dcc0e3a40d9d9034bd80da9a1f8…
+2026-05-24 11:08:57     Loaded (local prefetch)
+2026-05-24 11:08:57     Model 0.48B → batch=512, seq=16384
+2026-05-24 11:08:58    Ready: Lin2es/evolai-mb2-02v@c1ad3d94c5929dcc0e3a40d9d9034bd80da9a1f8
+2026-05-24 11:09:01     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:01
+2026-05-24 11:09:01     Loss 4.6076 | Size ×0.52 | Think 0.0000 | ThinkGain 0 (+0.5000) | Flow
+2026-05-24 11:09:01 0.0000 | KL 4.6076 | NextKL 4.5383 | SideQ 0% | Score 0.0000 (3.9s)
+2026-05-24 11:09:01     Gate FAIL | Improve same SHA cur=4.6076 req<=4.5155 prev=4.6076 | Consist ok
+2026-05-24 11:09:01 ema_cur=4.6607 ema_next=4.6541 ratio=0.999 max<=1.20
+2026-05-24 11:09:03   Evicted cached model:
+2026-05-24 11:09:03 evolai/evolai_test_challenge@13516f0aab0e10e87f3c7f4fe1857e2ee3c740c1
+2026-05-24 11:09:04   [14/15] UID 31 | mihai-777/evolai-mamba2-0p47b @
+2026-05-24 11:09:04 7b6564c9a46f602702c260185aa43867f321dee7 | hotkey 5CJuKKq16FkR…
+2026-05-24 11:09:04     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:09:04     Fetched 20 texts (20 indices)
+2026-05-24 11:09:05     Loaded (local prefetch)
+2026-05-24 11:09:05     Model 0.48B → batch=512, seq=16384
+2026-05-24 11:09:09     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:01
+2026-05-24 11:09:09     Loss 4.8128 | Size ×0.52 | Think 0.0000 | ThinkGain 0 (+0.5000) | Flow
+2026-05-24 11:09:09 0.0000 | KL 4.8128 | NextKL 4.9910 | SideQ 0% | Score 0.0000 (3.6s)
+2026-05-24 11:09:09     Gate FAIL | Improve same SHA cur=4.8128 req<=4.7166 prev=4.8128 | Consist ok
+2026-05-24 11:09:09 ema_cur=4.7860 ema_next=4.8030 ratio=1.004 max<=1.20
+2026-05-24 11:09:11   Evicted cached model:
+2026-05-24 11:09:11 mrthor102/evolai-tfm-super-002@031a0c82f0482bbe5f58fddcd566ac66b6a4cc28
+2026-05-24 11:09:11   [15/15] UID 90 | Lin2es/evolai-mb2-02v @
+2026-05-24 11:09:11 c1ad3d94c5929dcc0e3a40d9d9034bd80da9a1f8 | hotkey 5CtLLhrw6Lxa…
+2026-05-24 11:09:11     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:09:11     Fetched 20 texts (20 indices)
+2026-05-24 11:09:13     Loaded (local prefetch)
+2026-05-24 11:09:13     Model 0.48B → batch=512, seq=16384
+2026-05-24 11:09:16     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:01
+2026-05-24 11:09:17     Loss 4.6488 | Size ×0.52 | Think 0.0000 | ThinkGain 0 (+0.5000) | Flow
+2026-05-24 11:09:17 0.0000 | KL 4.6488 | NextKL 4.6739 | SideQ 0% | Score 0.0000 (3.6s)
+2026-05-24 11:09:17     Gate FAIL | Improve same SHA cur=4.6488 req<=4.5558 prev=4.6488 | Consist ok
+2026-05-24 11:09:17 ema_cur=4.9916 ema_next=4.7070 ratio=0.943 max<=1.20
+2026-05-24 11:09:18   Evicted cached model:
+2026-05-24 11:09:18 evolai/evolai_naive_kl@da8203b6900f14ec1b724f3dd8c6dc35576fc3e4
+2026-05-24 11:09:19   Cached next refs for mamba2: 15 miner(s)
+2026-05-24 11:09:19 
+2026-05-24 11:09:19   ✓ MAMBA2: 7 evaluated, 14 skipped — epoch_22926_mamba2_20260524_104004.json
+2026-05-24 11:09:19   ✓ Telemetry sent (7 records)
+2026-05-24 11:09:19 Current Leaderboard:
+2026-05-24 11:09:34 
+2026-05-24 11:09:34 TRANSFORMER
+2026-05-24 11:09:34 ┏━━━━━━┳━━━━━┳━━━━━━━━┳━━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━┳━━━━━┳━━━━━━━━━┳━━━━━━━┓
+2026-05-24 11:09:34 ┃      ┃     ┃        ┃     Latest ┃           ┃       ┃     ┃         ┃       ┃
+2026-05-24 11:09:34 ┃ Rank ┃ UID ┃  Score ┃       Loss ┃ ThinkGain ┃  Flow ┃ SQ% ┃      KL ┃ Evals ┃
+2026-05-24 11:09:34 ┡━━━━━━╇━━━━━╇━━━━━━━━╇━━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━╇━━━━━╇━━━━━━━━━╇━━━━━━━┩
+2026-05-24 11:09:34 │    1 │   8 │ 0.0332 │     3.5329 │  0 FAIL   │ 0.107 │  0% │  1.4176 │   312 │
+2026-05-24 11:09:34 │    2 │  48 │ 0.0001 │     3.8874 │  0 FAIL   │ 0.267 │  0% │  2.0361 │   136 │
+2026-05-24 11:09:34 │    3 │  82 │ 0.0000 │     3.8607 │  0 FAIL   │ 0.113 │  0% │  2.1181 │   347 │
+2026-05-24 11:09:34 │    4 │  66 │ 0.0000 │     3.8219 │  0 FAIL   │ 0.158 │  0% │  1.8146 │   347 │
+2026-05-24 11:09:34 │    5 │  87 │ 0.0000 │     4.0577 │  0 FAIL   │ 0.133 │  0% │  2.2495 │   147 │
+2026-05-24 11:09:34 │    6 │  86 │ 0.0000 │     4.1094 │  0 FAIL   │ 0.139 │  0% │  2.3171 │   148 │
+2026-05-24 11:09:34 │    7 │  73 │ 0.0000 │     3.7415 │  0 FAIL   │ 0.000 │  0% │  1.9573 │   132 │
+2026-05-24 11:09:34 │    8 │  93 │ 0.0000 │     3.7968 │  0 FAIL   │ 0.000 │  0% │  1.8798 │   132 │
+2026-05-24 11:09:34 │    9 │  97 │ 0.0000 │     3.5926 │  0 FAIL   │ 0.001 │  0% │  1.7634 │   262 │
+2026-05-24 11:09:34 │   10 │  67 │ 0.0000 │     3.8147 │  0 FAIL   │ 0.547 │  0% │  1.8031 │   349 │
+2026-05-24 11:09:34 │   11 │  70 │ 0.0000 │     4.0310 │  0 FAIL   │ 0.000 │  0% │  2.0317 │   347 │
+2026-05-24 11:09:34 │   12 │  83 │ 0.0000 │     3.6363 │  0 FAIL   │ 0.000 │  0% │  1.9476 │   349 │
+2026-05-24 11:09:34 │   13 │  85 │ 0.0000 │     3.9702 │  0 FAIL   │ 0.000 │  0% │  1.7448 │   336 │
+2026-05-24 11:09:34 │   14 │  99 │ 0.0000 │     3.9530 │  0 FAIL   │ 0.000 │  0% │  2.0362 │   130 │
+2026-05-24 11:09:34 │   15 │  72 │ 0.0000 │     3.3910 │  0 FAIL   │ 0.202 │  0% │  1.7179 │   131 │
+2026-05-24 11:09:34 │   16 │  62 │ 0.0000 │     3.0363 │  0 FAIL   │ 0.049 │  0% │  1.7508 │   349 │
+2026-05-24 11:09:34 │   17 │  94 │ 0.0000 │     4.0698 │  0 FAIL   │ 0.000 │  0% │  2.1714 │   262 │
+2026-05-24 11:09:34 │   18 │  98 │ 0.0000 │     3.4699 │  0 FAIL   │ 0.162 │  0% │  1.6701 │   261 │
+2026-05-24 11:09:34 │   19 │  69 │ 0.0000 │     3.5815 │  0 FAIL   │ 0.238 │  0% │  1.8682 │   132 │
+2026-05-24 11:09:34 │   20 │   9 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   351 │
+2026-05-24 11:09:34 │   21 │  25 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   348 │
+2026-05-24 11:09:34 │   22 │  33 │ 0.0000 │     3.0353 │  0 FAIL   │ 0.000 │  0% │  2.4184 │   349 │
+2026-05-24 11:09:34 │   23 │  35 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   349 │
+2026-05-24 11:09:34 │   24 │  36 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   348 │
+2026-05-24 11:09:34 │   25 │  37 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   349 │
+2026-05-24 11:09:34 │   26 │  38 │ 0.0000 │     3.2580 │  0 FAIL   │ 0.000 │  0% │  2.7758 │   348 │
+2026-05-24 11:09:34 │   27 │  40 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   349 │
+2026-05-24 11:09:34 │   28 │  42 │ 0.0000 │     2.9022 │  0 FAIL   │ 0.282 │  0% │  2.3438 │   349 │
+2026-05-24 11:09:34 │   29 │  43 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   349 │
+2026-05-24 11:09:34 │   30 │  44 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   350 │
+2026-05-24 11:09:34 │   31 │  45 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   349 │
+2026-05-24 11:09:34 │   32 │  49 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   348 │
+2026-05-24 11:09:34 │   33 │  50 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   348 │
+2026-05-24 11:09:34 │   34 │  51 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   321 │
+2026-05-24 11:09:34 │   35 │  52 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   322 │
+2026-05-24 11:09:34 │   36 │  53 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   349 │
+2026-05-24 11:09:34 │   37 │  54 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   320 │
+2026-05-24 11:09:34 │   38 │  55 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   352 │
+2026-05-24 11:09:34 │   39 │  59 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   349 │
+2026-05-24 11:09:34 │   40 │  61 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   349 │
+2026-05-24 11:09:34 │   41 │  65 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   349 │
+2026-05-24 11:09:34 │   42 │  75 │ 0.0000 │     2.7653 │  0 FAIL   │ 0.000 │  0% │  2.4272 │   350 │
+2026-05-24 11:09:34 │   43 │  76 │ 0.0000 │     3.1026 │  0 FAIL   │ 0.283 │  0% │  1.8911 │   348 │
+2026-05-24 11:09:34 │   44 │  77 │ 0.0000 │     2.4276 │  0 FAIL   │ 0.000 │  0% │  2.8855 │   251 │
+2026-05-24 11:09:34 │   45 │  78 │ 0.0000 │     2.9456 │  0 FAIL   │ 0.013 │  0% │  2.4454 │   251 │
+2026-05-24 11:09:34 │   46 │  79 │ 0.0000 │     2.5224 │  0 FAIL   │ 0.009 │  0% │  2.4695 │   251 │
+2026-05-24 11:09:34 │   47 │  80 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   350 │
+2026-05-24 11:09:34 │   48 │  84 │ 0.0000 │     3.8454 │  0 FAIL   │ 0.000 │  0% │  2.0465 │   333 │
+2026-05-24 11:09:34 │   49 │  88 │ 0.0000 │     3.9147 │  0 FAIL   │ 0.290 │  0% │  1.9992 │   146 │
+2026-05-24 11:09:34 │   50 │  92 │ 0.0000 │     2.7933 │  0 FAIL   │ 0.000 │  0% │  2.6926 │   252 │
+2026-05-24 11:09:34 │   51 │  95 │ 0.0000 │     2.2348 │  0 FAIL   │ 0.179 │  0% │  2.8653 │   261 │
+2026-05-24 11:09:34 │   52 │ 100 │ 0.0000 │     4.0758 │  0 FAIL   │ 0.000 │  0% │  3.9907 │   260 │
+2026-05-24 11:09:34 │   53 │ 101 │ 0.0000 │     3.6576 │  0 FAIL   │ 0.431 │  0% │  1.7309 │    82 │
+2026-05-24 11:09:34 └──────┴─────┴────────┴────────────┴───────────┴───────┴─────┴─────────┴───────┘
+2026-05-24 11:09:34 
+2026-05-24 11:09:34 MAMBA2
+2026-05-24 11:09:34 ┏━━━━━━┳━━━━━┳━━━━━━━━┳━━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━┳━━━━━┳━━━━━━━━━┳━━━━━━━┓
+2026-05-24 11:09:34 ┃      ┃     ┃        ┃     Latest ┃           ┃       ┃     ┃         ┃       ┃
+2026-05-24 11:09:34 ┃ Rank ┃ UID ┃  Score ┃       Loss ┃ ThinkGain ┃  Flow ┃ SQ% ┃      KL ┃ Evals ┃
+2026-05-24 11:09:34 ┡━━━━━━╇━━━━━╇━━━━━━━━╇━━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━╇━━━━━╇━━━━━━━━━╇━━━━━━━┩
+2026-05-24 11:09:34 │    1 │  11 │ 0.0000 │     4.6076 │  0 FAIL   │ 0.000 │  0% │  4.6076 │   251 │
+2026-05-24 11:09:34 │    2 │  30 │ 0.0000 │     4.9009 │  0 FAIL   │ 0.098 │  0% │  4.9009 │   346 │
+2026-05-24 11:09:34 │    3 │  31 │ 0.0000 │     4.8128 │  0 FAIL   │ 0.000 │  0% │  4.8128 │   346 │
+2026-05-24 11:09:34 │    4 │  32 │ 0.0000 │     4.8200 │  0 FAIL   │ 0.196 │  0% │  4.8200 │   346 │
+2026-05-24 11:09:34 │    5 │  34 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   346 │
+2026-05-24 11:09:34 │    6 │  39 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   347 │
+2026-05-24 11:09:34 │    7 │  41 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   346 │
+2026-05-24 11:09:34 │    8 │  56 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   346 │
+2026-05-24 11:09:34 │    9 │  57 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   346 │
+2026-05-24 11:09:34 │   10 │  58 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   346 │
+2026-05-24 11:09:34 │   11 │  60 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   346 │
+2026-05-24 11:09:34 │   12 │  63 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   271 │
+2026-05-24 11:09:34 │   13 │  64 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   272 │
+2026-05-24 11:09:34 │   14 │  68 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   272 │
+2026-05-24 11:09:34 │   15 │  71 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   271 │
+2026-05-24 11:09:34 │   16 │  74 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   272 │
+2026-05-24 11:09:34 │   17 │  81 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   273 │
+2026-05-24 11:09:34 │   18 │  89 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   251 │
+2026-05-24 11:09:34 │   19 │  90 │ 0.0000 │     4.6488 │  0 FAIL   │ 0.000 │  0% │  4.6488 │   261 │
+2026-05-24 11:09:34 │   20 │  91 │ 0.0000 │     4.5813 │  0 FAIL   │ 0.187 │  0% │  4.5813 │   261 │
+2026-05-24 11:09:34 │   21 │  96 │ 0.0000 │     3.6308 │  0 FAIL   │ 0.000 │  0% │  3.6308 │   261 │
+2026-05-24 11:09:34 └──────┴─────┴────────┴────────────┴───────────┴───────┴─────┴─────────┴───────┘
+2026-05-24 11:09:34 
+2026-05-24 11:09:34 Round complete in epoch 22926 (1771s elapsed). Starting next round immediately…
+2026-05-24 11:09:34 
+2026-05-24 11:09:34 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-05-24 11:09:34 
+2026-05-24 11:09:34 ━━━ Epoch #22926 (Loop #7) ━━━ block=8253558, ~32m remaining
+2026-05-24 11:09:44 
+2026-05-24 11:09:44   ⚠ UID 86: revision lock failed: RepositoryNotFoundError: 401 Client Error.
+2026-05-24 11:09:44 (Request ID:
+2026-05-24 11:09:44 Root=1-6a12dc78-556c72171ad762ab45d88ff3;561883f1-2dc5-45bd-b3eb-7d750b082a3d)
+2026-05-24 11:09:44 
+2026-05-24 11:09:44 Repository Not Found for url:
+2026-05-24 11:09:44 https://huggingface.co/api/models/clear-blue-sky/evolai-tfm-012/revision/main.
+2026-05-24 11:09:44 Please make sure you specified the correct `repo_id` and `repo_type`.
+2026-05-24 11:09:44 If you are trying to access a private or gated repo, make sure you are
+2026-05-24 11:09:44 authenticated and your token has the required permissions.
+2026-05-24 11:09:44 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
+2026-05-24 11:09:44 Invalid username or password.
+2026-05-24 11:09:44   ⚠ UID 87: revision lock failed: RepositoryNotFoundError: 401 Client Error.
+2026-05-24 11:09:44 (Request ID:
+2026-05-24 11:09:44 Root=1-6a12dc78-729c8b3b0645ab4803bb1f75;a046d8bd-6e17-41d1-bd9b-96bb74abc05c)
+2026-05-24 11:09:44 
+2026-05-24 11:09:44 Repository Not Found for url:
+2026-05-24 11:09:44 https://huggingface.co/api/models/clear-blue-sky/evolai-tfm-013/revision/main.
+2026-05-24 11:09:44 Please make sure you specified the correct `repo_id` and `repo_type`.
+2026-05-24 11:09:44 If you are trying to access a private or gated repo, make sure you are
+2026-05-24 11:09:44 authenticated and your token has the required permissions.
+2026-05-24 11:09:44 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
+2026-05-24 11:09:44 Invalid username or password.
+2026-05-24 11:09:44   ⚠ UID 88: revision lock failed: RepositoryNotFoundError: 401 Client Error.
+2026-05-24 11:09:44 (Request ID:
+2026-05-24 11:09:44 Root=1-6a12dc78-147e03c3390f817a1b2eea55;56ecd084-ec70-4d08-8d4e-0e571073dc9a)
+2026-05-24 11:09:44 
+2026-05-24 11:09:44 Repository Not Found for url:
+2026-05-24 11:09:44 https://huggingface.co/api/models/clear-blue-sky/evolai-tfm-014/revision/main.
+2026-05-24 11:09:44 Please make sure you specified the correct `repo_id` and `repo_type`.
+2026-05-24 11:09:44 If you are trying to access a private or gated repo, make sure you are
+2026-05-24 11:09:44 authenticated and your token has the required permissions.
+2026-05-24 11:09:44 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
+2026-05-24 11:09:44 Invalid username or password.
+2026-05-24 11:09:45   Locked transformer revisions (50 miner(s), 3 skipped)
+2026-05-24 11:09:53   ⚠ UID 63: revision lock failed: RepositoryNotFoundError: 401 Client Error.
+2026-05-24 11:09:53 (Request ID:
+2026-05-24 11:09:53 Root=1-6a12dc81-19208a8229c8c4284a620dd5;ff2ea21b-6760-4a17-bfdc-c639be1ed928)
+2026-05-24 11:09:53 
+2026-05-24 11:09:53 Repository Not Found for url:
+2026-05-24 11:09:53 https://huggingface.co/api/models/clear-blue-sky/evolai-mb2-009/revision/main.
+2026-05-24 11:09:53 Please make sure you specified the correct `repo_id` and `repo_type`.
+2026-05-24 11:09:53 If you are trying to access a private or gated repo, make sure you are
+2026-05-24 11:09:53 authenticated and your token has the required permissions.
+2026-05-24 11:09:53 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
+2026-05-24 11:09:53 Invalid username or password.
+2026-05-24 11:09:53   ⚠ UID 64: revision lock failed: RepositoryNotFoundError: 401 Client Error.
+2026-05-24 11:09:53 (Request ID:
+2026-05-24 11:09:53 Root=1-6a12dc81-5d5ea3fa1de79f1d7facc187;9db33442-2bc9-47b1-9f32-c90994a85f09)
+2026-05-24 11:09:53 
+2026-05-24 11:09:53 Repository Not Found for url:
+2026-05-24 11:09:53 https://huggingface.co/api/models/clear-blue-sky/evolai-mb2-002/revision/main.
+2026-05-24 11:09:53 Please make sure you specified the correct `repo_id` and `repo_type`.
+2026-05-24 11:09:53 If you are trying to access a private or gated repo, make sure you are
+2026-05-24 11:09:53 authenticated and your token has the required permissions.
+2026-05-24 11:09:53 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
+2026-05-24 11:09:53 Invalid username or password.
+2026-05-24 11:09:53   ⚠ UID 68: revision lock failed: RepositoryNotFoundError: 401 Client Error.
+2026-05-24 11:09:53 (Request ID:
+2026-05-24 11:09:53 Root=1-6a12dc81-493a11b33c376a947c1ae580;f8cdf1c3-6807-410a-98d8-d9467380af98)
+2026-05-24 11:09:53 
+2026-05-24 11:09:53 Repository Not Found for url:
+2026-05-24 11:09:53 https://huggingface.co/api/models/clear-blue-sky/evolai-mb2-008/revision/main.
+2026-05-24 11:09:53 Please make sure you specified the correct `repo_id` and `repo_type`.
+2026-05-24 11:09:53 If you are trying to access a private or gated repo, make sure you are
+2026-05-24 11:09:53 authenticated and your token has the required permissions.
+2026-05-24 11:09:53 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
+2026-05-24 11:09:53 Invalid username or password.
+2026-05-24 11:09:53   ⚠ UID 71: revision lock failed: RepositoryNotFoundError: 401 Client Error.
+2026-05-24 11:09:53 (Request ID:
+2026-05-24 11:09:53 Root=1-6a12dc81-0ba2aa7636c52d22068da942;cc929201-e5c6-4a38-a113-6523bb0f648c)
+2026-05-24 11:09:53 
+2026-05-24 11:09:53 Repository Not Found for url:
+2026-05-24 11:09:53 https://huggingface.co/api/models/clear-blue-sky/evolai-mb2-001/revision/main.
+2026-05-24 11:09:53 Please make sure you specified the correct `repo_id` and `repo_type`.
+2026-05-24 11:09:53 If you are trying to access a private or gated repo, make sure you are
+2026-05-24 11:09:53 authenticated and your token has the required permissions.
+2026-05-24 11:09:53 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
+2026-05-24 11:09:53 Invalid username or password.
+2026-05-24 11:09:53   ⚠ UID 74: revision lock failed: RepositoryNotFoundError: 401 Client Error.
+2026-05-24 11:09:53 (Request ID:
+2026-05-24 11:09:53 Root=1-6a12dc81-0c5bd2d4101cc8d952a8e1b8;29e53c1a-8c1e-4ddf-a06c-c43603a6bdec)
+2026-05-24 11:09:53 
+2026-05-24 11:09:53 Repository Not Found for url:
+2026-05-24 11:09:53 https://huggingface.co/api/models/clear-blue-sky/evolai-mb2-007/revision/main.
+2026-05-24 11:09:53 Please make sure you specified the correct `repo_id` and `repo_type`.
+2026-05-24 11:09:53 If you are trying to access a private or gated repo, make sure you are
+2026-05-24 11:09:53 authenticated and your token has the required permissions.
+2026-05-24 11:09:53 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
+2026-05-24 11:09:53 Invalid username or password.
+2026-05-24 11:09:53   ⚠ UID 81: revision lock failed: RepositoryNotFoundError: 401 Client Error.
+2026-05-24 11:09:53 (Request ID:
+2026-05-24 11:09:53 Root=1-6a12dc81-4ae022d37d275fc2059fd553;6ded425f-c219-411b-a13d-60493fbb5d9a)
+2026-05-24 11:09:53 
+2026-05-24 11:09:53 Repository Not Found for url:
+2026-05-24 11:09:53 https://huggingface.co/api/models/clear-blue-sky/evolai-mb2-010/revision/main.
+2026-05-24 11:09:53 Please make sure you specified the correct `repo_id` and `repo_type`.
+2026-05-24 11:09:53 If you are trying to access a private or gated repo, make sure you are
+2026-05-24 11:09:53 authenticated and your token has the required permissions.
+2026-05-24 11:09:53 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
+2026-05-24 11:09:53 Invalid username or password.
+2026-05-24 11:09:53   Locked mamba2 revisions (15 miner(s), 6 skipped)
+2026-05-24 11:10:26   Committed round seed epoch=22926 seed=69f16f40...
+2026-05-24 11:10:26 Evaluating TRANSFORMER track…
+2026-05-24 11:10:26 
+2026-05-24 11:10:26   Found 50 locked transformer miners
+2026-05-24 11:10:26    Downloading
+2026-05-24 11:10:26 clear-blue-sky/evolai-reborn-tfm-002@53b54d8cf100ef4228df6338cea3a6ae85982413…
+2026-05-24 11:10:26 Pre-building current/next challenges for 50 miners…
+2026-05-24 11:10:26 Fetching 7 files: 100%|██████████| 7/7 [00:04<00:00,  1.62it/s]
+2026-05-24 11:10:31    Ready:
+2026-05-24 11:10:31 clear-blue-sky/evolai-reborn-tfm-002@53b54d8cf100ef4228df6338cea3a6ae85982413
+2026-05-24 11:10:31    Downloading
+2026-05-24 11:10:31 mrthor102/evolai-tfm-super-001@269ea6110709e547c5c4450881dd8f171e810d18…
+2026-05-24 11:10:31 Fetching 7 files: 100%|██████████| 7/7 [00:04<00:00,  1.70it/s]
+2026-05-24 11:10:35    Ready:
+2026-05-24 11:10:35 mrthor102/evolai-tfm-super-001@269ea6110709e547c5c4450881dd8f171e810d18
+2026-05-24 11:11:20 ✓ Ref data ready: submitted=50, cached=50
+2026-05-24 11:11:20   [1/50] UID 67 | clear-blue-sky/evolai-reborn-tfm-002 @
+2026-05-24 11:11:20 53b54d8cf100ef4228df6338cea3a6ae85982413 | hotkey 5GC7k2mkTKGF…
+2026-05-24 11:11:20     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:11:20    Downloading
+2026-05-24 11:11:20 clear-blue-sky/evolai-reborn-tfm-008@97a0b5f66590c67a8dbdfab07fe4e12ee6d3639a…
+2026-05-24 11:11:20     Fetched 20 texts (20 indices)
+2026-05-24 11:11:22     Loaded (local prefetch)
+2026-05-24 11:11:22     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:11:25    Ready:
+2026-05-24 11:11:25 clear-blue-sky/evolai-reborn-tfm-008@97a0b5f66590c67a8dbdfab07fe4e12ee6d3639a
+2026-05-24 11:12:18     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:52
+2026-05-24 11:12:19     Loss 3.5161 | Size ×0.50 | Think 3.5161 | ThinkGain 0 (+0.4605) | Flow
+2026-05-24 11:12:19 0.6138 | KL 1.7320 | NextKL 1.9268 | SideQ 0% | Score 0.0000 (56.0s)
+2026-05-24 11:12:19     Gate FAIL | Improve FAIL cur=1.7320 req<=1.6838 prev=1.7182 | Consist ok
+2026-05-24 11:12:19 ema_cur=1.8486 ema_next=1.8553 ratio=1.004 max<=1.20
+2026-05-24 11:12:20   Evicted cached model:
+2026-05-24 11:12:20 mihai-777/evolai-mamba2-1p6b-alt@131bd3907f9816bbf184f5651ba63af66046e84c
+2026-05-24 11:12:21   [2/50] UID 94 | mrthor102/evolai-tfm-super-001 @
+2026-05-24 11:12:21 269ea6110709e547c5c4450881dd8f171e810d18 | hotkey 5CPXihPMoGQ2…
+2026-05-24 11:12:21     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:12:21     Fetched 20 texts (20 indices)
+2026-05-24 11:12:21    Downloading
+2026-05-24 11:12:21 clear-blue-sky/evolai-reborn-tfm-005@1b35637bad624eb6c6d14825afe64a3889718176…
+2026-05-24 11:12:24     Loaded (local prefetch)
+2026-05-24 11:12:25     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:12:26    Ready:
+2026-05-24 11:12:26 clear-blue-sky/evolai-reborn-tfm-005@1b35637bad624eb6c6d14825afe64a3889718176
+2026-05-24 11:13:25     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:56
+2026-05-24 11:13:25     Loss 4.1857 | Size ×0.50 | Think 4.1857 | ThinkGain 0 (+0.4616) | Flow
+2026-05-24 11:13:25 0.0000 | KL 2.0184 | NextKL 1.9737 | SideQ 0% | Score 0.0000 (60.0s)
+2026-05-24 11:13:25     Gate FAIL | Improve FAIL cur=2.0184 req<=1.9631 prev=2.0032 | Consist ok
+2026-05-24 11:13:25 ema_cur=1.9626 ema_next=1.9707 ratio=1.004 max<=1.20
+2026-05-24 11:13:26   Evicted cached model:
+2026-05-24 11:13:26 evolai/evolai_mamba_naive_kl@b7c8842d1d5a700bd6a36b834fe6f0b3dc5d321a
+2026-05-24 11:13:27   [3/50] UID 85 | clear-blue-sky/evolai-reborn-tfm-008 @
+2026-05-24 11:13:27 97a0b5f66590c67a8dbdfab07fe4e12ee6d3639a | hotkey 5EC5MzPj6dGb…
+2026-05-24 11:13:27     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:13:27     Fetched 20 texts (20 indices)
+2026-05-24 11:13:27    Downloading
+2026-05-24 11:13:27 clear-blue-sky/evolai-reborn-tfm-006@e7284d931d1887f5f92c184ca9a51605be27d745…
+2026-05-24 11:13:28     Loaded (local prefetch)
+2026-05-24 11:13:29     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:13:31    Ready:
+2026-05-24 11:13:31 clear-blue-sky/evolai-reborn-tfm-006@e7284d931d1887f5f92c184ca9a51605be27d745
+2026-05-24 11:13:31    alpha=0.005455 TAO/α  budget=0.049677
+2026-05-24 11:13:49    emission scale=1.000 (active miners)
+2026-05-24 11:13:49    emission scale=1.000 (active miners)
+2026-05-24 11:13:49    all quality scores zero after gates — emission share redistributed to
+2026-05-24 11:13:49 productive tracks
+2026-05-24 11:13:50   ✓  set at 11:13:50 UTC
+2026-05-24 11:14:33     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:01:00
+2026-05-24 11:14:33     Loss 3.6124 | Size ×0.50 | Think 3.6124 | ThinkGain 0 (+0.4608) | Flow
+2026-05-24 11:14:33 0.0000 | KL 1.8733 | NextKL 1.9603 | SideQ 0% | Score 0.0000 (63.9s)
+2026-05-24 11:14:33     Gate FAIL | Improve FAIL cur=1.8733 req<=1.8251 prev=1.8624 | Consist ok
+2026-05-24 11:14:33 ema_cur=2.2872 ema_next=1.9143 ratio=0.837 max<=1.20
+2026-05-24 11:14:34   Evicted cached model:
+2026-05-24 11:14:34 Lin2es/evolai-mb2-03v@3047597c4e4b4430450ddcd633240b88d781fdbd
+2026-05-24 11:14:35   [4/50] UID 83 | clear-blue-sky/evolai-reborn-tfm-005 @
+2026-05-24 11:14:35 1b35637bad624eb6c6d14825afe64a3889718176 | hotkey 5G8tRiKdn5cC…
+2026-05-24 11:14:35     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:14:35     Fetched 20 texts (20 indices)
+2026-05-24 11:14:35    Downloading
+2026-05-24 11:14:35 andrebarrosilva1123/evolai-b@3414c0abb8793ed4af56fd5e6e536b8b0f5ac520…
+2026-05-24 11:14:37     Loaded (local prefetch)
+2026-05-24 11:14:37     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:14:42    Ready: andrebarrosilva1123/evolai-b@3414c0abb8793ed4af56fd5e6e536b8b0f5ac520
+2026-05-24 11:15:40     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:59
+2026-05-24 11:15:40     Loss 3.6831 | Size ×0.50 | Think 3.6831 | ThinkGain 0 (+0.4628) | Flow
+2026-05-24 11:15:40 0.0000 | KL 1.8558 | NextKL 2.0904 | SideQ 0% | Score 0.0000 (63.1s)
+2026-05-24 11:15:40     Gate FAIL | Improve FAIL cur=1.8558 req<=1.8017 prev=1.8384 | Consist ok
+2026-05-24 11:15:40 ema_cur=2.3018 ema_next=1.9314 ratio=0.839 max<=1.20
+2026-05-24 11:15:42   Evicted cached model:
+2026-05-24 11:15:42 mihai-777/evolai-mamba2-0p47b-v3@c2a96b92acf632d51a2c21da4482f77f98256518
+2026-05-24 11:15:43   [5/50] UID 66 | clear-blue-sky/evolai-reborn-tfm-006 @
+2026-05-24 11:15:43 e7284d931d1887f5f92c184ca9a51605be27d745 | hotkey 5E4M4B5sVED5…
+2026-05-24 11:15:43    Downloading
+2026-05-24 11:15:43 sangerno63/evolai-transformer-v2@4b325f440c9ab4b8cc501454c5c5dc5f8e890ebb…
+2026-05-24 11:15:43     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:15:43     Fetched 20 texts (20 indices)
+2026-05-24 11:15:45     Loaded (local prefetch)
+2026-05-24 11:15:45     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:15:47    Ready:
+2026-05-24 11:15:47 sangerno63/evolai-transformer-v2@4b325f440c9ab4b8cc501454c5c5dc5f8e890ebb
+2026-05-24 11:16:46     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:54
+2026-05-24 11:16:47     Loss 3.9516 | Size ×0.50 | Think 3.9516 | ThinkGain 0 (+0.4631) | Flow
+2026-05-24 11:16:47 0.1459 | KL 1.9447 | NextKL 2.0648 | SideQ 0% | Score 0.0000 (61.4s)
+2026-05-24 11:16:47     Gate FAIL | Improve FAIL cur=1.9447 req<=1.8969 prev=1.9356 | Consist ok
+2026-05-24 11:16:47 ema_cur=1.9397 ema_next=1.9485 ratio=1.005 max<=1.20
+2026-05-24 11:16:49   Evicted cached model:
+2026-05-24 11:16:49 Lin2es/evolai-mb2-01v@a7f32e5ce7f8d307c98560e5025525f3703310c0
+2026-05-24 11:16:49   [6/50] UID 50 | andrebarrosilva1123/evolai-b @
+2026-05-24 11:16:49 3414c0abb8793ed4af56fd5e6e536b8b0f5ac520 | hotkey 5FXELcBK4WiD…
+2026-05-24 11:16:49     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:16:49     Fetched 20 texts (20 indices)
+2026-05-24 11:16:49    Downloading
+2026-05-24 11:16:49 andrebarrosilva1123/evolai-d@89649e9376dace64f631711d3d270198e376702e…
+2026-05-24 11:16:51     Loaded (local prefetch)
+2026-05-24 11:16:52     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 11:16:54   [7/50] UID 48 | sangerno63/evolai-transformer-v2 @
+2026-05-24 11:16:54 4b325f440c9ab4b8cc501454c5c5dc5f8e890ebb | hotkey 5ED3KNj5uEVS…
+2026-05-24 11:16:54     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:16:54     Fetched 20 texts (20 indices)
+2026-05-24 11:16:56     Loaded (local prefetch)
+2026-05-24 11:16:56    Ready: andrebarrosilva1123/evolai-d@89649e9376dace64f631711d3d270198e376702e
+2026-05-24 11:16:56    Downloading
+2026-05-24 11:16:56 mihai-777/evolai-tfm-1p5b-05@a66a1beeefdbc6ff871ea4854b4e71ed5c3a44ba…
+2026-05-24 11:16:56 Fetching 8 files: 100%|██████████| 8/8 [00:03<00:00,  2.06it/s]
+2026-05-24 11:16:56     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:17:01    Ready: mihai-777/evolai-tfm-1p5b-05@a66a1beeefdbc6ff871ea4854b4e71ed5c3a44ba
+2026-05-24 11:17:47     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:48
+2026-05-24 11:17:48     Loss 3.8807 | Size ×0.50 | Think 3.8807 | ThinkGain 0 (+0.4439) | Flow
+2026-05-24 11:17:48 0.2407 | KL 2.1842 | NextKL 2.3716 | SideQ 0% | Score 0.0001 (51.1s)
+2026-05-24 11:17:48     Gate FAIL | Improve same SHA cur=2.1842 req<=2.1405 prev=2.1842 | Consist ok
+2026-05-24 11:17:48 ema_cur=2.1727 ema_next=2.1875 ratio=1.007 max<=1.20
+2026-05-24 11:17:49   Evicted cached model:
+2026-05-24 11:17:49 mihai-777/evolai-mamba2-0p47b@7b6564c9a46f602702c260185aa43867f321dee7
+2026-05-24 11:17:50   [8/50] UID 51 | andrebarrosilva1123/evolai-d @
+2026-05-24 11:17:50 89649e9376dace64f631711d3d270198e376702e | hotkey 5EhLiPB1GHwH…
+2026-05-24 11:17:50     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:17:50     Fetched 20 texts (20 indices)
+2026-05-24 11:17:50    Downloading
+2026-05-24 11:17:50 clear-blue-sky/evolai-reborn-tfm-003@e370cf8361b9aca26538af33a02ee32a7525e25e…
+2026-05-24 11:17:52     Loaded (local prefetch)
+2026-05-24 11:17:53     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 11:17:54   [9/50] UID 76 | mihai-777/evolai-tfm-1p5b-05 @
+2026-05-24 11:17:54 a66a1beeefdbc6ff871ea4854b4e71ed5c3a44ba | hotkey 5GLBxPtoiB7R…
+2026-05-24 11:17:54     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:17:54     Fetched 20 texts (20 indices)
+2026-05-24 11:17:54    Ready:
+2026-05-24 11:17:54 clear-blue-sky/evolai-reborn-tfm-003@e370cf8361b9aca26538af33a02ee32a7525e25e
+2026-05-24 11:17:54    Downloading
+2026-05-24 11:17:54 Roystar/evolai-qwen2.5-1.5b@47e6a605a62ff328096c1d7bd160b8eaf9ec5ff1…
+2026-05-24 11:17:56     Loaded (local prefetch)
+2026-05-24 11:17:56     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:18:00    Ready: Roystar/evolai-qwen2.5-1.5b@47e6a605a62ff328096c1d7bd160b8eaf9ec5ff1
+2026-05-24 11:18:36     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:36
+2026-05-24 11:18:36     Loss 2.8646 | Size ×0.50 | Think 2.8646 | ThinkGain 0 (+0.4535) | Flow
+2026-05-24 11:18:36 0.2987 | KL 2.2959 | NextKL 2.3295 | SideQ 0% | Score 0.0000 (39.4s)
+2026-05-24 11:18:36     Gate FAIL | Improve same SHA cur=2.2959 req<=2.2500 prev=2.2959 | Consist ok
+2026-05-24 11:18:36 ema_cur=2.3671 ema_next=2.3531 ratio=0.994 max<=1.20
+2026-05-24 11:18:38   Evicted cached model:
+2026-05-24 11:18:38 Lin2es/evolai-mb2-02v@c1ad3d94c5929dcc0e3a40d9d9034bd80da9a1f8
+2026-05-24 11:18:38   [10/50] UID 82 | clear-blue-sky/evolai-reborn-tfm-003 @
+2026-05-24 11:18:38 e370cf8361b9aca26538af33a02ee32a7525e25e | hotkey 5EtDxpyqHywK…
+2026-05-24 11:18:38     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:18:38     Fetched 20 texts (20 indices)
+2026-05-24 11:18:38    Downloading Lin2es/evolai-tfm-01o@d5af8d4f7543ee9e09ef3f668a29f2e09daeea8d…
+2026-05-24 11:18:40     Loaded (local prefetch)
+2026-05-24 11:18:40     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:18:41    Ready: Lin2es/evolai-tfm-01o@d5af8d4f7543ee9e09ef3f668a29f2e09daeea8d
+2026-05-24 11:19:18     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:35
+2026-05-24 11:19:18     Loss 3.7238 | Size ×0.50 | Think 3.7238 | ThinkGain 0 (+0.4616) | Flow
+2026-05-24 11:19:18 0.0000 | KL 2.0360 | NextKL 1.7860 | SideQ 0% | Score 0.0000 (37.9s)
+2026-05-24 11:19:18     Gate FAIL | Improve FAIL cur=2.0360 req<=1.9766 prev=2.0170 | Consist ok
+2026-05-24 11:19:18 ema_cur=1.8993 ema_next=1.9026 ratio=1.002 max<=1.20
+2026-05-24 11:19:20   Evicted cached model:
+2026-05-24 11:19:20 clear-blue-sky/evolai-reborn-tfm-002@53b54d8cf100ef4228df6338cea3a6ae85982413
+2026-05-24 11:19:20   [11/50] UID 55 | Roystar/evolai-qwen2.5-1.5b @
+2026-05-24 11:19:20 47e6a605a62ff328096c1d7bd160b8eaf9ec5ff1 | hotkey 5DhRJtUeVA6P…
+2026-05-24 11:19:20     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:19:20     Fetched 20 texts (20 indices)
+2026-05-24 11:19:20    Downloading
+2026-05-24 11:19:20 clear-blue-sky/evolai-reborn-tfm-001@892272226fb6400658fe40687f27d9e8b2c8e9c4…
+2026-05-24 11:19:22     Loaded (local prefetch)
+2026-05-24 11:19:23     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 11:19:24    Ready:
+2026-05-24 11:19:24 clear-blue-sky/evolai-reborn-tfm-001@892272226fb6400658fe40687f27d9e8b2c8e9c4
+2026-05-24 11:19:25   [12/50] UID 77 | Lin2es/evolai-tfm-01o @
+2026-05-24 11:19:25 d5af8d4f7543ee9e09ef3f668a29f2e09daeea8d | hotkey 5GQydjNVEhMb…
+2026-05-24 11:19:25     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:19:25    Downloading Lin2es/evolai-tfm-03o@2fcb3445759b5cb5d5d6a9be9e5731f72cc0f600…
+2026-05-24 11:19:25     Fetched 20 texts (20 indices)
+2026-05-24 11:19:26     Loaded (local prefetch)
+2026-05-24 11:19:27     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:19:29    Ready: Lin2es/evolai-tfm-03o@2fcb3445759b5cb5d5d6a9be9e5731f72cc0f600
+2026-05-24 11:20:06     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:36
+2026-05-24 11:20:06     Loss 2.8107 | Size ×0.50 | Think 2.8107 | ThinkGain 0 (+0.4403) | Flow
+2026-05-24 11:20:06 0.0000 | KL 2.5148 | NextKL 2.8666 | SideQ 0% | Score 0.0000 (39.1s)
+2026-05-24 11:20:06     Gate FAIL | Improve same SHA cur=2.5148 req<=2.4645 prev=2.5148 | Consist ok
+2026-05-24 11:20:06 ema_cur=2.6140 ema_next=2.6275 ratio=1.005 max<=1.20
+2026-05-24 11:20:08   Evicted cached model:
+2026-05-24 11:20:08 mrthor102/evolai-tfm-super-001@269ea6110709e547c5c4450881dd8f171e810d18
+2026-05-24 11:20:08   [13/50] UID 62 | clear-blue-sky/evolai-reborn-tfm-001 @
+2026-05-24 11:20:08 892272226fb6400658fe40687f27d9e8b2c8e9c4 | hotkey 5EjjVuNJsjqP…
+2026-05-24 11:20:08     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:20:08     Fetched 20 texts (20 indices)
+2026-05-24 11:20:08    Downloading Radiant28/evolai-1p5b@e351598db6d77f85b5081768df04d37c132750f0…
+2026-05-24 11:20:10     Loaded (local prefetch)
+2026-05-24 11:20:10     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:20:15    Ready: Radiant28/evolai-1p5b@e351598db6d77f85b5081768df04d37c132750f0
+2026-05-24 11:20:46     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:33
+2026-05-24 11:20:46     Loss 3.8111 | Size ×0.50 | Think 3.8111 | ThinkGain 0 (+0.4576) | Flow
+2026-05-24 11:20:46 0.1555 | KL 1.7688 | NextKL 2.0424 | SideQ 0% | Score 0.0000 (35.9s)
+2026-05-24 11:20:46     Gate FAIL | Improve FAIL cur=1.7688 req<=1.7173 prev=1.7523 | Consist ok
+2026-05-24 11:20:46 ema_cur=1.9184 ema_next=1.9159 ratio=0.999 max<=1.20
+2026-05-24 11:20:47   Evicted cached model:
+2026-05-24 11:20:47 clear-blue-sky/evolai-reborn-tfm-008@97a0b5f66590c67a8dbdfab07fe4e12ee6d3639a
+2026-05-24 11:20:48   [14/50] UID 79 | Lin2es/evolai-tfm-03o @
+2026-05-24 11:20:48 2fcb3445759b5cb5d5d6a9be9e5731f72cc0f600 | hotkey 5D4eNqXRjWmX…
+2026-05-24 11:20:48     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:20:48     Fetched 20 texts (20 indices)
+2026-05-24 11:20:48    Downloading galuis116/evolai-future@0c9944b931e3172675d6bd9a426fd9e7cc23434c…
+2026-05-24 11:20:50     Loaded (local prefetch)
+2026-05-24 11:20:50     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:20:52    Ready: galuis116/evolai-future@0c9944b931e3172675d6bd9a426fd9e7cc23434c
+2026-05-24 11:21:25     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:32
+2026-05-24 11:21:25     Loss 2.5479 | Size ×0.50 | Think 2.5479 | ThinkGain 0 (+0.4637) | Flow
+2026-05-24 11:21:25 0.0000 | KL 2.5868 | NextKL 2.0535 | SideQ 0% | Score 0.0000 (35.0s)
+2026-05-24 11:21:25     Gate FAIL | Improve same SHA cur=2.5868 req<=2.5351 prev=2.5868 | Consist ok
+2026-05-24 11:21:25 ema_cur=2.4478 ema_next=2.4102 ratio=0.985 max<=1.20
+2026-05-24 11:21:27   Evicted cached model:
+2026-05-24 11:21:27 clear-blue-sky/evolai-reborn-tfm-005@1b35637bad624eb6c6d14825afe64a3889718176
+2026-05-24 11:21:28   [15/50] UID 43 | Radiant28/evolai-1p5b @
+2026-05-24 11:21:28 e351598db6d77f85b5081768df04d37c132750f0 | hotkey 5HSz4knZnWHY…
+2026-05-24 11:21:28     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:21:28     Fetched 20 texts (20 indices)
+2026-05-24 11:21:28    Downloading
+2026-05-24 11:21:28 mihai-777/evolai-tfm-1p5b@594894f806fb4c014675d89aad14f1c68976d52c…
+2026-05-24 11:21:29     Loaded (local prefetch)
+2026-05-24 11:21:30     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 11:21:31    Ready: mihai-777/evolai-tfm-1p5b@594894f806fb4c014675d89aad14f1c68976d52c
+2026-05-24 11:21:32   [16/50] UID 101 | galuis116/evolai-future @
+2026-05-24 11:21:32 0c9944b931e3172675d6bd9a426fd9e7cc23434c | hotkey 5DPz76uobJLT…
+2026-05-24 11:21:32     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:21:32     Fetched 20 texts (20 indices)
+2026-05-24 11:21:32    Downloading
+2026-05-24 11:21:32 mihai-777/evolai-tfm-1p5b-v5@bd42aeb0828dfa0126f7fc825e13b49209fec678…
+2026-05-24 11:21:34     Loaded (local prefetch)
+2026-05-24 11:21:34     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:21:36    Ready: mihai-777/evolai-tfm-1p5b-v5@bd42aeb0828dfa0126f7fc825e13b49209fec678
+2026-05-24 11:22:13     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:35
+2026-05-24 11:22:13     Loss 3.5358 | Size ×0.50 | Think 3.5358 | ThinkGain 0 (+0.4588) | Flow
+2026-05-24 11:22:13 0.4007 | KL 1.8664 | NextKL 1.9100 | SideQ 0% | Score 0.0000 (38.5s)
+2026-05-24 11:22:13     Gate FAIL | Improve FAIL cur=1.8664 req<=1.8024 prev=1.8391 | Consist ok
+2026-05-24 11:22:13 ema_cur=1.8591 ema_next=1.8619 ratio=1.002 max<=1.20
+2026-05-24 11:22:14   Evicted cached model:
+2026-05-24 11:22:14 clear-blue-sky/evolai-reborn-tfm-006@e7284d931d1887f5f92c184ca9a51605be27d745
+2026-05-24 11:22:15   [17/50] UID 33 | mihai-777/evolai-tfm-1p5b @
+2026-05-24 11:22:15 594894f806fb4c014675d89aad14f1c68976d52c | hotkey 5F22JM4of6TR…
+2026-05-24 11:22:15     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:22:15     Fetched 20 texts (20 indices)
+2026-05-24 11:22:15    Downloading
+2026-05-24 11:22:15 clear-blue-sky/evolai-reborn-tfm-011@d5fb85633b6141f350f8352ee181acc1ea8bcd41…
+2026-05-24 11:22:16     Loaded (local prefetch)
+2026-05-24 11:22:17     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:22:19    Ready:
+2026-05-24 11:22:19 clear-blue-sky/evolai-reborn-tfm-011@d5fb85633b6141f350f8352ee181acc1ea8bcd41
+2026-05-24 11:22:55     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:35
+2026-05-24 11:22:55     Loss 2.8493 | Size ×0.50 | Think 2.8493 | ThinkGain 0 (+0.4550) | Flow
+2026-05-24 11:22:55 0.0000 | KL 2.6136 | NextKL 2.2794 | SideQ 0% | Score 0.0000 (38.2s)
+2026-05-24 11:22:55     Gate FAIL | Improve same SHA cur=2.6136 req<=2.5613 prev=2.6136 | Consist ok
+2026-05-24 11:22:55 ema_cur=2.4319 ema_next=2.4274 ratio=0.998 max<=1.20
+2026-05-24 11:22:57   Evicted cached model:
+2026-05-24 11:22:57 sangerno63/evolai-transformer-v2@4b325f440c9ab4b8cc501454c5c5dc5f8e890ebb
+2026-05-24 11:22:57   [18/50] UID 42 | mihai-777/evolai-tfm-1p5b-v5 @
+2026-05-24 11:22:57 bd42aeb0828dfa0126f7fc825e13b49209fec678 | hotkey 5C5WCYnsrXRz…
+2026-05-24 11:22:57     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:22:57     Fetched 20 texts (20 indices)
+2026-05-24 11:22:57    Downloading
+2026-05-24 11:22:57 dexserbia/evolai-gemma2-9b@7fe66309a3847239a4da5b712477f2105e88399b…
+2026-05-24 11:22:59     Loaded (local prefetch)
+2026-05-24 11:22:59     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:23:28    Ready: dexserbia/evolai-gemma2-9b@7fe66309a3847239a4da5b712477f2105e88399b
+2026-05-24 11:23:40     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:38
+2026-05-24 11:23:40     Loss 2.9427 | Size ×0.50 | Think 2.9427 | ThinkGain 0 (+0.4553) | Flow
+2026-05-24 11:23:40 0.1113 | KL 2.5854 | NextKL 2.3615 | SideQ 0% | Score 0.0000 (40.9s)
+2026-05-24 11:23:40     Gate FAIL | Improve same SHA cur=2.5854 req<=2.5337 prev=2.5854 | Consist ok
+2026-05-24 11:23:40 ema_cur=2.4291 ema_next=2.4299 ratio=1.000 max<=1.20
+2026-05-24 11:23:42   Evicted cached model:
+2026-05-24 11:23:42 mihai-777/evolai-tfm-1p5b-05@a66a1beeefdbc6ff871ea4854b4e71ed5c3a44ba
+2026-05-24 11:23:42   [19/50] UID 73 | clear-blue-sky/evolai-reborn-tfm-011 @
+2026-05-24 11:23:42 d5fb85633b6141f350f8352ee181acc1ea8bcd41 | hotkey 5CSAM6rnGRPk…
+2026-05-24 11:23:42     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:23:42     Fetched 20 texts (20 indices)
+2026-05-24 11:23:42    Downloading
+2026-05-24 11:23:42 dreamiii0406/evolai-0p47b-v1@fea2659bdf8bd35e5382c50e4857f1ab20f20262…
+2026-05-24 11:23:44     Loaded (local prefetch)
+2026-05-24 11:23:44     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:23:45    Ready: dreamiii0406/evolai-0p47b-v1@fea2659bdf8bd35e5382c50e4857f1ab20f20262
+2026-05-24 11:24:19     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 76/76 100% 0:00:32
+2026-05-24 11:24:19     Loss 3.2241 | Size ×0.50 | Think 3.2241 | ThinkGain 0 (+0.4587) | Flow
+2026-05-24 11:24:19 0.0000 | KL 1.6700 | NextKL 1.9094 | SideQ 0% | Score 0.0000 (34.9s)
+2026-05-24 11:24:19     Gate FAIL | Improve FAIL cur=1.6700 req<=1.6130 prev=1.6460 | Consist ok
+2026-05-24 11:24:19 ema_cur=2.2283 ema_next=1.8459 ratio=0.828 max<=1.20
+2026-05-24 11:24:21   Evicted cached model:
+2026-05-24 11:24:21 clear-blue-sky/evolai-reborn-tfm-003@e370cf8361b9aca26538af33a02ee32a7525e25e
+2026-05-24 11:24:22   [20/50] UID 9 | dexserbia/evolai-gemma2-9b @
+2026-05-24 11:24:22 7fe66309a3847239a4da5b712477f2105e88399b | hotkey 5EbpxBkVKVNV…
+2026-05-24 11:24:22     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:24:22     Fetched 20 texts (20 indices)
+2026-05-24 11:24:22    Downloading
+2026-05-24 11:24:22 clear-blue-sky/evolai-reborn-tfm-009@5f8a93ac416a037e7e4c88fb28ec8f2119fa7017…
+2026-05-24 11:24:26    Ready:
+2026-05-24 11:24:26 clear-blue-sky/evolai-reborn-tfm-009@5f8a93ac416a037e7e4c88fb28ec8f2119fa7017
+2026-05-24 11:24:27     Loaded (local prefetch)
+2026-05-24 11:24:29     ⚠ Invalid model size (9.24B; allowed 0.45-0.48B, 1.50-1.80B) — skipping
+2026-05-24 11:24:31   [21/50] UID 80 | dreamiii0406/evolai-0p47b-v1 @
+2026-05-24 11:24:31 fea2659bdf8bd35e5382c50e4857f1ab20f20262 | hotkey 5Cd2zZyMQnvp…
+2026-05-24 11:24:31     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:24:31     Fetched 20 texts (20 indices)
+2026-05-24 11:24:31    Downloading
+2026-05-24 11:24:31 Phoenix9781/evolai-tf-model@883756e42bfbc362761bb150f2ef316deaafa94f…
+2026-05-24 11:24:32     Loaded (local prefetch)
+2026-05-24 11:24:33     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 11:24:35   [22/50] UID 69 | clear-blue-sky/evolai-reborn-tfm-009 @
+2026-05-24 11:24:35 5f8a93ac416a037e7e4c88fb28ec8f2119fa7017 | hotkey 5ChUCf3NjrgS…
+2026-05-24 11:24:35     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:24:35     Fetched 20 texts (20 indices)
+2026-05-24 11:24:35    Ready: Phoenix9781/evolai-tf-model@883756e42bfbc362761bb150f2ef316deaafa94f
+2026-05-24 11:24:35    Downloading
+2026-05-24 11:24:35 Radiant28/evolai-transformer-0.4b-b0@7a08a8009fa8b8f82d1ad0febc442a89020082d1…
+2026-05-24 11:24:36     Loaded (local prefetch)
+2026-05-24 11:24:36     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:24:41    Ready:
+2026-05-24 11:24:41 Radiant28/evolai-transformer-0.4b-b0@7a08a8009fa8b8f82d1ad0febc442a89020082d1
+2026-05-24 11:25:15     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:35
+2026-05-24 11:25:16     Loss 3.8684 | Size ×0.50 | Think 3.8684 | ThinkGain 0 (+0.4627) | Flow
+2026-05-24 11:25:16 0.1445 | KL 2.0095 | NextKL 1.7726 | SideQ 0% | Score 0.0000 (38.8s)
+2026-05-24 11:25:16     Gate FAIL | Improve FAIL cur=2.0095 req<=1.9500 prev=1.9898 | Consist ok
+2026-05-24 11:25:16 ema_cur=1.9132 ema_next=1.9006 ratio=0.993 max<=1.20
+2026-05-24 11:25:17   Evicted cached model:
+2026-05-24 11:25:17 Lin2es/evolai-tfm-01o@d5af8d4f7543ee9e09ef3f668a29f2e09daeea8d
+2026-05-24 11:25:18   [23/50] UID 93 | Phoenix9781/evolai-tf-model @
+2026-05-24 11:25:18 883756e42bfbc362761bb150f2ef316deaafa94f | hotkey 5F4R25t78FSF…
+2026-05-24 11:25:18     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:25:18     Fetched 20 texts (20 indices)
+2026-05-24 11:25:18    Downloading
+2026-05-24 11:25:18 clear-blue-sky/evolai-reborn-tfm-004@fdf7a9332dae5292530a3ade04f777b90ba96827…
+2026-05-24 11:25:19     Loaded (local prefetch)
+2026-05-24 11:25:20     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:25:22    Ready:
+2026-05-24 11:25:22 clear-blue-sky/evolai-reborn-tfm-004@fdf7a9332dae5292530a3ade04f777b90ba96827
+2026-05-24 11:25:58     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:35
+2026-05-24 11:25:58     Loss 4.0359 | Size ×0.50 | Think 4.0359 | ThinkGain 0 (+0.4601) | Flow
+2026-05-24 11:25:58 0.0000 | KL 2.0714 | NextKL 1.8286 | SideQ 0% | Score 0.0000 (38.3s)
+2026-05-24 11:25:58     Gate FAIL | Improve FAIL cur=2.0714 req<=2.0396 prev=2.0812 | Consist ok
+2026-05-24 11:25:58 ema_cur=1.9836 ema_next=1.9641 ratio=0.990 max<=1.20
+2026-05-24 11:26:00   Evicted cached model:
+2026-05-24 11:26:00 clear-blue-sky/evolai-reborn-tfm-001@892272226fb6400658fe40687f27d9e8b2c8e9c4
+2026-05-24 11:26:01   [24/50] UID 45 | Radiant28/evolai-transformer-0.4b-b0 @
+2026-05-24 11:26:01 7a08a8009fa8b8f82d1ad0febc442a89020082d1 | hotkey 5F1B3j7EyjuE…
+2026-05-24 11:26:01     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:26:01     Fetched 20 texts (20 indices)
+2026-05-24 11:26:01    Downloading
+2026-05-24 11:26:01 mrthor102/evolai-tfm-super-003@a120135f03a620ea92aa7755a1054ce21499af60…
+2026-05-24 11:26:03     Loaded (local prefetch)
+2026-05-24 11:26:03     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 11:26:05   [25/50] UID 70 | clear-blue-sky/evolai-reborn-tfm-004 @
+2026-05-24 11:26:05 fdf7a9332dae5292530a3ade04f777b90ba96827 | hotkey 5Hdg2gHopWQK…
+2026-05-24 11:26:05     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:26:05     Fetched 20 texts (20 indices)
+2026-05-24 11:26:05    Ready:
+2026-05-24 11:26:05 mrthor102/evolai-tfm-super-003@a120135f03a620ea92aa7755a1054ce21499af60
+2026-05-24 11:26:05    Downloading
+2026-05-24 11:26:05 Danieli1021/evolai-qwen047-v3@e01dfd3b9c54325c98bf12966bdebadace391002…
+2026-05-24 11:26:07     Loaded (local prefetch)
+2026-05-24 11:26:07     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:26:10    Ready: Danieli1021/evolai-qwen047-v3@e01dfd3b9c54325c98bf12966bdebadace391002
+2026-05-24 11:26:45     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:35
+2026-05-24 11:26:46     Loss 3.3368 | Size ×0.50 | Think 3.3368 | ThinkGain 0 (+0.4625) | Flow
+2026-05-24 11:26:46 0.0000 | KL 1.6701 | NextKL 1.9373 | SideQ 0% | Score 0.0000 (38.1s)
+2026-05-24 11:26:46     Gate FAIL | Improve FAIL cur=1.6701 req<=1.6375 prev=1.6709 | Consist ok
+2026-05-24 11:26:46 ema_cur=1.9108 ema_next=1.9148 ratio=1.002 max<=1.20
+2026-05-24 11:26:47   Evicted cached model:
+2026-05-24 11:26:47 Lin2es/evolai-tfm-03o@2fcb3445759b5cb5d5d6a9be9e5731f72cc0f600
+2026-05-24 11:26:48   [26/50] UID 98 | mrthor102/evolai-tfm-super-003 @
+2026-05-24 11:26:48 a120135f03a620ea92aa7755a1054ce21499af60 | hotkey 5Hgy59m2Hzm1…
+2026-05-24 11:26:48     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:26:48     Fetched 20 texts (20 indices)
+2026-05-24 11:26:48    Downloading
+2026-05-24 11:26:48 andrebarrosilva1123/evolai-c@6fc3d7f7c514cf3d5e4fc44dd8ef6b4ef883827c…
+2026-05-24 11:26:49     Loaded (local prefetch)
+2026-05-24 11:26:49     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:26:54    Ready: andrebarrosilva1123/evolai-c@6fc3d7f7c514cf3d5e4fc44dd8ef6b4ef883827c
+2026-05-24 11:27:29     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:36
+2026-05-24 11:27:29     Loss 3.7605 | Size ×0.50 | Think 3.7605 | ThinkGain 0 (+0.4605) | Flow
+2026-05-24 11:27:29 0.0507 | KL 2.0351 | NextKL 2.2093 | SideQ 0% | Score 0.0000 (39.4s)
+2026-05-24 11:27:29     Gate FAIL | Improve FAIL cur=2.0351 req<=1.9812 prev=2.0216 | Consist ok
+2026-05-24 11:27:29 ema_cur=1.9102 ema_next=1.9412 ratio=1.016 max<=1.20
+2026-05-24 11:27:31   Evicted cached model:
+2026-05-24 11:27:31 galuis116/evolai-future@0c9944b931e3172675d6bd9a426fd9e7cc23434c
+2026-05-24 11:27:31   [27/50] UID 100 | Danieli1021/evolai-qwen047-v3 @
+2026-05-24 11:27:31 e01dfd3b9c54325c98bf12966bdebadace391002 | hotkey 5DMH2VrrukYd…
+2026-05-24 11:27:31     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:27:31     Fetched 20 texts (20 indices)
+2026-05-24 11:27:31    Downloading
+2026-05-24 11:27:31 mrthor102/evolai-tfm-super-004@33a747dccccf16e9faf7fbd01ec441c44e673b0b…
+2026-05-24 11:27:33     Loaded (local prefetch)
+2026-05-24 11:27:33     Model 0.47B → batch=512, seq=16384
+2026-05-24 11:27:35    Ready:
+2026-05-24 11:27:35 mrthor102/evolai-tfm-super-004@33a747dccccf16e9faf7fbd01ec441c44e673b0b
+2026-05-24 11:27:53     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:17
+2026-05-24 11:27:53     Loss 4.0204 | Size ×0.51 | Think 4.0204 | ThinkGain 0 (+0.4790) | Flow
+2026-05-24 11:27:53 0.0000 | KL 4.0594 | NextKL 3.9010 | SideQ 0% | Score 0.0000 (20.2s)
+2026-05-24 11:27:53     Gate FAIL | Improve same SHA cur=4.0594 req<=3.9782 prev=4.0594 | Consist ok
+2026-05-24 11:27:53 ema_cur=4.2444 ema_next=3.9390 ratio=0.928 max<=1.20
+2026-05-24 11:27:56   Evicted cached model:
+2026-05-24 11:27:56 mihai-777/evolai-tfm-1p5b@594894f806fb4c014675d89aad14f1c68976d52c
+2026-05-24 11:27:56   [28/50] UID 54 | andrebarrosilva1123/evolai-c @
+2026-05-24 11:27:56 6fc3d7f7c514cf3d5e4fc44dd8ef6b4ef883827c | hotkey 5D7HPRR2QdDB…
+2026-05-24 11:27:56     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:27:56     Fetched 20 texts (20 indices)
+2026-05-24 11:27:56    Downloading Lin2es/evolai-tfm-04o@52061d203723fdc8be09324d0c827898fcb7bdc4…
+2026-05-24 11:27:58     Loaded (local prefetch)
+2026-05-24 11:27:58     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 11:27:59    Ready: Lin2es/evolai-tfm-04o@52061d203723fdc8be09324d0c827898fcb7bdc4
+2026-05-24 11:28:00   [29/50] UID 99 | mrthor102/evolai-tfm-super-004 @
+2026-05-24 11:28:00 33a747dccccf16e9faf7fbd01ec441c44e673b0b | hotkey 5EnuPuwNaqmP…
+2026-05-24 11:28:00     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:28:00     Fetched 20 texts (20 indices)
+2026-05-24 11:28:00    Downloading
+2026-05-24 11:28:00 logosnodos/evolai-qwen-1.5b@7e121e8efe6c6b93d622e9a53972d221e763d10b…
+2026-05-24 11:28:02     Loaded (local prefetch)
+2026-05-24 11:28:02     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:28:44    Ready: logosnodos/evolai-qwen-1.5b@7e121e8efe6c6b93d622e9a53972d221e763d10b
+2026-05-24 11:28:46     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:40
+2026-05-24 11:28:47     Loss 3.4330 | Size ×0.50 | Think 3.4330 | ThinkGain 0 (+0.4634) | Flow
+2026-05-24 11:28:47 0.1309 | KL 1.6694 | NextKL 1.7708 | SideQ 0% | Score 0.0000 (44.0s)
+2026-05-24 11:28:47     Gate FAIL | Improve FAIL cur=1.6694 req<=1.6196 prev=1.6526 | Consist ok
+2026-05-24 11:28:47 ema_cur=1.9264 ema_next=1.9068 ratio=0.990 max<=1.20
+2026-05-24 11:28:48   Evicted cached model:
+2026-05-24 11:28:48 mihai-777/evolai-tfm-1p5b-v5@bd42aeb0828dfa0126f7fc825e13b49209fec678
+2026-05-24 11:28:49   [30/50] UID 92 | Lin2es/evolai-tfm-04o @
+2026-05-24 11:28:49 52061d203723fdc8be09324d0c827898fcb7bdc4 | hotkey 5GefYX69KUVQ…
+2026-05-24 11:28:49     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:28:49     Fetched 20 texts (20 indices)
+2026-05-24 11:28:49    Downloading
+2026-05-24 11:28:49 mihai-777/evolai-tfm-1p5b-04@fb289dbfe35c595b1a586f786a19e118cc1bfc9a…
+2026-05-24 11:28:50     Loaded (local prefetch)
+2026-05-24 11:28:51     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:28:53    Ready: mihai-777/evolai-tfm-1p5b-04@fb289dbfe35c595b1a586f786a19e118cc1bfc9a
+2026-05-24 11:29:28     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:34
+2026-05-24 11:29:28     Loss 2.7561 | Size ×0.50 | Think 2.7561 | ThinkGain 0 (+0.4515) | Flow
+2026-05-24 11:29:28 0.0000 | KL 2.5704 | NextKL 2.5205 | SideQ 0% | Score 0.0000 (37.5s)
+2026-05-24 11:29:28     Gate FAIL | Improve same SHA cur=2.5704 req<=2.5190 prev=2.5704 | Consist ok
+2026-05-24 11:29:28 ema_cur=2.9187 ema_next=2.5691 ratio=0.880 max<=1.20
+2026-05-24 11:29:29   Evicted cached model:
+2026-05-24 11:29:29 clear-blue-sky/evolai-reborn-tfm-011@d5fb85633b6141f350f8352ee181acc1ea8bcd41
+2026-05-24 11:29:30   [31/50] UID 61 | logosnodos/evolai-qwen-1.5b @
+2026-05-24 11:29:30 7e121e8efe6c6b93d622e9a53972d221e763d10b | hotkey 5FNTU6ZYgKup…
+2026-05-24 11:29:30    Downloading
+2026-05-24 11:29:30 clear-blue-sky/evolai-reborn-tfm-010@dc678a8cf928c4e1fc83aa85785f8d8ffe3d991d…
+2026-05-24 11:29:30     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:29:30     Fetched 20 texts (20 indices)
+2026-05-24 11:29:32     Loaded (local prefetch)
+2026-05-24 11:29:35    Ready:
+2026-05-24 11:29:35 clear-blue-sky/evolai-reborn-tfm-010@dc678a8cf928c4e1fc83aa85785f8d8ffe3d991d
+2026-05-24 11:29:36     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 11:29:38   [32/50] UID 75 | mihai-777/evolai-tfm-1p5b-04 @
+2026-05-24 11:29:38 fb289dbfe35c595b1a586f786a19e118cc1bfc9a | hotkey 5Dnz76SAsEv8…
+2026-05-24 11:29:38     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:29:38    Downloading
+2026-05-24 11:29:38 andrebarrosilva1123/evolai-0.4b@fa913c93aa7a7449066ce870427387bd3fc7e841…
+2026-05-24 11:29:38     Fetched 20 texts (20 indices)
+2026-05-24 11:29:39     Loaded (local prefetch)
+2026-05-24 11:29:39     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:29:44    Ready:
+2026-05-24 11:29:44 andrebarrosilva1123/evolai-0.4b@fa913c93aa7a7449066ce870427387bd3fc7e841
+2026-05-24 11:30:19     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:36
+2026-05-24 11:30:19     Loss 2.9725 | Size ×0.50 | Think 2.9725 | ThinkGain 0 (+0.4560) | Flow
+2026-05-24 11:30:19 0.0000 | KL 2.4377 | NextKL 2.7029 | SideQ 0% | Score 0.0000 (39.2s)
+2026-05-24 11:30:19     Gate FAIL | Improve same SHA cur=2.4377 req<=2.3889 prev=2.4377 | Consist ok
+2026-05-24 11:30:19 ema_cur=2.4244 ema_next=2.4624 ratio=1.016 max<=1.20
+2026-05-24 11:30:20   Evicted cached model:
+2026-05-24 11:30:20 clear-blue-sky/evolai-reborn-tfm-009@5f8a93ac416a037e7e4c88fb28ec8f2119fa7017
+2026-05-24 11:30:21   [33/50] UID 72 | clear-blue-sky/evolai-reborn-tfm-010 @
+2026-05-24 11:30:21 dc678a8cf928c4e1fc83aa85785f8d8ffe3d991d | hotkey 5H3rMcqJQcbK…
+2026-05-24 11:30:21    Downloading
+2026-05-24 11:30:21 mihai-777/evolai-tfm-1p5b-alt@5ebb4a406916abe39e32823ff1f635b70e707e5a…
+2026-05-24 11:30:21     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:30:21     Fetched 20 texts (20 indices)
+2026-05-24 11:30:23     Loaded (local prefetch)
+2026-05-24 11:30:23     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:30:25    Ready: mihai-777/evolai-tfm-1p5b-alt@5ebb4a406916abe39e32823ff1f635b70e707e5a
+2026-05-24 11:31:02     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:36
+2026-05-24 11:31:02     Loss 3.6746 | Size ×0.50 | Think 3.6746 | ThinkGain 0 (+0.4609) | Flow
+2026-05-24 11:31:02 0.2215 | KL 1.8346 | NextKL 1.8595 | SideQ 0% | Score 0.0000 (38.7s)
+2026-05-24 11:31:02     Gate FAIL | Improve FAIL cur=1.8346 req<=1.7908 prev=1.8273 | Consist ok
+2026-05-24 11:31:02 ema_cur=1.8691 ema_next=1.8791 ratio=1.005 max<=1.20
+2026-05-24 11:31:04   Evicted cached model:
+2026-05-24 11:31:04 Phoenix9781/evolai-tf-model@883756e42bfbc362761bb150f2ef316deaafa94f
+2026-05-24 11:31:04   [34/50] UID 49 | andrebarrosilva1123/evolai-0.4b @
+2026-05-24 11:31:04 fa913c93aa7a7449066ce870427387bd3fc7e841 | hotkey 5DULz3AJEisH…
+2026-05-24 11:31:04     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:31:04     Fetched 20 texts (20 indices)
+2026-05-24 11:31:04    Downloading
+2026-05-24 11:31:04 Radiant28/evolai-transformer-0.4b-b2@808b61992e043ca99ff5b412a6cf61bfbb3fd793…
+2026-05-24 11:31:06     Loaded (local prefetch)
+2026-05-24 11:31:07     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 11:31:09   [35/50] UID 38 | mihai-777/evolai-tfm-1p5b-alt @
+2026-05-24 11:31:09 5ebb4a406916abe39e32823ff1f635b70e707e5a | hotkey 5FbfiXysyCtC…
+2026-05-24 11:31:09     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:31:09     Fetched 20 texts (20 indices)
+2026-05-24 11:31:11     Loaded (local prefetch)
+2026-05-24 11:31:11     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:31:11    Ready:
+2026-05-24 11:31:11 Radiant28/evolai-transformer-0.4b-b2@808b61992e043ca99ff5b412a6cf61bfbb3fd793
+2026-05-24 11:31:11    Downloading
+2026-05-24 11:31:11 clear-blue-sky/evolai-reborn-tfm-007@6e9f3b9695301d7cbeae3063a3f3a69fdd784262…
+2026-05-24 11:31:11 Fetching 7 files: 100%|██████████| 7/7 [00:03<00:00,  1.85it/s]
+2026-05-24 11:31:15    Ready:
+2026-05-24 11:31:15 clear-blue-sky/evolai-reborn-tfm-007@6e9f3b9695301d7cbeae3063a3f3a69fdd784262
+2026-05-24 11:31:50     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:35
+2026-05-24 11:31:50     Loss 2.7843 | Size ×0.50 | Think 2.7843 | ThinkGain 0 (+0.4560) | Flow
+2026-05-24 11:31:50 0.0000 | KL 2.7156 | NextKL 2.3547 | SideQ 0% | Score 0.0000 (38.7s)
+2026-05-24 11:31:50     Gate FAIL | Improve same SHA cur=2.7156 req<=2.6613 prev=2.7156 | Consist ok
+2026-05-24 11:31:50 ema_cur=2.4905 ema_next=2.4874 ratio=0.999 max<=1.20
+2026-05-24 11:31:52   Evicted cached model:
+2026-05-24 11:31:52 clear-blue-sky/evolai-reborn-tfm-004@fdf7a9332dae5292530a3ade04f777b90ba96827
+2026-05-24 11:31:52   [36/50] UID 37 | Radiant28/evolai-transformer-0.4b-b2 @
+2026-05-24 11:31:52 808b61992e043ca99ff5b412a6cf61bfbb3fd793 | hotkey 5HjbzF3e9waA…
+2026-05-24 11:31:52     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:31:52     Fetched 20 texts (20 indices)
+2026-05-24 11:31:52    Downloading Lin2es/evolai-tfm-02o@fc5fc3ee4a3877b825b404dc85c9367c1f248c59…
+2026-05-24 11:31:54     Loaded (local prefetch)
+2026-05-24 11:31:55    Ready: Lin2es/evolai-tfm-02o@fc5fc3ee4a3877b825b404dc85c9367c1f248c59
+2026-05-24 11:31:55     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 11:31:57   [37/50] UID 84 | clear-blue-sky/evolai-reborn-tfm-007 @
+2026-05-24 11:31:57 6e9f3b9695301d7cbeae3063a3f3a69fdd784262 | hotkey 5H1DaT8Dtt4N…
+2026-05-24 11:31:57     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:31:57     Fetched 20 texts (20 indices)
+2026-05-24 11:31:57    Downloading
+2026-05-24 11:31:57 evolai/evolai_test_challenge@5a3933210ac1ff57b53061ab3afd9bdbdccb7a73…
+2026-05-24 11:31:58     Loaded (local prefetch)
+2026-05-24 11:31:58     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:32:01    Ready: evolai/evolai_test_challenge@5a3933210ac1ff57b53061ab3afd9bdbdccb7a73
+2026-05-24 11:32:37     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:35
+2026-05-24 11:32:37     Loss 3.3838 | Size ×0.50 | Think 3.3838 | ThinkGain 0 (+0.4595) | Flow
+2026-05-24 11:32:37 0.1156 | KL 1.6168 | NextKL 1.6930 | SideQ 0% | Score 0.0000 (38.5s)
+2026-05-24 11:32:37     Gate FAIL | Improve FAIL cur=1.6168 req<=1.5655 prev=1.5975 | Consist ok
+2026-05-24 11:32:37 ema_cur=1.9234 ema_next=1.9099 ratio=0.993 max<=1.20
+2026-05-24 11:32:38   Evicted cached model:
+2026-05-24 11:32:38 mrthor102/evolai-tfm-super-003@a120135f03a620ea92aa7755a1054ce21499af60
+2026-05-24 11:32:39   [38/50] UID 78 | Lin2es/evolai-tfm-02o @
+2026-05-24 11:32:39 fc5fc3ee4a3877b825b404dc85c9367c1f248c59 | hotkey 5FA2kgLNs36d…
+2026-05-24 11:32:39     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:32:39     Fetched 20 texts (20 indices)
+2026-05-24 11:32:39    Downloading
+2026-05-24 11:32:39 mrthor102/evolai-tfm-super-002@72395fba22f567827562763dbdb3cbf31e823bb3…
+2026-05-24 11:32:41     Loaded (local prefetch)
+2026-05-24 11:32:41     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:32:44    Ready:
+2026-05-24 11:32:44 mrthor102/evolai-tfm-super-002@72395fba22f567827562763dbdb3cbf31e823bb3
+2026-05-24 11:33:20     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:36
+2026-05-24 11:33:20     Loss 2.5170 | Size ×0.50 | Think 2.5170 | ThinkGain 0 (+0.4244) | Flow
+2026-05-24 11:33:20 0.0246 | KL 2.7707 | NextKL 2.4519 | SideQ 0% | Score 0.0000 (39.2s)
+2026-05-24 11:33:20     Gate FAIL | Improve same SHA cur=2.7707 req<=2.7153 prev=2.7707 | Consist ok
+2026-05-24 11:33:20 ema_cur=2.7903 ema_next=2.7545 ratio=0.987 max<=1.20
+2026-05-24 11:33:22   Evicted cached model:
+2026-05-24 11:33:22 Danieli1021/evolai-qwen047-v3@e01dfd3b9c54325c98bf12966bdebadace391002
+2026-05-24 11:33:23   [39/50] UID 8 | evolai/evolai_test_challenge @
+2026-05-24 11:33:23 5a3933210ac1ff57b53061ab3afd9bdbdccb7a73 | hotkey 5ENhqnBoyFdz…
+2026-05-24 11:33:23     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:33:23     Fetched 20 texts (20 indices)
+2026-05-24 11:33:23    Downloading Jubilant/evolai-1.54b@d8681d30b14cb5a597d2ff7c909998cf9d217599…
+2026-05-24 11:33:24     Loaded (local prefetch)
+2026-05-24 11:33:24     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:33:28    Ready: Jubilant/evolai-1.54b@d8681d30b14cb5a597d2ff7c909998cf9d217599
+2026-05-24 11:34:03     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:36
+2026-05-24 11:34:03     Loss 3.7736 | Size ×0.50 | Think 3.7736 | ThinkGain 0 (+0.4568) | Flow
+2026-05-24 11:34:03 0.1637 | KL 1.6253 | NextKL 1.9700 | SideQ 0% | Score 0.0345 (38.8s)
+2026-05-24 11:34:03     Gate PASS | Improve ok cur=1.6253 req<=1.7486 prev=1.7843 | Consist ok
+2026-05-24 11:34:03 ema_cur=1.7138 ema_next=1.9053 ratio=1.112 max<=1.20
+2026-05-24 11:34:05   Evicted cached model:
+2026-05-24 11:34:05 mrthor102/evolai-tfm-super-004@33a747dccccf16e9faf7fbd01ec441c44e673b0b
+2026-05-24 11:34:06   [40/50] UID 97 | mrthor102/evolai-tfm-super-002 @
+2026-05-24 11:34:06 72395fba22f567827562763dbdb3cbf31e823bb3 | hotkey 5EcJYRJBVF5K…
+2026-05-24 11:34:06     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:34:06     Fetched 20 texts (20 indices)
+2026-05-24 11:34:06    Downloading evolai/evolai_naive_kl@da8203b6900f14ec1b724f3dd8c6dc35576fc3e4…
+2026-05-24 11:34:07     Loaded (local prefetch)
+2026-05-24 11:34:08     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:34:09    Ready: evolai/evolai_naive_kl@da8203b6900f14ec1b724f3dd8c6dc35576fc3e4
+2026-05-24 11:34:44     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:33
+2026-05-24 11:34:45     Loss 4.1537 | Size ×0.50 | Think 4.1537 | ThinkGain 0 (+0.4640) | Flow
+2026-05-24 11:34:45 0.0000 | KL 2.0189 | NextKL 1.7439 | SideQ 0% | Score 0.0000 (36.6s)
+2026-05-24 11:34:45     Gate FAIL | Improve FAIL cur=2.0189 req<=1.9577 prev=1.9976 | Consist ok
+2026-05-24 11:34:45 ema_cur=1.9389 ema_next=1.9147 ratio=0.988 max<=1.20
+2026-05-24 11:34:46   Evicted cached model:
+2026-05-24 11:34:46 Lin2es/evolai-tfm-04o@52061d203723fdc8be09324d0c827898fcb7bdc4
+2026-05-24 11:34:47   [41/50] UID 36 | Jubilant/evolai-1.54b @
+2026-05-24 11:34:47 d8681d30b14cb5a597d2ff7c909998cf9d217599 | hotkey 5G7Co5VNfQio…
+2026-05-24 11:34:47     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:34:47     Fetched 20 texts (20 indices)
+2026-05-24 11:34:47    Downloading
+2026-05-24 11:34:47 andrebarrosilva1123/evolai-e@806394ca7f2f7c1edbe962a9471647f4d67b5e72…
+2026-05-24 11:34:49     Loaded (local prefetch)
+2026-05-24 11:34:49     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 11:34:52   [42/50] UID 95 | evolai/evolai_naive_kl @
+2026-05-24 11:34:52 da8203b6900f14ec1b724f3dd8c6dc35576fc3e4 | hotkey 5CXwmm7R4U6o…
+2026-05-24 11:34:52     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:34:52     Fetched 20 texts (20 indices)
+2026-05-24 11:34:53     Loaded (local prefetch)
+2026-05-24 11:34:53     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:34:53    Ready: andrebarrosilva1123/evolai-e@806394ca7f2f7c1edbe962a9471647f4d67b5e72
+2026-05-24 11:34:53    Downloading
+2026-05-24 11:34:53 Radiant28/evolai-0.4b-V1@5e0cb9981c5c7ec29fe92d5cf1ebddcbcc002af5…
+2026-05-24 11:34:53 Fetching 7 files: 100%|██████████| 7/7 [00:06<00:00,  1.04it/s]
+2026-05-24 11:35:00    Ready: Radiant28/evolai-0.4b-V1@5e0cb9981c5c7ec29fe92d5cf1ebddcbcc002af5
+2026-05-24 11:35:01     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:04
+2026-05-24 11:35:02     Loss 2.7487 | Size ×0.50 | Think 2.7487 | ThinkGain 0 (+0.4780) | Flow
+2026-05-24 11:35:02 0.2024 | KL 2.6847 | NextKL 2.2762 | SideQ 0% | Score 0.0000 (8.0s)
+2026-05-24 11:35:02     Gate FAIL | Improve same SHA cur=2.6847 req<=2.6310 prev=2.6847 | Consist ok
+2026-05-24 11:35:02 ema_cur=2.7762 ema_next=2.7172 ratio=0.979 max<=1.20
+2026-05-24 11:35:03   Evicted cached model:
+2026-05-24 11:35:03 mihai-777/evolai-tfm-1p5b-04@fb289dbfe35c595b1a586f786a19e118cc1bfc9a
+2026-05-24 11:35:04   [43/50] UID 53 | andrebarrosilva1123/evolai-e @
+2026-05-24 11:35:04 806394ca7f2f7c1edbe962a9471647f4d67b5e72 | hotkey 5EFgFa93M5Vx…
+2026-05-24 11:35:04     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:35:04    Downloading
+2026-05-24 11:35:04 Radiant28/evolai-transformer-0.4b-b1@18231d7d50096d8b2744fdff1b38a7b90246ddf0…
+2026-05-24 11:35:04     Fetched 20 texts (20 indices)
+2026-05-24 11:35:06     Loaded (local prefetch)
+2026-05-24 11:35:06     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 11:35:08   [44/50] UID 44 | Radiant28/evolai-0.4b-V1 @
+2026-05-24 11:35:08 5e0cb9981c5c7ec29fe92d5cf1ebddcbcc002af5 | hotkey 5DXm2ShZGmwG…
+2026-05-24 11:35:08     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:35:08     Fetched 20 texts (20 indices)
+2026-05-24 11:35:10    Ready:
+2026-05-24 11:35:10 Radiant28/evolai-transformer-0.4b-b1@18231d7d50096d8b2744fdff1b38a7b90246ddf0
+2026-05-24 11:35:10    Downloading
+2026-05-24 11:35:10 andrebarrosilva1123/evolai-f@89654c7b1e351cce36bab65fe09692eb0e109f72…
+2026-05-24 11:35:10     Loaded (local prefetch)
+2026-05-24 11:35:10 Fetching 7 files: 100%|██████████| 7/7 [00:06<00:00,  1.07it/s]
+2026-05-24 11:35:11     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 11:35:13   [45/50] UID 35 | Radiant28/evolai-transformer-0.4b-b1 @
+2026-05-24 11:35:13 18231d7d50096d8b2744fdff1b38a7b90246ddf0 | hotkey 5EXZBq3wQzTK…
+2026-05-24 11:35:13     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:35:13     Fetched 20 texts (20 indices)
+2026-05-24 11:35:15     Loaded (local prefetch)
+2026-05-24 11:35:16     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 11:35:17    Ready: andrebarrosilva1123/evolai-f@89654c7b1e351cce36bab65fe09692eb0e109f72
+2026-05-24 11:35:17    Downloading
+2026-05-24 11:35:17 batster4/evolai-phi4-mini-dpo-v1@8217794abaf74f8e15f578a507e27b5f9b1df4c9…
+2026-05-24 11:35:18 Fetching 12 files: 100%|██████████| 12/12 [00:24<00:00,  2.00s/it]
+2026-05-24 11:35:18   [46/50] UID 52 | andrebarrosilva1123/evolai-f @
+2026-05-24 11:35:18 89654c7b1e351cce36bab65fe09692eb0e109f72 | hotkey 5HTZZEb5oxv9…
+2026-05-24 11:35:18     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:35:18     Fetched 20 texts (20 indices)
+2026-05-24 11:35:20     Loaded (local prefetch)
+2026-05-24 11:35:21     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 11:35:23   [47/50] UID 59 | batster4/evolai-phi4-mini-dpo-v1 @
+2026-05-24 11:35:23 8217794abaf74f8e15f578a507e27b5f9b1df4c9 | hotkey 5GCA2s6m4RRM…
+2026-05-24 11:35:23     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:35:23     Fetched 20 texts (20 indices)
+2026-05-24 11:35:42    Ready:
+2026-05-24 11:35:42 batster4/evolai-phi4-mini-dpo-v1@8217794abaf74f8e15f578a507e27b5f9b1df4c9
+2026-05-24 11:35:42    Downloading philk11/evolai-0.4b@822950352d63cdd145c3a7449ebfd4b51ad5ae6a…
+2026-05-24 11:35:46    Ready: philk11/evolai-0.4b@822950352d63cdd145c3a7449ebfd4b51ad5ae6a
+2026-05-24 11:35:46    Downloading snx999/evolai_qw_4b@69eff663b4e9a2b5bf76dde6cdecc5dce29759d3…
+2026-05-24 11:35:49     Loaded (HF download)
+2026-05-24 11:35:49     ⚠ Invalid model size (3.84B; allowed 0.45-0.48B, 1.50-1.80B) — skipping
+2026-05-24 11:35:52   [48/50] UID 65 | philk11/evolai-0.4b @
+2026-05-24 11:35:52 822950352d63cdd145c3a7449ebfd4b51ad5ae6a | hotkey 5GvHE1tHbhGv…
+2026-05-24 11:35:53     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:35:53     Fetched 20 texts (20 indices)
+2026-05-24 11:35:55     Loaded (local prefetch)
+2026-05-24 11:35:55     ⚠ Invalid model size (0.60B; allowed 0.45-0.48B, 1.50-1.80B) — skipping
+2026-05-24 11:35:57   [49/50] UID 25 | snx999/evolai_qw_4b @
+2026-05-24 11:35:57 69eff663b4e9a2b5bf76dde6cdecc5dce29759d3 | hotkey 5HBJoNWv4nAi…
+2026-05-24 11:35:57     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:35:57     Fetched 20 texts (20 indices)
+2026-05-24 11:36:02    Ready: snx999/evolai_qw_4b@69eff663b4e9a2b5bf76dde6cdecc5dce29759d3
+2026-05-24 11:36:02    Downloading
+2026-05-24 11:36:02 Jubilant/evolai-1.50b-v1@074810c41bab77c52a216e0c2f7886484e12deeb…
+2026-05-24 11:36:18    Ready: Jubilant/evolai-1.50b-v1@074810c41bab77c52a216e0c2f7886484e12deeb
+2026-05-24 11:36:26     Loaded (HF download)
+2026-05-24 11:36:26     ⚠ Invalid model size (4.21B; allowed 0.45-0.48B, 1.50-1.80B) — skipping
+2026-05-24 11:36:29   [50/50] UID 40 | Jubilant/evolai-1.50b-v1 @
+2026-05-24 11:36:29 074810c41bab77c52a216e0c2f7886484e12deeb | hotkey 5Fuv43yR7tjJ…
+2026-05-24 11:36:29     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:36:29     Fetched 20 texts (20 indices)
+2026-05-24 11:36:31     Loaded (local prefetch)
+2026-05-24 11:36:31     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 11:36:33   Cached next refs for transformer: 50 miner(s)
+2026-05-24 11:36:33 
+2026-05-24 11:36:33   ✓ TRANSFORMER: 30 evaluated, 23 skipped —
+2026-05-24 11:36:33 epoch_22926_transformer_20260524_110934.json
+2026-05-24 11:36:33   ✓ Telemetry sent (30 records)
+2026-05-24 11:36:33 Evaluating MAMBA2 track…
+2026-05-24 11:36:33 
+2026-05-24 11:36:33   Found 15 locked mamba2 miners
+2026-05-24 11:36:33    Downloading
+2026-05-24 11:36:33 mihai-777/evolai-mamba2-1p6b-alt@131bd3907f9816bbf184f5651ba63af66046e84c…
+2026-05-24 11:36:33 Pre-building current/next challenges for 15 miners…
+2026-05-24 11:36:34 Fetching 7 files: 100%|██████████| 7/7 [00:03<00:00,  1.83it/s]
+2026-05-24 11:36:37    Ready:
+2026-05-24 11:36:37 mihai-777/evolai-mamba2-1p6b-alt@131bd3907f9816bbf184f5651ba63af66046e84c
+2026-05-24 11:36:37    Downloading
+2026-05-24 11:36:37 andrebarrosilva1123/evolai-mamba2-b@62336a49df6d6014f779575adfd29373c228edd4…
+2026-05-24 11:36:37 Fetching 7 files: 100%|██████████| 7/7 [00:02<00:00,  2.99it/s]
+2026-05-24 11:36:40    Ready:
+2026-05-24 11:36:40 andrebarrosilva1123/evolai-mamba2-b@62336a49df6d6014f779575adfd29373c228edd4
+2026-05-24 11:36:53 ✓ Ref data ready: submitted=15, cached=15
+2026-05-24 11:36:53   [1/15] UID 32 | mihai-777/evolai-mamba2-1p6b-alt @
+2026-05-24 11:36:53 131bd3907f9816bbf184f5651ba63af66046e84c | hotkey 5GL84HKDau7C…
+2026-05-24 11:36:54     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:36:54    Downloading
+2026-05-24 11:36:54 batster4/evolai-mamba2-v1@142f14d218be618e3161d86926085b3a9cefed55…
+2026-05-24 11:36:54     Fetched 20 texts (20 indices)
+2026-05-24 11:36:56     Loaded (local prefetch)
+2026-05-24 11:36:56     Model 0.48B → batch=512, seq=16384
+2026-05-24 11:36:58    Ready: batster4/evolai-mamba2-v1@142f14d218be618e3161d86926085b3a9cefed55
+2026-05-24 11:37:06     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:04
+2026-05-24 11:37:06     Loss 4.7855 | Size ×0.52 | Think 0.0000 | ThinkGain 0 (+0.5000) | Flow
+2026-05-24 11:37:06 0.2871 | KL 4.7855 | NextKL 5.0512 | SideQ 0% | Score 0.0000 (10.1s)
+2026-05-24 11:37:06     Gate FAIL | Improve same SHA cur=4.7855 req<=4.6898 prev=4.7855 | Consist ok
+2026-05-24 11:37:06 ema_cur=4.8615 ema_next=4.8747 ratio=1.003 max<=1.20
+2026-05-24 11:37:08   Evicted cached model:
+2026-05-24 11:37:08 clear-blue-sky/evolai-reborn-tfm-010@dc678a8cf928c4e1fc83aa85785f8d8ffe3d991d
+2026-05-24 11:37:08   [2/15] UID 57 | andrebarrosilva1123/evolai-mamba2-b @
+2026-05-24 11:37:08 62336a49df6d6014f779575adfd29373c228edd4 | hotkey 5EZx1DRvpMGK…
+2026-05-24 11:37:08     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:37:08     Fetched 20 texts (20 indices)
+2026-05-24 11:37:08    Downloading
+2026-05-24 11:37:08 andrebarrosilva1123/evolai-mamba2-c@dc37c985d66c77e3d10bf9eaf16e6dc952c62e17…
+2026-05-24 11:37:10     Loaded (local prefetch)
+2026-05-24 11:37:10     ⚠ Vocab incompatible (model=151669 < ref=248077) — skipping
+2026-05-24 11:37:11    Ready:
+2026-05-24 11:37:11 andrebarrosilva1123/evolai-mamba2-c@dc37c985d66c77e3d10bf9eaf16e6dc952c62e17
+2026-05-24 11:37:12   [3/15] UID 60 | batster4/evolai-mamba2-v1 @
+2026-05-24 11:37:12 142f14d218be618e3161d86926085b3a9cefed55 | hotkey 5Dc8EpAixcqc…
+2026-05-24 11:37:12     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:37:12     Fetched 20 texts (20 indices)
+2026-05-24 11:37:12    Downloading
+2026-05-24 11:37:12 evolai/evolai_mamba_naive_kl@b7c8842d1d5a700bd6a36b834fe6f0b3dc5d321a…
+2026-05-24 11:37:16    Ready: evolai/evolai_mamba_naive_kl@b7c8842d1d5a700bd6a36b834fe6f0b3dc5d321a
+2026-05-24 11:37:18     Loaded (local prefetch)
+2026-05-24 11:37:18     ⚠ Invalid model size (0.82B; allowed 0.45-0.48B, 1.50-1.80B) — skipping
+2026-05-24 11:37:20   [4/15] UID 58 | andrebarrosilva1123/evolai-mamba2-c @
+2026-05-24 11:37:20 dc37c985d66c77e3d10bf9eaf16e6dc952c62e17 | hotkey 5EgtSzXJbjpV…
+2026-05-24 11:37:20     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:37:20     Fetched 20 texts (20 indices)
+2026-05-24 11:37:20    Downloading
+2026-05-24 11:37:20 andrebarrosilva1123/evolai-mamba2-a@55b92d373b1c219a4cfbac7034c154ddbcdc854d…
+2026-05-24 11:37:21     Loaded (local prefetch)
+2026-05-24 11:37:21     ⚠ Vocab incompatible (model=151669 < ref=248077) — skipping
+2026-05-24 11:37:23   [5/15] UID 96 | evolai/evolai_mamba_naive_kl @
+2026-05-24 11:37:23 b7c8842d1d5a700bd6a36b834fe6f0b3dc5d321a | hotkey 5HQuJVXBXGrW…
+2026-05-24 11:37:23     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:37:23     Fetched 20 texts (20 indices)
+2026-05-24 11:37:23    Ready:
+2026-05-24 11:37:23 andrebarrosilva1123/evolai-mamba2-a@55b92d373b1c219a4cfbac7034c154ddbcdc854d
+2026-05-24 11:37:23    Downloading Lin2es/evolai-mb2-04v@9c0198682f16cc8595fec849aa37227f7160e92c…
+2026-05-24 11:37:25     Loaded (local prefetch)
+2026-05-24 11:37:25     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:37:26    Ready: Lin2es/evolai-mb2-04v@9c0198682f16cc8595fec849aa37227f7160e92c
+2026-05-24 11:37:29     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:01
+2026-05-24 11:37:29     Loss 3.5893 | Size ×0.50 | Think 0.0000 | ThinkGain 0 (+0.5000) | Flow
+2026-05-24 11:37:29 0.0000 | KL 3.5893 | NextKL 3.7030 | SideQ 0% | Score 0.0000 (4.3s)
+2026-05-24 11:37:29     Gate FAIL | Improve same SHA cur=3.5893 req<=3.5175 prev=3.5893 | Consist ok
+2026-05-24 11:37:29 ema_cur=3.8315 ema_next=3.5423 ratio=0.925 max<=1.20
+2026-05-24 11:37:31   Evicted cached model:
+2026-05-24 11:37:31 mihai-777/evolai-tfm-1p5b-alt@5ebb4a406916abe39e32823ff1f635b70e707e5a
+2026-05-24 11:37:32   [6/15] UID 56 | andrebarrosilva1123/evolai-mamba2-a @
+2026-05-24 11:37:32 55b92d373b1c219a4cfbac7034c154ddbcdc854d | hotkey 5D1zGn2n3mzF…
+2026-05-24 11:37:32     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:37:32     Fetched 20 texts (20 indices)
+2026-05-24 11:37:32    Downloading Lin2es/evolai-mb2-03v@3047597c4e4b4430450ddcd633240b88d781fdbd…
+2026-05-24 11:37:33     Loaded (local prefetch)
+2026-05-24 11:37:33     ⚠ Vocab incompatible (model=151669 < ref=248077) — skipping
+2026-05-24 11:37:35   [7/15] UID 89 | Lin2es/evolai-mb2-04v @
+2026-05-24 11:37:35 9c0198682f16cc8595fec849aa37227f7160e92c | hotkey 5DkZf6V3X8Za…
+2026-05-24 11:37:35     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:37:35     Fetched 20 texts (20 indices)
+2026-05-24 11:37:35    Ready: Lin2es/evolai-mb2-03v@3047597c4e4b4430450ddcd633240b88d781fdbd
+2026-05-24 11:37:35    Downloading
+2026-05-24 11:37:35 mihai-777/evolai-mamba2-0p47b-v3@c2a96b92acf632d51a2c21da4482f77f98256518…
+2026-05-24 11:37:36     Loaded (local prefetch)
+2026-05-24 11:37:37     ⚠ Vocab incompatible (model=151665 < ref=248077) — skipping
+2026-05-24 11:37:38   [8/15] UID 91 | Lin2es/evolai-mb2-03v @
+2026-05-24 11:37:38 3047597c4e4b4430450ddcd633240b88d781fdbd | hotkey 5EcdUqvUBCSp…
+2026-05-24 11:37:38     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:37:38     Fetched 20 texts (20 indices)
+2026-05-24 11:37:38    Ready:
+2026-05-24 11:37:38 mihai-777/evolai-mamba2-0p47b-v3@c2a96b92acf632d51a2c21da4482f77f98256518
+2026-05-24 11:37:38    Downloading
+2026-05-24 11:37:38 elgin-group/evolai-mamba2-0p47b-v1@39b2f90ad08643d34503c88f5c7224fd3dabeed7…
+2026-05-24 11:37:40     Loaded (local prefetch)
+2026-05-24 11:37:40     Model 0.48B → batch=512, seq=16384
+2026-05-24 11:37:41    Ready:
+2026-05-24 11:37:41 elgin-group/evolai-mamba2-0p47b-v1@39b2f90ad08643d34503c88f5c7224fd3dabeed7
+2026-05-24 11:37:44     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:01
+2026-05-24 11:37:44     Loss 4.7057 | Size ×0.52 | Think 0.0000 | ThinkGain 0 (+0.5000) | Flow
+2026-05-24 11:37:44 0.0897 | KL 4.7057 | NextKL 4.7294 | SideQ 0% | Score 0.0000 (4.2s)
+2026-05-24 11:37:44     Gate FAIL | Improve same SHA cur=4.7057 req<=4.6116 prev=4.7057 | Consist ok
+2026-05-24 11:37:44 ema_cur=4.6555 ema_next=4.6647 ratio=1.002 max<=1.20
+2026-05-24 11:37:46   Evicted cached model:
+2026-05-24 11:37:46 clear-blue-sky/evolai-reborn-tfm-007@6e9f3b9695301d7cbeae3063a3f3a69fdd784262
+2026-05-24 11:37:46   [9/15] UID 30 | mihai-777/evolai-mamba2-0p47b-v3 @
+2026-05-24 11:37:46 c2a96b92acf632d51a2c21da4482f77f98256518 | hotkey 5GGsbuVKDrTA…
+2026-05-24 11:37:46     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:37:46     Fetched 20 texts (20 indices)
+2026-05-24 11:37:46    Downloading
+2026-05-24 11:37:46 Radiant28/evolai-mamba2-0.47b-v2@475bf7bf65af1192ed824d58816c1d83f3475983…
+2026-05-24 11:37:48     Loaded (local prefetch)
+2026-05-24 11:37:48     Model 0.48B → batch=512, seq=16384
+2026-05-24 11:37:49    Ready:
+2026-05-24 11:37:49 Radiant28/evolai-mamba2-0.47b-v2@475bf7bf65af1192ed824d58816c1d83f3475983
+2026-05-24 11:37:52     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:01
+2026-05-24 11:37:52     Loss 4.7695 | Size ×0.52 | Think 0.0000 | ThinkGain 0 (+0.5000) | Flow
+2026-05-24 11:37:52 0.1116 | KL 4.7695 | NextKL 4.8577 | SideQ 0% | Score 0.0000 (3.9s)
+2026-05-24 11:37:52     Gate FAIL | Improve same SHA cur=4.7695 req<=4.6741 prev=4.7695 | Consist ok
+2026-05-24 11:37:52 ema_cur=4.7846 ema_next=4.7953 ratio=1.002 max<=1.20
+2026-05-24 11:37:54   Evicted cached model:
+2026-05-24 11:37:54 Lin2es/evolai-tfm-02o@fc5fc3ee4a3877b825b404dc85c9367c1f248c59
+2026-05-24 11:37:54   [10/15] UID 34 | elgin-group/evolai-mamba2-0p47b-v1 @
+2026-05-24 11:37:54 39b2f90ad08643d34503c88f5c7224fd3dabeed7 | hotkey 5GNJr9NfE9e9…
+2026-05-24 11:37:54     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:37:54     Fetched 20 texts (20 indices)
+2026-05-24 11:37:54    Downloading
+2026-05-24 11:37:54 Radiant28/evolai-mamba2-0.47b-v3@97f692fb0b295aa29075d3f9d592bfb4e7625b16…
+2026-05-24 11:37:56     Loaded (local prefetch)
+2026-05-24 11:37:56     ⚠ Vocab incompatible (model=151669 < ref=248077) — skipping
+2026-05-24 11:37:57    Ready:
+2026-05-24 11:37:57 Radiant28/evolai-mamba2-0.47b-v3@97f692fb0b295aa29075d3f9d592bfb4e7625b16
+2026-05-24 11:37:58   [11/15] UID 39 | Radiant28/evolai-mamba2-0.47b-v2 @
+2026-05-24 11:37:58 475bf7bf65af1192ed824d58816c1d83f3475983 | hotkey 5FvTt3gVVhFT…
+2026-05-24 11:37:58     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:37:58     Fetched 20 texts (20 indices)
+2026-05-24 11:37:58    Downloading Lin2es/evolai-mb2-01v@a7f32e5ce7f8d307c98560e5025525f3703310c0…
+2026-05-24 11:37:59     Loaded (local prefetch)
+2026-05-24 11:37:59     ⚠ Vocab incompatible (model=151669 < ref=248077) — skipping
+2026-05-24 11:38:01   [12/15] UID 41 | Radiant28/evolai-mamba2-0.47b-v3 @
+2026-05-24 11:38:01 97f692fb0b295aa29075d3f9d592bfb4e7625b16 | hotkey 5CP5QrWuFe93…
+2026-05-24 11:38:01     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:38:01     Fetched 20 texts (20 indices)
+2026-05-24 11:38:01    Ready: Lin2es/evolai-mb2-01v@a7f32e5ce7f8d307c98560e5025525f3703310c0
+2026-05-24 11:38:01    Downloading
+2026-05-24 11:38:01 mihai-777/evolai-mamba2-0p47b@7b6564c9a46f602702c260185aa43867f321dee7…
+2026-05-24 11:38:03     Loaded (local prefetch)
+2026-05-24 11:38:03     ⚠ Vocab incompatible (model=151669 < ref=248077) — skipping
+2026-05-24 11:38:05   [13/15] UID 11 | Lin2es/evolai-mb2-01v @
+2026-05-24 11:38:05 a7f32e5ce7f8d307c98560e5025525f3703310c0 | hotkey 5HYuS4jrJJ56…
+2026-05-24 11:38:05     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:38:05     Fetched 20 texts (20 indices)
+2026-05-24 11:38:05    Ready: mihai-777/evolai-mamba2-0p47b@7b6564c9a46f602702c260185aa43867f321dee7
+2026-05-24 11:38:05    Downloading Lin2es/evolai-mb2-02v@c1ad3d94c5929dcc0e3a40d9d9034bd80da9a1f8…
+2026-05-24 11:38:06     Loaded (local prefetch)
+2026-05-24 11:38:07     Model 0.48B → batch=512, seq=16384
+2026-05-24 11:38:08    Ready: Lin2es/evolai-mb2-02v@c1ad3d94c5929dcc0e3a40d9d9034bd80da9a1f8
+2026-05-24 11:38:11     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:01
+2026-05-24 11:38:11     Loss 4.5383 | Size ×0.52 | Think 0.0000 | ThinkGain 0 (+0.5000) | Flow
+2026-05-24 11:38:11 0.1647 | KL 4.5383 | NextKL 4.6986 | SideQ 0% | Score 0.0000 (4.1s)
+2026-05-24 11:38:11     Gate FAIL | Improve same SHA cur=4.5383 req<=4.4476 prev=4.5383 | Consist ok
+2026-05-24 11:38:11 ema_cur=4.6485 ema_next=4.6586 ratio=1.002 max<=1.20
+2026-05-24 11:38:12   Evicted cached model:
+2026-05-24 11:38:12 evolai/evolai_test_challenge@5a3933210ac1ff57b53061ab3afd9bdbdccb7a73
+2026-05-24 11:38:13   [14/15] UID 31 | mihai-777/evolai-mamba2-0p47b @
+2026-05-24 11:38:13 7b6564c9a46f602702c260185aa43867f321dee7 | hotkey 5CJuKKq16FkR…
+2026-05-24 11:38:13     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:38:13     Fetched 20 texts (20 indices)
+2026-05-24 11:38:14     Loaded (local prefetch)
+2026-05-24 11:38:15     Model 0.48B → batch=512, seq=16384
+2026-05-24 11:38:19     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:01
+2026-05-24 11:38:19     Loss 4.9910 | Size ×0.52 | Think 0.0000 | ThinkGain 0 (+0.5000) | Flow
+2026-05-24 11:38:19 0.0000 | KL 4.9910 | NextKL 4.8434 | SideQ 0% | Score 0.0000 (3.8s)
+2026-05-24 11:38:19     Gate FAIL | Improve same SHA cur=4.9910 req<=4.8912 prev=4.9910 | Consist ok
+2026-05-24 11:38:19 ema_cur=4.8065 ema_next=4.8071 ratio=1.000 max<=1.20
+2026-05-24 11:38:20   Evicted cached model:
+2026-05-24 11:38:20 mrthor102/evolai-tfm-super-002@72395fba22f567827562763dbdb3cbf31e823bb3
+2026-05-24 11:38:21   [15/15] UID 90 | Lin2es/evolai-mb2-02v @
+2026-05-24 11:38:21 c1ad3d94c5929dcc0e3a40d9d9034bd80da9a1f8 | hotkey 5CtLLhrw6Lxa…
+2026-05-24 11:38:21     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:38:21     Fetched 20 texts (20 indices)
+2026-05-24 11:38:22     Loaded (local prefetch)
+2026-05-24 11:38:22     Model 0.48B → batch=512, seq=16384
+2026-05-24 11:38:26     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:01
+2026-05-24 11:38:26     Loss 4.6739 | Size ×0.52 | Think 0.0000 | ThinkGain 0 (+0.5000) | Flow
+2026-05-24 11:38:26 0.0000 | KL 4.6739 | NextKL 4.7000 | SideQ 0% | Score 0.0000 (3.8s)
+2026-05-24 11:38:26     Gate FAIL | Improve same SHA cur=4.6739 req<=4.5805 prev=4.6739 | Consist ok
+2026-05-24 11:38:26 ema_cur=4.9599 ema_next=4.7063 ratio=0.949 max<=1.20
+2026-05-24 11:38:28   Evicted cached model:
+2026-05-24 11:38:28 evolai/evolai_naive_kl@da8203b6900f14ec1b724f3dd8c6dc35576fc3e4
+2026-05-24 11:38:28   Cached next refs for mamba2: 15 miner(s)
+2026-05-24 11:38:28 
+2026-05-24 11:38:28   ✓ MAMBA2: 7 evaluated, 14 skipped — epoch_22926_mamba2_20260524_110934.json
+2026-05-24 11:38:29   ✓ Telemetry sent (7 records)
+2026-05-24 11:38:29 Current Leaderboard:
+2026-05-24 11:38:43 
+2026-05-24 11:38:43 TRANSFORMER
+2026-05-24 11:38:43 ┏━━━━━━┳━━━━━┳━━━━━━━━┳━━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━┳━━━━━┳━━━━━━━━━┳━━━━━━━┓
+2026-05-24 11:38:43 ┃      ┃     ┃        ┃     Latest ┃           ┃       ┃     ┃         ┃       ┃
+2026-05-24 11:38:43 ┃ Rank ┃ UID ┃  Score ┃       Loss ┃ ThinkGain ┃  Flow ┃ SQ% ┃      KL ┃ Evals ┃
+2026-05-24 11:38:43 ┡━━━━━━╇━━━━━╇━━━━━━━━╇━━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━╇━━━━━╇━━━━━━━━━╇━━━━━━━┩
+2026-05-24 11:38:43 │    1 │   8 │ 0.0345 │     3.7736 │  0 FAIL   │ 0.164 │  0% │  1.6253 │   313 │
+2026-05-24 11:38:43 │    2 │  48 │ 0.0001 │     3.8807 │  0 FAIL   │ 0.241 │  0% │  2.1842 │   137 │
+2026-05-24 11:38:43 │    3 │  82 │ 0.0000 │     3.7238 │  0 FAIL   │ 0.000 │  0% │  2.0360 │   348 │
+2026-05-24 11:38:43 │    4 │  66 │ 0.0000 │     3.9516 │  0 FAIL   │ 0.146 │  0% │  1.9447 │   348 │
+2026-05-24 11:38:43 │    5 │  87 │ 0.0000 │     4.0577 │  0 FAIL   │ 0.133 │  0% │  2.2495 │   147 │
+2026-05-24 11:38:43 │    6 │  86 │ 0.0000 │     4.1094 │  0 FAIL   │ 0.139 │  0% │  2.3171 │   148 │
+2026-05-24 11:38:43 │    7 │  73 │ 0.0000 │     3.2241 │  0 FAIL   │ 0.000 │  0% │  1.6700 │   133 │
+2026-05-24 11:38:43 │    8 │  93 │ 0.0000 │     4.0359 │  0 FAIL   │ 0.000 │  0% │  2.0714 │   133 │
+2026-05-24 11:38:43 │    9 │  97 │ 0.0000 │     4.1537 │  0 FAIL   │ 0.000 │  0% │  2.0189 │   263 │
+2026-05-24 11:38:43 │   10 │  67 │ 0.0000 │     3.5161 │  0 FAIL   │ 0.614 │  0% │  1.7320 │   350 │
+2026-05-24 11:38:43 │   11 │  70 │ 0.0000 │     3.3368 │  0 FAIL   │ 0.000 │  0% │  1.6701 │   348 │
+2026-05-24 11:38:43 │   12 │  83 │ 0.0000 │     3.6831 │  0 FAIL   │ 0.000 │  0% │  1.8558 │   350 │
+2026-05-24 11:38:43 │   13 │  85 │ 0.0000 │     3.6124 │  0 FAIL   │ 0.000 │  0% │  1.8733 │   337 │
+2026-05-24 11:38:43 │   14 │  99 │ 0.0000 │     3.4330 │  0 FAIL   │ 0.131 │  0% │  1.6694 │   131 │
+2026-05-24 11:38:43 │   15 │  72 │ 0.0000 │     3.6746 │  0 FAIL   │ 0.221 │  0% │  1.8346 │   132 │
+2026-05-24 11:38:43 │   16 │  62 │ 0.0000 │     3.8111 │  0 FAIL   │ 0.155 │  0% │  1.7688 │   350 │
+2026-05-24 11:38:43 │   17 │  94 │ 0.0000 │     4.1857 │  0 FAIL   │ 0.000 │  0% │  2.0184 │   263 │
+2026-05-24 11:38:43 │   18 │  98 │ 0.0000 │     3.7605 │  0 FAIL   │ 0.051 │  0% │  2.0351 │   262 │
+2026-05-24 11:38:43 │   19 │  69 │ 0.0000 │     3.8684 │  0 FAIL   │ 0.144 │  0% │  2.0095 │   133 │
+2026-05-24 11:38:43 │   20 │   9 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   352 │
+2026-05-24 11:38:43 │   21 │  25 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   349 │
+2026-05-24 11:38:43 │   22 │  33 │ 0.0000 │     2.8493 │  0 FAIL   │ 0.000 │  0% │  2.6136 │   350 │
+2026-05-24 11:38:43 │   23 │  35 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   350 │
+2026-05-24 11:38:43 │   24 │  36 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   349 │
+2026-05-24 11:38:43 │   25 │  37 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   350 │
+2026-05-24 11:38:43 │   26 │  38 │ 0.0000 │     2.7843 │  0 FAIL   │ 0.000 │  0% │  2.7156 │   349 │
+2026-05-24 11:38:43 │   27 │  40 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   350 │
+2026-05-24 11:38:43 │   28 │  42 │ 0.0000 │     2.9427 │  0 FAIL   │ 0.111 │  0% │  2.5854 │   350 │
+2026-05-24 11:38:43 │   29 │  43 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   350 │
+2026-05-24 11:38:43 │   30 │  44 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   351 │
+2026-05-24 11:38:43 │   31 │  45 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   350 │
+2026-05-24 11:38:43 │   32 │  49 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   349 │
+2026-05-24 11:38:43 │   33 │  50 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   349 │
+2026-05-24 11:38:43 │   34 │  51 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   322 │
+2026-05-24 11:38:43 │   35 │  52 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   323 │
+2026-05-24 11:38:43 │   36 │  53 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   350 │
+2026-05-24 11:38:43 │   37 │  54 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   321 │
+2026-05-24 11:38:43 │   38 │  55 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   353 │
+2026-05-24 11:38:43 │   39 │  59 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   350 │
+2026-05-24 11:38:43 │   40 │  61 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   350 │
+2026-05-24 11:38:43 │   41 │  65 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   350 │
+2026-05-24 11:38:43 │   42 │  75 │ 0.0000 │     2.9725 │  0 FAIL   │ 0.000 │  0% │  2.4377 │   351 │
+2026-05-24 11:38:43 │   43 │  76 │ 0.0000 │     2.8646 │  0 FAIL   │ 0.299 │  0% │  2.2959 │   349 │
+2026-05-24 11:38:43 │   44 │  77 │ 0.0000 │     2.8107 │  0 FAIL   │ 0.000 │  0% │  2.5148 │   252 │
+2026-05-24 11:38:43 │   45 │  78 │ 0.0000 │     2.5170 │  0 FAIL   │ 0.025 │  0% │  2.7707 │   252 │
+2026-05-24 11:38:43 │   46 │  79 │ 0.0000 │     2.5479 │  0 FAIL   │ 0.000 │  0% │  2.5868 │   252 │
+2026-05-24 11:38:43 │   47 │  80 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   351 │
+2026-05-24 11:38:43 │   48 │  84 │ 0.0000 │     3.3838 │  0 FAIL   │ 0.116 │  0% │  1.6168 │   334 │
+2026-05-24 11:38:43 │   49 │  88 │ 0.0000 │     3.9147 │  0 FAIL   │ 0.290 │  0% │  1.9992 │   146 │
+2026-05-24 11:38:43 │   50 │  92 │ 0.0000 │     2.7561 │  0 FAIL   │ 0.000 │  0% │  2.5704 │   253 │
+2026-05-24 11:38:43 │   51 │  95 │ 0.0000 │     2.7487 │  0 FAIL   │ 0.202 │  0% │  2.6847 │   262 │
+2026-05-24 11:38:43 │   52 │ 100 │ 0.0000 │     4.0204 │  0 FAIL   │ 0.000 │  0% │  4.0594 │   261 │
+2026-05-24 11:38:43 │   53 │ 101 │ 0.0000 │     3.5358 │  0 FAIL   │ 0.401 │  0% │  1.8664 │    83 │
+2026-05-24 11:38:43 └──────┴─────┴────────┴────────────┴───────────┴───────┴─────┴─────────┴───────┘
+2026-05-24 11:38:43 
+2026-05-24 11:38:43 MAMBA2
+2026-05-24 11:38:43 ┏━━━━━━┳━━━━━┳━━━━━━━━┳━━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━┳━━━━━┳━━━━━━━━━┳━━━━━━━┓
+2026-05-24 11:38:43 ┃      ┃     ┃        ┃     Latest ┃           ┃       ┃     ┃         ┃       ┃
+2026-05-24 11:38:43 ┃ Rank ┃ UID ┃  Score ┃       Loss ┃ ThinkGain ┃  Flow ┃ SQ% ┃      KL ┃ Evals ┃
+2026-05-24 11:38:43 ┡━━━━━━╇━━━━━╇━━━━━━━━╇━━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━╇━━━━━╇━━━━━━━━━╇━━━━━━━┩
+2026-05-24 11:38:43 │    1 │  11 │ 0.0000 │     4.5383 │  0 FAIL   │ 0.165 │  0% │  4.5383 │   252 │
+2026-05-24 11:38:43 │    2 │  30 │ 0.0000 │     4.7695 │  0 FAIL   │ 0.112 │  0% │  4.7695 │   347 │
+2026-05-24 11:38:43 │    3 │  31 │ 0.0000 │     4.9910 │  0 FAIL   │ 0.000 │  0% │  4.9910 │   347 │
+2026-05-24 11:38:43 │    4 │  32 │ 0.0000 │     4.7855 │  0 FAIL   │ 0.287 │  0% │  4.7855 │   347 │
+2026-05-24 11:38:43 │    5 │  34 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   347 │
+2026-05-24 11:38:43 │    6 │  39 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   348 │
+2026-05-24 11:38:43 │    7 │  41 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   347 │
+2026-05-24 11:38:43 │    8 │  56 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   347 │
+2026-05-24 11:38:43 │    9 │  57 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   347 │
+2026-05-24 11:38:43 │   10 │  58 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   347 │
+2026-05-24 11:38:43 │   11 │  60 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   347 │
+2026-05-24 11:38:43 │   12 │  63 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   271 │
+2026-05-24 11:38:43 │   13 │  64 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   272 │
+2026-05-24 11:38:43 │   14 │  68 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   272 │
+2026-05-24 11:38:43 │   15 │  71 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   271 │
+2026-05-24 11:38:43 │   16 │  74 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   272 │
+2026-05-24 11:38:43 │   17 │  81 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   273 │
+2026-05-24 11:38:43 │   18 │  89 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   252 │
+2026-05-24 11:38:43 │   19 │  90 │ 0.0000 │     4.6739 │  0 FAIL   │ 0.000 │  0% │  4.6739 │   262 │
+2026-05-24 11:38:43 │   20 │  91 │ 0.0000 │     4.7057 │  0 FAIL   │ 0.090 │  0% │  4.7057 │   262 │
+2026-05-24 11:38:43 │   21 │  96 │ 0.0000 │     3.5893 │  0 FAIL   │ 0.000 │  0% │  3.5893 │   262 │
+2026-05-24 11:38:43 └──────┴─────┴────────┴────────────┴───────────┴───────┴─────┴─────────┴───────┘
+2026-05-24 11:38:43 
+2026-05-24 11:38:43 Round complete in epoch 22926 (1749s elapsed). Starting next round immediately…
+2026-05-24 11:38:43 
+2026-05-24 11:38:43 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-05-24 11:38:43 
+2026-05-24 11:38:43 ━━━ Epoch #22926 (Loop #8) ━━━ block=8253704, ~3m remaining
+2026-05-24 11:38:53 
+2026-05-24 11:38:53   ⚠ UID 86: revision lock failed: RepositoryNotFoundError: 401 Client Error.
+2026-05-24 11:38:53 (Request ID:
+2026-05-24 11:38:53 Root=1-6a12e34d-44d78ce66f8a80b203627fd6;f3736304-a0f3-4340-85cd-b5dc3e6c32bf)
+2026-05-24 11:38:53 
+2026-05-24 11:38:53 Repository Not Found for url:
+2026-05-24 11:38:53 https://huggingface.co/api/models/clear-blue-sky/evolai-tfm-012/revision/main.
+2026-05-24 11:38:53 Please make sure you specified the correct `repo_id` and `repo_type`.
+2026-05-24 11:38:53 If you are trying to access a private or gated repo, make sure you are
+2026-05-24 11:38:53 authenticated and your token has the required permissions.
+2026-05-24 11:38:53 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
+2026-05-24 11:38:53 Invalid username or password.
+2026-05-24 11:38:53   ⚠ UID 87: revision lock failed: RepositoryNotFoundError: 401 Client Error.
+2026-05-24 11:38:53 (Request ID:
+2026-05-24 11:38:53 Root=1-6a12e34d-741d6e167fb150463b0c697d;dd85637b-bcaf-427c-b6e8-d89c68cb4afd)
+2026-05-24 11:38:53 
+2026-05-24 11:38:53 Repository Not Found for url:
+2026-05-24 11:38:53 https://huggingface.co/api/models/clear-blue-sky/evolai-tfm-013/revision/main.
+2026-05-24 11:38:53 Please make sure you specified the correct `repo_id` and `repo_type`.
+2026-05-24 11:38:53 If you are trying to access a private or gated repo, make sure you are
+2026-05-24 11:38:53 authenticated and your token has the required permissions.
+2026-05-24 11:38:53 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
+2026-05-24 11:38:53 Invalid username or password.
+2026-05-24 11:38:53   ⚠ UID 88: revision lock failed: RepositoryNotFoundError: 401 Client Error.
+2026-05-24 11:38:53 (Request ID:
+2026-05-24 11:38:53 Root=1-6a12e34d-26d2ec005a7fd50b2ee05af4;f4dfaeff-727d-4c35-b7f9-8c5f3f807ef9)
+2026-05-24 11:38:53 
+2026-05-24 11:38:53 Repository Not Found for url:
+2026-05-24 11:38:53 https://huggingface.co/api/models/clear-blue-sky/evolai-tfm-014/revision/main.
+2026-05-24 11:38:53 Please make sure you specified the correct `repo_id` and `repo_type`.
+2026-05-24 11:38:53 If you are trying to access a private or gated repo, make sure you are
+2026-05-24 11:38:53 authenticated and your token has the required permissions.
+2026-05-24 11:38:53 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
+2026-05-24 11:38:53 Invalid username or password.
+2026-05-24 11:38:53   Locked transformer revisions (50 miner(s), 3 skipped)
+2026-05-24 11:39:01   ⚠ UID 63: revision lock failed: RepositoryNotFoundError: 401 Client Error.
+2026-05-24 11:39:01 (Request ID:
+2026-05-24 11:39:01 Root=1-6a12e355-3553baff04c4b1d40b3f15ae;6c5f85b6-c4fc-4e4f-8990-c5b696f8b03c)
+2026-05-24 11:39:01 
+2026-05-24 11:39:01 Repository Not Found for url:
+2026-05-24 11:39:01 https://huggingface.co/api/models/clear-blue-sky/evolai-mb2-009/revision/main.
+2026-05-24 11:39:01 Please make sure you specified the correct `repo_id` and `repo_type`.
+2026-05-24 11:39:01 If you are trying to access a private or gated repo, make sure you are
+2026-05-24 11:39:01 authenticated and your token has the required permissions.
+2026-05-24 11:39:01 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
+2026-05-24 11:39:01 Invalid username or password.
+2026-05-24 11:39:01   ⚠ UID 64: revision lock failed: RepositoryNotFoundError: 401 Client Error.
+2026-05-24 11:39:01 (Request ID:
+2026-05-24 11:39:01 Root=1-6a12e355-75b440fb72a48471195b2593;4b93cfe2-1796-4873-b053-50668a07186b)
+2026-05-24 11:39:01 
+2026-05-24 11:39:01 Repository Not Found for url:
+2026-05-24 11:39:01 https://huggingface.co/api/models/clear-blue-sky/evolai-mb2-002/revision/main.
+2026-05-24 11:39:01 Please make sure you specified the correct `repo_id` and `repo_type`.
+2026-05-24 11:39:01 If you are trying to access a private or gated repo, make sure you are
+2026-05-24 11:39:01 authenticated and your token has the required permissions.
+2026-05-24 11:39:01 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
+2026-05-24 11:39:01 Invalid username or password.
+2026-05-24 11:39:01   ⚠ UID 68: revision lock failed: RepositoryNotFoundError: 401 Client Error.
+2026-05-24 11:39:01 (Request ID:
+2026-05-24 11:39:01 Root=1-6a12e355-77d773e93b7d68d8519101dd;60f347af-1ffd-4f42-8851-7d78f6c65703)
+2026-05-24 11:39:01 
+2026-05-24 11:39:01 Repository Not Found for url:
+2026-05-24 11:39:01 https://huggingface.co/api/models/clear-blue-sky/evolai-mb2-008/revision/main.
+2026-05-24 11:39:01 Please make sure you specified the correct `repo_id` and `repo_type`.
+2026-05-24 11:39:01 If you are trying to access a private or gated repo, make sure you are
+2026-05-24 11:39:01 authenticated and your token has the required permissions.
+2026-05-24 11:39:01 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
+2026-05-24 11:39:01 Invalid username or password.
+2026-05-24 11:39:01   ⚠ UID 71: revision lock failed: RepositoryNotFoundError: 401 Client Error.
+2026-05-24 11:39:01 (Request ID:
+2026-05-24 11:39:01 Root=1-6a12e355-793d033308435a29694b8e43;151c1473-eb63-4d59-95d7-bcf99413023a)
+2026-05-24 11:39:01 
+2026-05-24 11:39:01 Repository Not Found for url:
+2026-05-24 11:39:01 https://huggingface.co/api/models/clear-blue-sky/evolai-mb2-001/revision/main.
+2026-05-24 11:39:01 Please make sure you specified the correct `repo_id` and `repo_type`.
+2026-05-24 11:39:01 If you are trying to access a private or gated repo, make sure you are
+2026-05-24 11:39:01 authenticated and your token has the required permissions.
+2026-05-24 11:39:01 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
+2026-05-24 11:39:01 Invalid username or password.
+2026-05-24 11:39:02   ⚠ UID 74: revision lock failed: RepositoryNotFoundError: 401 Client Error.
+2026-05-24 11:39:02 (Request ID:
+2026-05-24 11:39:02 Root=1-6a12e355-06be4aa42f55a43f587456d9;24e5e3ff-1e21-4252-b3af-d37cb2e98956)
+2026-05-24 11:39:02 
+2026-05-24 11:39:02 Repository Not Found for url:
+2026-05-24 11:39:02 https://huggingface.co/api/models/clear-blue-sky/evolai-mb2-007/revision/main.
+2026-05-24 11:39:02 Please make sure you specified the correct `repo_id` and `repo_type`.
+2026-05-24 11:39:02 If you are trying to access a private or gated repo, make sure you are
+2026-05-24 11:39:02 authenticated and your token has the required permissions.
+2026-05-24 11:39:02 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
+2026-05-24 11:39:02 Invalid username or password.
+2026-05-24 11:39:02   ⚠ UID 81: revision lock failed: RepositoryNotFoundError: 401 Client Error.
+2026-05-24 11:39:02 (Request ID:
+2026-05-24 11:39:02 Root=1-6a12e356-507c269e254b700c34d7d979;28c1648e-dab0-49ef-af8e-995a85bb45d6)
+2026-05-24 11:39:02 
+2026-05-24 11:39:02 Repository Not Found for url:
+2026-05-24 11:39:02 https://huggingface.co/api/models/clear-blue-sky/evolai-mb2-010/revision/main.
+2026-05-24 11:39:02 Please make sure you specified the correct `repo_id` and `repo_type`.
+2026-05-24 11:39:02 If you are trying to access a private or gated repo, make sure you are
+2026-05-24 11:39:02 authenticated and your token has the required permissions.
+2026-05-24 11:39:02 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
+2026-05-24 11:39:02 Invalid username or password.
+2026-05-24 11:39:02   Locked mamba2 revisions (15 miner(s), 6 skipped)
+2026-05-24 11:39:39   Committed round seed epoch=22926 seed=5231bbdc...
+2026-05-24 11:39:39 Evaluating TRANSFORMER track…
+2026-05-24 11:39:39 
+2026-05-24 11:39:39   Found 50 locked transformer miners
+2026-05-24 11:39:39    Downloading
+2026-05-24 11:39:39 clear-blue-sky/evolai-reborn-tfm-002@32cef186d1cc992649833103e5ced24601fb82c0…
+2026-05-24 11:39:39 Pre-building current/next challenges for 50 miners…
+2026-05-24 11:39:40 Fetching 7 files: 100%|██████████| 7/7 [00:04<00:00,  1.46it/s]
+2026-05-24 11:39:45    Ready:
+2026-05-24 11:39:45 clear-blue-sky/evolai-reborn-tfm-002@32cef186d1cc992649833103e5ced24601fb82c0
+2026-05-24 11:39:45    Downloading
+2026-05-24 11:39:45 mrthor102/evolai-tfm-super-001@33b845ee4cc937150a1a9247a670a72c492ec343…
+2026-05-24 11:39:45 Fetching 7 files: 100%|██████████| 7/7 [00:04<00:00,  1.64it/s]
+2026-05-24 11:39:50    Ready:
+2026-05-24 11:39:50 mrthor102/evolai-tfm-super-001@33b845ee4cc937150a1a9247a670a72c492ec343
+2026-05-24 11:40:33 ✓ Ref data ready: submitted=50, cached=50
+2026-05-24 11:40:33   [1/50] UID 67 | clear-blue-sky/evolai-reborn-tfm-002 @
+2026-05-24 11:40:33 32cef186d1cc992649833103e5ced24601fb82c0 | hotkey 5GC7k2mkTKGF…
+2026-05-24 11:40:33     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:40:33     Fetched 20 texts (20 indices)
+2026-05-24 11:40:33    Downloading
+2026-05-24 11:40:33 clear-blue-sky/evolai-reborn-tfm-008@4fd002523b20c4a8b9b894e40eec0569bc00514b…
+2026-05-24 11:40:35     Loaded (local prefetch)
+2026-05-24 11:40:35     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:40:38    Ready:
+2026-05-24 11:40:38 clear-blue-sky/evolai-reborn-tfm-008@4fd002523b20c4a8b9b894e40eec0569bc00514b
+2026-05-24 11:41:33     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:54
+2026-05-24 11:41:34     Loss 3.8548 | Size ×0.50 | Think 3.8548 | ThinkGain 0 (+0.4599) | Flow
+2026-05-24 11:41:34 0.4841 | KL 1.9179 | NextKL 1.9910 | SideQ 0% | Score 0.0000 (58.2s)
+2026-05-24 11:41:34     Gate FAIL | Improve FAIL cur=1.9179 req<=1.8883 prev=1.9268 | Consist ok
+2026-05-24 11:41:34 ema_cur=1.8555 ema_next=1.8689 ratio=1.007 max<=1.20
+2026-05-24 11:41:35   Evicted cached model:
+2026-05-24 11:41:35 mihai-777/evolai-mamba2-1p6b-alt@131bd3907f9816bbf184f5651ba63af66046e84c
+2026-05-24 11:41:36   [2/50] UID 94 | mrthor102/evolai-tfm-super-001 @
+2026-05-24 11:41:36 33b845ee4cc937150a1a9247a670a72c492ec343 | hotkey 5CPXihPMoGQ2…
+2026-05-24 11:41:36     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:41:36     Fetched 20 texts (20 indices)
+2026-05-24 11:41:36    Downloading
+2026-05-24 11:41:36 clear-blue-sky/evolai-reborn-tfm-005@b791ceff54abf963b86e838082da15982223446e…
+2026-05-24 11:41:39     Loaded (local prefetch)
+2026-05-24 11:41:39     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:41:40    Ready:
+2026-05-24 11:41:40 clear-blue-sky/evolai-reborn-tfm-005@b791ceff54abf963b86e838082da15982223446e
+2026-05-24 11:42:39     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:56
+2026-05-24 11:42:40     Loss 3.6663 | Size ×0.50 | Think 3.6663 | ThinkGain 0 (+0.4621) | Flow
+2026-05-24 11:42:40 0.0000 | KL 1.9663 | NextKL 1.9652 | SideQ 0% | Score 0.0000 (60.3s)
+2026-05-24 11:42:40     Gate FAIL | Improve FAIL cur=1.9663 req<=1.9342 prev=1.9737 | Consist ok
+2026-05-24 11:42:40 ema_cur=1.9630 ema_next=1.9701 ratio=1.004 max<=1.20
+2026-05-24 11:42:42   Evicted cached model:
+2026-05-24 11:42:42 evolai/evolai_mamba_naive_kl@b7c8842d1d5a700bd6a36b834fe6f0b3dc5d321a
+2026-05-24 11:42:42   [3/50] UID 85 | clear-blue-sky/evolai-reborn-tfm-008 @
+2026-05-24 11:42:42 4fd002523b20c4a8b9b894e40eec0569bc00514b | hotkey 5EC5MzPj6dGb…
+2026-05-24 11:42:42     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:42:42     Fetched 20 texts (20 indices)
+2026-05-24 11:42:42    Downloading
+2026-05-24 11:42:42 clear-blue-sky/evolai-reborn-tfm-006@3553cd610e4f53ef5925b99041f84f598bb04bb3…
+2026-05-24 11:42:44     Loaded (local prefetch)
+2026-05-24 11:42:44     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:42:46    Ready:
+2026-05-24 11:42:46 clear-blue-sky/evolai-reborn-tfm-006@3553cd610e4f53ef5925b99041f84f598bb04bb3
+2026-05-24 11:43:31    alpha=0.005462 TAO/α  budget=0.049616
+2026-05-24 11:43:48     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:59
+2026-05-24 11:43:48     Loss 4.0309 | Size ×0.50 | Think 4.0309 | ThinkGain 0 (+0.4614) | Flow
+2026-05-24 11:43:48 0.0000 | KL 1.9570 | NextKL 1.7852 | SideQ 0% | Score 0.0000 (63.4s)
+2026-05-24 11:43:48     Gate FAIL | Improve FAIL cur=1.9570 req<=1.9211 prev=1.9603 | Consist ok
+2026-05-24 11:43:48 ema_cur=2.2542 ema_next=1.9014 ratio=0.843 max<=1.20
+2026-05-24 11:43:50   Evicted cached model:
+2026-05-24 11:43:50 Lin2es/evolai-mb2-03v@3047597c4e4b4430450ddcd633240b88d781fdbd
+2026-05-24 11:43:50   [4/50] UID 83 | clear-blue-sky/evolai-reborn-tfm-005 @
+2026-05-24 11:43:50 b791ceff54abf963b86e838082da15982223446e | hotkey 5G8tRiKdn5cC…
+2026-05-24 11:43:50     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:43:50     Fetched 20 texts (20 indices)
+2026-05-24 11:43:50    Downloading
+2026-05-24 11:43:50 andrebarrosilva1123/evolai-b@3414c0abb8793ed4af56fd5e6e536b8b0f5ac520…
+2026-05-24 11:43:52     Loaded (local prefetch)
+2026-05-24 11:43:52     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:43:55    emission scale=1.000 (active miners)
+2026-05-24 11:43:55    emission scale=1.000 (active miners)
+2026-05-24 11:43:55    all quality scores zero after gates — emission share redistributed to
+2026-05-24 11:43:55 productive tracks
+2026-05-24 11:43:56   ✓  set at 11:43:56 UTC
+2026-05-24 11:43:57    Ready: andrebarrosilva1123/evolai-b@3414c0abb8793ed4af56fd5e6e536b8b0f5ac520
+2026-05-24 11:44:55     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:58
+2026-05-24 11:44:55     Loss 4.1923 | Size ×0.50 | Think 4.1923 | ThinkGain 0 (+0.4627) | Flow
+2026-05-24 11:44:55 0.0000 | KL 2.0794 | NextKL 1.6677 | SideQ 0% | Score 0.0000 (62.7s)
+2026-05-24 11:44:55     Gate FAIL | Improve FAIL cur=2.0794 req<=2.0485 prev=2.0904 | Consist ok
+2026-05-24 11:44:55 ema_cur=2.2795 ema_next=1.9050 ratio=0.836 max<=1.20
+2026-05-24 11:44:57   Evicted cached model:
+2026-05-24 11:44:57 mihai-777/evolai-mamba2-0p47b-v3@c2a96b92acf632d51a2c21da4482f77f98256518
+2026-05-24 11:44:58   [5/50] UID 66 | clear-blue-sky/evolai-reborn-tfm-006 @
+2026-05-24 11:44:58 3553cd610e4f53ef5925b99041f84f598bb04bb3 | hotkey 5E4M4B5sVED5…
+2026-05-24 11:44:58     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:44:58     Fetched 20 texts (20 indices)
+2026-05-24 11:44:58    Downloading
+2026-05-24 11:44:58 sangerno63/evolai-transformer-v2@4b325f440c9ab4b8cc501454c5c5dc5f8e890ebb…
+2026-05-24 11:44:59     Loaded (local prefetch)
+2026-05-24 11:45:00     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:45:02    Ready:
+2026-05-24 11:45:02 sangerno63/evolai-transformer-v2@4b325f440c9ab4b8cc501454c5c5dc5f8e890ebb
+2026-05-24 11:46:01     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:58
+2026-05-24 11:46:02     Loss 3.7192 | Size ×0.50 | Think 3.7192 | ThinkGain 0 (+0.4619) | Flow
+2026-05-24 11:46:02 0.0421 | KL 2.0585 | NextKL 1.8262 | SideQ 0% | Score 0.0000 (61.5s)
+2026-05-24 11:46:02     Gate FAIL | Improve FAIL cur=2.0585 req<=2.0235 prev=2.0648 | Consist ok
+2026-05-24 11:46:02 ema_cur=1.9516 ema_next=1.9363 ratio=0.992 max<=1.20
+2026-05-24 11:46:03   Evicted cached model:
+2026-05-24 11:46:03 Lin2es/evolai-mb2-01v@a7f32e5ce7f8d307c98560e5025525f3703310c0
+2026-05-24 11:46:04   [6/50] UID 50 | andrebarrosilva1123/evolai-b @
+2026-05-24 11:46:04 3414c0abb8793ed4af56fd5e6e536b8b0f5ac520 | hotkey 5FXELcBK4WiD…
+2026-05-24 11:46:04     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:46:04    Downloading
+2026-05-24 11:46:04 andrebarrosilva1123/evolai-d@89649e9376dace64f631711d3d270198e376702e…
+2026-05-24 11:46:04     Fetched 20 texts (20 indices)
+2026-05-24 11:46:06     Loaded (local prefetch)
+2026-05-24 11:46:07     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 11:46:09   [7/50] UID 48 | sangerno63/evolai-transformer-v2 @
+2026-05-24 11:46:09 4b325f440c9ab4b8cc501454c5c5dc5f8e890ebb | hotkey 5ED3KNj5uEVS…
+2026-05-24 11:46:09     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:46:09     Fetched 20 texts (20 indices)
+2026-05-24 11:46:11    Ready: andrebarrosilva1123/evolai-d@89649e9376dace64f631711d3d270198e376702e
+2026-05-24 11:46:11    Downloading
+2026-05-24 11:46:11 mihai-777/evolai-tfm-1p5b-05@a66a1beeefdbc6ff871ea4854b4e71ed5c3a44ba…
+2026-05-24 11:46:11     Loaded (local prefetch)
+2026-05-24 11:46:11 Fetching 8 files: 100%|██████████| 8/8 [00:03<00:00,  2.27it/s]
+2026-05-24 11:46:11     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:46:14    Ready: mihai-777/evolai-tfm-1p5b-05@a66a1beeefdbc6ff871ea4854b4e71ed5c3a44ba
+2026-05-24 11:47:00     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:46
+2026-05-24 11:47:00     Loss 3.7172 | Size ×0.50 | Think 3.7172 | ThinkGain 0 (+0.4455) | Flow
+2026-05-24 11:47:00 0.0351 | KL 2.3716 | NextKL 2.2562 | SideQ 0% | Score 0.0001 (49.0s)
+2026-05-24 11:47:00     Gate FAIL | Improve same SHA cur=2.3716 req<=2.3242 prev=2.3716 | Consist ok
+2026-05-24 11:47:00 ema_cur=2.1926 ema_next=2.1944 ratio=1.001 max<=1.20
+2026-05-24 11:47:02   Evicted cached model:
+2026-05-24 11:47:02 mihai-777/evolai-mamba2-0p47b@7b6564c9a46f602702c260185aa43867f321dee7
+2026-05-24 11:47:03   [8/50] UID 51 | andrebarrosilva1123/evolai-d @
+2026-05-24 11:47:03 89649e9376dace64f631711d3d270198e376702e | hotkey 5EhLiPB1GHwH…
+2026-05-24 11:47:03     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:47:03     Fetched 20 texts (20 indices)
+2026-05-24 11:47:03    Downloading
+2026-05-24 11:47:03 clear-blue-sky/evolai-reborn-tfm-003@a97a235a154b33b869f54784331aca2d68c75306…
+2026-05-24 11:47:05     Loaded (local prefetch)
+2026-05-24 11:47:05     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 11:47:07    Ready:
+2026-05-24 11:47:07 clear-blue-sky/evolai-reborn-tfm-003@a97a235a154b33b869f54784331aca2d68c75306
+2026-05-24 11:47:07   [9/50] UID 76 | mihai-777/evolai-tfm-1p5b-05 @
+2026-05-24 11:47:07 a66a1beeefdbc6ff871ea4854b4e71ed5c3a44ba | hotkey 5GLBxPtoiB7R…
+2026-05-24 11:47:07     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:47:07     Fetched 20 texts (20 indices)
+2026-05-24 11:47:07    Downloading
+2026-05-24 11:47:07 Roystar/evolai-qwen2.5-1.5b@47e6a605a62ff328096c1d7bd160b8eaf9ec5ff1…
+2026-05-24 11:47:09     Loaded (local prefetch)
+2026-05-24 11:47:09     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:47:13    Ready: Roystar/evolai-qwen2.5-1.5b@47e6a605a62ff328096c1d7bd160b8eaf9ec5ff1
+2026-05-24 11:47:44     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:32
+2026-05-24 11:47:44     Loss 2.8515 | Size ×0.50 | Think 2.8515 | ThinkGain 0 (+0.4530) | Flow
+2026-05-24 11:47:44 0.2985 | KL 2.3295 | NextKL 2.4695 | SideQ 0% | Score 0.0000 (34.8s)
+2026-05-24 11:47:44     Gate FAIL | Improve same SHA cur=2.3295 req<=2.2830 prev=2.3295 | Consist ok
+2026-05-24 11:47:44 ema_cur=2.3634 ema_next=2.3647 ratio=1.001 max<=1.20
+2026-05-24 11:47:46   Evicted cached model:
+2026-05-24 11:47:46 Lin2es/evolai-mb2-02v@c1ad3d94c5929dcc0e3a40d9d9034bd80da9a1f8
+2026-05-24 11:47:46   [10/50] UID 82 | clear-blue-sky/evolai-reborn-tfm-003 @
+2026-05-24 11:47:46 a97a235a154b33b869f54784331aca2d68c75306 | hotkey 5EtDxpyqHywK…
+2026-05-24 11:47:46     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:47:46     Fetched 20 texts (20 indices)
+2026-05-24 11:47:46    Downloading Lin2es/evolai-tfm-01o@d5af8d4f7543ee9e09ef3f668a29f2e09daeea8d…
+2026-05-24 11:47:47     Loaded (local prefetch)
+2026-05-24 11:47:48     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:47:49    Ready: Lin2es/evolai-tfm-01o@d5af8d4f7543ee9e09ef3f668a29f2e09daeea8d
+2026-05-24 11:48:26     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:35
+2026-05-24 11:48:26     Loss 3.4618 | Size ×0.50 | Think 3.4618 | ThinkGain 0 (+0.4629) | Flow
+2026-05-24 11:48:26 0.0781 | KL 1.7796 | NextKL 1.7860 | SideQ 0% | Score 0.0000 (38.3s)
+2026-05-24 11:48:26     Gate FAIL | Improve FAIL cur=1.7796 req<=1.7503 prev=1.7860 | Consist ok
+2026-05-24 11:48:26 ema_cur=1.8874 ema_next=1.8910 ratio=1.002 max<=1.20
+2026-05-24 11:48:28   Evicted cached model:
+2026-05-24 11:48:28 clear-blue-sky/evolai-reborn-tfm-002@32cef186d1cc992649833103e5ced24601fb82c0
+2026-05-24 11:48:29   [11/50] UID 55 | Roystar/evolai-qwen2.5-1.5b @
+2026-05-24 11:48:29 47e6a605a62ff328096c1d7bd160b8eaf9ec5ff1 | hotkey 5DhRJtUeVA6P…
+2026-05-24 11:48:29     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:48:29     Fetched 20 texts (20 indices)
+2026-05-24 11:48:29    Downloading
+2026-05-24 11:48:29 clear-blue-sky/evolai-reborn-tfm-001@42e9534c852410bae884a69ab200d0d8f926724f…
+2026-05-24 11:48:30     Loaded (local prefetch)
+2026-05-24 11:48:31     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 11:48:33    Ready:
+2026-05-24 11:48:33 clear-blue-sky/evolai-reborn-tfm-001@42e9534c852410bae884a69ab200d0d8f926724f
+2026-05-24 11:48:33   [12/50] UID 77 | Lin2es/evolai-tfm-01o @
+2026-05-24 11:48:33 d5af8d4f7543ee9e09ef3f668a29f2e09daeea8d | hotkey 5GQydjNVEhMb…
+2026-05-24 11:48:33     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:48:33     Fetched 20 texts (20 indices)
+2026-05-24 11:48:33    Downloading Lin2es/evolai-tfm-03o@2fcb3445759b5cb5d5d6a9be9e5731f72cc0f600…
+2026-05-24 11:48:35     Loaded (local prefetch)
+2026-05-24 11:48:35     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:48:36    Ready: Lin2es/evolai-tfm-03o@2fcb3445759b5cb5d5d6a9be9e5731f72cc0f600
+2026-05-24 11:49:11     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:33
+2026-05-24 11:49:11     Loss 2.9807 | Size ×0.50 | Think 2.9807 | ThinkGain 0 (+0.4332) | Flow
+2026-05-24 11:49:11 0.0000 | KL 2.8666 | NextKL 2.6754 | SideQ 0% | Score 0.0000 (36.2s)
+2026-05-24 11:49:11     Gate FAIL | Improve same SHA cur=2.8666 req<=2.8093 prev=2.8666 | Consist ok
+2026-05-24 11:49:11 ema_cur=2.6393 ema_next=2.6323 ratio=0.997 max<=1.20
+2026-05-24 11:49:13   Evicted cached model:
+2026-05-24 11:49:13 mrthor102/evolai-tfm-super-001@33b845ee4cc937150a1a9247a670a72c492ec343
+2026-05-24 11:49:13   [13/50] UID 62 | clear-blue-sky/evolai-reborn-tfm-001 @
+2026-05-24 11:49:13 42e9534c852410bae884a69ab200d0d8f926724f | hotkey 5EjjVuNJsjqP…
+2026-05-24 11:49:13     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:49:13     Fetched 20 texts (20 indices)
+2026-05-24 11:49:13    Downloading Radiant28/evolai-1p5b@e351598db6d77f85b5081768df04d37c132750f0…
+2026-05-24 11:49:15     Loaded (local prefetch)
+2026-05-24 11:49:15     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:49:20    Ready: Radiant28/evolai-1p5b@e351598db6d77f85b5081768df04d37c132750f0
+2026-05-24 11:49:50     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:32
+2026-05-24 11:49:51     Loss 3.8695 | Size ×0.50 | Think 3.8695 | ThinkGain 0 (+0.4577) | Flow
+2026-05-24 11:49:51 0.0607 | KL 2.0377 | NextKL 1.7009 | SideQ 0% | Score 0.0000 (35.2s)
+2026-05-24 11:49:51     Gate FAIL | Improve FAIL cur=2.0377 req<=2.0015 prev=2.0424 | Consist ok
+2026-05-24 11:49:51 ema_cur=1.9303 ema_next=1.8944 ratio=0.981 max<=1.20
+2026-05-24 11:49:52   Evicted cached model:
+2026-05-24 11:49:52 clear-blue-sky/evolai-reborn-tfm-008@4fd002523b20c4a8b9b894e40eec0569bc00514b
+2026-05-24 11:49:53   [14/50] UID 79 | Lin2es/evolai-tfm-03o @
+2026-05-24 11:49:53 2fcb3445759b5cb5d5d6a9be9e5731f72cc0f600 | hotkey 5D4eNqXRjWmX…
+2026-05-24 11:49:53     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:49:53     Fetched 20 texts (20 indices)
+2026-05-24 11:49:53    Downloading galuis116/evolai-future@457dd6367a0c7b00f4c529f5de10b33ea0b3c0ed…
+2026-05-24 11:49:54     Loaded (local prefetch)
+2026-05-24 11:49:54     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:49:56    Ready: galuis116/evolai-future@457dd6367a0c7b00f4c529f5de10b33ea0b3c0ed
+2026-05-24 11:50:31     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:34
+2026-05-24 11:50:32     Loss 2.1201 | Size ×0.50 | Think 2.1201 | ThinkGain 0 (+0.4646) | Flow
+2026-05-24 11:50:32 0.1198 | KL 2.0535 | NextKL 2.1444 | SideQ 0% | Score 0.0000 (37.2s)
+2026-05-24 11:50:32     Gate FAIL | Improve same SHA cur=2.0535 req<=2.0124 prev=2.0535 | Consist ok
+2026-05-24 11:50:32 ema_cur=2.4084 ema_next=2.3837 ratio=0.990 max<=1.20
+2026-05-24 11:50:33   Evicted cached model:
+2026-05-24 11:50:33 clear-blue-sky/evolai-reborn-tfm-005@b791ceff54abf963b86e838082da15982223446e
+2026-05-24 11:50:34   [15/50] UID 43 | Radiant28/evolai-1p5b @
+2026-05-24 11:50:34 e351598db6d77f85b5081768df04d37c132750f0 | hotkey 5HSz4knZnWHY…
+2026-05-24 11:50:34     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:50:34     Fetched 20 texts (20 indices)
+2026-05-24 11:50:34    Downloading
+2026-05-24 11:50:34 mihai-777/evolai-tfm-1p5b@594894f806fb4c014675d89aad14f1c68976d52c…
+2026-05-24 11:50:36     Loaded (local prefetch)
+2026-05-24 11:50:36     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 11:50:37    Ready: mihai-777/evolai-tfm-1p5b@594894f806fb4c014675d89aad14f1c68976d52c
+2026-05-24 11:50:38   [16/50] UID 101 | galuis116/evolai-future @
+2026-05-24 11:50:38 457dd6367a0c7b00f4c529f5de10b33ea0b3c0ed | hotkey 5DPz76uobJLT…
+2026-05-24 11:50:38     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:50:38     Fetched 20 texts (20 indices)
+2026-05-24 11:50:38    Downloading
+2026-05-24 11:50:38 mihai-777/evolai-tfm-1p5b-v5@bd42aeb0828dfa0126f7fc825e13b49209fec678…
+2026-05-24 11:50:40     Loaded (local prefetch)
+2026-05-24 11:50:40     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:50:41    Ready: mihai-777/evolai-tfm-1p5b-v5@bd42aeb0828dfa0126f7fc825e13b49209fec678
+2026-05-24 11:51:17     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:34
+2026-05-24 11:51:17     Loss 3.8846 | Size ×0.50 | Think 3.8846 | ThinkGain 0 (+0.4600) | Flow
+2026-05-24 11:51:17 0.3242 | KL 1.9159 | NextKL 2.1225 | SideQ 0% | Score 0.0000 (36.9s)
+2026-05-24 11:51:17     Gate FAIL | Improve FAIL cur=1.9159 req<=1.8718 prev=1.9100 | Consist ok
+2026-05-24 11:51:17 ema_cur=1.8648 ema_next=1.8880 ratio=1.012 max<=1.20
+2026-05-24 11:51:19   Evicted cached model:
+2026-05-24 11:51:19 clear-blue-sky/evolai-reborn-tfm-006@3553cd610e4f53ef5925b99041f84f598bb04bb3
+2026-05-24 11:51:19   [17/50] UID 33 | mihai-777/evolai-tfm-1p5b @
+2026-05-24 11:51:19 594894f806fb4c014675d89aad14f1c68976d52c | hotkey 5F22JM4of6TR…
+2026-05-24 11:51:19    Downloading
+2026-05-24 11:51:19 clear-blue-sky/evolai-reborn-tfm-011@07efc1e8a75b352e9f4c8a75de4c963cc6c1e00c…
+2026-05-24 11:51:19     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:51:19     Fetched 20 texts (20 indices)
+2026-05-24 11:51:21     Loaded (local prefetch)
+2026-05-24 11:51:21     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:51:23    Ready:
+2026-05-24 11:51:23 clear-blue-sky/evolai-reborn-tfm-011@07efc1e8a75b352e9f4c8a75de4c963cc6c1e00c
+2026-05-24 11:51:59     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:35
+2026-05-24 11:52:00     Loss 2.8806 | Size ×0.50 | Think 2.8806 | ThinkGain 0 (+0.4544) | Flow
+2026-05-24 11:52:00 0.0000 | KL 2.2794 | NextKL 2.4487 | SideQ 0% | Score 0.0000 (38.6s)
+2026-05-24 11:52:00     Gate FAIL | Improve same SHA cur=2.2794 req<=2.2338 prev=2.2794 | Consist ok
+2026-05-24 11:52:00 ema_cur=2.4167 ema_next=2.4296 ratio=1.005 max<=1.20
+2026-05-24 11:52:01   Evicted cached model:
+2026-05-24 11:52:01 sangerno63/evolai-transformer-v2@4b325f440c9ab4b8cc501454c5c5dc5f8e890ebb
+2026-05-24 11:52:02   [18/50] UID 42 | mihai-777/evolai-tfm-1p5b-v5 @
+2026-05-24 11:52:02 bd42aeb0828dfa0126f7fc825e13b49209fec678 | hotkey 5C5WCYnsrXRz…
+2026-05-24 11:52:02     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:52:02     Fetched 20 texts (20 indices)
+2026-05-24 11:52:02    Downloading
+2026-05-24 11:52:02 dexserbia/evolai-gemma2-9b@7fe66309a3847239a4da5b712477f2105e88399b…
+2026-05-24 11:52:03     Loaded (local prefetch)
+2026-05-24 11:52:03     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:52:31    Ready: dexserbia/evolai-gemma2-9b@7fe66309a3847239a4da5b712477f2105e88399b
+2026-05-24 11:52:44     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:38
+2026-05-24 11:52:45     Loss 3.1993 | Size ×0.50 | Think 3.1993 | ThinkGain 0 (+0.4540) | Flow
+2026-05-24 11:52:45 0.1569 | KL 2.3615 | NextKL 2.5664 | SideQ 0% | Score 0.0000 (41.0s)
+2026-05-24 11:52:45     Gate FAIL | Improve same SHA cur=2.3615 req<=2.3142 prev=2.3615 | Consist ok
+2026-05-24 11:52:45 ema_cur=2.4223 ema_next=2.4435 ratio=1.009 max<=1.20
+2026-05-24 11:52:46   Evicted cached model:
+2026-05-24 11:52:46 mihai-777/evolai-tfm-1p5b-05@a66a1beeefdbc6ff871ea4854b4e71ed5c3a44ba
+2026-05-24 11:52:47   [19/50] UID 73 | clear-blue-sky/evolai-reborn-tfm-011 @
+2026-05-24 11:52:47 07efc1e8a75b352e9f4c8a75de4c963cc6c1e00c | hotkey 5CSAM6rnGRPk…
+2026-05-24 11:52:47     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:52:47     Fetched 20 texts (20 indices)
+2026-05-24 11:52:47    Downloading
+2026-05-24 11:52:47 dreamiii0406/evolai-0p47b-v1@fea2659bdf8bd35e5382c50e4857f1ab20f20262…
+2026-05-24 11:52:48     Loaded (local prefetch)
+2026-05-24 11:52:49     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:52:50    Ready: dreamiii0406/evolai-0p47b-v1@fea2659bdf8bd35e5382c50e4857f1ab20f20262
+2026-05-24 11:53:27     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:34
+2026-05-24 11:53:27     Loss 4.0072 | Size ×0.50 | Think 4.0072 | ThinkGain 0 (+0.4590) | Flow
+2026-05-24 11:53:27 0.0000 | KL 1.9079 | NextKL 1.9212 | SideQ 0% | Score 0.0000 (37.8s)
+2026-05-24 11:53:27     Gate FAIL | Improve FAIL cur=1.9079 req<=1.8712 prev=1.9094 | Consist ok
+2026-05-24 11:53:27 ema_cur=2.1963 ema_next=1.8534 ratio=0.844 max<=1.20
+2026-05-24 11:53:29   Evicted cached model:
+2026-05-24 11:53:29 clear-blue-sky/evolai-reborn-tfm-003@a97a235a154b33b869f54784331aca2d68c75306
+2026-05-24 11:53:29   [20/50] UID 9 | dexserbia/evolai-gemma2-9b @
+2026-05-24 11:53:29 7fe66309a3847239a4da5b712477f2105e88399b | hotkey 5EbpxBkVKVNV…
+2026-05-24 11:53:29     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:53:29     Fetched 20 texts (20 indices)
+2026-05-24 11:53:29    Downloading
+2026-05-24 11:53:29 clear-blue-sky/evolai-reborn-tfm-009@b469fe123b94e13263f540975194e8391d0c1eb4…
+2026-05-24 11:53:33    Ready:
+2026-05-24 11:53:33 clear-blue-sky/evolai-reborn-tfm-009@b469fe123b94e13263f540975194e8391d0c1eb4
+2026-05-24 11:53:34     Loaded (local prefetch)
+2026-05-24 11:53:37     ⚠ Invalid model size (9.24B; allowed 0.45-0.48B, 1.50-1.80B) — skipping
+2026-05-24 11:53:38   [21/50] UID 80 | dreamiii0406/evolai-0p47b-v1 @
+2026-05-24 11:53:38 fea2659bdf8bd35e5382c50e4857f1ab20f20262 | hotkey 5Cd2zZyMQnvp…
+2026-05-24 11:53:38    Downloading
+2026-05-24 11:53:38 Phoenix9781/evolai-tf-model@883756e42bfbc362761bb150f2ef316deaafa94f…
+2026-05-24 11:53:38     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:53:38     Fetched 20 texts (20 indices)
+2026-05-24 11:53:40     Loaded (local prefetch)
+2026-05-24 11:53:40     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 11:53:42   [22/50] UID 69 | clear-blue-sky/evolai-reborn-tfm-009 @
+2026-05-24 11:53:42 b469fe123b94e13263f540975194e8391d0c1eb4 | hotkey 5ChUCf3NjrgS…
+2026-05-24 11:53:42     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:53:42     Fetched 20 texts (20 indices)
+2026-05-24 11:53:43    Ready: Phoenix9781/evolai-tf-model@883756e42bfbc362761bb150f2ef316deaafa94f
+2026-05-24 11:53:43    Downloading
+2026-05-24 11:53:43 Radiant28/evolai-transformer-0.4b-b0@7a08a8009fa8b8f82d1ad0febc442a89020082d1…
+2026-05-24 11:53:43     Loaded (local prefetch)
+2026-05-24 11:53:43 Fetching 7 files: 100%|██████████| 7/7 [00:06<00:00,  1.14it/s]
+2026-05-24 11:53:43     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:53:49    Ready:
+2026-05-24 11:53:49 Radiant28/evolai-transformer-0.4b-b0@7a08a8009fa8b8f82d1ad0febc442a89020082d1
+2026-05-24 11:54:22     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:36
+2026-05-24 11:54:23     Loss 3.1872 | Size ×0.50 | Think 3.1872 | ThinkGain 0 (+0.4621) | Flow
+2026-05-24 11:54:23 0.2368 | KL 1.7581 | NextKL 2.1717 | SideQ 0% | Score 0.0000 (38.9s)
+2026-05-24 11:54:23     Gate FAIL | Improve FAIL cur=1.7581 req<=1.7371 prev=1.7726 | Consist ok
+2026-05-24 11:54:23 ema_cur=1.8977 ema_next=1.9277 ratio=1.016 max<=1.20
+2026-05-24 11:54:24   Evicted cached model:
+2026-05-24 11:54:24 Lin2es/evolai-tfm-01o@d5af8d4f7543ee9e09ef3f668a29f2e09daeea8d
+2026-05-24 11:54:25   [23/50] UID 93 | Phoenix9781/evolai-tf-model @
+2026-05-24 11:54:25 883756e42bfbc362761bb150f2ef316deaafa94f | hotkey 5F4R25t78FSF…
+2026-05-24 11:54:25     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:54:25     Fetched 20 texts (20 indices)
+2026-05-24 11:54:25    Downloading
+2026-05-24 11:54:25 clear-blue-sky/evolai-reborn-tfm-004@f895b1fe2bff7478ffdf8e739863b7f0d0c94d53…
+2026-05-24 11:54:26     Loaded (local prefetch)
+2026-05-24 11:54:27     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:54:29    Ready:
+2026-05-24 11:54:29 clear-blue-sky/evolai-reborn-tfm-004@f895b1fe2bff7478ffdf8e739863b7f0d0c94d53
+2026-05-24 11:55:06     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:36
+2026-05-24 11:55:06     Loss 3.2209 | Size ×0.50 | Think 3.2209 | ThinkGain 0 (+0.4590) | Flow
+2026-05-24 11:55:06 0.0000 | KL 1.8286 | NextKL 1.8989 | SideQ 0% | Score 0.0000 (39.1s)
+2026-05-24 11:55:06     Gate FAIL | Improve same SHA cur=1.8286 req<=1.7921 prev=1.8286 | Consist ok
+2026-05-24 11:55:06 ema_cur=1.9681 ema_next=1.9575 ratio=0.995 max<=1.20
+2026-05-24 11:55:07   Evicted cached model:
+2026-05-24 11:55:07 clear-blue-sky/evolai-reborn-tfm-001@42e9534c852410bae884a69ab200d0d8f926724f
+2026-05-24 11:55:08   [24/50] UID 45 | Radiant28/evolai-transformer-0.4b-b0 @
+2026-05-24 11:55:08 7a08a8009fa8b8f82d1ad0febc442a89020082d1 | hotkey 5F1B3j7EyjuE…
+2026-05-24 11:55:08     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:55:08     Fetched 20 texts (20 indices)
+2026-05-24 11:55:08    Downloading
+2026-05-24 11:55:08 mrthor102/evolai-tfm-super-003@0342709985e9250d2c0e606d597befb36f5e4435…
+2026-05-24 11:55:10     Loaded (local prefetch)
+2026-05-24 11:55:11     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 11:55:12    Ready:
+2026-05-24 11:55:12 mrthor102/evolai-tfm-super-003@0342709985e9250d2c0e606d597befb36f5e4435
+2026-05-24 11:55:13   [25/50] UID 70 | clear-blue-sky/evolai-reborn-tfm-004 @
+2026-05-24 11:55:13 f895b1fe2bff7478ffdf8e739863b7f0d0c94d53 | hotkey 5Hdg2gHopWQK…
+2026-05-24 11:55:13     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:55:13     Fetched 20 texts (20 indices)
+2026-05-24 11:55:13    Downloading
+2026-05-24 11:55:13 Danieli1021/evolai-qwen047-v3@e01dfd3b9c54325c98bf12966bdebadace391002…
+2026-05-24 11:55:14     Loaded (local prefetch)
+2026-05-24 11:55:15     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:55:16    Ready: Danieli1021/evolai-qwen047-v3@e01dfd3b9c54325c98bf12966bdebadace391002
+2026-05-24 11:55:51     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:33
+2026-05-24 11:55:51     Loss 4.0771 | Size ×0.50 | Think 4.0771 | ThinkGain 0 (+0.4637) | Flow
+2026-05-24 11:55:51 0.0000 | KL 1.9152 | NextKL 1.9850 | SideQ 0% | Score 0.0000 (36.1s)
+2026-05-24 11:55:51     Gate FAIL | Improve FAIL cur=1.9152 req<=1.8986 prev=1.9373 | Consist ok
+2026-05-24 11:55:51 ema_cur=1.9113 ema_next=1.9218 ratio=1.006 max<=1.20
+2026-05-24 11:55:53   Evicted cached model:
+2026-05-24 11:55:53 Lin2es/evolai-tfm-03o@2fcb3445759b5cb5d5d6a9be9e5731f72cc0f600
+2026-05-24 11:55:53   [26/50] UID 98 | mrthor102/evolai-tfm-super-003 @
+2026-05-24 11:55:53 0342709985e9250d2c0e606d597befb36f5e4435 | hotkey 5Hgy59m2Hzm1…
+2026-05-24 11:55:53     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:55:53     Fetched 20 texts (20 indices)
+2026-05-24 11:55:53    Downloading
+2026-05-24 11:55:53 andrebarrosilva1123/evolai-c@6fc3d7f7c514cf3d5e4fc44dd8ef6b4ef883827c…
+2026-05-24 11:55:55     Loaded (local prefetch)
+2026-05-24 11:55:55     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:56:00    Ready: andrebarrosilva1123/evolai-c@6fc3d7f7c514cf3d5e4fc44dd8ef6b4ef883827c
+2026-05-24 11:56:34     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:36
+2026-05-24 11:56:34     Loss 4.2735 | Size ×0.50 | Think 4.2735 | ThinkGain 0 (+0.4610) | Flow
+2026-05-24 11:56:34 0.0000 | KL 2.1953 | NextKL 1.8641 | SideQ 0% | Score 0.0000 (39.0s)
+2026-05-24 11:56:34     Gate FAIL | Improve FAIL cur=2.1953 req<=2.1651 prev=2.2093 | Consist ok
+2026-05-24 11:56:34 ema_cur=1.9387 ema_next=1.9335 ratio=0.997 max<=1.20
+2026-05-24 11:56:36   Evicted cached model:
+2026-05-24 11:56:36 galuis116/evolai-future@457dd6367a0c7b00f4c529f5de10b33ea0b3c0ed
+2026-05-24 11:56:37   [27/50] UID 100 | Danieli1021/evolai-qwen047-v3 @
+2026-05-24 11:56:37 e01dfd3b9c54325c98bf12966bdebadace391002 | hotkey 5DMH2VrrukYd…
+2026-05-24 11:56:37     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:56:37     Fetched 20 texts (20 indices)
+2026-05-24 11:56:37    Downloading
+2026-05-24 11:56:37 mrthor102/evolai-tfm-super-004@39f19d5d2ac3c2f28e4a7a3022a8c23bcb971b6c…
+2026-05-24 11:56:38     Loaded (local prefetch)
+2026-05-24 11:56:38     Model 0.47B → batch=512, seq=16384
+2026-05-24 11:56:41    Ready:
+2026-05-24 11:56:41 mrthor102/evolai-tfm-super-004@39f19d5d2ac3c2f28e4a7a3022a8c23bcb971b6c
+2026-05-24 11:56:59     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:17
+2026-05-24 11:56:59     Loss 3.9660 | Size ×0.51 | Think 3.9660 | ThinkGain 0 (+0.4781) | Flow
+2026-05-24 11:56:59 0.0000 | KL 3.9010 | NextKL 4.1326 | SideQ 0% | Score 0.0000 (20.2s)
+2026-05-24 11:56:59     Gate FAIL | Improve same SHA cur=3.9010 req<=3.8230 prev=3.9010 | Consist ok
+2026-05-24 11:56:59 ema_cur=4.2101 ema_next=3.9584 ratio=0.940 max<=1.20
+2026-05-24 11:57:01   Evicted cached model:
+2026-05-24 11:57:01 mihai-777/evolai-tfm-1p5b@594894f806fb4c014675d89aad14f1c68976d52c
+2026-05-24 11:57:01   [28/50] UID 54 | andrebarrosilva1123/evolai-c @
+2026-05-24 11:57:01 6fc3d7f7c514cf3d5e4fc44dd8ef6b4ef883827c | hotkey 5D7HPRR2QdDB…
+2026-05-24 11:57:01     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:57:01     Fetched 20 texts (20 indices)
+2026-05-24 11:57:01    Downloading Lin2es/evolai-tfm-04o@52061d203723fdc8be09324d0c827898fcb7bdc4…
+2026-05-24 11:57:03     Loaded (local prefetch)
+2026-05-24 11:57:03    Ready: Lin2es/evolai-tfm-04o@52061d203723fdc8be09324d0c827898fcb7bdc4
+2026-05-24 11:57:04     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 11:57:06   [29/50] UID 99 | mrthor102/evolai-tfm-super-004 @
+2026-05-24 11:57:06 39f19d5d2ac3c2f28e4a7a3022a8c23bcb971b6c | hotkey 5EnuPuwNaqmP…
+2026-05-24 11:57:06     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:57:06     Fetched 20 texts (20 indices)
+2026-05-24 11:57:06    Downloading
+2026-05-24 11:57:06 logosnodos/evolai-qwen-1.5b@7e121e8efe6c6b93d622e9a53972d221e763d10b…
+2026-05-24 11:57:07     Loaded (local prefetch)
+2026-05-24 11:57:08     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:57:49    Ready: logosnodos/evolai-qwen-1.5b@7e121e8efe6c6b93d622e9a53972d221e763d10b
+2026-05-24 11:57:52     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:40
+2026-05-24 11:57:52     Loss 3.4103 | Size ×0.50 | Think 3.4103 | ThinkGain 0 (+0.4629) | Flow
+2026-05-24 11:57:52 0.2187 | KL 1.7725 | NextKL 1.9850 | SideQ 0% | Score 0.0000 (44.3s)
+2026-05-24 11:57:52     Gate FAIL | Improve FAIL cur=1.7725 req<=1.7354 prev=1.7708 | Consist ok
+2026-05-24 11:57:52 ema_cur=1.9110 ema_next=1.9146 ratio=1.002 max<=1.20
+2026-05-24 11:57:54   Evicted cached model:
+2026-05-24 11:57:54 mihai-777/evolai-tfm-1p5b-v5@bd42aeb0828dfa0126f7fc825e13b49209fec678
+2026-05-24 11:57:55   [30/50] UID 92 | Lin2es/evolai-tfm-04o @
+2026-05-24 11:57:55 52061d203723fdc8be09324d0c827898fcb7bdc4 | hotkey 5GefYX69KUVQ…
+2026-05-24 11:57:55     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:57:55     Fetched 20 texts (20 indices)
+2026-05-24 11:57:55    Downloading
+2026-05-24 11:57:55 mihai-777/evolai-tfm-1p5b-04@fb289dbfe35c595b1a586f786a19e118cc1bfc9a…
+2026-05-24 11:57:56     Loaded (local prefetch)
+2026-05-24 11:57:56     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:57:58    Ready: mihai-777/evolai-tfm-1p5b-04@fb289dbfe35c595b1a586f786a19e118cc1bfc9a
+2026-05-24 11:58:35     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:35
+2026-05-24 11:58:35     Loss 2.4054 | Size ×0.50 | Think 2.4054 | ThinkGain 0 (+0.4525) | Flow
+2026-05-24 11:58:35 0.0000 | KL 2.5205 | NextKL 2.4809 | SideQ 0% | Score 0.0000 (38.2s)
+2026-05-24 11:58:35     Gate FAIL | Improve same SHA cur=2.5205 req<=2.4701 prev=2.5205 | Consist ok
+2026-05-24 11:58:35 ema_cur=2.8789 ema_next=2.5603 ratio=0.889 max<=1.20
+2026-05-24 11:58:36   Evicted cached model:
+2026-05-24 11:58:36 clear-blue-sky/evolai-reborn-tfm-011@07efc1e8a75b352e9f4c8a75de4c963cc6c1e00c
+2026-05-24 11:58:37   [31/50] UID 61 | logosnodos/evolai-qwen-1.5b @
+2026-05-24 11:58:37 7e121e8efe6c6b93d622e9a53972d221e763d10b | hotkey 5FNTU6ZYgKup…
+2026-05-24 11:58:37     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:58:37     Fetched 20 texts (20 indices)
+2026-05-24 11:58:37    Downloading
+2026-05-24 11:58:37 clear-blue-sky/evolai-reborn-tfm-010@296548de5c104b14f79791cd0b8679d44fb58525…
+2026-05-24 11:58:39     Loaded (local prefetch)
+2026-05-24 11:58:41    Ready:
+2026-05-24 11:58:41 clear-blue-sky/evolai-reborn-tfm-010@296548de5c104b14f79791cd0b8679d44fb58525
+2026-05-24 11:58:43     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 11:58:45   [32/50] UID 75 | mihai-777/evolai-tfm-1p5b-04 @
+2026-05-24 11:58:45 fb289dbfe35c595b1a586f786a19e118cc1bfc9a | hotkey 5Dnz76SAsEv8…
+2026-05-24 11:58:45    Downloading
+2026-05-24 11:58:45 andrebarrosilva1123/evolai-0.4b@fa913c93aa7a7449066ce870427387bd3fc7e841…
+2026-05-24 11:58:45     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:58:45     Fetched 20 texts (20 indices)
+2026-05-24 11:58:46     Loaded (local prefetch)
+2026-05-24 11:58:46     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:58:51    Ready:
+2026-05-24 11:58:51 andrebarrosilva1123/evolai-0.4b@fa913c93aa7a7449066ce870427387bd3fc7e841
+2026-05-24 11:59:25     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:35
+2026-05-24 11:59:25     Loss 3.2759 | Size ×0.50 | Think 3.2759 | ThinkGain 0 (+0.4557) | Flow
+2026-05-24 11:59:25 0.0000 | KL 2.7029 | NextKL 2.2171 | SideQ 0% | Score 0.0000 (38.5s)
+2026-05-24 11:59:25     Gate FAIL | Improve same SHA cur=2.7029 req<=2.6488 prev=2.7029 | Consist ok
+2026-05-24 11:59:25 ema_cur=2.4522 ema_next=2.4378 ratio=0.994 max<=1.20
+2026-05-24 11:59:26   Evicted cached model:
+2026-05-24 11:59:26 clear-blue-sky/evolai-reborn-tfm-009@b469fe123b94e13263f540975194e8391d0c1eb4
+2026-05-24 11:59:27   [33/50] UID 72 | clear-blue-sky/evolai-reborn-tfm-010 @
+2026-05-24 11:59:27 296548de5c104b14f79791cd0b8679d44fb58525 | hotkey 5H3rMcqJQcbK…
+2026-05-24 11:59:27     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 11:59:27    Downloading
+2026-05-24 11:59:27 mihai-777/evolai-tfm-1p5b-alt@5ebb4a406916abe39e32823ff1f635b70e707e5a…
+2026-05-24 11:59:27     Fetched 20 texts (20 indices)
+2026-05-24 11:59:29     Loaded (local prefetch)
+2026-05-24 11:59:29     Model 0.46B → batch=512, seq=16384
+2026-05-24 11:59:30    Ready: mihai-777/evolai-tfm-1p5b-alt@5ebb4a406916abe39e32823ff1f635b70e707e5a
+2026-05-24 12:00:08     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:35
+2026-05-24 12:00:08     Loss 3.9154 | Size ×0.50 | Think 3.9154 | ThinkGain 0 (+0.4609) | Flow
+2026-05-24 12:00:08 0.2181 | KL 1.8592 | NextKL 1.8373 | SideQ 0% | Score 0.0000 (38.5s)
+2026-05-24 12:00:08     Gate FAIL | Improve FAIL cur=1.8592 req<=1.8224 prev=1.8595 | Consist ok
+2026-05-24 12:00:08 ema_cur=1.8681 ema_next=1.8749 ratio=1.004 max<=1.20
+2026-05-24 12:00:10   Evicted cached model:
+2026-05-24 12:00:10 Phoenix9781/evolai-tf-model@883756e42bfbc362761bb150f2ef316deaafa94f
+2026-05-24 12:00:10   [34/50] UID 49 | andrebarrosilva1123/evolai-0.4b @
+2026-05-24 12:00:10 fa913c93aa7a7449066ce870427387bd3fc7e841 | hotkey 5DULz3AJEisH…
+2026-05-24 12:00:10     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:00:10     Fetched 20 texts (20 indices)
+2026-05-24 12:00:10    Downloading
+2026-05-24 12:00:10 Radiant28/evolai-transformer-0.4b-b2@808b61992e043ca99ff5b412a6cf61bfbb3fd793…
+2026-05-24 12:00:12     Loaded (local prefetch)
+2026-05-24 12:00:13     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 12:00:15   [35/50] UID 38 | mihai-777/evolai-tfm-1p5b-alt @
+2026-05-24 12:00:15 5ebb4a406916abe39e32823ff1f635b70e707e5a | hotkey 5FbfiXysyCtC…
+2026-05-24 12:00:15     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:00:15     Fetched 20 texts (20 indices)
+2026-05-24 12:00:16     Loaded (local prefetch)
+2026-05-24 12:00:17     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:00:17    Ready:
+2026-05-24 12:00:17 Radiant28/evolai-transformer-0.4b-b2@808b61992e043ca99ff5b412a6cf61bfbb3fd793
+2026-05-24 12:00:17    Downloading
+2026-05-24 12:00:17 clear-blue-sky/evolai-reborn-tfm-007@8d815ec4826959f45cd40e2360ceaff7c36279d1…
+2026-05-24 12:00:17 Fetching 7 files: 100%|██████████| 7/7 [00:04<00:00,  1.70it/s]
+2026-05-24 12:00:21    Ready:
+2026-05-24 12:00:21 clear-blue-sky/evolai-reborn-tfm-007@8d815ec4826959f45cd40e2360ceaff7c36279d1
+2026-05-24 12:00:55     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:35
+2026-05-24 12:00:56     Loss 3.0592 | Size ×0.50 | Think 3.0592 | ThinkGain 0 (+0.4578) | Flow
+2026-05-24 12:00:56 0.0000 | KL 2.3547 | NextKL 2.2449 | SideQ 0% | Score 0.0000 (38.6s)
+2026-05-24 12:00:56     Gate FAIL | Improve same SHA cur=2.3547 req<=2.3077 prev=2.3547 | Consist ok
+2026-05-24 12:00:56 ema_cur=2.4769 ema_next=2.4632 ratio=0.994 max<=1.20
+2026-05-24 12:00:57   Evicted cached model:
+2026-05-24 12:00:57 clear-blue-sky/evolai-reborn-tfm-004@f895b1fe2bff7478ffdf8e739863b7f0d0c94d53
+2026-05-24 12:00:58   [36/50] UID 37 | Radiant28/evolai-transformer-0.4b-b2 @
+2026-05-24 12:00:58 808b61992e043ca99ff5b412a6cf61bfbb3fd793 | hotkey 5HjbzF3e9waA…
+2026-05-24 12:00:58     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:00:58     Fetched 20 texts (20 indices)
+2026-05-24 12:00:58    Downloading Lin2es/evolai-tfm-02o@fc5fc3ee4a3877b825b404dc85c9367c1f248c59…
+2026-05-24 12:01:00     Loaded (local prefetch)
+2026-05-24 12:01:00     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 12:01:01    Ready: Lin2es/evolai-tfm-02o@fc5fc3ee4a3877b825b404dc85c9367c1f248c59
+2026-05-24 12:01:02   [37/50] UID 84 | clear-blue-sky/evolai-reborn-tfm-007 @
+2026-05-24 12:01:02 8d815ec4826959f45cd40e2360ceaff7c36279d1 | hotkey 5H1DaT8Dtt4N…
+2026-05-24 12:01:02     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:01:02    Downloading
+2026-05-24 12:01:02 evolai/evolai_test_challenge@3c97959556a6ce6fb9da782ec21a98b38bd10051…
+2026-05-24 12:01:02     Fetched 20 texts (20 indices)
+2026-05-24 12:01:04     Loaded (local prefetch)
+2026-05-24 12:01:04     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:01:07    Ready: evolai/evolai_test_challenge@3c97959556a6ce6fb9da782ec21a98b38bd10051
+2026-05-24 12:01:42     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:34
+2026-05-24 12:01:42     Loss 3.4001 | Size ×0.50 | Think 3.4001 | ThinkGain 0 (+0.4578) | Flow
+2026-05-24 12:01:42 0.2445 | KL 1.6954 | NextKL 1.8403 | SideQ 0% | Score 0.0000 (37.4s)
+2026-05-24 12:01:42     Gate FAIL | Improve FAIL cur=1.6954 req<=1.6591 prev=1.6930 | Consist ok
+2026-05-24 12:01:42 ema_cur=1.9006 ema_next=1.9029 ratio=1.001 max<=1.20
+2026-05-24 12:01:44   Evicted cached model:
+2026-05-24 12:01:44 mrthor102/evolai-tfm-super-003@0342709985e9250d2c0e606d597befb36f5e4435
+2026-05-24 12:01:44   [38/50] UID 78 | Lin2es/evolai-tfm-02o @
+2026-05-24 12:01:44 fc5fc3ee4a3877b825b404dc85c9367c1f248c59 | hotkey 5FA2kgLNs36d…
+2026-05-24 12:01:44     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:01:44     Fetched 20 texts (20 indices)
+2026-05-24 12:01:44    Downloading
+2026-05-24 12:01:44 mrthor102/evolai-tfm-super-002@3cfba97b1a167f8d0e275bfa38d51bb2138b7855…
+2026-05-24 12:01:45     Loaded (local prefetch)
+2026-05-24 12:01:46     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:01:48    Ready:
+2026-05-24 12:01:48 mrthor102/evolai-tfm-super-002@3cfba97b1a167f8d0e275bfa38d51bb2138b7855
+2026-05-24 12:02:21     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:33
+2026-05-24 12:02:21     Loss 3.0275 | Size ×0.50 | Think 3.0275 | ThinkGain 0 (+0.4213) | Flow
+2026-05-24 12:02:21 0.1882 | KL 2.4519 | NextKL 2.5802 | SideQ 0% | Score 0.0000 (35.6s)
+2026-05-24 12:02:21     Gate FAIL | Improve same SHA cur=2.4519 req<=2.4029 prev=2.4519 | Consist ok
+2026-05-24 12:02:21 ema_cur=2.7565 ema_next=2.7371 ratio=0.993 max<=1.20
+2026-05-24 12:02:23   Evicted cached model:
+2026-05-24 12:02:23 Danieli1021/evolai-qwen047-v3@e01dfd3b9c54325c98bf12966bdebadace391002
+2026-05-24 12:02:23   [39/50] UID 8 | evolai/evolai_test_challenge @
+2026-05-24 12:02:23 3c97959556a6ce6fb9da782ec21a98b38bd10051 | hotkey 5ENhqnBoyFdz…
+2026-05-24 12:02:23     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:02:23    Downloading Jubilant/evolai-1.54b@d8681d30b14cb5a597d2ff7c909998cf9d217599…
+2026-05-24 12:02:23     Fetched 20 texts (20 indices)
+2026-05-24 12:02:25     Loaded (local prefetch)
+2026-05-24 12:02:25     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:02:30    Ready: Jubilant/evolai-1.54b@d8681d30b14cb5a597d2ff7c909998cf9d217599
+2026-05-24 12:03:03     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:35
+2026-05-24 12:03:04     Loss 3.7692 | Size ×0.50 | Think 3.7692 | ThinkGain 0 (+0.4582) | Flow
+2026-05-24 12:03:04 0.1105 | KL 1.7767 | NextKL 1.9688 | SideQ 0% | Score 0.0335 (38.1s)
+2026-05-24 12:03:04     Gate PASS | Improve ok cur=1.7767 req<=1.9306 prev=1.9700 | Consist ok
+2026-05-24 12:03:04 ema_cur=1.7201 ema_next=1.9117 ratio=1.111 max<=1.20
+2026-05-24 12:03:05   Evicted cached model:
+2026-05-24 12:03:05 mrthor102/evolai-tfm-super-004@39f19d5d2ac3c2f28e4a7a3022a8c23bcb971b6c
+2026-05-24 12:03:06   [40/50] UID 97 | mrthor102/evolai-tfm-super-002 @
+2026-05-24 12:03:06 3cfba97b1a167f8d0e275bfa38d51bb2138b7855 | hotkey 5EcJYRJBVF5K…
+2026-05-24 12:03:06     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:03:06    Downloading evolai/evolai_naive_kl@da8203b6900f14ec1b724f3dd8c6dc35576fc3e4…
+2026-05-24 12:03:06     Fetched 20 texts (20 indices)
+2026-05-24 12:03:07     Loaded (local prefetch)
+2026-05-24 12:03:08     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:03:08    Ready: evolai/evolai_naive_kl@da8203b6900f14ec1b724f3dd8c6dc35576fc3e4
+2026-05-24 12:03:45     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:34
+2026-05-24 12:03:45     Loss 3.5393 | Size ×0.50 | Think 3.5393 | ThinkGain 0 (+0.4635) | Flow
+2026-05-24 12:03:45 0.0946 | KL 1.7468 | NextKL 1.7799 | SideQ 0% | Score 0.0000 (37.5s)
+2026-05-24 12:03:45     Gate FAIL | Improve FAIL cur=1.7468 req<=1.7091 prev=1.7439 | Consist ok
+2026-05-24 12:03:45 ema_cur=1.9197 ema_next=1.9012 ratio=0.990 max<=1.20
+2026-05-24 12:03:47   Evicted cached model:
+2026-05-24 12:03:47 Lin2es/evolai-tfm-04o@52061d203723fdc8be09324d0c827898fcb7bdc4
+2026-05-24 12:03:48   [41/50] UID 36 | Jubilant/evolai-1.54b @
+2026-05-24 12:03:48 d8681d30b14cb5a597d2ff7c909998cf9d217599 | hotkey 5G7Co5VNfQio…
+2026-05-24 12:03:48     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:03:48     Fetched 20 texts (20 indices)
+2026-05-24 12:03:48    Downloading
+2026-05-24 12:03:48 andrebarrosilva1123/evolai-e@806394ca7f2f7c1edbe962a9471647f4d67b5e72…
+2026-05-24 12:03:50     Loaded (local prefetch)
+2026-05-24 12:03:50     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 12:03:52   [42/50] UID 95 | evolai/evolai_naive_kl @
+2026-05-24 12:03:52 da8203b6900f14ec1b724f3dd8c6dc35576fc3e4 | hotkey 5CXwmm7R4U6o…
+2026-05-24 12:03:52     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:03:52     Fetched 20 texts (20 indices)
+2026-05-24 12:03:54    Ready: andrebarrosilva1123/evolai-e@806394ca7f2f7c1edbe962a9471647f4d67b5e72
+2026-05-24 12:03:54    Downloading
+2026-05-24 12:03:54 Radiant28/evolai-0.4b-V1@5e0cb9981c5c7ec29fe92d5cf1ebddcbcc002af5…
+2026-05-24 12:03:54     Loaded (local prefetch)
+2026-05-24 12:03:54 Fetching 7 files: 100%|██████████| 7/7 [00:06<00:00,  1.11it/s]
+2026-05-24 12:03:54     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:04:00    Ready: Radiant28/evolai-0.4b-V1@5e0cb9981c5c7ec29fe92d5cf1ebddcbcc002af5
+2026-05-24 12:04:25     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:28
+2026-05-24 12:04:25     Loss 2.0593 | Size ×0.50 | Think 2.0593 | ThinkGain 0 (+0.4783) | Flow
+2026-05-24 12:04:25 0.3231 | KL 2.2762 | NextKL 2.9895 | SideQ 0% | Score 0.0000 (30.7s)
+2026-05-24 12:04:25     Gate FAIL | Improve same SHA cur=2.2762 req<=2.2307 prev=2.2762 | Consist ok
+2026-05-24 12:04:25 ema_cur=2.7262 ema_next=2.7444 ratio=1.007 max<=1.20
+2026-05-24 12:04:27   Evicted cached model:
+2026-05-24 12:04:27 mihai-777/evolai-tfm-1p5b-04@fb289dbfe35c595b1a586f786a19e118cc1bfc9a
+2026-05-24 12:04:27   [43/50] UID 53 | andrebarrosilva1123/evolai-e @
+2026-05-24 12:04:27 806394ca7f2f7c1edbe962a9471647f4d67b5e72 | hotkey 5EFgFa93M5Vx…
+2026-05-24 12:04:27     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:04:27     Fetched 20 texts (20 indices)
+2026-05-24 12:04:27    Downloading
+2026-05-24 12:04:27 Radiant28/evolai-transformer-0.4b-b1@18231d7d50096d8b2744fdff1b38a7b90246ddf0…
+2026-05-24 12:04:29     Loaded (local prefetch)
+2026-05-24 12:04:30     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 12:04:32   [44/50] UID 44 | Radiant28/evolai-0.4b-V1 @
+2026-05-24 12:04:32 5e0cb9981c5c7ec29fe92d5cf1ebddcbcc002af5 | hotkey 5DXm2ShZGmwG…
+2026-05-24 12:04:32     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:04:32     Fetched 20 texts (20 indices)
+2026-05-24 12:04:34    Ready:
+2026-05-24 12:04:34 Radiant28/evolai-transformer-0.4b-b1@18231d7d50096d8b2744fdff1b38a7b90246ddf0
+2026-05-24 12:04:34    Downloading
+2026-05-24 12:04:34 andrebarrosilva1123/evolai-f@89654c7b1e351cce36bab65fe09692eb0e109f72…
+2026-05-24 12:04:34     Loaded (local prefetch)
+2026-05-24 12:04:34 Fetching 7 files: 100%|██████████| 7/7 [00:06<00:00,  1.08it/s]
+2026-05-24 12:04:34     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 12:04:36   [45/50] UID 35 | Radiant28/evolai-transformer-0.4b-b1 @
+2026-05-24 12:04:36 18231d7d50096d8b2744fdff1b38a7b90246ddf0 | hotkey 5EXZBq3wQzTK…
+2026-05-24 12:04:36     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:04:36     Fetched 20 texts (20 indices)
+2026-05-24 12:04:38     Loaded (local prefetch)
+2026-05-24 12:04:39     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 12:04:41    Ready: andrebarrosilva1123/evolai-f@89654c7b1e351cce36bab65fe09692eb0e109f72
+2026-05-24 12:04:41    Downloading
+2026-05-24 12:04:41 batster4/evolai-phi4-mini-dpo-v1@8217794abaf74f8e15f578a507e27b5f9b1df4c9…
+2026-05-24 12:04:41   [46/50] UID 52 | andrebarrosilva1123/evolai-f @
+2026-05-24 12:04:41 89654c7b1e351cce36bab65fe09692eb0e109f72 | hotkey 5HTZZEb5oxv9…
+2026-05-24 12:04:41     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:04:41     Fetched 20 texts (20 indices)
+2026-05-24 12:04:43     Loaded (local prefetch)
+2026-05-24 12:04:44     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 12:04:46   [47/50] UID 59 | batster4/evolai-phi4-mini-dpo-v1 @
+2026-05-24 12:04:46 8217794abaf74f8e15f578a507e27b5f9b1df4c9 | hotkey 5GCA2s6m4RRM…
+2026-05-24 12:04:46     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:04:46     Fetched 20 texts (20 indices)
+2026-05-24 12:05:04    Ready:
+2026-05-24 12:05:04 batster4/evolai-phi4-mini-dpo-v1@8217794abaf74f8e15f578a507e27b5f9b1df4c9
+2026-05-24 12:05:04    Downloading philk11/evolai-0.4b@822950352d63cdd145c3a7449ebfd4b51ad5ae6a…
+2026-05-24 12:05:08    Ready: philk11/evolai-0.4b@822950352d63cdd145c3a7449ebfd4b51ad5ae6a
+2026-05-24 12:05:08    Downloading snx999/evolai_qw_4b@69eff663b4e9a2b5bf76dde6cdecc5dce29759d3…
+2026-05-24 12:05:13     Loaded (HF download)
+2026-05-24 12:05:13     ⚠ Invalid model size (3.84B; allowed 0.45-0.48B, 1.50-1.80B) — skipping
+2026-05-24 12:05:16   [48/50] UID 65 | philk11/evolai-0.4b @
+2026-05-24 12:05:16 822950352d63cdd145c3a7449ebfd4b51ad5ae6a | hotkey 5GvHE1tHbhGv…
+2026-05-24 12:05:17     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:05:17     Fetched 20 texts (20 indices)
+2026-05-24 12:05:19     Loaded (local prefetch)
+2026-05-24 12:05:19     ⚠ Invalid model size (0.60B; allowed 0.45-0.48B, 1.50-1.80B) — skipping
+2026-05-24 12:05:21   [49/50] UID 25 | snx999/evolai_qw_4b @
+2026-05-24 12:05:21 69eff663b4e9a2b5bf76dde6cdecc5dce29759d3 | hotkey 5HBJoNWv4nAi…
+2026-05-24 12:05:21     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:05:21     Fetched 20 texts (20 indices)
+2026-05-24 12:05:22    Ready: snx999/evolai_qw_4b@69eff663b4e9a2b5bf76dde6cdecc5dce29759d3
+2026-05-24 12:05:22    Downloading
+2026-05-24 12:05:22 Jubilant/evolai-1.50b-v1@074810c41bab77c52a216e0c2f7886484e12deeb…
+2026-05-24 12:05:36    Ready: Jubilant/evolai-1.50b-v1@074810c41bab77c52a216e0c2f7886484e12deeb
+2026-05-24 12:05:45     Loaded (HF download)
+2026-05-24 12:05:45     ⚠ Invalid model size (4.21B; allowed 0.45-0.48B, 1.50-1.80B) — skipping
+2026-05-24 12:05:48   [50/50] UID 40 | Jubilant/evolai-1.50b-v1 @
+2026-05-24 12:05:48 074810c41bab77c52a216e0c2f7886484e12deeb | hotkey 5Fuv43yR7tjJ…
+2026-05-24 12:05:48     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:05:48     Fetched 20 texts (20 indices)
+2026-05-24 12:05:50     Loaded (local prefetch)
+2026-05-24 12:05:50     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 12:05:52   Cached next refs for transformer: 50 miner(s)
+2026-05-24 12:05:52 
+2026-05-24 12:05:52   ✓ TRANSFORMER: 30 evaluated, 23 skipped —
+2026-05-24 12:05:52 epoch_22926_transformer_20260524_113843.json
+2026-05-24 12:05:52   ✓ Telemetry sent (30 records)
+2026-05-24 12:05:52 Evaluating MAMBA2 track…
+2026-05-24 12:05:52 
+2026-05-24 12:05:52   Found 15 locked mamba2 miners
+2026-05-24 12:05:52    Downloading
+2026-05-24 12:05:52 mihai-777/evolai-mamba2-1p6b-alt@131bd3907f9816bbf184f5651ba63af66046e84c…
+2026-05-24 12:05:52 Pre-building current/next challenges for 15 miners…
+2026-05-24 12:05:52 Fetching 7 files: 100%|██████████| 7/7 [00:03<00:00,  2.21it/s]
+2026-05-24 12:05:56    Ready:
+2026-05-24 12:05:56 mihai-777/evolai-mamba2-1p6b-alt@131bd3907f9816bbf184f5651ba63af66046e84c
+2026-05-24 12:05:56    Downloading
+2026-05-24 12:05:56 andrebarrosilva1123/evolai-mamba2-b@62336a49df6d6014f779575adfd29373c228edd4…
+2026-05-24 12:05:56 Fetching 7 files: 100%|██████████| 7/7 [00:02<00:00,  2.91it/s]
+2026-05-24 12:05:59    Ready:
+2026-05-24 12:05:59 andrebarrosilva1123/evolai-mamba2-b@62336a49df6d6014f779575adfd29373c228edd4
+2026-05-24 12:06:12 ✓ Ref data ready: submitted=15, cached=15
+2026-05-24 12:06:12   [1/15] UID 32 | mihai-777/evolai-mamba2-1p6b-alt @
+2026-05-24 12:06:12 131bd3907f9816bbf184f5651ba63af66046e84c | hotkey 5GL84HKDau7C…
+2026-05-24 12:06:14     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:06:14     Fetched 20 texts (20 indices)
+2026-05-24 12:06:14    Downloading
+2026-05-24 12:06:14 batster4/evolai-mamba2-v1@142f14d218be618e3161d86926085b3a9cefed55…
+2026-05-24 12:06:15     Loaded (local prefetch)
+2026-05-24 12:06:15     Model 0.48B → batch=512, seq=16384
+2026-05-24 12:06:17    Ready: batster4/evolai-mamba2-v1@142f14d218be618e3161d86926085b3a9cefed55
+2026-05-24 12:06:26     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:04
+2026-05-24 12:06:26     Loss 5.0512 | Size ×0.52 | Think 0.0000 | ThinkGain 0 (+0.5000) | Flow
+2026-05-24 12:06:26 0.0066 | KL 5.0512 | NextKL 4.8891 | SideQ 0% | Score 0.0000 (10.4s)
+2026-05-24 12:06:26     Gate FAIL | Improve same SHA cur=5.0512 req<=4.9501 prev=5.0512 | Consist ok
+2026-05-24 12:06:26 ema_cur=4.8805 ema_next=4.8761 ratio=0.999 max<=1.20
+2026-05-24 12:06:28   Evicted cached model:
+2026-05-24 12:06:28 clear-blue-sky/evolai-reborn-tfm-010@296548de5c104b14f79791cd0b8679d44fb58525
+2026-05-24 12:06:28   [2/15] UID 57 | andrebarrosilva1123/evolai-mamba2-b @
+2026-05-24 12:06:28 62336a49df6d6014f779575adfd29373c228edd4 | hotkey 5EZx1DRvpMGK…
+2026-05-24 12:06:28     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:06:28    Downloading
+2026-05-24 12:06:28 andrebarrosilva1123/evolai-mamba2-c@dc37c985d66c77e3d10bf9eaf16e6dc952c62e17…
+2026-05-24 12:06:28     Fetched 20 texts (20 indices)
+2026-05-24 12:06:31     Loaded (local prefetch)
+2026-05-24 12:06:31    Ready:
+2026-05-24 12:06:31 andrebarrosilva1123/evolai-mamba2-c@dc37c985d66c77e3d10bf9eaf16e6dc952c62e17
+2026-05-24 12:06:31     ⚠ Vocab incompatible (model=151669 < ref=248077) — skipping
+2026-05-24 12:06:33   [3/15] UID 60 | batster4/evolai-mamba2-v1 @
+2026-05-24 12:06:33 142f14d218be618e3161d86926085b3a9cefed55 | hotkey 5Dc8EpAixcqc…
+2026-05-24 12:06:33     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:06:33     Fetched 20 texts (20 indices)
+2026-05-24 12:06:33    Downloading
+2026-05-24 12:06:33 evolai/evolai_mamba_naive_kl@b7c8842d1d5a700bd6a36b834fe6f0b3dc5d321a…
+2026-05-24 12:06:36    Ready: evolai/evolai_mamba_naive_kl@b7c8842d1d5a700bd6a36b834fe6f0b3dc5d321a
+2026-05-24 12:06:37     Loaded (local prefetch)
+2026-05-24 12:06:38     ⚠ Invalid model size (0.82B; allowed 0.45-0.48B, 1.50-1.80B) — skipping
+2026-05-24 12:06:40   [4/15] UID 58 | andrebarrosilva1123/evolai-mamba2-c @
+2026-05-24 12:06:40 dc37c985d66c77e3d10bf9eaf16e6dc952c62e17 | hotkey 5EgtSzXJbjpV…
+2026-05-24 12:06:40     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:06:40     Fetched 20 texts (20 indices)
+2026-05-24 12:06:40    Downloading
+2026-05-24 12:06:40 andrebarrosilva1123/evolai-mamba2-a@55b92d373b1c219a4cfbac7034c154ddbcdc854d…
+2026-05-24 12:06:41     Loaded (local prefetch)
+2026-05-24 12:06:42     ⚠ Vocab incompatible (model=151669 < ref=248077) — skipping
+2026-05-24 12:06:42    Ready:
+2026-05-24 12:06:42 andrebarrosilva1123/evolai-mamba2-a@55b92d373b1c219a4cfbac7034c154ddbcdc854d
+2026-05-24 12:06:43   [5/15] UID 96 | evolai/evolai_mamba_naive_kl @
+2026-05-24 12:06:43 b7c8842d1d5a700bd6a36b834fe6f0b3dc5d321a | hotkey 5HQuJVXBXGrW…
+2026-05-24 12:06:43     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:06:43    Downloading Lin2es/evolai-mb2-04v@9c0198682f16cc8595fec849aa37227f7160e92c…
+2026-05-24 12:06:43     Fetched 20 texts (20 indices)
+2026-05-24 12:06:45     Loaded (local prefetch)
+2026-05-24 12:06:45     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:06:47    Ready: Lin2es/evolai-mb2-04v@9c0198682f16cc8595fec849aa37227f7160e92c
+2026-05-24 12:06:50     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:01
+2026-05-24 12:06:50     Loss 3.7030 | Size ×0.50 | Think 0.0000 | ThinkGain 0 (+0.5000) | Flow
+2026-05-24 12:06:50 0.0000 | KL 3.7030 | NextKL 3.5309 | SideQ 0% | Score 0.0000 (4.3s)
+2026-05-24 12:06:50     Gate FAIL | Improve same SHA cur=3.7030 req<=3.6290 prev=3.7030 | Consist ok
+2026-05-24 12:06:50 ema_cur=3.8187 ema_next=3.5412 ratio=0.927 max<=1.20
+2026-05-24 12:06:52   Evicted cached model:
+2026-05-24 12:06:52 mihai-777/evolai-tfm-1p5b-alt@5ebb4a406916abe39e32823ff1f635b70e707e5a
+2026-05-24 12:06:52   [6/15] UID 56 | andrebarrosilva1123/evolai-mamba2-a @
+2026-05-24 12:06:52 55b92d373b1c219a4cfbac7034c154ddbcdc854d | hotkey 5D1zGn2n3mzF…
+2026-05-24 12:06:52     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:06:52     Fetched 20 texts (20 indices)
+2026-05-24 12:06:52    Downloading Lin2es/evolai-mb2-03v@3047597c4e4b4430450ddcd633240b88d781fdbd…
+2026-05-24 12:06:54     Loaded (local prefetch)
+2026-05-24 12:06:54     ⚠ Vocab incompatible (model=151669 < ref=248077) — skipping
+2026-05-24 12:06:56    Ready: Lin2es/evolai-mb2-03v@3047597c4e4b4430450ddcd633240b88d781fdbd
+2026-05-24 12:06:56   [7/15] UID 89 | Lin2es/evolai-mb2-04v @
+2026-05-24 12:06:56 9c0198682f16cc8595fec849aa37227f7160e92c | hotkey 5DkZf6V3X8Za…
+2026-05-24 12:06:56     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:06:56     Fetched 20 texts (20 indices)
+2026-05-24 12:06:56    Downloading
+2026-05-24 12:06:56 mihai-777/evolai-mamba2-0p47b-v3@c2a96b92acf632d51a2c21da4482f77f98256518…
+2026-05-24 12:06:57     Loaded (local prefetch)
+2026-05-24 12:06:57     ⚠ Vocab incompatible (model=151665 < ref=248077) — skipping
+2026-05-24 12:07:00   [8/15] UID 91 | Lin2es/evolai-mb2-03v @
+2026-05-24 12:07:00 3047597c4e4b4430450ddcd633240b88d781fdbd | hotkey 5EcdUqvUBCSp…
+2026-05-24 12:07:00     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:07:00     Fetched 20 texts (20 indices)
+2026-05-24 12:07:00    Ready:
+2026-05-24 12:07:00 mihai-777/evolai-mamba2-0p47b-v3@c2a96b92acf632d51a2c21da4482f77f98256518
+2026-05-24 12:07:00    Downloading
+2026-05-24 12:07:00 elgin-group/evolai-mamba2-0p47b-v1@39b2f90ad08643d34503c88f5c7224fd3dabeed7…
+2026-05-24 12:07:01     Loaded (local prefetch)
+2026-05-24 12:07:01     Model 0.48B → batch=512, seq=16384
+2026-05-24 12:07:03    Ready:
+2026-05-24 12:07:03 elgin-group/evolai-mamba2-0p47b-v1@39b2f90ad08643d34503c88f5c7224fd3dabeed7
+2026-05-24 12:07:05     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:01
+2026-05-24 12:07:05     Loss 4.7294 | Size ×0.52 | Think 0.0000 | ThinkGain 0 (+0.5000) | Flow
+2026-05-24 12:07:05 0.0000 | KL 4.7294 | NextKL 4.7382 | SideQ 0% | Score 0.0000 (4.2s)
+2026-05-24 12:07:05     Gate FAIL | Improve same SHA cur=4.7294 req<=4.6348 prev=4.7294 | Consist ok
+2026-05-24 12:07:05 ema_cur=4.6629 ema_next=4.6721 ratio=1.002 max<=1.20
+2026-05-24 12:07:07   Evicted cached model:
+2026-05-24 12:07:07 clear-blue-sky/evolai-reborn-tfm-007@8d815ec4826959f45cd40e2360ceaff7c36279d1
+2026-05-24 12:07:08   [9/15] UID 30 | mihai-777/evolai-mamba2-0p47b-v3 @
+2026-05-24 12:07:08 c2a96b92acf632d51a2c21da4482f77f98256518 | hotkey 5GGsbuVKDrTA…
+2026-05-24 12:07:08     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:07:08     Fetched 20 texts (20 indices)
+2026-05-24 12:07:08    Downloading
+2026-05-24 12:07:08 Radiant28/evolai-mamba2-0.47b-v2@475bf7bf65af1192ed824d58816c1d83f3475983…
+2026-05-24 12:07:09     Loaded (local prefetch)
+2026-05-24 12:07:09     Model 0.48B → batch=512, seq=16384
+2026-05-24 12:07:11    Ready:
+2026-05-24 12:07:11 Radiant28/evolai-mamba2-0.47b-v2@475bf7bf65af1192ed824d58816c1d83f3475983
+2026-05-24 12:07:14     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:01
+2026-05-24 12:07:14     Loss 4.8577 | Size ×0.52 | Think 0.0000 | ThinkGain 0 (+0.5000) | Flow
+2026-05-24 12:07:14 0.0191 | KL 4.8577 | NextKL 4.8630 | SideQ 0% | Score 0.0000 (4.1s)
+2026-05-24 12:07:14     Gate FAIL | Improve same SHA cur=4.8577 req<=4.7606 prev=4.8577 | Consist ok
+2026-05-24 12:07:14 ema_cur=4.7919 ema_next=4.8021 ratio=1.002 max<=1.20
+2026-05-24 12:07:15   Evicted cached model:
+2026-05-24 12:07:15 Lin2es/evolai-tfm-02o@fc5fc3ee4a3877b825b404dc85c9367c1f248c59
+2026-05-24 12:07:16   [10/15] UID 34 | elgin-group/evolai-mamba2-0p47b-v1 @
+2026-05-24 12:07:16 39b2f90ad08643d34503c88f5c7224fd3dabeed7 | hotkey 5GNJr9NfE9e9…
+2026-05-24 12:07:16     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:07:16     Fetched 20 texts (20 indices)
+2026-05-24 12:07:16    Downloading
+2026-05-24 12:07:16 Radiant28/evolai-mamba2-0.47b-v3@97f692fb0b295aa29075d3f9d592bfb4e7625b16…
+2026-05-24 12:07:17     Loaded (local prefetch)
+2026-05-24 12:07:18     ⚠ Vocab incompatible (model=151669 < ref=248077) — skipping
+2026-05-24 12:07:19   [11/15] UID 39 | Radiant28/evolai-mamba2-0.47b-v2 @
+2026-05-24 12:07:19 475bf7bf65af1192ed824d58816c1d83f3475983 | hotkey 5FvTt3gVVhFT…
+2026-05-24 12:07:19     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:07:19     Fetched 20 texts (20 indices)
+2026-05-24 12:07:19    Ready:
+2026-05-24 12:07:19 Radiant28/evolai-mamba2-0.47b-v3@97f692fb0b295aa29075d3f9d592bfb4e7625b16
+2026-05-24 12:07:19    Downloading Lin2es/evolai-mb2-01v@a7f32e5ce7f8d307c98560e5025525f3703310c0…
+2026-05-24 12:07:21     Loaded (local prefetch)
+2026-05-24 12:07:21     ⚠ Vocab incompatible (model=151669 < ref=248077) — skipping
+2026-05-24 12:07:22    Ready: Lin2es/evolai-mb2-01v@a7f32e5ce7f8d307c98560e5025525f3703310c0
+2026-05-24 12:07:23   [12/15] UID 41 | Radiant28/evolai-mamba2-0.47b-v3 @
+2026-05-24 12:07:23 97f692fb0b295aa29075d3f9d592bfb4e7625b16 | hotkey 5CP5QrWuFe93…
+2026-05-24 12:07:23     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:07:23     Fetched 20 texts (20 indices)
+2026-05-24 12:07:23    Downloading
+2026-05-24 12:07:23 mihai-777/evolai-mamba2-0p47b@7b6564c9a46f602702c260185aa43867f321dee7…
+2026-05-24 12:07:24     Loaded (local prefetch)
+2026-05-24 12:07:24     ⚠ Vocab incompatible (model=151669 < ref=248077) — skipping
+2026-05-24 12:07:26   [13/15] UID 11 | Lin2es/evolai-mb2-01v @
+2026-05-24 12:07:26 a7f32e5ce7f8d307c98560e5025525f3703310c0 | hotkey 5HYuS4jrJJ56…
+2026-05-24 12:07:26     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:07:26     Fetched 20 texts (20 indices)
+2026-05-24 12:07:26    Ready: mihai-777/evolai-mamba2-0p47b@7b6564c9a46f602702c260185aa43867f321dee7
+2026-05-24 12:07:26    Downloading Lin2es/evolai-mb2-02v@c1ad3d94c5929dcc0e3a40d9d9034bd80da9a1f8…
+2026-05-24 12:07:28     Loaded (local prefetch)
+2026-05-24 12:07:28     Model 0.48B → batch=512, seq=16384
+2026-05-24 12:07:29    Ready: Lin2es/evolai-mb2-02v@c1ad3d94c5929dcc0e3a40d9d9034bd80da9a1f8
+2026-05-24 12:07:32     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:01
+2026-05-24 12:07:32     Loss 4.6986 | Size ×0.52 | Think 0.0000 | ThinkGain 0 (+0.5000) | Flow
+2026-05-24 12:07:32 0.0826 | KL 4.6986 | NextKL 4.6918 | SideQ 0% | Score 0.0000 (4.0s)
+2026-05-24 12:07:32     Gate FAIL | Improve same SHA cur=4.6986 req<=4.6046 prev=4.6986 | Consist ok
+2026-05-24 12:07:32 ema_cur=4.6535 ema_next=4.6619 ratio=1.002 max<=1.20
+2026-05-24 12:07:34   Evicted cached model:
+2026-05-24 12:07:34 evolai/evolai_test_challenge@3c97959556a6ce6fb9da782ec21a98b38bd10051
+2026-05-24 12:07:34   [14/15] UID 31 | mihai-777/evolai-mamba2-0p47b @
+2026-05-24 12:07:34 7b6564c9a46f602702c260185aa43867f321dee7 | hotkey 5CJuKKq16FkR…
+2026-05-24 12:07:34     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:07:34     Fetched 20 texts (20 indices)
+2026-05-24 12:07:36     Loaded (local prefetch)
+2026-05-24 12:07:36     Model 0.48B → batch=512, seq=16384
+2026-05-24 12:07:40     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:01
+2026-05-24 12:07:40     Loss 4.8434 | Size ×0.52 | Think 0.0000 | ThinkGain 0 (+0.5000) | Flow
+2026-05-24 12:07:40 0.0000 | KL 4.8434 | NextKL 4.7640 | SideQ 0% | Score 0.0000 (4.0s)
+2026-05-24 12:07:40     Gate FAIL | Improve same SHA cur=4.8434 req<=4.7465 prev=4.8434 | Consist ok
+2026-05-24 12:07:40 ema_cur=4.8102 ema_next=4.8028 ratio=0.998 max<=1.20
+2026-05-24 12:07:41   Evicted cached model:
+2026-05-24 12:07:41 mrthor102/evolai-tfm-super-002@3cfba97b1a167f8d0e275bfa38d51bb2138b7855
+2026-05-24 12:07:42   [15/15] UID 90 | Lin2es/evolai-mb2-02v @
+2026-05-24 12:07:42 c1ad3d94c5929dcc0e3a40d9d9034bd80da9a1f8 | hotkey 5CtLLhrw6Lxa…
+2026-05-24 12:07:42     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:07:42     Fetched 20 texts (20 indices)
+2026-05-24 12:07:44     Loaded (local prefetch)
+2026-05-24 12:07:44     Model 0.48B → batch=512, seq=16384
+2026-05-24 12:07:48     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:01
+2026-05-24 12:07:48     Loss 4.7000 | Size ×0.52 | Think 0.0000 | ThinkGain 0 (+0.5000) | Flow
+2026-05-24 12:07:48 0.0000 | KL 4.7000 | NextKL 4.7067 | SideQ 0% | Score 0.0000 (4.1s)
+2026-05-24 12:07:48     Gate FAIL | Improve same SHA cur=4.7000 req<=4.6060 prev=4.7000 | Consist ok
+2026-05-24 12:07:48 ema_cur=4.9339 ema_next=4.7063 ratio=0.954 max<=1.20
+2026-05-24 12:07:50   Evicted cached model:
+2026-05-24 12:07:50 evolai/evolai_naive_kl@da8203b6900f14ec1b724f3dd8c6dc35576fc3e4
+2026-05-24 12:07:50   Cached next refs for mamba2: 15 miner(s)
+2026-05-24 12:07:50 
+2026-05-24 12:07:50   ✓ MAMBA2: 7 evaluated, 14 skipped — epoch_22926_mamba2_20260524_113843.json
+2026-05-24 12:07:51   ✓ Telemetry sent (7 records)
+2026-05-24 12:07:51 Current Leaderboard:
+2026-05-24 12:08:05 
+2026-05-24 12:08:05 TRANSFORMER
+2026-05-24 12:08:06 ┏━━━━━━┳━━━━━┳━━━━━━━━┳━━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━┳━━━━━┳━━━━━━━━━┳━━━━━━━┓
+2026-05-24 12:08:06 ┃      ┃     ┃        ┃     Latest ┃           ┃       ┃     ┃         ┃       ┃
+2026-05-24 12:08:06 ┃ Rank ┃ UID ┃  Score ┃       Loss ┃ ThinkGain ┃  Flow ┃ SQ% ┃      KL ┃ Evals ┃
+2026-05-24 12:08:06 ┡━━━━━━╇━━━━━╇━━━━━━━━╇━━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━╇━━━━━╇━━━━━━━━━╇━━━━━━━┩
+2026-05-24 12:08:06 │    1 │   8 │ 0.0335 │     3.7692 │  0 FAIL   │ 0.111 │  0% │  1.7767 │   314 │
+2026-05-24 12:08:06 │    2 │  48 │ 0.0001 │     3.7172 │  0 FAIL   │ 0.035 │  0% │  2.3716 │   138 │
+2026-05-24 12:08:06 │    3 │  82 │ 0.0000 │     3.4618 │  0 FAIL   │ 0.078 │  0% │  1.7796 │   349 │
+2026-05-24 12:08:06 │    4 │  66 │ 0.0000 │     3.7192 │  0 FAIL   │ 0.042 │  0% │  2.0585 │   349 │
+2026-05-24 12:08:06 │    5 │  87 │ 0.0000 │     4.0577 │  0 FAIL   │ 0.133 │  0% │  2.2495 │   147 │
+2026-05-24 12:08:06 │    6 │  86 │ 0.0000 │     4.1094 │  0 FAIL   │ 0.139 │  0% │  2.3171 │   148 │
+2026-05-24 12:08:06 │    7 │  73 │ 0.0000 │     4.0072 │  0 FAIL   │ 0.000 │  0% │  1.9079 │   134 │
+2026-05-24 12:08:06 │    8 │  93 │ 0.0000 │     3.2209 │  0 FAIL   │ 0.000 │  0% │  1.8286 │   134 │
+2026-05-24 12:08:06 │    9 │  97 │ 0.0000 │     3.5393 │  0 FAIL   │ 0.095 │  0% │  1.7468 │   264 │
+2026-05-24 12:08:06 │   10 │  67 │ 0.0000 │     3.8548 │  0 FAIL   │ 0.484 │  0% │  1.9179 │   351 │
+2026-05-24 12:08:06 │   11 │  70 │ 0.0000 │     4.0771 │  0 FAIL   │ 0.000 │  0% │  1.9152 │   349 │
+2026-05-24 12:08:06 │   12 │  83 │ 0.0000 │     4.1923 │  0 FAIL   │ 0.000 │  0% │  2.0794 │   351 │
+2026-05-24 12:08:06 │   13 │  85 │ 0.0000 │     4.0309 │  0 FAIL   │ 0.000 │  0% │  1.9570 │   338 │
+2026-05-24 12:08:06 │   14 │  99 │ 0.0000 │     3.4103 │  0 FAIL   │ 0.219 │  0% │  1.7725 │   132 │
+2026-05-24 12:08:06 │   15 │  72 │ 0.0000 │     3.9154 │  0 FAIL   │ 0.218 │  0% │  1.8592 │   133 │
+2026-05-24 12:08:06 │   16 │  62 │ 0.0000 │     3.8695 │  0 FAIL   │ 0.061 │  0% │  2.0377 │   351 │
+2026-05-24 12:08:06 │   17 │  94 │ 0.0000 │     3.6663 │  0 FAIL   │ 0.000 │  0% │  1.9663 │   264 │
+2026-05-24 12:08:06 │   18 │  98 │ 0.0000 │     4.2735 │  0 FAIL   │ 0.000 │  0% │  2.1953 │   263 │
+2026-05-24 12:08:06 │   19 │  69 │ 0.0000 │     3.1872 │  0 FAIL   │ 0.237 │  0% │  1.7581 │   134 │
+2026-05-24 12:08:06 │   20 │   9 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   353 │
+2026-05-24 12:08:06 │   21 │  25 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   350 │
+2026-05-24 12:08:06 │   22 │  33 │ 0.0000 │     2.8806 │  0 FAIL   │ 0.000 │  0% │  2.2794 │   351 │
+2026-05-24 12:08:06 │   23 │  35 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   351 │
+2026-05-24 12:08:06 │   24 │  36 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   350 │
+2026-05-24 12:08:06 │   25 │  37 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   351 │
+2026-05-24 12:08:06 │   26 │  38 │ 0.0000 │     3.0592 │  0 FAIL   │ 0.000 │  0% │  2.3547 │   350 │
+2026-05-24 12:08:06 │   27 │  40 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   351 │
+2026-05-24 12:08:06 │   28 │  42 │ 0.0000 │     3.1993 │  0 FAIL   │ 0.157 │  0% │  2.3615 │   351 │
+2026-05-24 12:08:06 │   29 │  43 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   351 │
+2026-05-24 12:08:06 │   30 │  44 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   352 │
+2026-05-24 12:08:06 │   31 │  45 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   351 │
+2026-05-24 12:08:06 │   32 │  49 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   350 │
+2026-05-24 12:08:06 │   33 │  50 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   350 │
+2026-05-24 12:08:06 │   34 │  51 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   323 │
+2026-05-24 12:08:06 │   35 │  52 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   324 │
+2026-05-24 12:08:06 │   36 │  53 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   351 │
+2026-05-24 12:08:06 │   37 │  54 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   322 │
+2026-05-24 12:08:06 │   38 │  55 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   354 │
+2026-05-24 12:08:06 │   39 │  59 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   351 │
+2026-05-24 12:08:06 │   40 │  61 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   351 │
+2026-05-24 12:08:06 │   41 │  65 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   351 │
+2026-05-24 12:08:06 │   42 │  75 │ 0.0000 │     3.2759 │  0 FAIL   │ 0.000 │  0% │  2.7029 │   352 │
+2026-05-24 12:08:06 │   43 │  76 │ 0.0000 │     2.8515 │  0 FAIL   │ 0.299 │  0% │  2.3295 │   350 │
+2026-05-24 12:08:06 │   44 │  77 │ 0.0000 │     2.9807 │  0 FAIL   │ 0.000 │  0% │  2.8666 │   253 │
+2026-05-24 12:08:06 │   45 │  78 │ 0.0000 │     3.0275 │  0 FAIL   │ 0.188 │  0% │  2.4519 │   253 │
+2026-05-24 12:08:06 │   46 │  79 │ 0.0000 │     2.1201 │  0 FAIL   │ 0.120 │  0% │  2.0535 │   253 │
+2026-05-24 12:08:06 │   47 │  80 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   352 │
+2026-05-24 12:08:06 │   48 │  84 │ 0.0000 │     3.4001 │  0 FAIL   │ 0.245 │  0% │  1.6954 │   335 │
+2026-05-24 12:08:06 │   49 │  88 │ 0.0000 │     3.9147 │  0 FAIL   │ 0.290 │  0% │  1.9992 │   146 │
+2026-05-24 12:08:06 │   50 │  92 │ 0.0000 │     2.4054 │  0 FAIL   │ 0.000 │  0% │  2.5205 │   254 │
+2026-05-24 12:08:06 │   51 │  95 │ 0.0000 │     2.0593 │  0 FAIL   │ 0.323 │  0% │  2.2762 │   263 │
+2026-05-24 12:08:06 │   52 │ 100 │ 0.0000 │     3.9660 │  0 FAIL   │ 0.000 │  0% │  3.9010 │   262 │
+2026-05-24 12:08:06 │   53 │ 101 │ 0.0000 │     3.8846 │  0 FAIL   │ 0.324 │  0% │  1.9159 │    84 │
+2026-05-24 12:08:06 └──────┴─────┴────────┴────────────┴───────────┴───────┴─────┴─────────┴───────┘
+2026-05-24 12:08:06 
+2026-05-24 12:08:06 MAMBA2
+2026-05-24 12:08:06 ┏━━━━━━┳━━━━━┳━━━━━━━━┳━━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━┳━━━━━┳━━━━━━━━━┳━━━━━━━┓
+2026-05-24 12:08:06 ┃      ┃     ┃        ┃     Latest ┃           ┃       ┃     ┃         ┃       ┃
+2026-05-24 12:08:06 ┃ Rank ┃ UID ┃  Score ┃       Loss ┃ ThinkGain ┃  Flow ┃ SQ% ┃      KL ┃ Evals ┃
+2026-05-24 12:08:06 ┡━━━━━━╇━━━━━╇━━━━━━━━╇━━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━╇━━━━━╇━━━━━━━━━╇━━━━━━━┩
+2026-05-24 12:08:06 │    1 │  11 │ 0.0000 │     4.6986 │  0 FAIL   │ 0.083 │  0% │  4.6986 │   253 │
+2026-05-24 12:08:06 │    2 │  30 │ 0.0000 │     4.8577 │  0 FAIL   │ 0.019 │  0% │  4.8577 │   348 │
+2026-05-24 12:08:06 │    3 │  31 │ 0.0000 │     4.8434 │  0 FAIL   │ 0.000 │  0% │  4.8434 │   348 │
+2026-05-24 12:08:06 │    4 │  32 │ 0.0000 │     5.0512 │  0 FAIL   │ 0.007 │  0% │  5.0512 │   348 │
+2026-05-24 12:08:06 │    5 │  34 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   348 │
+2026-05-24 12:08:06 │    6 │  39 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   349 │
+2026-05-24 12:08:06 │    7 │  41 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   348 │
+2026-05-24 12:08:06 │    8 │  56 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   348 │
+2026-05-24 12:08:06 │    9 │  57 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   348 │
+2026-05-24 12:08:06 │   10 │  58 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   348 │
+2026-05-24 12:08:06 │   11 │  60 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   348 │
+2026-05-24 12:08:06 │   12 │  63 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   271 │
+2026-05-24 12:08:06 │   13 │  64 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   272 │
+2026-05-24 12:08:06 │   14 │  68 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   272 │
+2026-05-24 12:08:06 │   15 │  71 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   271 │
+2026-05-24 12:08:06 │   16 │  74 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   272 │
+2026-05-24 12:08:06 │   17 │  81 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   273 │
+2026-05-24 12:08:06 │   18 │  89 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   253 │
+2026-05-24 12:08:06 │   19 │  90 │ 0.0000 │     4.7000 │  0 FAIL   │ 0.000 │  0% │  4.7000 │   263 │
+2026-05-24 12:08:06 │   20 │  91 │ 0.0000 │     4.7294 │  0 FAIL   │ 0.000 │  0% │  4.7294 │   263 │
+2026-05-24 12:08:06 │   21 │  96 │ 0.0000 │     3.7030 │  0 FAIL   │ 0.000 │  0% │  3.7030 │   263 │
+2026-05-24 12:08:06 └──────┴─────┴────────┴────────────┴───────────┴───────┴─────┴─────────┴───────┘
+2026-05-24 12:08:06 
+2026-05-24 12:08:06 Round complete in epoch 22926 (1762s elapsed). Starting next round immediately…
+2026-05-24 12:08:06 
+2026-05-24 12:08:06 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-05-24 12:08:06 
+2026-05-24 12:08:06 ━━━ Epoch #22927 (Loop #9) ━━━ block=8253851, ~45m remaining
+2026-05-24 12:08:15 
+2026-05-24 12:08:15   ⚠ UID 86: revision lock failed: RepositoryNotFoundError: 401 Client Error.
+2026-05-24 12:08:15 (Request ID:
+2026-05-24 12:08:15 Root=1-6a12ea2f-537197066269de60045be71a;e140b504-d288-49ac-b56d-159b6a7b6592)
+2026-05-24 12:08:15 
+2026-05-24 12:08:15 Repository Not Found for url:
+2026-05-24 12:08:15 https://huggingface.co/api/models/clear-blue-sky/evolai-tfm-012/revision/main.
+2026-05-24 12:08:15 Please make sure you specified the correct `repo_id` and `repo_type`.
+2026-05-24 12:08:15 If you are trying to access a private or gated repo, make sure you are
+2026-05-24 12:08:15 authenticated and your token has the required permissions.
+2026-05-24 12:08:15 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
+2026-05-24 12:08:15 Invalid username or password.
+2026-05-24 12:08:15   ⚠ UID 87: revision lock failed: RepositoryNotFoundError: 401 Client Error.
+2026-05-24 12:08:15 (Request ID:
+2026-05-24 12:08:15 Root=1-6a12ea2f-3305a95948e508323274a5e2;1fba5cb4-35cc-4718-9a4a-ad6c4ca2ffe5)
+2026-05-24 12:08:15 
+2026-05-24 12:08:15 Repository Not Found for url:
+2026-05-24 12:08:15 https://huggingface.co/api/models/clear-blue-sky/evolai-tfm-013/revision/main.
+2026-05-24 12:08:15 Please make sure you specified the correct `repo_id` and `repo_type`.
+2026-05-24 12:08:15 If you are trying to access a private or gated repo, make sure you are
+2026-05-24 12:08:15 authenticated and your token has the required permissions.
+2026-05-24 12:08:15 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
+2026-05-24 12:08:15 Invalid username or password.
+2026-05-24 12:08:15   ⚠ UID 88: revision lock failed: RepositoryNotFoundError: 401 Client Error.
+2026-05-24 12:08:15 (Request ID:
+2026-05-24 12:08:15 Root=1-6a12ea2f-088749ec466e085928e079aa;8132d780-cde4-4d97-a0f3-bbc847ce1df5)
+2026-05-24 12:08:15 
+2026-05-24 12:08:15 Repository Not Found for url:
+2026-05-24 12:08:15 https://huggingface.co/api/models/clear-blue-sky/evolai-tfm-014/revision/main.
+2026-05-24 12:08:15 Please make sure you specified the correct `repo_id` and `repo_type`.
+2026-05-24 12:08:15 If you are trying to access a private or gated repo, make sure you are
+2026-05-24 12:08:15 authenticated and your token has the required permissions.
+2026-05-24 12:08:15 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
+2026-05-24 12:08:15 Invalid username or password.
+2026-05-24 12:08:16   Locked transformer revisions (50 miner(s), 3 skipped)
+2026-05-24 12:08:24   ⚠ UID 63: revision lock failed: RepositoryNotFoundError: 401 Client Error.
+2026-05-24 12:08:24 (Request ID:
+2026-05-24 12:08:24 Root=1-6a12ea38-1d80eb0d65202a7e482c00a0;cc174c7b-a97a-4e7d-912d-957442a7a768)
+2026-05-24 12:08:24 
+2026-05-24 12:08:24 Repository Not Found for url:
+2026-05-24 12:08:24 https://huggingface.co/api/models/clear-blue-sky/evolai-mb2-009/revision/main.
+2026-05-24 12:08:24 Please make sure you specified the correct `repo_id` and `repo_type`.
+2026-05-24 12:08:24 If you are trying to access a private or gated repo, make sure you are
+2026-05-24 12:08:24 authenticated and your token has the required permissions.
+2026-05-24 12:08:24 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
+2026-05-24 12:08:24 Invalid username or password.
+2026-05-24 12:08:24   ⚠ UID 64: revision lock failed: RepositoryNotFoundError: 401 Client Error.
+2026-05-24 12:08:24 (Request ID:
+2026-05-24 12:08:24 Root=1-6a12ea38-3c0a5e413ee13590129b5b1e;fa705786-6bcb-4320-ba8a-9517fdc71092)
+2026-05-24 12:08:24 
+2026-05-24 12:08:24 Repository Not Found for url:
+2026-05-24 12:08:24 https://huggingface.co/api/models/clear-blue-sky/evolai-mb2-002/revision/main.
+2026-05-24 12:08:24 Please make sure you specified the correct `repo_id` and `repo_type`.
+2026-05-24 12:08:24 If you are trying to access a private or gated repo, make sure you are
+2026-05-24 12:08:24 authenticated and your token has the required permissions.
+2026-05-24 12:08:24 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
+2026-05-24 12:08:24 Invalid username or password.
+2026-05-24 12:08:24   ⚠ UID 68: revision lock failed: RepositoryNotFoundError: 401 Client Error.
+2026-05-24 12:08:24 (Request ID:
+2026-05-24 12:08:24 Root=1-6a12ea38-7a51d1672888748b69c5a717;b3430ab0-249a-4dc6-9df2-f0ad5c6a94fe)
+2026-05-24 12:08:24 
+2026-05-24 12:08:24 Repository Not Found for url:
+2026-05-24 12:08:24 https://huggingface.co/api/models/clear-blue-sky/evolai-mb2-008/revision/main.
+2026-05-24 12:08:24 Please make sure you specified the correct `repo_id` and `repo_type`.
+2026-05-24 12:08:24 If you are trying to access a private or gated repo, make sure you are
+2026-05-24 12:08:24 authenticated and your token has the required permissions.
+2026-05-24 12:08:24 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
+2026-05-24 12:08:24 Invalid username or password.
+2026-05-24 12:08:24   ⚠ UID 71: revision lock failed: RepositoryNotFoundError: 401 Client Error.
+2026-05-24 12:08:24 (Request ID:
+2026-05-24 12:08:24 Root=1-6a12ea38-22ef79c41e6e1fea6805750b;8c1265ad-56f0-46c2-a7ca-2440f4969e0b)
+2026-05-24 12:08:24 
+2026-05-24 12:08:24 Repository Not Found for url:
+2026-05-24 12:08:24 https://huggingface.co/api/models/clear-blue-sky/evolai-mb2-001/revision/main.
+2026-05-24 12:08:24 Please make sure you specified the correct `repo_id` and `repo_type`.
+2026-05-24 12:08:24 If you are trying to access a private or gated repo, make sure you are
+2026-05-24 12:08:24 authenticated and your token has the required permissions.
+2026-05-24 12:08:24 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
+2026-05-24 12:08:24 Invalid username or password.
+2026-05-24 12:08:24   ⚠ UID 74: revision lock failed: RepositoryNotFoundError: 401 Client Error.
+2026-05-24 12:08:24 (Request ID:
+2026-05-24 12:08:24 Root=1-6a12ea38-5bdd30754091353530938bc1;be5835fc-1d20-434c-9269-a4369ad117af)
+2026-05-24 12:08:24 
+2026-05-24 12:08:24 Repository Not Found for url:
+2026-05-24 12:08:24 https://huggingface.co/api/models/clear-blue-sky/evolai-mb2-007/revision/main.
+2026-05-24 12:08:24 Please make sure you specified the correct `repo_id` and `repo_type`.
+2026-05-24 12:08:24 If you are trying to access a private or gated repo, make sure you are
+2026-05-24 12:08:24 authenticated and your token has the required permissions.
+2026-05-24 12:08:24 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
+2026-05-24 12:08:24 Invalid username or password.
+2026-05-24 12:08:24   ⚠ UID 81: revision lock failed: RepositoryNotFoundError: 401 Client Error.
+2026-05-24 12:08:24 (Request ID:
+2026-05-24 12:08:24 Root=1-6a12ea38-3b7dd2ef7e8862ff3982ae90;cf358053-6fa6-4977-b8d0-2ec622fc544a)
+2026-05-24 12:08:24 
+2026-05-24 12:08:24 Repository Not Found for url:
+2026-05-24 12:08:24 https://huggingface.co/api/models/clear-blue-sky/evolai-mb2-010/revision/main.
+2026-05-24 12:08:24 Please make sure you specified the correct `repo_id` and `repo_type`.
+2026-05-24 12:08:24 If you are trying to access a private or gated repo, make sure you are
+2026-05-24 12:08:24 authenticated and your token has the required permissions.
+2026-05-24 12:08:24 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
+2026-05-24 12:08:24 Invalid username or password.
+2026-05-24 12:08:24   Locked mamba2 revisions (15 miner(s), 6 skipped)
+2026-05-24 12:09:05   Committed round seed epoch=22927 seed=dd28c87f...
+2026-05-24 12:09:06 Evaluating TRANSFORMER track…
+2026-05-24 12:09:06 
+2026-05-24 12:09:06   Found 50 locked transformer miners
+2026-05-24 12:09:06    Downloading
+2026-05-24 12:09:06 andrebarrosilva1123/evolai-d@89649e9376dace64f631711d3d270198e376702e…
+2026-05-24 12:09:06 Pre-building current/next challenges for 50 miners…
+2026-05-24 12:09:06 Fetching 7 files: 100%|██████████| 7/7 [00:06<00:00,  1.15it/s]
+2026-05-24 12:09:12    Ready: andrebarrosilva1123/evolai-d@89649e9376dace64f631711d3d270198e376702e
+2026-05-24 12:09:12    Downloading Lin2es/evolai-tfm-04o@52061d203723fdc8be09324d0c827898fcb7bdc4…
+2026-05-24 12:09:12 Fetching 7 files: 100%|██████████| 7/7 [00:02<00:00,  2.68it/s]
+2026-05-24 12:09:15    Ready: Lin2es/evolai-tfm-04o@52061d203723fdc8be09324d0c827898fcb7bdc4
+2026-05-24 12:10:00 ✓ Ref data ready: submitted=50, cached=50
+2026-05-24 12:10:00   [1/50] UID 51 | andrebarrosilva1123/evolai-d @
+2026-05-24 12:10:00 89649e9376dace64f631711d3d270198e376702e | hotkey 5EhLiPB1GHwH…
+2026-05-24 12:10:00     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:10:00     Fetched 20 texts (20 indices)
+2026-05-24 12:10:00    Downloading
+2026-05-24 12:10:00 batster4/evolai-phi4-mini-dpo-v1@8217794abaf74f8e15f578a507e27b5f9b1df4c9…
+2026-05-24 12:10:02     Loaded (local prefetch)
+2026-05-24 12:10:03     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 12:10:05   [2/50] UID 92 | Lin2es/evolai-tfm-04o @
+2026-05-24 12:10:05 52061d203723fdc8be09324d0c827898fcb7bdc4 | hotkey 5GefYX69KUVQ…
+2026-05-24 12:10:05     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:10:05     Fetched 20 texts (20 indices)
+2026-05-24 12:10:06     Loaded (local prefetch)
+2026-05-24 12:10:07     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:10:15    Ready:
+2026-05-24 12:10:15 batster4/evolai-phi4-mini-dpo-v1@8217794abaf74f8e15f578a507e27b5f9b1df4c9
+2026-05-24 12:10:15    Downloading
+2026-05-24 12:10:15 mrthor102/evolai-tfm-super-003@55560c22cf4535f0ee8a537e837c6f223cce46c4…
+2026-05-24 12:10:15 Fetching 7 files: 100%|██████████| 7/7 [00:03<00:00,  1.77it/s]
+2026-05-24 12:10:19    Ready:
+2026-05-24 12:10:19 mrthor102/evolai-tfm-super-003@55560c22cf4535f0ee8a537e837c6f223cce46c4
+2026-05-24 12:11:09     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:56
+2026-05-24 12:11:09     Loss 2.3817 | Size ×0.50 | Think 2.3817 | ThinkGain 0 (+0.4508) | Flow
+2026-05-24 12:11:09 0.0000 | KL 2.4809 | NextKL 2.2223 | SideQ 0% | Score 0.0000 (62.7s)
+2026-05-24 12:11:09     Gate FAIL | Improve same SHA cur=2.4809 req<=2.4312 prev=2.4809 | Consist ok
+2026-05-24 12:11:09 ema_cur=2.8391 ema_next=2.5265 ratio=0.890 max<=1.20
+2026-05-24 12:11:10   Evicted cached model:
+2026-05-24 12:11:10 mihai-777/evolai-mamba2-1p6b-alt@131bd3907f9816bbf184f5651ba63af66046e84c
+2026-05-24 12:11:11   [3/50] UID 59 | batster4/evolai-phi4-mini-dpo-v1 @
+2026-05-24 12:11:11 8217794abaf74f8e15f578a507e27b5f9b1df4c9 | hotkey 5GCA2s6m4RRM…
+2026-05-24 12:11:11     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:11:11    Downloading
+2026-05-24 12:11:11 dexserbia/evolai-gemma2-9b@7fe66309a3847239a4da5b712477f2105e88399b…
+2026-05-24 12:11:11     Fetched 20 texts (20 indices)
+2026-05-24 12:11:14     Loaded (local prefetch)
+2026-05-24 12:11:15     ⚠ Invalid model size (3.84B; allowed 0.45-0.48B, 1.50-1.80B) — skipping
+2026-05-24 12:11:17   [4/50] UID 98 | mrthor102/evolai-tfm-super-003 @
+2026-05-24 12:11:17 55560c22cf4535f0ee8a537e837c6f223cce46c4 | hotkey 5Hgy59m2Hzm1…
+2026-05-24 12:11:17     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:11:17     Fetched 20 texts (20 indices)
+2026-05-24 12:11:19     Loaded (local prefetch)
+2026-05-24 12:11:19     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:11:42    Ready: dexserbia/evolai-gemma2-9b@7fe66309a3847239a4da5b712477f2105e88399b
+2026-05-24 12:11:42    Downloading
+2026-05-24 12:11:42 logosnodos/evolai-qwen-1.5b@7e121e8efe6c6b93d622e9a53972d221e763d10b…
+2026-05-24 12:11:42 Fetching 17 files: 100%|██████████| 17/17 [00:45<00:00,  2.65s/it]
+2026-05-24 12:12:27     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:01:03
+2026-05-24 12:12:27    Ready: logosnodos/evolai-qwen-1.5b@7e121e8efe6c6b93d622e9a53972d221e763d10b
+2026-05-24 12:12:27     Loss 3.8329 | Size ×0.50 | Think 3.8329 | ThinkGain 0 (+0.4602) | Flow
+2026-05-24 12:12:27 0.0000 | KL 1.8949 | NextKL 1.6349 | SideQ 0% | Score 0.0000 (67.2s)
+2026-05-24 12:12:27     Gate FAIL | Improve FAIL cur=1.8949 req<=1.8268 prev=1.8641 | Consist ok
+2026-05-24 12:12:27 ema_cur=1.9343 ema_next=1.9036 ratio=0.984 max<=1.20
+2026-05-24 12:12:29   Evicted cached model:
+2026-05-24 12:12:29 evolai/evolai_mamba_naive_kl@b7c8842d1d5a700bd6a36b834fe6f0b3dc5d321a
+2026-05-24 12:12:29   [5/50] UID 9 | dexserbia/evolai-gemma2-9b @
+2026-05-24 12:12:29 7fe66309a3847239a4da5b712477f2105e88399b | hotkey 5EbpxBkVKVNV…
+2026-05-24 12:12:29     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:12:29     Fetched 20 texts (20 indices)
+2026-05-24 12:12:29    Downloading
+2026-05-24 12:12:29 clear-blue-sky/evolai-reborn-tfm-007@3ef10ff36d320040760b7410611d71dcd10e859f…
+2026-05-24 12:12:34    Ready:
+2026-05-24 12:12:34 clear-blue-sky/evolai-reborn-tfm-007@3ef10ff36d320040760b7410611d71dcd10e859f
+2026-05-24 12:12:37     Loaded (local prefetch)
+2026-05-24 12:12:39     ⚠ Invalid model size (9.24B; allowed 0.45-0.48B, 1.50-1.80B) — skipping
+2026-05-24 12:12:41   [6/50] UID 61 | logosnodos/evolai-qwen-1.5b @
+2026-05-24 12:12:41 7e121e8efe6c6b93d622e9a53972d221e763d10b | hotkey 5FNTU6ZYgKup…
+2026-05-24 12:12:41     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:12:41     Fetched 20 texts (20 indices)
+2026-05-24 12:12:41    Downloading
+2026-05-24 12:12:41 mihai-777/evolai-tfm-1p5b@594894f806fb4c014675d89aad14f1c68976d52c…
+2026-05-24 12:12:44     Loaded (local prefetch)
+2026-05-24 12:12:46    Ready: mihai-777/evolai-tfm-1p5b@594894f806fb4c014675d89aad14f1c68976d52c
+2026-05-24 12:12:49     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 12:12:51   [7/50] UID 84 | clear-blue-sky/evolai-reborn-tfm-007 @
+2026-05-24 12:12:51 3ef10ff36d320040760b7410611d71dcd10e859f | hotkey 5H1DaT8Dtt4N…
+2026-05-24 12:12:51     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:12:51     Fetched 20 texts (20 indices)
+2026-05-24 12:12:51    Downloading
+2026-05-24 12:12:51 clear-blue-sky/evolai-reborn-tfm-011@6cb42c88cda2f497034e245ea3c89f7d7469d30b…
+2026-05-24 12:12:52     Loaded (local prefetch)
+2026-05-24 12:12:53     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:12:55    Ready:
+2026-05-24 12:12:55 clear-blue-sky/evolai-reborn-tfm-011@6cb42c88cda2f497034e245ea3c89f7d7469d30b
+2026-05-24 12:13:31    alpha=0.005462 TAO/α  budget=0.049618
+2026-05-24 12:13:49    emission scale=1.000 (active miners)
+2026-05-24 12:13:49    emission scale=1.000 (active miners)
+2026-05-24 12:13:49    all quality scores zero after gates — emission share redistributed to
+2026-05-24 12:13:49 productive tracks
+2026-05-24 12:13:51   ✓  set at 12:13:51 UTC
+2026-05-24 12:13:55     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:58
+2026-05-24 12:13:55     Loss 3.8639 | Size ×0.50 | Think 3.8639 | ThinkGain 0 (+0.4558) | Flow
+2026-05-24 12:13:55 0.2560 | KL 1.8642 | NextKL 2.0781 | SideQ 0% | Score 0.0000 (62.1s)
+2026-05-24 12:13:55     Gate FAIL | Improve FAIL cur=1.8642 req<=1.8035 prev=1.8403 | Consist ok
+2026-05-24 12:13:55 ema_cur=1.8969 ema_next=1.9204 ratio=1.012 max<=1.20
+2026-05-24 12:13:56   Evicted cached model:
+2026-05-24 12:13:56 Lin2es/evolai-mb2-03v@3047597c4e4b4430450ddcd633240b88d781fdbd
+2026-05-24 12:13:57   [8/50] UID 33 | mihai-777/evolai-tfm-1p5b @
+2026-05-24 12:13:57 594894f806fb4c014675d89aad14f1c68976d52c | hotkey 5F22JM4of6TR…
+2026-05-24 12:13:57     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:13:57    Downloading
+2026-05-24 12:13:57 andrebarrosilva1123/evolai-c@6fc3d7f7c514cf3d5e4fc44dd8ef6b4ef883827c…
+2026-05-24 12:13:57     Fetched 20 texts (20 indices)
+2026-05-24 12:13:58     Loaded (local prefetch)
+2026-05-24 12:13:59     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:14:04    Ready: andrebarrosilva1123/evolai-c@6fc3d7f7c514cf3d5e4fc44dd8ef6b4ef883827c
+2026-05-24 12:14:59     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:55
+2026-05-24 12:14:59     Loss 2.7017 | Size ×0.50 | Think 2.7017 | ThinkGain 0 (+0.4541) | Flow
+2026-05-24 12:14:59 0.0000 | KL 2.4487 | NextKL 2.5304 | SideQ 0% | Score 0.0000 (60.3s)
+2026-05-24 12:14:59     Gate FAIL | Improve same SHA cur=2.4487 req<=2.3997 prev=2.4487 | Consist ok
+2026-05-24 12:14:59 ema_cur=2.4199 ema_next=2.4397 ratio=1.008 max<=1.20
+2026-05-24 12:15:01   Evicted cached model:
+2026-05-24 12:15:01 mihai-777/evolai-mamba2-0p47b-v3@c2a96b92acf632d51a2c21da4482f77f98256518
+2026-05-24 12:15:02   [9/50] UID 73 | clear-blue-sky/evolai-reborn-tfm-011 @
+2026-05-24 12:15:02 6cb42c88cda2f497034e245ea3c89f7d7469d30b | hotkey 5CSAM6rnGRPk…
+2026-05-24 12:15:02     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:15:02     Fetched 20 texts (20 indices)
+2026-05-24 12:15:02    Downloading
+2026-05-24 12:15:02 andrebarrosilva1123/evolai-0.4b@fa913c93aa7a7449066ce870427387bd3fc7e841…
+2026-05-24 12:15:05     Loaded (local prefetch)
+2026-05-24 12:15:05     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:15:09    Ready:
+2026-05-24 12:15:09 andrebarrosilva1123/evolai-0.4b@fa913c93aa7a7449066ce870427387bd3fc7e841
+2026-05-24 12:16:02     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:54
+2026-05-24 12:16:02     Loss 3.6678 | Size ×0.50 | Think 3.6678 | ThinkGain 0 (+0.4590) | Flow
+2026-05-24 12:16:02 0.0045 | KL 1.9554 | NextKL 1.9650 | SideQ 0% | Score 0.0000 (56.8s)
+2026-05-24 12:16:02     Gate FAIL | Improve FAIL cur=1.9554 req<=1.8828 prev=1.9212 | Consist ok
+2026-05-24 12:16:02 ema_cur=2.1722 ema_next=1.8646 ratio=0.858 max<=1.20
+2026-05-24 12:16:03   Evicted cached model:
+2026-05-24 12:16:03 Lin2es/evolai-mb2-01v@a7f32e5ce7f8d307c98560e5025525f3703310c0
+2026-05-24 12:16:04   [10/50] UID 54 | andrebarrosilva1123/evolai-c @
+2026-05-24 12:16:04 6fc3d7f7c514cf3d5e4fc44dd8ef6b4ef883827c | hotkey 5D7HPRR2QdDB…
+2026-05-24 12:16:04     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:16:04    Downloading
+2026-05-24 12:16:04 mrthor102/evolai-tfm-super-002@5461e22b7560e7470d9300eb4c6b1e231f6d8490…
+2026-05-24 12:16:04     Fetched 20 texts (20 indices)
+2026-05-24 12:16:06     Loaded (local prefetch)
+2026-05-24 12:16:07     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 12:16:09   [11/50] UID 49 | andrebarrosilva1123/evolai-0.4b @
+2026-05-24 12:16:09 fa913c93aa7a7449066ce870427387bd3fc7e841 | hotkey 5DULz3AJEisH…
+2026-05-24 12:16:09     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:16:09     Fetched 20 texts (20 indices)
+2026-05-24 12:16:09    Ready:
+2026-05-24 12:16:09 mrthor102/evolai-tfm-super-002@5461e22b7560e7470d9300eb4c6b1e231f6d8490
+2026-05-24 12:16:09    Downloading
+2026-05-24 12:16:09 mihai-777/evolai-tfm-1p5b-05@a66a1beeefdbc6ff871ea4854b4e71ed5c3a44ba…
+2026-05-24 12:16:11     Loaded (local prefetch)
+2026-05-24 12:16:11     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 12:16:13   [12/50] UID 97 | mrthor102/evolai-tfm-super-002 @
+2026-05-24 12:16:13 5461e22b7560e7470d9300eb4c6b1e231f6d8490 | hotkey 5EcJYRJBVF5K…
+2026-05-24 12:16:13     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:16:13     Fetched 20 texts (20 indices)
+2026-05-24 12:16:14    Ready: mihai-777/evolai-tfm-1p5b-05@a66a1beeefdbc6ff871ea4854b4e71ed5c3a44ba
+2026-05-24 12:16:14    Downloading
+2026-05-24 12:16:14 clear-blue-sky/evolai-reborn-tfm-002@0ab2080041dd51cbabd9eadad8d431cc9bbccd74…
+2026-05-24 12:16:15     Loaded (local prefetch)
+2026-05-24 12:16:15     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:16:18    Ready:
+2026-05-24 12:16:18 clear-blue-sky/evolai-reborn-tfm-002@0ab2080041dd51cbabd9eadad8d431cc9bbccd74
+2026-05-24 12:16:49     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:31
+2026-05-24 12:16:50     Loss 3.1354 | Size ×0.50 | Think 3.1354 | ThinkGain 0 (+0.4626) | Flow
+2026-05-24 12:16:50 0.1856 | KL 1.8006 | NextKL 1.9789 | SideQ 0% | Score 0.0000 (34.1s)
+2026-05-24 12:16:50     Gate FAIL | Improve FAIL cur=1.8006 req<=1.7443 prev=1.7799 | Consist ok
+2026-05-24 12:16:50 ema_cur=1.9078 ema_next=1.9090 ratio=1.001 max<=1.20
+2026-05-24 12:16:51   Evicted cached model:
+2026-05-24 12:16:51 mihai-777/evolai-mamba2-0p47b@7b6564c9a46f602702c260185aa43867f321dee7
+2026-05-24 12:16:51   [13/50] UID 76 | mihai-777/evolai-tfm-1p5b-05 @
+2026-05-24 12:16:51 a66a1beeefdbc6ff871ea4854b4e71ed5c3a44ba | hotkey 5GLBxPtoiB7R…
+2026-05-24 12:16:51     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:16:51     Fetched 20 texts (20 indices)
+2026-05-24 12:16:51    Downloading
+2026-05-24 12:16:51 sangerno63/evolai-transformer-v2@4b325f440c9ab4b8cc501454c5c5dc5f8e890ebb…
+2026-05-24 12:16:53     Loaded (local prefetch)
+2026-05-24 12:16:53     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:16:56    Ready:
+2026-05-24 12:16:56 sangerno63/evolai-transformer-v2@4b325f440c9ab4b8cc501454c5c5dc5f8e890ebb
+2026-05-24 12:17:31     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:34
+2026-05-24 12:17:31     Loss 2.9967 | Size ×0.50 | Think 2.9967 | ThinkGain 0 (+0.4543) | Flow
+2026-05-24 12:17:31 0.2331 | KL 2.4695 | NextKL 2.8922 | SideQ 0% | Score 0.0000 (37.5s)
+2026-05-24 12:17:31     Gate FAIL | Improve same SHA cur=2.4695 req<=2.4201 prev=2.4695 | Consist ok
+2026-05-24 12:17:31 ema_cur=2.3740 ema_next=2.4175 ratio=1.018 max<=1.20
+2026-05-24 12:17:33   Evicted cached model:
+2026-05-24 12:17:33 Lin2es/evolai-mb2-02v@c1ad3d94c5929dcc0e3a40d9d9034bd80da9a1f8
+2026-05-24 12:17:33   [14/50] UID 67 | clear-blue-sky/evolai-reborn-tfm-002 @
+2026-05-24 12:17:33 0ab2080041dd51cbabd9eadad8d431cc9bbccd74 | hotkey 5GC7k2mkTKGF…
+2026-05-24 12:17:33     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:17:33     Fetched 20 texts (20 indices)
+2026-05-24 12:17:33    Downloading
+2026-05-24 12:17:33 clear-blue-sky/evolai-reborn-tfm-001@968203b9ef1961691a26298039521e5ed03afd99…
+2026-05-24 12:17:35     Loaded (local prefetch)
+2026-05-24 12:17:35     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:17:37    Ready:
+2026-05-24 12:17:37 clear-blue-sky/evolai-reborn-tfm-001@968203b9ef1961691a26298039521e5ed03afd99
+2026-05-24 12:18:14     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:35
+2026-05-24 12:18:14     Loss 4.0396 | Size ×0.50 | Think 4.0396 | ThinkGain 0 (+0.4600) | Flow
+2026-05-24 12:18:14 0.2229 | KL 2.0299 | NextKL 2.2974 | SideQ 0% | Score 0.0000 (38.8s)
+2026-05-24 12:18:14     Gate FAIL | Improve FAIL cur=2.0299 req<=1.9512 prev=1.9910 | Consist ok
+2026-05-24 12:18:14 ema_cur=1.8730 ema_next=1.9117 ratio=1.021 max<=1.20
+2026-05-24 12:18:16   Evicted cached model:
+2026-05-24 12:18:16 Lin2es/evolai-tfm-04o@52061d203723fdc8be09324d0c827898fcb7bdc4
+2026-05-24 12:18:17   [15/50] UID 48 | sangerno63/evolai-transformer-v2 @
+2026-05-24 12:18:17 4b325f440c9ab4b8cc501454c5c5dc5f8e890ebb | hotkey 5ED3KNj5uEVS…
+2026-05-24 12:18:17     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:18:17    Downloading evolai/evolai_naive_kl@da8203b6900f14ec1b724f3dd8c6dc35576fc3e4…
+2026-05-24 12:18:17     Fetched 20 texts (20 indices)
+2026-05-24 12:18:18     Loaded (local prefetch)
+2026-05-24 12:18:19     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:18:19    Ready: evolai/evolai_naive_kl@da8203b6900f14ec1b724f3dd8c6dc35576fc3e4
+2026-05-24 12:18:55     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:33
+2026-05-24 12:18:55     Loss 3.9874 | Size ×0.50 | Think 3.9874 | ThinkGain 0 (+0.4457) | Flow
+2026-05-24 12:18:55 0.0000 | KL 2.2562 | NextKL 2.4143 | SideQ 0% | Score 0.0001 (36.4s)
+2026-05-24 12:18:55     Gate FAIL | Improve same SHA cur=2.2562 req<=2.2110 prev=2.2562 | Consist ok
+2026-05-24 12:18:55 ema_cur=2.1989 ema_next=2.2164 ratio=1.008 max<=1.20
+2026-05-24 12:18:57   Evicted cached model:
+2026-05-24 12:18:57 mrthor102/evolai-tfm-super-003@55560c22cf4535f0ee8a537e837c6f223cce46c4
+2026-05-24 12:18:58   [16/50] UID 62 | clear-blue-sky/evolai-reborn-tfm-001 @
+2026-05-24 12:18:58 968203b9ef1961691a26298039521e5ed03afd99 | hotkey 5EjjVuNJsjqP…
+2026-05-24 12:18:58     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:18:58     Fetched 20 texts (20 indices)
+2026-05-24 12:18:58    Downloading Lin2es/evolai-tfm-02o@fc5fc3ee4a3877b825b404dc85c9367c1f248c59…
+2026-05-24 12:18:59     Loaded (local prefetch)
+2026-05-24 12:18:59     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:19:00    Ready: Lin2es/evolai-tfm-02o@fc5fc3ee4a3877b825b404dc85c9367c1f248c59
+2026-05-24 12:19:38     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:35
+2026-05-24 12:19:38     Loss 3.9352 | Size ×0.50 | Think 3.9352 | ThinkGain 0 (+0.4568) | Flow
+2026-05-24 12:19:38 0.1797 | KL 1.7387 | NextKL 2.0896 | SideQ 0% | Score 0.0000 (38.4s)
+2026-05-24 12:19:38     Gate FAIL | Improve FAIL cur=1.7387 req<=1.6668 prev=1.7009 | Consist ok
+2026-05-24 12:19:38 ema_cur=1.9112 ema_next=1.9139 ratio=1.001 max<=1.20
+2026-05-24 12:19:40   Evicted cached model:
+2026-05-24 12:19:40 clear-blue-sky/evolai-reborn-tfm-007@3ef10ff36d320040760b7410611d71dcd10e859f
+2026-05-24 12:19:40   [17/50] UID 95 | evolai/evolai_naive_kl @
+2026-05-24 12:19:40 da8203b6900f14ec1b724f3dd8c6dc35576fc3e4 | hotkey 5CXwmm7R4U6o…
+2026-05-24 12:19:40     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:19:40     Fetched 20 texts (20 indices)
+2026-05-24 12:19:40    Downloading
+2026-05-24 12:19:40 Danieli1021/evolai-qwen047-v3@e01dfd3b9c54325c98bf12966bdebadace391002…
+2026-05-24 12:19:42     Loaded (local prefetch)
+2026-05-24 12:19:42     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:19:45    Ready: Danieli1021/evolai-qwen047-v3@e01dfd3b9c54325c98bf12966bdebadace391002
+2026-05-24 12:19:49     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:03
+2026-05-24 12:19:49     Loss 2.4382 | Size ×0.50 | Think 2.4382 | ThinkGain 0 (+0.4799) | Flow
+2026-05-24 12:19:49 0.2126 | KL 2.9895 | NextKL 3.1252 | SideQ 0% | Score 0.0000 (6.9s)
+2026-05-24 12:19:49     Gate FAIL | Improve same SHA cur=2.9895 req<=2.9298 prev=2.9895 | Consist ok
+2026-05-24 12:19:49 ema_cur=2.7526 ema_next=2.7825 ratio=1.011 max<=1.20
+2026-05-24 12:19:51   Evicted cached model:
+2026-05-24 12:19:51 mihai-777/evolai-tfm-1p5b@594894f806fb4c014675d89aad14f1c68976d52c
+2026-05-24 12:19:51   [18/50] UID 78 | Lin2es/evolai-tfm-02o @
+2026-05-24 12:19:51 fc5fc3ee4a3877b825b404dc85c9367c1f248c59 | hotkey 5FA2kgLNs36d…
+2026-05-24 12:19:51     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:19:51     Fetched 20 texts (20 indices)
+2026-05-24 12:19:51    Downloading
+2026-05-24 12:19:51 dreamiii0406/evolai-0p47b-v1@fea2659bdf8bd35e5382c50e4857f1ab20f20262…
+2026-05-24 12:19:53     Loaded (local prefetch)
+2026-05-24 12:19:53     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:19:54    Ready: dreamiii0406/evolai-0p47b-v1@fea2659bdf8bd35e5382c50e4857f1ab20f20262
+2026-05-24 12:20:32     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:35
+2026-05-24 12:20:32     Loss 3.8917 | Size ×0.50 | Think 3.8917 | ThinkGain 0 (+0.4205) | Flow
+2026-05-24 12:20:32 0.2615 | KL 2.5802 | NextKL 2.8971 | SideQ 0% | Score 0.0000 (38.7s)
+2026-05-24 12:20:32     Gate FAIL | Improve same SHA cur=2.5802 req<=2.5286 prev=2.5802 | Consist ok
+2026-05-24 12:20:32 ema_cur=2.7388 ema_next=2.7531 ratio=1.005 max<=1.20
+2026-05-24 12:20:33   Evicted cached model:
+2026-05-24 12:20:33 clear-blue-sky/evolai-reborn-tfm-011@6cb42c88cda2f497034e245ea3c89f7d7469d30b
+2026-05-24 12:20:34   [19/50] UID 100 | Danieli1021/evolai-qwen047-v3 @
+2026-05-24 12:20:34 e01dfd3b9c54325c98bf12966bdebadace391002 | hotkey 5DMH2VrrukYd…
+2026-05-24 12:20:34     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:20:34    Downloading
+2026-05-24 12:20:34 clear-blue-sky/evolai-reborn-tfm-010@dc4897694b64a2097a8ca101f054a4b260946897…
+2026-05-24 12:20:34     Fetched 20 texts (20 indices)
+2026-05-24 12:20:36     Loaded (local prefetch)
+2026-05-24 12:20:36     Model 0.47B → batch=512, seq=16384
+2026-05-24 12:20:39    Ready:
+2026-05-24 12:20:39 clear-blue-sky/evolai-reborn-tfm-010@dc4897694b64a2097a8ca101f054a4b260946897
+2026-05-24 12:20:55     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:16
+2026-05-24 12:20:56     Loss 4.3010 | Size ×0.51 | Think 4.3010 | ThinkGain 0 (+0.4793) | Flow
+2026-05-24 12:20:56 0.0000 | KL 4.1326 | NextKL 3.8464 | SideQ 0% | Score 0.0000 (19.7s)
+2026-05-24 12:20:56     Gate FAIL | Improve same SHA cur=4.1326 req<=4.0500 prev=4.1326 | Consist ok
+2026-05-24 12:20:56 ema_cur=4.2023 ema_next=3.9472 ratio=0.939 max<=1.20
+2026-05-24 12:20:57   Evicted cached model:
+2026-05-24 12:20:57 mrthor102/evolai-tfm-super-002@5461e22b7560e7470d9300eb4c6b1e231f6d8490
+2026-05-24 12:20:58   [20/50] UID 80 | dreamiii0406/evolai-0p47b-v1 @
+2026-05-24 12:20:58 fea2659bdf8bd35e5382c50e4857f1ab20f20262 | hotkey 5Cd2zZyMQnvp…
+2026-05-24 12:20:58     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:20:58     Fetched 20 texts (20 indices)
+2026-05-24 12:20:58    Downloading
+2026-05-24 12:20:58 mihai-777/evolai-tfm-1p5b-alt@5ebb4a406916abe39e32823ff1f635b70e707e5a…
+2026-05-24 12:20:59     Loaded (local prefetch)
+2026-05-24 12:20:59     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 12:21:01   [21/50] UID 72 | clear-blue-sky/evolai-reborn-tfm-010 @
+2026-05-24 12:21:01 dc4897694b64a2097a8ca101f054a4b260946897 | hotkey 5H3rMcqJQcbK…
+2026-05-24 12:21:01     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:21:01     Fetched 20 texts (20 indices)
+2026-05-24 12:21:01    Ready: mihai-777/evolai-tfm-1p5b-alt@5ebb4a406916abe39e32823ff1f635b70e707e5a
+2026-05-24 12:21:01    Downloading
+2026-05-24 12:21:01 clear-blue-sky/evolai-reborn-tfm-006@d5c9c2b37c7ef59d757eae719aa07c963f5a3646…
+2026-05-24 12:21:03     Loaded (local prefetch)
+2026-05-24 12:21:03     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:21:05    Ready:
+2026-05-24 12:21:05 clear-blue-sky/evolai-reborn-tfm-006@d5c9c2b37c7ef59d757eae719aa07c963f5a3646
+2026-05-24 12:21:41     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:35
+2026-05-24 12:21:42     Loss 3.7596 | Size ×0.50 | Think 3.7596 | ThinkGain 0 (+0.4600) | Flow
+2026-05-24 12:21:42 0.1879 | KL 1.8890 | NextKL 1.7882 | SideQ 0% | Score 0.0000 (38.3s)
+2026-05-24 12:21:42     Gate FAIL | Improve FAIL cur=1.8890 req<=1.8006 prev=1.8373 | Consist ok
+2026-05-24 12:21:42 ema_cur=1.8702 ema_next=1.8663 ratio=0.998 max<=1.20
+2026-05-24 12:21:43   Evicted cached model:
+2026-05-24 12:21:43 mihai-777/evolai-tfm-1p5b-05@a66a1beeefdbc6ff871ea4854b4e71ed5c3a44ba
+2026-05-24 12:21:44   [22/50] UID 38 | mihai-777/evolai-tfm-1p5b-alt @
+2026-05-24 12:21:44 5ebb4a406916abe39e32823ff1f635b70e707e5a | hotkey 5FbfiXysyCtC…
+2026-05-24 12:21:44     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:21:44     Fetched 20 texts (20 indices)
+2026-05-24 12:21:44    Downloading
+2026-05-24 12:21:44 Radiant28/evolai-transformer-0.4b-b1@18231d7d50096d8b2744fdff1b38a7b90246ddf0…
+2026-05-24 12:21:46     Loaded (local prefetch)
+2026-05-24 12:21:46     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:21:51    Ready:
+2026-05-24 12:21:51 Radiant28/evolai-transformer-0.4b-b1@18231d7d50096d8b2744fdff1b38a7b90246ddf0
+2026-05-24 12:22:24     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:35
+2026-05-24 12:22:25     Loss 2.9623 | Size ×0.50 | Think 2.9623 | ThinkGain 0 (+0.4572) | Flow
+2026-05-24 12:22:25 0.0000 | KL 2.2449 | NextKL 2.3022 | SideQ 0% | Score 0.0000 (38.5s)
+2026-05-24 12:22:25     Gate FAIL | Improve same SHA cur=2.2449 req<=2.2000 prev=2.2449 | Consist ok
+2026-05-24 12:22:25 ema_cur=2.4537 ema_next=2.4471 ratio=0.997 max<=1.20
+2026-05-24 12:22:26   Evicted cached model:
+2026-05-24 12:22:26 clear-blue-sky/evolai-reborn-tfm-002@0ab2080041dd51cbabd9eadad8d431cc9bbccd74
+2026-05-24 12:22:27   [23/50] UID 66 | clear-blue-sky/evolai-reborn-tfm-006 @
+2026-05-24 12:22:27 d5c9c2b37c7ef59d757eae719aa07c963f5a3646 | hotkey 5E4M4B5sVED5…
+2026-05-24 12:22:27     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:22:27     Fetched 20 texts (20 indices)
+2026-05-24 12:22:27    Downloading
+2026-05-24 12:22:27 andrebarrosilva1123/evolai-b@3414c0abb8793ed4af56fd5e6e536b8b0f5ac520…
+2026-05-24 12:22:28     Loaded (local prefetch)
+2026-05-24 12:22:29     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:22:33    Ready: andrebarrosilva1123/evolai-b@3414c0abb8793ed4af56fd5e6e536b8b0f5ac520
+2026-05-24 12:23:06     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 76/76 100% 0:00:34
+2026-05-24 12:23:07     Loss 3.8440 | Size ×0.50 | Think 3.8440 | ThinkGain 0 (+0.4612) | Flow
+2026-05-24 12:23:07 0.1095 | KL 1.8612 | NextKL 1.8898 | SideQ 0% | Score 0.0000 (37.6s)
+2026-05-24 12:23:07     Gate FAIL | Improve FAIL cur=1.8612 req<=1.7897 prev=1.8262 | Consist ok
+2026-05-24 12:23:07 ema_cur=1.9425 ema_next=1.9316 ratio=0.994 max<=1.20
+2026-05-24 12:23:09   Evicted cached model:
+2026-05-24 12:23:09 sangerno63/evolai-transformer-v2@4b325f440c9ab4b8cc501454c5c5dc5f8e890ebb
+2026-05-24 12:23:09   [24/50] UID 35 | Radiant28/evolai-transformer-0.4b-b1 @
+2026-05-24 12:23:09 18231d7d50096d8b2744fdff1b38a7b90246ddf0 | hotkey 5EXZBq3wQzTK…
+2026-05-24 12:23:09     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:23:09     Fetched 20 texts (20 indices)
+2026-05-24 12:23:09    Downloading Jubilant/evolai-1.54b@d8681d30b14cb5a597d2ff7c909998cf9d217599…
+2026-05-24 12:23:11     Loaded (local prefetch)
+2026-05-24 12:23:11     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 12:23:14   [25/50] UID 50 | andrebarrosilva1123/evolai-b @
+2026-05-24 12:23:14 3414c0abb8793ed4af56fd5e6e536b8b0f5ac520 | hotkey 5FXELcBK4WiD…
+2026-05-24 12:23:14     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:23:14     Fetched 20 texts (20 indices)
+2026-05-24 12:23:16    Ready: Jubilant/evolai-1.54b@d8681d30b14cb5a597d2ff7c909998cf9d217599
+2026-05-24 12:23:16    Downloading
+2026-05-24 12:23:16 mihai-777/evolai-tfm-1p5b-v5@bd42aeb0828dfa0126f7fc825e13b49209fec678…
+2026-05-24 12:23:16     Loaded (local prefetch)
+2026-05-24 12:23:16 Fetching 8 files: 100%|██████████| 8/8 [00:02<00:00,  2.88it/s]
+2026-05-24 12:23:16     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 12:23:18   [26/50] UID 36 | Jubilant/evolai-1.54b @
+2026-05-24 12:23:18 d8681d30b14cb5a597d2ff7c909998cf9d217599 | hotkey 5G7Co5VNfQio…
+2026-05-24 12:23:18     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:23:18     Fetched 20 texts (20 indices)
+2026-05-24 12:23:18    Ready: mihai-777/evolai-tfm-1p5b-v5@bd42aeb0828dfa0126f7fc825e13b49209fec678
+2026-05-24 12:23:18    Downloading
+2026-05-24 12:23:18 mrthor102/evolai-tfm-super-001@cf120ec150fc9f7583a89dd6c7df84ddd9cde3ee…
+2026-05-24 12:23:20     Loaded (local prefetch)
+2026-05-24 12:23:21     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 12:23:23   [27/50] UID 42 | mihai-777/evolai-tfm-1p5b-v5 @
+2026-05-24 12:23:23 bd42aeb0828dfa0126f7fc825e13b49209fec678 | hotkey 5C5WCYnsrXRz…
+2026-05-24 12:23:23     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:23:23     Fetched 20 texts (20 indices)
+2026-05-24 12:23:23    Ready:
+2026-05-24 12:23:23 mrthor102/evolai-tfm-super-001@cf120ec150fc9f7583a89dd6c7df84ddd9cde3ee
+2026-05-24 12:23:23    Downloading
+2026-05-24 12:23:23 mihai-777/evolai-tfm-1p5b-04@fb289dbfe35c595b1a586f786a19e118cc1bfc9a…
+2026-05-24 12:23:24     Loaded (local prefetch)
+2026-05-24 12:23:25     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:23:27    Ready: mihai-777/evolai-tfm-1p5b-04@fb289dbfe35c595b1a586f786a19e118cc1bfc9a
+2026-05-24 12:24:02     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:35
+2026-05-24 12:24:03     Loss 2.8583 | Size ×0.50 | Think 2.8583 | ThinkGain 0 (+0.4520) | Flow
+2026-05-24 12:24:03 0.0285 | KL 2.5664 | NextKL 2.2947 | SideQ 0% | Score 0.0000 (37.9s)
+2026-05-24 12:24:03     Gate FAIL | Improve same SHA cur=2.5664 req<=2.5151 prev=2.5664 | Consist ok
+2026-05-24 12:24:03 ema_cur=2.4367 ema_next=2.4287 ratio=0.997 max<=1.20
+2026-05-24 12:24:04   Evicted cached model:
+2026-05-24 12:24:04 clear-blue-sky/evolai-reborn-tfm-001@968203b9ef1961691a26298039521e5ed03afd99
+2026-05-24 12:24:05   [28/50] UID 94 | mrthor102/evolai-tfm-super-001 @
+2026-05-24 12:24:05 cf120ec150fc9f7583a89dd6c7df84ddd9cde3ee | hotkey 5CPXihPMoGQ2…
+2026-05-24 12:24:05     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:24:05     Fetched 20 texts (20 indices)
+2026-05-24 12:24:05    Downloading
+2026-05-24 12:24:05 clear-blue-sky/evolai-reborn-tfm-009@be196144c82001a51965b488f9dd7934b1308f79…
+2026-05-24 12:24:06     Loaded (local prefetch)
+2026-05-24 12:24:07     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:24:10    Ready:
+2026-05-24 12:24:10 clear-blue-sky/evolai-reborn-tfm-009@be196144c82001a51965b488f9dd7934b1308f79
+2026-05-24 12:24:45     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:34
+2026-05-24 12:24:45     Loss 3.7495 | Size ×0.50 | Think 3.7495 | ThinkGain 0 (+0.4621) | Flow
+2026-05-24 12:24:45 0.0000 | KL 1.9989 | NextKL 1.9511 | SideQ 0% | Score 0.0000 (37.9s)
+2026-05-24 12:24:45     Gate FAIL | Improve FAIL cur=1.9989 req<=1.9259 prev=1.9652 | Consist ok
+2026-05-24 12:24:45 ema_cur=1.9666 ema_next=1.9682 ratio=1.001 max<=1.20
+2026-05-24 12:24:47   Evicted cached model:
+2026-05-24 12:24:47 evolai/evolai_naive_kl@da8203b6900f14ec1b724f3dd8c6dc35576fc3e4
+2026-05-24 12:24:47   [29/50] UID 75 | mihai-777/evolai-tfm-1p5b-04 @
+2026-05-24 12:24:47 fb289dbfe35c595b1a586f786a19e118cc1bfc9a | hotkey 5Dnz76SAsEv8…
+2026-05-24 12:24:47     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:24:47     Fetched 20 texts (20 indices)
+2026-05-24 12:24:47    Downloading snx999/evolai_qw_4b@69eff663b4e9a2b5bf76dde6cdecc5dce29759d3…
+2026-05-24 12:24:49     Loaded (local prefetch)
+2026-05-24 12:24:49     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:25:04    Ready: snx999/evolai_qw_4b@69eff663b4e9a2b5bf76dde6cdecc5dce29759d3
+2026-05-24 12:25:28     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:36
+2026-05-24 12:25:29     Loss 2.4246 | Size ×0.50 | Think 2.4246 | ThinkGain 0 (+0.4545) | Flow
+2026-05-24 12:25:29 0.0000 | KL 2.2171 | NextKL 2.3620 | SideQ 0% | Score 0.0000 (39.6s)
+2026-05-24 12:25:29     Gate FAIL | Improve same SHA cur=2.2171 req<=2.1727 prev=2.2171 | Consist ok
+2026-05-24 12:25:29 ema_cur=2.4287 ema_next=2.4303 ratio=1.001 max<=1.20
+2026-05-24 12:25:30   Evicted cached model:
+2026-05-24 12:25:30 Lin2es/evolai-tfm-02o@fc5fc3ee4a3877b825b404dc85c9367c1f248c59
+2026-05-24 12:25:31   [30/50] UID 69 | clear-blue-sky/evolai-reborn-tfm-009 @
+2026-05-24 12:25:31 be196144c82001a51965b488f9dd7934b1308f79 | hotkey 5ChUCf3NjrgS…
+2026-05-24 12:25:31     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:25:31    Downloading
+2026-05-24 12:25:31 mrthor102/evolai-tfm-super-004@a64d583446212f0c506df7cce649f4fa00d7ceb6…
+2026-05-24 12:25:31     Fetched 20 texts (20 indices)
+2026-05-24 12:25:32     Loaded (local prefetch)
+2026-05-24 12:25:33     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:25:35    Ready:
+2026-05-24 12:25:35 mrthor102/evolai-tfm-super-004@a64d583446212f0c506df7cce649f4fa00d7ceb6
+2026-05-24 12:26:11     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:35
+2026-05-24 12:26:12     Loss 4.0106 | Size ×0.50 | Think 4.0106 | ThinkGain 0 (+0.4610) | Flow
+2026-05-24 12:26:12 0.0000 | KL 2.2088 | NextKL 1.7496 | SideQ 0% | Score 0.0000 (38.7s)
+2026-05-24 12:26:12     Gate FAIL | Improve FAIL cur=2.2088 req<=2.1282 prev=2.1717 | Consist ok
+2026-05-24 12:26:12 ema_cur=1.9288 ema_next=1.9099 ratio=0.990 max<=1.20
+2026-05-24 12:26:13   Evicted cached model:
+2026-05-24 12:26:13 Danieli1021/evolai-qwen047-v3@e01dfd3b9c54325c98bf12966bdebadace391002
+2026-05-24 12:26:14   [31/50] UID 25 | snx999/evolai_qw_4b @
+2026-05-24 12:26:14 69eff663b4e9a2b5bf76dde6cdecc5dce29759d3 | hotkey 5HBJoNWv4nAi…
+2026-05-24 12:26:14     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:26:14     Fetched 20 texts (20 indices)
+2026-05-24 12:26:14    Downloading
+2026-05-24 12:26:14 clear-blue-sky/evolai-reborn-tfm-003@4857442989bb3293608689fbb41e3db5716278d5…
+2026-05-24 12:26:17     Loaded (local prefetch)
+2026-05-24 12:26:18    Ready:
+2026-05-24 12:26:18 clear-blue-sky/evolai-reborn-tfm-003@4857442989bb3293608689fbb41e3db5716278d5
+2026-05-24 12:26:19     ⚠ Invalid model size (4.21B; allowed 0.45-0.48B, 1.50-1.80B) — skipping
+2026-05-24 12:26:21   [32/50] UID 99 | mrthor102/evolai-tfm-super-004 @
+2026-05-24 12:26:21 a64d583446212f0c506df7cce649f4fa00d7ceb6 | hotkey 5EnuPuwNaqmP…
+2026-05-24 12:26:21     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:26:21     Fetched 20 texts (20 indices)
+2026-05-24 12:26:21    Downloading
+2026-05-24 12:26:21 clear-blue-sky/evolai-reborn-tfm-004@468955f6c646903082cdd2972ac15cf636d4ad06…
+2026-05-24 12:26:22     Loaded (local prefetch)
+2026-05-24 12:26:23     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:26:24    Ready:
+2026-05-24 12:26:24 clear-blue-sky/evolai-reborn-tfm-004@468955f6c646903082cdd2972ac15cf636d4ad06
+2026-05-24 12:27:01     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:35
+2026-05-24 12:27:02     Loss 3.6207 | Size ×0.50 | Think 3.6207 | ThinkGain 0 (+0.4599) | Flow
+2026-05-24 12:27:02 0.1119 | KL 2.0426 | NextKL 1.9069 | SideQ 0% | Score 0.0000 (38.8s)
+2026-05-24 12:27:02     Gate FAIL | Improve FAIL cur=2.0426 req<=1.9453 prev=1.9850 | Consist ok
+2026-05-24 12:27:02 ema_cur=1.9241 ema_next=1.9138 ratio=0.995 max<=1.20
+2026-05-24 12:27:04   Evicted cached model:
+2026-05-24 12:27:04 clear-blue-sky/evolai-reborn-tfm-010@dc4897694b64a2097a8ca101f054a4b260946897
+2026-05-24 12:27:04   [33/50] UID 82 | clear-blue-sky/evolai-reborn-tfm-003 @
+2026-05-24 12:27:04 4857442989bb3293608689fbb41e3db5716278d5 | hotkey 5EtDxpyqHywK…
+2026-05-24 12:27:04     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:27:04    Downloading
+2026-05-24 12:27:04 andrebarrosilva1123/evolai-e@806394ca7f2f7c1edbe962a9471647f4d67b5e72…
+2026-05-24 12:27:04     Fetched 20 texts (20 indices)
+2026-05-24 12:27:06     Loaded (local prefetch)
+2026-05-24 12:27:06     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:27:10    Ready: andrebarrosilva1123/evolai-e@806394ca7f2f7c1edbe962a9471647f4d67b5e72
+2026-05-24 12:27:45     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:36
+2026-05-24 12:27:45     Loss 4.0656 | Size ×0.50 | Think 4.0656 | ThinkGain 0 (+0.4622) | Flow
+2026-05-24 12:27:45 0.1105 | KL 1.8402 | NextKL 1.7221 | SideQ 0% | Score 0.0000 (38.8s)
+2026-05-24 12:27:45     Gate FAIL | Improve FAIL cur=1.8402 req<=1.7503 prev=1.7860 | Consist ok
+2026-05-24 12:27:45 ema_cur=1.8826 ema_next=1.8741 ratio=0.995 max<=1.20
+2026-05-24 12:27:47   Evicted cached model:
+2026-05-24 12:27:47 mihai-777/evolai-tfm-1p5b-alt@5ebb4a406916abe39e32823ff1f635b70e707e5a
+2026-05-24 12:27:47   [34/50] UID 70 | clear-blue-sky/evolai-reborn-tfm-004 @
+2026-05-24 12:27:47 468955f6c646903082cdd2972ac15cf636d4ad06 | hotkey 5Hdg2gHopWQK…
+2026-05-24 12:27:47     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:27:47     Fetched 20 texts (20 indices)
+2026-05-24 12:27:47    Downloading
+2026-05-24 12:27:47 evolai/evolai_test_challenge@d3b63e40df902047eafcce71413b708f62936912…
+2026-05-24 12:27:49     Loaded (local prefetch)
+2026-05-24 12:27:49     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:27:51    Ready: evolai/evolai_test_challenge@d3b63e40df902047eafcce71413b708f62936912
+2026-05-24 12:28:28     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:35
+2026-05-24 12:28:28     Loss 4.0223 | Size ×0.50 | Think 4.0223 | ThinkGain 0 (+0.4644) | Flow
+2026-05-24 12:28:28 0.0000 | KL 2.0203 | NextKL 2.0960 | SideQ 0% | Score 0.0000 (38.7s)
+2026-05-24 12:28:28     Gate FAIL | Improve FAIL cur=2.0203 req<=1.9453 prev=1.9850 | Consist ok
+2026-05-24 12:28:28 ema_cur=1.9222 ema_next=1.9392 ratio=1.009 max<=1.20
+2026-05-24 12:28:30   Evicted cached model:
+2026-05-24 12:28:30 clear-blue-sky/evolai-reborn-tfm-006@d5c9c2b37c7ef59d757eae719aa07c963f5a3646
+2026-05-24 12:28:30   [35/50] UID 53 | andrebarrosilva1123/evolai-e @
+2026-05-24 12:28:30 806394ca7f2f7c1edbe962a9471647f4d67b5e72 | hotkey 5EFgFa93M5Vx…
+2026-05-24 12:28:30     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:28:30     Fetched 20 texts (20 indices)
+2026-05-24 12:28:30    Downloading Lin2es/evolai-tfm-01o@d5af8d4f7543ee9e09ef3f668a29f2e09daeea8d…
+2026-05-24 12:28:32     Loaded (local prefetch)
+2026-05-24 12:28:33    Ready: Lin2es/evolai-tfm-01o@d5af8d4f7543ee9e09ef3f668a29f2e09daeea8d
+2026-05-24 12:28:33     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 12:28:35   [36/50] UID 8 | evolai/evolai_test_challenge @
+2026-05-24 12:28:35 d3b63e40df902047eafcce71413b708f62936912 | hotkey 5ENhqnBoyFdz…
+2026-05-24 12:28:35    Downloading
+2026-05-24 12:28:35 andrebarrosilva1123/evolai-f@89654c7b1e351cce36bab65fe09692eb0e109f72…
+2026-05-24 12:28:35     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:28:35     Fetched 20 texts (20 indices)
+2026-05-24 12:28:36     Loaded (local prefetch)
+2026-05-24 12:28:37     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:29:16     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:36
+2026-05-24 12:29:16     Loss 3.7756 | Size ×0.50 | Think 3.7756 | ThinkGain 0 (+0.4576) | Flow
+2026-05-24 12:29:16 0.1184 | KL 1.7012 | NextKL 2.1119 | SideQ 0% | Score 0.0337 (38.8s)
+2026-05-24 12:29:16     Gate PASS | Improve ok cur=1.7012 req<=1.9294 prev=1.9688 | Consist ok
+2026-05-24 12:29:16 ema_cur=1.7182 ema_next=1.9317 ratio=1.124 max<=1.20
+2026-05-24 12:29:18   Evicted cached model:
+2026-05-24 12:29:18 mihai-777/evolai-tfm-1p5b-v5@bd42aeb0828dfa0126f7fc825e13b49209fec678
+2026-05-24 12:29:18   [37/50] UID 77 | Lin2es/evolai-tfm-01o @
+2026-05-24 12:29:18 d5af8d4f7543ee9e09ef3f668a29f2e09daeea8d | hotkey 5GQydjNVEhMb…
+2026-05-24 12:29:18     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:29:18     Fetched 20 texts (20 indices)
+2026-05-24 12:29:20     Loaded (local prefetch)
+2026-05-24 12:29:20     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:29:28    Ready: andrebarrosilva1123/evolai-f@89654c7b1e351cce36bab65fe09692eb0e109f72
+2026-05-24 12:29:28    Downloading
+2026-05-24 12:29:28 Radiant28/evolai-transformer-0.4b-b2@808b61992e043ca99ff5b412a6cf61bfbb3fd793…
+2026-05-24 12:29:28 Fetching 7 files: 100%|██████████| 7/7 [00:05<00:00,  1.18it/s]
+2026-05-24 12:29:34    Ready:
+2026-05-24 12:29:34 Radiant28/evolai-transformer-0.4b-b2@808b61992e043ca99ff5b412a6cf61bfbb3fd793
+2026-05-24 12:29:56     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:33
+2026-05-24 12:29:57     Loss 2.5917 | Size ×0.50 | Think 2.5917 | ThinkGain 0 (+0.4369) | Flow
+2026-05-24 12:29:57 0.0000 | KL 2.6754 | NextKL 2.6614 | SideQ 0% | Score 0.0000 (36.5s)
+2026-05-24 12:29:57     Gate FAIL | Improve same SHA cur=2.6754 req<=2.6219 prev=2.6754 | Consist ok
+2026-05-24 12:29:57 ema_cur=2.6429 ema_next=2.6352 ratio=0.997 max<=1.20
+2026-05-24 12:29:58   Evicted cached model:
+2026-05-24 12:29:58 mrthor102/evolai-tfm-super-001@cf120ec150fc9f7583a89dd6c7df84ddd9cde3ee
+2026-05-24 12:29:59   [38/50] UID 52 | andrebarrosilva1123/evolai-f @
+2026-05-24 12:29:59 89654c7b1e351cce36bab65fe09692eb0e109f72 | hotkey 5HTZZEb5oxv9…
+2026-05-24 12:29:59     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:29:59     Fetched 20 texts (20 indices)
+2026-05-24 12:29:59    Downloading Lin2es/evolai-tfm-03o@2fcb3445759b5cb5d5d6a9be9e5731f72cc0f600…
+2026-05-24 12:30:01     Loaded (local prefetch)
+2026-05-24 12:30:02     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 12:30:02    Ready: Lin2es/evolai-tfm-03o@2fcb3445759b5cb5d5d6a9be9e5731f72cc0f600
+2026-05-24 12:30:04   [39/50] UID 37 | Radiant28/evolai-transformer-0.4b-b2 @
+2026-05-24 12:30:04 808b61992e043ca99ff5b412a6cf61bfbb3fd793 | hotkey 5HjbzF3e9waA…
+2026-05-24 12:30:04    Downloading
+2026-05-24 12:30:04 Jubilant/evolai-1.50b-v1@074810c41bab77c52a216e0c2f7886484e12deeb…
+2026-05-24 12:30:04     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:30:04     Fetched 20 texts (20 indices)
+2026-05-24 12:30:06     Loaded (local prefetch)
+2026-05-24 12:30:06     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 12:30:08   [40/50] UID 79 | Lin2es/evolai-tfm-03o @
+2026-05-24 12:30:08 2fcb3445759b5cb5d5d6a9be9e5731f72cc0f600 | hotkey 5D4eNqXRjWmX…
+2026-05-24 12:30:08     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:30:08     Fetched 20 texts (20 indices)
+2026-05-24 12:30:10    Ready: Jubilant/evolai-1.50b-v1@074810c41bab77c52a216e0c2f7886484e12deeb
+2026-05-24 12:30:10    Downloading philk11/evolai-0.4b@822950352d63cdd145c3a7449ebfd4b51ad5ae6a…
+2026-05-24 12:30:10     Loaded (local prefetch)
+2026-05-24 12:30:10 Fetching 10 files: 100%|██████████| 10/10 [00:02<00:00,  3.58it/s]
+2026-05-24 12:30:10     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:30:13    Ready: philk11/evolai-0.4b@822950352d63cdd145c3a7449ebfd4b51ad5ae6a
+2026-05-24 12:30:46     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:34
+2026-05-24 12:30:47     Loss 2.3823 | Size ×0.50 | Think 2.3823 | ThinkGain 0 (+0.4640) | Flow
+2026-05-24 12:30:47 0.2218 | KL 2.1444 | NextKL 2.3879 | SideQ 0% | Score 0.0000 (36.5s)
+2026-05-24 12:30:47     Gate FAIL | Improve same SHA cur=2.1444 req<=2.1015 prev=2.1444 | Consist ok
+2026-05-24 12:30:47 ema_cur=2.3820 ema_next=2.3841 ratio=1.001 max<=1.20
+2026-05-24 12:30:49   Evicted cached model:
+2026-05-24 12:30:49 mihai-777/evolai-tfm-1p5b-04@fb289dbfe35c595b1a586f786a19e118cc1bfc9a
+2026-05-24 12:30:49   [41/50] UID 40 | Jubilant/evolai-1.50b-v1 @
+2026-05-24 12:30:49 074810c41bab77c52a216e0c2f7886484e12deeb | hotkey 5Fuv43yR7tjJ…
+2026-05-24 12:30:49     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:30:49     Fetched 20 texts (20 indices)
+2026-05-24 12:30:49    Downloading Radiant28/evolai-1p5b@e351598db6d77f85b5081768df04d37c132750f0…
+2026-05-24 12:30:51     Loaded (local prefetch)
+2026-05-24 12:30:52     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 12:30:54   [42/50] UID 65 | philk11/evolai-0.4b @
+2026-05-24 12:30:54 822950352d63cdd145c3a7449ebfd4b51ad5ae6a | hotkey 5GvHE1tHbhGv…
+2026-05-24 12:30:54     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:30:54     Fetched 20 texts (20 indices)
+2026-05-24 12:30:55     Loaded (local prefetch)
+2026-05-24 12:30:55     ⚠ Invalid model size (0.60B; allowed 0.45-0.48B, 1.50-1.80B) — skipping
+2026-05-24 12:30:57    Ready: Radiant28/evolai-1p5b@e351598db6d77f85b5081768df04d37c132750f0
+2026-05-24 12:30:57    Downloading galuis116/evolai-future@3fd2d681887692c43fdcb20f5fbd983e6047e0e4…
+2026-05-24 12:30:58   [43/50] UID 43 | Radiant28/evolai-1p5b @
+2026-05-24 12:30:58 e351598db6d77f85b5081768df04d37c132750f0 | hotkey 5HSz4knZnWHY…
+2026-05-24 12:30:58     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:30:58     Fetched 20 texts (20 indices)
+2026-05-24 12:30:58 Fetching 7 files: 100%|██████████| 7/7 [00:03<00:00,  1.96it/s]
+2026-05-24 12:31:00     Loaded (local prefetch)
+2026-05-24 12:31:00     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 12:31:01    Ready: galuis116/evolai-future@3fd2d681887692c43fdcb20f5fbd983e6047e0e4
+2026-05-24 12:31:01    Downloading
+2026-05-24 12:31:01 Radiant28/evolai-0.4b-V1@5e0cb9981c5c7ec29fe92d5cf1ebddcbcc002af5…
+2026-05-24 12:31:02 Fetching 7 files: 100%|██████████| 7/7 [00:06<00:00,  1.04it/s]
+2026-05-24 12:31:03   [44/50] UID 101 | galuis116/evolai-future @
+2026-05-24 12:31:03 3fd2d681887692c43fdcb20f5fbd983e6047e0e4 | hotkey 5DPz76uobJLT…
+2026-05-24 12:31:03     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:31:03     Fetched 20 texts (20 indices)
+2026-05-24 12:31:04     Loaded (local prefetch)
+2026-05-24 12:31:05     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:31:09    Ready: Radiant28/evolai-0.4b-V1@5e0cb9981c5c7ec29fe92d5cf1ebddcbcc002af5
+2026-05-24 12:31:09    Downloading
+2026-05-24 12:31:09 Roystar/evolai-qwen2.5-1.5b@47e6a605a62ff328096c1d7bd160b8eaf9ec5ff1…
+2026-05-24 12:31:09 Fetching 7 files: 100%|██████████| 7/7 [00:05<00:00,  1.18it/s]
+2026-05-24 12:31:15    Ready: Roystar/evolai-qwen2.5-1.5b@47e6a605a62ff328096c1d7bd160b8eaf9ec5ff1
+2026-05-24 12:31:44     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:36
+2026-05-24 12:31:44     Loss 4.2746 | Size ×0.50 | Think 4.2746 | ThinkGain 0 (+0.4616) | Flow
+2026-05-24 12:31:44 0.0089 | KL 2.1947 | NextKL 1.7704 | SideQ 0% | Score 0.0000 (39.4s)
+2026-05-24 12:31:44     Gate FAIL | Improve FAIL cur=2.1947 req<=2.0800 prev=2.1225 | Consist ok
+2026-05-24 12:31:44 ema_cur=1.8978 ema_next=1.8762 ratio=0.989 max<=1.20
+2026-05-24 12:31:47   Evicted cached model:
+2026-05-24 12:31:47 clear-blue-sky/evolai-reborn-tfm-009@be196144c82001a51965b488f9dd7934b1308f79
+2026-05-24 12:31:47   [45/50] UID 44 | Radiant28/evolai-0.4b-V1 @
+2026-05-24 12:31:47 5e0cb9981c5c7ec29fe92d5cf1ebddcbcc002af5 | hotkey 5DXm2ShZGmwG…
+2026-05-24 12:31:47     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:31:47     Fetched 20 texts (20 indices)
+2026-05-24 12:31:47    Downloading
+2026-05-24 12:31:47 clear-blue-sky/evolai-reborn-tfm-005@f544e3287a05e1085785f149bd41a1758632d6be…
+2026-05-24 12:31:49     Loaded (local prefetch)
+2026-05-24 12:31:49     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 12:31:51    Ready:
+2026-05-24 12:31:51 clear-blue-sky/evolai-reborn-tfm-005@f544e3287a05e1085785f149bd41a1758632d6be
+2026-05-24 12:31:51   [46/50] UID 55 | Roystar/evolai-qwen2.5-1.5b @
+2026-05-24 12:31:51 47e6a605a62ff328096c1d7bd160b8eaf9ec5ff1 | hotkey 5DhRJtUeVA6P…
+2026-05-24 12:31:51     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:31:51     Fetched 20 texts (20 indices)
+2026-05-24 12:31:51    Downloading
+2026-05-24 12:31:51 Phoenix9781/evolai-tf-model@883756e42bfbc362761bb150f2ef316deaafa94f…
+2026-05-24 12:31:53     Loaded (local prefetch)
+2026-05-24 12:31:54     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 12:31:56   [47/50] UID 83 | clear-blue-sky/evolai-reborn-tfm-005 @
+2026-05-24 12:31:56 f544e3287a05e1085785f149bd41a1758632d6be | hotkey 5G8tRiKdn5cC…
+2026-05-24 12:31:56     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:31:56     Fetched 20 texts (20 indices)
+2026-05-24 12:31:56    Ready: Phoenix9781/evolai-tf-model@883756e42bfbc362761bb150f2ef316deaafa94f
+2026-05-24 12:31:56    Downloading
+2026-05-24 12:31:56 clear-blue-sky/evolai-reborn-tfm-008@919ade17fcab9dcdd3fa6a5d0730f5819156b5ad…
+2026-05-24 12:31:57     Loaded (local prefetch)
+2026-05-24 12:31:58     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:32:00    Ready:
+2026-05-24 12:32:00 clear-blue-sky/evolai-reborn-tfm-008@919ade17fcab9dcdd3fa6a5d0730f5819156b5ad
+2026-05-24 12:32:37     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:36
+2026-05-24 12:32:37     Loss 3.4429 | Size ×0.50 | Think 3.4429 | ThinkGain 0 (+0.4609) | Flow
+2026-05-24 12:32:37 0.0170 | KL 1.6982 | NextKL 1.9427 | SideQ 0% | Score 0.0000 (38.9s)
+2026-05-24 12:32:37     Gate FAIL | Improve FAIL cur=1.6982 req<=1.6344 prev=1.6677 | Consist ok
+2026-05-24 12:32:37 ema_cur=2.2214 ema_next=1.9088 ratio=0.859 max<=1.20
+2026-05-24 12:32:39   Evicted cached model:
+2026-05-24 12:32:39 mrthor102/evolai-tfm-super-004@a64d583446212f0c506df7cce649f4fa00d7ceb6
+2026-05-24 12:32:39   [48/50] UID 93 | Phoenix9781/evolai-tf-model @
+2026-05-24 12:32:39 883756e42bfbc362761bb150f2ef316deaafa94f | hotkey 5F4R25t78FSF…
+2026-05-24 12:32:39    Downloading
+2026-05-24 12:32:39 Radiant28/evolai-transformer-0.4b-b0@7a08a8009fa8b8f82d1ad0febc442a89020082d1…
+2026-05-24 12:32:39     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:32:39     Fetched 20 texts (20 indices)
+2026-05-24 12:32:41     Loaded (local prefetch)
+2026-05-24 12:32:41     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:32:46    Ready:
+2026-05-24 12:32:46 Radiant28/evolai-transformer-0.4b-b0@7a08a8009fa8b8f82d1ad0febc442a89020082d1
+2026-05-24 12:33:16     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:33
+2026-05-24 12:33:17     Loss 4.0256 | Size ×0.50 | Think 4.0256 | ThinkGain 0 (+0.4594) | Flow
+2026-05-24 12:33:17 0.0341 | KL 1.8989 | NextKL 1.8533 | SideQ 0% | Score 0.0000 (35.4s)
+2026-05-24 12:33:17     Gate FAIL | Improve same SHA cur=1.8989 req<=1.8609 prev=1.8989 | Consist ok
+2026-05-24 12:33:17 ema_cur=1.9612 ema_next=1.9471 ratio=0.993 max<=1.20
+2026-05-24 12:33:18   Evicted cached model:
+2026-05-24 12:33:18 clear-blue-sky/evolai-reborn-tfm-003@4857442989bb3293608689fbb41e3db5716278d5
+2026-05-24 12:33:19   [49/50] UID 85 | clear-blue-sky/evolai-reborn-tfm-008 @
+2026-05-24 12:33:19 919ade17fcab9dcdd3fa6a5d0730f5819156b5ad | hotkey 5EC5MzPj6dGb…
+2026-05-24 12:33:19     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:33:19     Fetched 20 texts (20 indices)
+2026-05-24 12:33:20     Loaded (local prefetch)
+2026-05-24 12:33:20     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:33:58     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:34
+2026-05-24 12:33:58     Loss 3.6950 | Size ×0.50 | Think 3.6950 | ThinkGain 0 (+0.4585) | Flow
+2026-05-24 12:33:58 0.0148 | KL 1.8342 | NextKL 1.8845 | SideQ 0% | Score 0.0000 (37.3s)
+2026-05-24 12:33:58     Gate FAIL | Improve FAIL cur=1.8342 req<=1.7495 prev=1.7852 | Consist ok
+2026-05-24 12:33:58 ema_cur=2.2122 ema_next=1.8997 ratio=0.859 max<=1.20
+2026-05-24 12:33:59   Evicted cached model:
+2026-05-24 12:33:59 clear-blue-sky/evolai-reborn-tfm-004@468955f6c646903082cdd2972ac15cf636d4ad06
+2026-05-24 12:34:00   [50/50] UID 45 | Radiant28/evolai-transformer-0.4b-b0 @
+2026-05-24 12:34:00 7a08a8009fa8b8f82d1ad0febc442a89020082d1 | hotkey 5F1B3j7EyjuE…
+2026-05-24 12:34:00     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:34:00     Fetched 20 texts (20 indices)
+2026-05-24 12:34:02     Loaded (local prefetch)
+2026-05-24 12:34:02     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 12:34:04   Cached next refs for transformer: 50 miner(s)
+2026-05-24 12:34:04 
+2026-05-24 12:34:04   ✓ TRANSFORMER: 30 evaluated, 23 skipped —
+2026-05-24 12:34:04 epoch_22927_transformer_20260524_120806.json
+2026-05-24 12:34:05   ✓ Telemetry sent (30 records)
+2026-05-24 12:34:05 Evaluating MAMBA2 track…
+2026-05-24 12:34:05 
+2026-05-24 12:34:05   Found 15 locked mamba2 miners
+2026-05-24 12:34:05    Downloading
+2026-05-24 12:34:05 andrebarrosilva1123/evolai-mamba2-a@55b92d373b1c219a4cfbac7034c154ddbcdc854d…
+2026-05-24 12:34:05 Pre-building current/next challenges for 15 miners…
+2026-05-24 12:34:05 Fetching 7 files: 100%|██████████| 7/7 [00:02<00:00,  2.37it/s]
+2026-05-24 12:34:08    Ready:
+2026-05-24 12:34:08 andrebarrosilva1123/evolai-mamba2-a@55b92d373b1c219a4cfbac7034c154ddbcdc854d
+2026-05-24 12:34:08    Downloading
+2026-05-24 12:34:08 Radiant28/evolai-mamba2-0.47b-v3@97f692fb0b295aa29075d3f9d592bfb4e7625b16…
+2026-05-24 12:34:09 Fetching 7 files: 100%|██████████| 7/7 [00:03<00:00,  2.07it/s]
+2026-05-24 12:34:13    Ready:
+2026-05-24 12:34:13 Radiant28/evolai-mamba2-0.47b-v3@97f692fb0b295aa29075d3f9d592bfb4e7625b16
+2026-05-24 12:34:25 ✓ Ref data ready: submitted=15, cached=15
+2026-05-24 12:34:25   [1/15] UID 56 | andrebarrosilva1123/evolai-mamba2-a @
+2026-05-24 12:34:25 55b92d373b1c219a4cfbac7034c154ddbcdc854d | hotkey 5D1zGn2n3mzF…
+2026-05-24 12:34:25    Downloading Lin2es/evolai-mb2-02v@c1ad3d94c5929dcc0e3a40d9d9034bd80da9a1f8…
+2026-05-24 12:34:25     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:34:25     Fetched 20 texts (20 indices)
+2026-05-24 12:34:27     Loaded (local prefetch)
+2026-05-24 12:34:27     ⚠ Vocab incompatible (model=151669 < ref=248077) — skipping
+2026-05-24 12:34:28    Ready: Lin2es/evolai-mb2-02v@c1ad3d94c5929dcc0e3a40d9d9034bd80da9a1f8
+2026-05-24 12:34:29   [2/15] UID 41 | Radiant28/evolai-mamba2-0.47b-v3 @
+2026-05-24 12:34:29 97f692fb0b295aa29075d3f9d592bfb4e7625b16 | hotkey 5CP5QrWuFe93…
+2026-05-24 12:34:29     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:34:29    Downloading Lin2es/evolai-mb2-01v@a7f32e5ce7f8d307c98560e5025525f3703310c0…
+2026-05-24 12:34:29     Fetched 20 texts (20 indices)
+2026-05-24 12:34:33    Ready: Lin2es/evolai-mb2-01v@a7f32e5ce7f8d307c98560e5025525f3703310c0
+2026-05-24 12:34:34     Loaded (local prefetch)
+2026-05-24 12:34:35     ⚠ Vocab incompatible (model=151669 < ref=248077) — skipping
+2026-05-24 12:34:37   [3/15] UID 90 | Lin2es/evolai-mb2-02v @
+2026-05-24 12:34:37 c1ad3d94c5929dcc0e3a40d9d9034bd80da9a1f8 | hotkey 5CtLLhrw6Lxa…
+2026-05-24 12:34:37     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:34:37     Fetched 20 texts (20 indices)
+2026-05-24 12:34:37    Downloading
+2026-05-24 12:34:37 elgin-group/evolai-mamba2-0p47b-v1@39b2f90ad08643d34503c88f5c7224fd3dabeed7…
+2026-05-24 12:34:40    Ready:
+2026-05-24 12:34:40 elgin-group/evolai-mamba2-0p47b-v1@39b2f90ad08643d34503c88f5c7224fd3dabeed7
+2026-05-24 12:34:40     Loaded (local prefetch)
+2026-05-24 12:34:40     Model 0.48B → batch=512, seq=16384
+2026-05-24 12:34:48     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:04
+2026-05-24 12:34:48     Loss 4.7067 | Size ×0.52 | Think 0.0000 | ThinkGain 0 (+0.5000) | Flow
+2026-05-24 12:34:48 0.0000 | KL 4.7067 | NextKL 4.6226 | SideQ 0% | Score 0.0000 (8.4s)
+2026-05-24 12:34:48     Gate FAIL | Improve same SHA cur=4.7067 req<=4.6125 prev=4.7067 | Consist ok
+2026-05-24 12:34:48 ema_cur=4.9112 ema_next=4.6980 ratio=0.957 max<=1.20
+2026-05-24 12:34:51   Evicted cached model:
+2026-05-24 12:34:51 evolai/evolai_test_challenge@d3b63e40df902047eafcce71413b708f62936912
+2026-05-24 12:34:51   [4/15] UID 11 | Lin2es/evolai-mb2-01v @
+2026-05-24 12:34:51 a7f32e5ce7f8d307c98560e5025525f3703310c0 | hotkey 5HYuS4jrJJ56…
+2026-05-24 12:34:51     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:34:51    Downloading
+2026-05-24 12:34:51 mihai-777/evolai-mamba2-0p47b-v3@c2a96b92acf632d51a2c21da4482f77f98256518…
+2026-05-24 12:34:51     Fetched 20 texts (20 indices)
+2026-05-24 12:34:53     Loaded (local prefetch)
+2026-05-24 12:34:53     Model 0.48B → batch=512, seq=16384
+2026-05-24 12:34:55    Ready:
+2026-05-24 12:34:55 mihai-777/evolai-mamba2-0p47b-v3@c2a96b92acf632d51a2c21da4482f77f98256518
+2026-05-24 12:34:59     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:02
+2026-05-24 12:34:59     Loss 4.6918 | Size ×0.52 | Think 0.0000 | ThinkGain 0 (+0.5000) | Flow
+2026-05-24 12:34:59 0.0223 | KL 4.6918 | NextKL 4.5371 | SideQ 0% | Score 0.0000 (5.5s)
+2026-05-24 12:34:59     Gate FAIL | Improve same SHA cur=4.6918 req<=4.5979 prev=4.6918 | Consist ok
+2026-05-24 12:34:59 ema_cur=4.6573 ema_next=4.6494 ratio=0.998 max<=1.20
+2026-05-24 12:35:01   Evicted cached model:
+2026-05-24 12:35:01 Lin2es/evolai-tfm-01o@d5af8d4f7543ee9e09ef3f668a29f2e09daeea8d
+2026-05-24 12:35:01   [5/15] UID 34 | elgin-group/evolai-mamba2-0p47b-v1 @
+2026-05-24 12:35:01 39b2f90ad08643d34503c88f5c7224fd3dabeed7 | hotkey 5GNJr9NfE9e9…
+2026-05-24 12:35:01     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:35:01     Fetched 20 texts (20 indices)
+2026-05-24 12:35:01    Downloading
+2026-05-24 12:35:01 andrebarrosilva1123/evolai-mamba2-b@62336a49df6d6014f779575adfd29373c228edd4…
+2026-05-24 12:35:03     Loaded (local prefetch)
+2026-05-24 12:35:03     ⚠ Vocab incompatible (model=151669 < ref=248077) — skipping
+2026-05-24 12:35:04    Ready:
+2026-05-24 12:35:04 andrebarrosilva1123/evolai-mamba2-b@62336a49df6d6014f779575adfd29373c228edd4
+2026-05-24 12:35:05   [6/15] UID 30 | mihai-777/evolai-mamba2-0p47b-v3 @
+2026-05-24 12:35:05 c2a96b92acf632d51a2c21da4482f77f98256518 | hotkey 5GGsbuVKDrTA…
+2026-05-24 12:35:05     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:35:05     Fetched 20 texts (20 indices)
+2026-05-24 12:35:05    Downloading Lin2es/evolai-mb2-04v@9c0198682f16cc8595fec849aa37227f7160e92c…
+2026-05-24 12:35:06     Loaded (local prefetch)
+2026-05-24 12:35:07     Model 0.48B → batch=512, seq=16384
+2026-05-24 12:35:08    Ready: Lin2es/evolai-mb2-04v@9c0198682f16cc8595fec849aa37227f7160e92c
+2026-05-24 12:35:11     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:01
+2026-05-24 12:35:11     Loss 4.8630 | Size ×0.52 | Think 0.0000 | ThinkGain 0 (+0.5000) | Flow
+2026-05-24 12:35:11 0.0000 | KL 4.8630 | NextKL 4.7650 | SideQ 0% | Score 0.0000 (4.2s)
+2026-05-24 12:35:11     Gate FAIL | Improve same SHA cur=4.8630 req<=4.7657 prev=4.8630 | Consist ok
+2026-05-24 12:35:11 ema_cur=4.7990 ema_next=4.7984 ratio=1.000 max<=1.20
+2026-05-24 12:35:12   Evicted cached model:
+2026-05-24 12:35:12 Lin2es/evolai-tfm-03o@2fcb3445759b5cb5d5d6a9be9e5731f72cc0f600
+2026-05-24 12:35:13   [7/15] UID 57 | andrebarrosilva1123/evolai-mamba2-b @
+2026-05-24 12:35:13 62336a49df6d6014f779575adfd29373c228edd4 | hotkey 5EZx1DRvpMGK…
+2026-05-24 12:35:13     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:35:13    Downloading
+2026-05-24 12:35:13 evolai/evolai_mamba_naive_kl@b7c8842d1d5a700bd6a36b834fe6f0b3dc5d321a…
+2026-05-24 12:35:13     Fetched 20 texts (20 indices)
+2026-05-24 12:35:14     Loaded (local prefetch)
+2026-05-24 12:35:15     ⚠ Vocab incompatible (model=151669 < ref=248077) — skipping
+2026-05-24 12:35:16   [8/15] UID 89 | Lin2es/evolai-mb2-04v @
+2026-05-24 12:35:16 9c0198682f16cc8595fec849aa37227f7160e92c | hotkey 5DkZf6V3X8Za…
+2026-05-24 12:35:16     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:35:16     Fetched 20 texts (20 indices)
+2026-05-24 12:35:16    Ready: evolai/evolai_mamba_naive_kl@b7c8842d1d5a700bd6a36b834fe6f0b3dc5d321a
+2026-05-24 12:35:16    Downloading
+2026-05-24 12:35:16 mihai-777/evolai-mamba2-0p47b@7b6564c9a46f602702c260185aa43867f321dee7…
+2026-05-24 12:35:18     Loaded (local prefetch)
+2026-05-24 12:35:18     ⚠ Vocab incompatible (model=151665 < ref=248077) — skipping
+2026-05-24 12:35:20   [9/15] UID 96 | evolai/evolai_mamba_naive_kl @
+2026-05-24 12:35:20 b7c8842d1d5a700bd6a36b834fe6f0b3dc5d321a | hotkey 5HQuJVXBXGrW…
+2026-05-24 12:35:20     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:35:20     Fetched 20 texts (20 indices)
+2026-05-24 12:35:20    Ready: mihai-777/evolai-mamba2-0p47b@7b6564c9a46f602702c260185aa43867f321dee7
+2026-05-24 12:35:20    Downloading
+2026-05-24 12:35:20 Radiant28/evolai-mamba2-0.47b-v2@475bf7bf65af1192ed824d58816c1d83f3475983…
+2026-05-24 12:35:22     Loaded (local prefetch)
+2026-05-24 12:35:22     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:35:23    Ready:
+2026-05-24 12:35:23 Radiant28/evolai-mamba2-0.47b-v2@475bf7bf65af1192ed824d58816c1d83f3475983
+2026-05-24 12:35:26     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:01
+2026-05-24 12:35:26     Loss 3.5309 | Size ×0.50 | Think 0.0000 | ThinkGain 0 (+0.5000) | Flow
+2026-05-24 12:35:26 0.0000 | KL 3.5309 | NextKL 3.4273 | SideQ 0% | Score 0.0000 (3.8s)
+2026-05-24 12:35:26     Gate FAIL | Improve same SHA cur=3.5309 req<=3.4603 prev=3.5309 | Consist ok
+2026-05-24 12:35:26 ema_cur=3.7899 ema_next=3.5298 ratio=0.931 max<=1.20
+2026-05-24 12:35:28   Evicted cached model:
+2026-05-24 12:35:28 galuis116/evolai-future@3fd2d681887692c43fdcb20f5fbd983e6047e0e4
+2026-05-24 12:35:28   [10/15] UID 31 | mihai-777/evolai-mamba2-0p47b @
+2026-05-24 12:35:28 7b6564c9a46f602702c260185aa43867f321dee7 | hotkey 5CJuKKq16FkR…
+2026-05-24 12:35:28     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:35:28     Fetched 20 texts (20 indices)
+2026-05-24 12:35:28    Downloading
+2026-05-24 12:35:28 andrebarrosilva1123/evolai-mamba2-c@dc37c985d66c77e3d10bf9eaf16e6dc952c62e17…
+2026-05-24 12:35:29     Loaded (local prefetch)
+2026-05-24 12:35:30     Model 0.48B → batch=512, seq=16384
+2026-05-24 12:35:31    Ready:
+2026-05-24 12:35:31 andrebarrosilva1123/evolai-mamba2-c@dc37c985d66c77e3d10bf9eaf16e6dc952c62e17
+2026-05-24 12:35:34     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:01
+2026-05-24 12:35:34     Loss 4.7640 | Size ×0.52 | Think 0.0000 | ThinkGain 0 (+0.5000) | Flow
+2026-05-24 12:35:34 0.0000 | KL 4.7640 | NextKL 4.7895 | SideQ 0% | Score 0.0000 (4.1s)
+2026-05-24 12:35:34     Gate FAIL | Improve same SHA cur=4.7640 req<=4.6687 prev=4.7640 | Consist ok
+2026-05-24 12:35:34 ema_cur=4.8056 ema_next=4.8014 ratio=0.999 max<=1.20
+2026-05-24 12:35:36   Evicted cached model:
+2026-05-24 12:35:36 clear-blue-sky/evolai-reborn-tfm-005@f544e3287a05e1085785f149bd41a1758632d6be
+2026-05-24 12:35:36   [11/15] UID 39 | Radiant28/evolai-mamba2-0.47b-v2 @
+2026-05-24 12:35:36 475bf7bf65af1192ed824d58816c1d83f3475983 | hotkey 5FvTt3gVVhFT…
+2026-05-24 12:35:36     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:35:36     Fetched 20 texts (20 indices)
+2026-05-24 12:35:36    Downloading Lin2es/evolai-mb2-03v@3047597c4e4b4430450ddcd633240b88d781fdbd…
+2026-05-24 12:35:38     Loaded (local prefetch)
+2026-05-24 12:35:38     ⚠ Vocab incompatible (model=151669 < ref=248077) — skipping
+2026-05-24 12:35:39    Ready: Lin2es/evolai-mb2-03v@3047597c4e4b4430450ddcd633240b88d781fdbd
+2026-05-24 12:35:40   [12/15] UID 58 | andrebarrosilva1123/evolai-mamba2-c @
+2026-05-24 12:35:40 dc37c985d66c77e3d10bf9eaf16e6dc952c62e17 | hotkey 5EgtSzXJbjpV…
+2026-05-24 12:35:40     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:35:40    Downloading
+2026-05-24 12:35:40 batster4/evolai-mamba2-v1@142f14d218be618e3161d86926085b3a9cefed55…
+2026-05-24 12:35:40     Fetched 20 texts (20 indices)
+2026-05-24 12:35:41     Loaded (local prefetch)
+2026-05-24 12:35:42     ⚠ Vocab incompatible (model=151669 < ref=248077) — skipping
+2026-05-24 12:35:44   [13/15] UID 91 | Lin2es/evolai-mb2-03v @
+2026-05-24 12:35:44 3047597c4e4b4430450ddcd633240b88d781fdbd | hotkey 5EcdUqvUBCSp…
+2026-05-24 12:35:44     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:35:44     Fetched 20 texts (20 indices)
+2026-05-24 12:35:44    Ready: batster4/evolai-mamba2-v1@142f14d218be618e3161d86926085b3a9cefed55
+2026-05-24 12:35:44    Downloading
+2026-05-24 12:35:44 mihai-777/evolai-mamba2-1p6b-alt@131bd3907f9816bbf184f5651ba63af66046e84c…
+2026-05-24 12:35:45     Loaded (local prefetch)
+2026-05-24 12:35:45     Model 0.48B → batch=512, seq=16384
+2026-05-24 12:35:47    Ready:
+2026-05-24 12:35:47 mihai-777/evolai-mamba2-1p6b-alt@131bd3907f9816bbf184f5651ba63af66046e84c
+2026-05-24 12:35:49     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:01
+2026-05-24 12:35:49     Loss 4.7382 | Size ×0.52 | Think 0.0000 | ThinkGain 0 (+0.5000) | Flow
+2026-05-24 12:35:49 0.0000 | KL 4.7382 | NextKL 4.6448 | SideQ 0% | Score 0.0000 (4.0s)
+2026-05-24 12:35:49     Gate FAIL | Improve same SHA cur=4.7382 req<=4.6434 prev=4.7382 | Consist ok
+2026-05-24 12:35:49 ema_cur=4.6704 ema_next=4.6694 ratio=1.000 max<=1.20
+2026-05-24 12:35:51   Evicted cached model:
+2026-05-24 12:35:51 Phoenix9781/evolai-tf-model@883756e42bfbc362761bb150f2ef316deaafa94f
+2026-05-24 12:35:52   [14/15] UID 60 | batster4/evolai-mamba2-v1 @
+2026-05-24 12:35:52 142f14d218be618e3161d86926085b3a9cefed55 | hotkey 5Dc8EpAixcqc…
+2026-05-24 12:35:52     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:35:52     Fetched 20 texts (20 indices)
+2026-05-24 12:35:53     Loaded (local prefetch)
+2026-05-24 12:35:53     ⚠ Invalid model size (0.82B; allowed 0.45-0.48B, 1.50-1.80B) — skipping
+2026-05-24 12:35:55   [15/15] UID 32 | mihai-777/evolai-mamba2-1p6b-alt @
+2026-05-24 12:35:55 131bd3907f9816bbf184f5651ba63af66046e84c | hotkey 5GL84HKDau7C…
+2026-05-24 12:35:55     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:35:55     Fetched 20 texts (20 indices)
+2026-05-24 12:35:57     Loaded (local prefetch)
+2026-05-24 12:35:57     Model 0.48B → batch=512, seq=16384
+2026-05-24 12:36:01     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:01
+2026-05-24 12:36:01     Loss 4.8891 | Size ×0.52 | Think 0.0000 | ThinkGain 0 (+0.5000) | Flow
+2026-05-24 12:36:01 0.0000 | KL 4.8891 | NextKL 4.8670 | SideQ 0% | Score 0.0000 (3.8s)
+2026-05-24 12:36:01     Gate FAIL | Improve same SHA cur=4.8891 req<=4.7913 prev=4.8891 | Consist ok
+2026-05-24 12:36:01 ema_cur=4.8813 ema_next=4.8752 ratio=0.999 max<=1.20
+2026-05-24 12:36:03   Evicted cached model:
+2026-05-24 12:36:03 clear-blue-sky/evolai-reborn-tfm-008@919ade17fcab9dcdd3fa6a5d0730f5819156b5ad
+2026-05-24 12:36:03   Cached next refs for mamba2: 15 miner(s)
+2026-05-24 12:36:03 
+2026-05-24 12:36:03   ✓ MAMBA2: 7 evaluated, 14 skipped — epoch_22927_mamba2_20260524_120806.json
+2026-05-24 12:36:03   ✓ Telemetry sent (7 records)
+2026-05-24 12:36:03 Current Leaderboard:
+2026-05-24 12:36:18 
+2026-05-24 12:36:18 TRANSFORMER
+2026-05-24 12:36:18 ┏━━━━━━┳━━━━━┳━━━━━━━━┳━━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━┳━━━━━┳━━━━━━━━━┳━━━━━━━┓
+2026-05-24 12:36:18 ┃      ┃     ┃        ┃     Latest ┃           ┃       ┃     ┃         ┃       ┃
+2026-05-24 12:36:18 ┃ Rank ┃ UID ┃  Score ┃       Loss ┃ ThinkGain ┃  Flow ┃ SQ% ┃      KL ┃ Evals ┃
+2026-05-24 12:36:18 ┡━━━━━━╇━━━━━╇━━━━━━━━╇━━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━╇━━━━━╇━━━━━━━━━╇━━━━━━━┩
+2026-05-24 12:36:18 │    1 │   8 │ 0.0337 │     3.7756 │  0 FAIL   │ 0.118 │  0% │  1.7012 │   315 │
+2026-05-24 12:36:18 │    2 │  48 │ 0.0001 │     3.9874 │  0 FAIL   │ 0.000 │  0% │  2.2562 │   139 │
+2026-05-24 12:36:18 │    3 │  82 │ 0.0000 │     4.0656 │  0 FAIL   │ 0.111 │  0% │  1.8402 │   350 │
+2026-05-24 12:36:18 │    4 │  66 │ 0.0000 │     3.8440 │  0 FAIL   │ 0.109 │  0% │  1.8612 │   350 │
+2026-05-24 12:36:18 │    5 │  87 │ 0.0000 │     4.0577 │  0 FAIL   │ 0.133 │  0% │  2.2495 │   147 │
+2026-05-24 12:36:18 │    6 │  86 │ 0.0000 │     4.1094 │  0 FAIL   │ 0.139 │  0% │  2.3171 │   148 │
+2026-05-24 12:36:18 │    7 │  73 │ 0.0000 │     3.6678 │  0 FAIL   │ 0.005 │  0% │  1.9554 │   135 │
+2026-05-24 12:36:18 │    8 │  93 │ 0.0000 │     4.0256 │  0 FAIL   │ 0.034 │  0% │  1.8989 │   135 │
+2026-05-24 12:36:18 │    9 │  97 │ 0.0000 │     3.1354 │  0 FAIL   │ 0.186 │  0% │  1.8006 │   265 │
+2026-05-24 12:36:18 │   10 │  67 │ 0.0000 │     4.0396 │  0 FAIL   │ 0.223 │  0% │  2.0299 │   352 │
+2026-05-24 12:36:18 │   11 │  70 │ 0.0000 │     4.0223 │  0 FAIL   │ 0.000 │  0% │  2.0203 │   350 │
+2026-05-24 12:36:18 │   12 │  83 │ 0.0000 │     3.4429 │  0 FAIL   │ 0.017 │  0% │  1.6982 │   352 │
+2026-05-24 12:36:18 │   13 │  85 │ 0.0000 │     3.6950 │  0 FAIL   │ 0.015 │  0% │  1.8342 │   339 │
+2026-05-24 12:36:18 │   14 │  99 │ 0.0000 │     3.6207 │  0 FAIL   │ 0.112 │  0% │  2.0426 │   133 │
+2026-05-24 12:36:18 │   15 │  72 │ 0.0000 │     3.7596 │  0 FAIL   │ 0.188 │  0% │  1.8890 │   134 │
+2026-05-24 12:36:18 │   16 │  62 │ 0.0000 │     3.9352 │  0 FAIL   │ 0.180 │  0% │  1.7387 │   352 │
+2026-05-24 12:36:18 │   17 │  94 │ 0.0000 │     3.7495 │  0 FAIL   │ 0.000 │  0% │  1.9989 │   265 │
+2026-05-24 12:36:18 │   18 │  98 │ 0.0000 │     3.8329 │  0 FAIL   │ 0.000 │  0% │  1.8949 │   264 │
+2026-05-24 12:36:18 │   19 │  69 │ 0.0000 │     4.0106 │  0 FAIL   │ 0.000 │  0% │  2.2088 │   135 │
+2026-05-24 12:36:18 │   20 │   9 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   354 │
+2026-05-24 12:36:18 │   21 │  25 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   351 │
+2026-05-24 12:36:18 │   22 │  33 │ 0.0000 │     2.7017 │  0 FAIL   │ 0.000 │  0% │  2.4487 │   352 │
+2026-05-24 12:36:18 │   23 │  35 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   352 │
+2026-05-24 12:36:18 │   24 │  36 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   351 │
+2026-05-24 12:36:18 │   25 │  37 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   352 │
+2026-05-24 12:36:18 │   26 │  38 │ 0.0000 │     2.9623 │  0 FAIL   │ 0.000 │  0% │  2.2449 │   351 │
+2026-05-24 12:36:18 │   27 │  40 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   352 │
+2026-05-24 12:36:18 │   28 │  42 │ 0.0000 │     2.8583 │  0 FAIL   │ 0.029 │  0% │  2.5664 │   352 │
+2026-05-24 12:36:18 │   29 │  43 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   352 │
+2026-05-24 12:36:18 │   30 │  44 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   353 │
+2026-05-24 12:36:18 │   31 │  45 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   352 │
+2026-05-24 12:36:18 │   32 │  49 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   351 │
+2026-05-24 12:36:18 │   33 │  50 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   351 │
+2026-05-24 12:36:18 │   34 │  51 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   324 │
+2026-05-24 12:36:18 │   35 │  52 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   325 │
+2026-05-24 12:36:18 │   36 │  53 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   352 │
+2026-05-24 12:36:18 │   37 │  54 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   323 │
+2026-05-24 12:36:18 │   38 │  55 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   355 │
+2026-05-24 12:36:18 │   39 │  59 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   352 │
+2026-05-24 12:36:18 │   40 │  61 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   352 │
+2026-05-24 12:36:18 │   41 │  65 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   352 │
+2026-05-24 12:36:18 │   42 │  75 │ 0.0000 │     2.4246 │  0 FAIL   │ 0.000 │  0% │  2.2171 │   353 │
+2026-05-24 12:36:18 │   43 │  76 │ 0.0000 │     2.9967 │  0 FAIL   │ 0.233 │  0% │  2.4695 │   351 │
+2026-05-24 12:36:18 │   44 │  77 │ 0.0000 │     2.5917 │  0 FAIL   │ 0.000 │  0% │  2.6754 │   254 │
+2026-05-24 12:36:18 │   45 │  78 │ 0.0000 │     3.8917 │  0 FAIL   │ 0.261 │  0% │  2.5802 │   254 │
+2026-05-24 12:36:18 │   46 │  79 │ 0.0000 │     2.3823 │  0 FAIL   │ 0.222 │  0% │  2.1444 │   254 │
+2026-05-24 12:36:18 │   47 │  80 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   353 │
+2026-05-24 12:36:18 │   48 │  84 │ 0.0000 │     3.8639 │  0 FAIL   │ 0.256 │  0% │  1.8642 │   336 │
+2026-05-24 12:36:18 │   49 │  88 │ 0.0000 │     3.9147 │  0 FAIL   │ 0.290 │  0% │  1.9992 │   146 │
+2026-05-24 12:36:18 │   50 │  92 │ 0.0000 │     2.3817 │  0 FAIL   │ 0.000 │  0% │  2.4809 │   255 │
+2026-05-24 12:36:18 │   51 │  95 │ 0.0000 │     2.4382 │  0 FAIL   │ 0.213 │  0% │  2.9895 │   264 │
+2026-05-24 12:36:18 │   52 │ 100 │ 0.0000 │     4.3010 │  0 FAIL   │ 0.000 │  0% │  4.1326 │   263 │
+2026-05-24 12:36:18 │   53 │ 101 │ 0.0000 │     4.2746 │  0 FAIL   │ 0.009 │  0% │  2.1947 │    85 │
+2026-05-24 12:36:18 └──────┴─────┴────────┴────────────┴───────────┴───────┴─────┴─────────┴───────┘
+2026-05-24 12:36:18 
+2026-05-24 12:36:18 MAMBA2
+2026-05-24 12:36:18 ┏━━━━━━┳━━━━━┳━━━━━━━━┳━━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━┳━━━━━┳━━━━━━━━━┳━━━━━━━┓
+2026-05-24 12:36:18 ┃      ┃     ┃        ┃     Latest ┃           ┃       ┃     ┃         ┃       ┃
+2026-05-24 12:36:18 ┃ Rank ┃ UID ┃  Score ┃       Loss ┃ ThinkGain ┃  Flow ┃ SQ% ┃      KL ┃ Evals ┃
+2026-05-24 12:36:18 ┡━━━━━━╇━━━━━╇━━━━━━━━╇━━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━╇━━━━━╇━━━━━━━━━╇━━━━━━━┩
+2026-05-24 12:36:18 │    1 │  11 │ 0.0000 │     4.6918 │  0 FAIL   │ 0.022 │  0% │  4.6918 │   254 │
+2026-05-24 12:36:18 │    2 │  30 │ 0.0000 │     4.8630 │  0 FAIL   │ 0.000 │  0% │  4.8630 │   349 │
+2026-05-24 12:36:18 │    3 │  31 │ 0.0000 │     4.7640 │  0 FAIL   │ 0.000 │  0% │  4.7640 │   349 │
+2026-05-24 12:36:18 │    4 │  32 │ 0.0000 │     4.8891 │  0 FAIL   │ 0.000 │  0% │  4.8891 │   349 │
+2026-05-24 12:36:18 │    5 │  34 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   349 │
+2026-05-24 12:36:18 │    6 │  39 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   350 │
+2026-05-24 12:36:18 │    7 │  41 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   349 │
+2026-05-24 12:36:18 │    8 │  56 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   349 │
+2026-05-24 12:36:18 │    9 │  57 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   349 │
+2026-05-24 12:36:18 │   10 │  58 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   349 │
+2026-05-24 12:36:18 │   11 │  60 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   349 │
+2026-05-24 12:36:18 │   12 │  63 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   271 │
+2026-05-24 12:36:18 │   13 │  64 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   272 │
+2026-05-24 12:36:18 │   14 │  68 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   272 │
+2026-05-24 12:36:18 │   15 │  71 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   271 │
+2026-05-24 12:36:18 │   16 │  74 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   272 │
+2026-05-24 12:36:18 │   17 │  81 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   273 │
+2026-05-24 12:36:18 │   18 │  89 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   254 │
+2026-05-24 12:36:18 │   19 │  90 │ 0.0000 │     4.7067 │  0 FAIL   │ 0.000 │  0% │  4.7067 │   264 │
+2026-05-24 12:36:18 │   20 │  91 │ 0.0000 │     4.7382 │  0 FAIL   │ 0.000 │  0% │  4.7382 │   264 │
+2026-05-24 12:36:18 │   21 │  96 │ 0.0000 │     3.5309 │  0 FAIL   │ 0.000 │  0% │  3.5309 │   264 │
+2026-05-24 12:36:18 └──────┴─────┴────────┴────────────┴───────────┴───────┴─────┴─────────┴───────┘
+2026-05-24 12:36:18 
+2026-05-24 12:36:18 Round complete in epoch 22927 (1692s elapsed). Starting next round immediately…
+2026-05-24 12:36:18 
+2026-05-24 12:36:18 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-05-24 12:36:18 
+2026-05-24 12:36:18 ━━━ Epoch #22927 (Loop #10) ━━━ block=8253992, ~17m remaining
+2026-05-24 12:36:28 
+2026-05-24 12:36:28   ⚠ UID 86: revision lock failed: RepositoryNotFoundError: 401 Client Error.
+2026-05-24 12:36:28 (Request ID:
+2026-05-24 12:36:28 Root=1-6a12f0cb-57bb26132a915bd423a5a73e;86c73f79-fecd-48af-9beb-f7b44edfacd6)
+2026-05-24 12:36:28 
+2026-05-24 12:36:28 Repository Not Found for url:
+2026-05-24 12:36:28 https://huggingface.co/api/models/clear-blue-sky/evolai-tfm-012/revision/main.
+2026-05-24 12:36:28 Please make sure you specified the correct `repo_id` and `repo_type`.
+2026-05-24 12:36:28 If you are trying to access a private or gated repo, make sure you are
+2026-05-24 12:36:28 authenticated and your token has the required permissions.
+2026-05-24 12:36:28 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
+2026-05-24 12:36:28 Invalid username or password.
+2026-05-24 12:36:28   ⚠ UID 87: revision lock failed: RepositoryNotFoundError: 401 Client Error.
+2026-05-24 12:36:28 (Request ID:
+2026-05-24 12:36:28 Root=1-6a12f0cc-23e5e9c7533f5a1429c9c699;fb36ad85-76e1-417d-84b0-affc2ef2a4ef)
+2026-05-24 12:36:28 
+2026-05-24 12:36:28 Repository Not Found for url:
+2026-05-24 12:36:28 https://huggingface.co/api/models/clear-blue-sky/evolai-tfm-013/revision/main.
+2026-05-24 12:36:28 Please make sure you specified the correct `repo_id` and `repo_type`.
+2026-05-24 12:36:28 If you are trying to access a private or gated repo, make sure you are
+2026-05-24 12:36:28 authenticated and your token has the required permissions.
+2026-05-24 12:36:28 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
+2026-05-24 12:36:28 Invalid username or password.
+2026-05-24 12:36:28   ⚠ UID 88: revision lock failed: RepositoryNotFoundError: 401 Client Error.
+2026-05-24 12:36:28 (Request ID:
+2026-05-24 12:36:28 Root=1-6a12f0cc-7795c7313d42b1050aa695c7;3618b9b9-3cf0-40e2-a2aa-7590d6e4cc14)
+2026-05-24 12:36:28 
+2026-05-24 12:36:28 Repository Not Found for url:
+2026-05-24 12:36:28 https://huggingface.co/api/models/clear-blue-sky/evolai-tfm-014/revision/main.
+2026-05-24 12:36:28 Please make sure you specified the correct `repo_id` and `repo_type`.
+2026-05-24 12:36:28 If you are trying to access a private or gated repo, make sure you are
+2026-05-24 12:36:28 authenticated and your token has the required permissions.
+2026-05-24 12:36:28 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
+2026-05-24 12:36:28 Invalid username or password.
+2026-05-24 12:36:28   Locked transformer revisions (50 miner(s), 3 skipped)
+2026-05-24 12:36:36   ⚠ UID 63: revision lock failed: RepositoryNotFoundError: 401 Client Error.
+2026-05-24 12:36:36 (Request ID:
+2026-05-24 12:36:36 Root=1-6a12f0d4-3825339976ee3d685aa6ce0d;8bb55a00-1ccd-4e30-8f99-5e27cce40c7a)
+2026-05-24 12:36:36 
+2026-05-24 12:36:36 Repository Not Found for url:
+2026-05-24 12:36:36 https://huggingface.co/api/models/clear-blue-sky/evolai-mb2-009/revision/main.
+2026-05-24 12:36:36 Please make sure you specified the correct `repo_id` and `repo_type`.
+2026-05-24 12:36:36 If you are trying to access a private or gated repo, make sure you are
+2026-05-24 12:36:36 authenticated and your token has the required permissions.
+2026-05-24 12:36:36 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
+2026-05-24 12:36:36 Invalid username or password.
+2026-05-24 12:36:36   ⚠ UID 64: revision lock failed: RepositoryNotFoundError: 401 Client Error.
+2026-05-24 12:36:36 (Request ID:
+2026-05-24 12:36:36 Root=1-6a12f0d4-766b5c1221ad75d10ee60b18;fe2650a4-9e5a-42ac-85dd-dd5e2d760e84)
+2026-05-24 12:36:36 
+2026-05-24 12:36:36 Repository Not Found for url:
+2026-05-24 12:36:36 https://huggingface.co/api/models/clear-blue-sky/evolai-mb2-002/revision/main.
+2026-05-24 12:36:36 Please make sure you specified the correct `repo_id` and `repo_type`.
+2026-05-24 12:36:36 If you are trying to access a private or gated repo, make sure you are
+2026-05-24 12:36:36 authenticated and your token has the required permissions.
+2026-05-24 12:36:36 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
+2026-05-24 12:36:36 Invalid username or password.
+2026-05-24 12:36:36   ⚠ UID 68: revision lock failed: RepositoryNotFoundError: 401 Client Error.
+2026-05-24 12:36:36 (Request ID:
+2026-05-24 12:36:36 Root=1-6a12f0d4-7f974e6d7537cb184f0ddd9e;8704cd22-4d35-4b6a-a112-83bfca0deb57)
+2026-05-24 12:36:36 
+2026-05-24 12:36:36 Repository Not Found for url:
+2026-05-24 12:36:36 https://huggingface.co/api/models/clear-blue-sky/evolai-mb2-008/revision/main.
+2026-05-24 12:36:36 Please make sure you specified the correct `repo_id` and `repo_type`.
+2026-05-24 12:36:36 If you are trying to access a private or gated repo, make sure you are
+2026-05-24 12:36:36 authenticated and your token has the required permissions.
+2026-05-24 12:36:36 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
+2026-05-24 12:36:36 Invalid username or password.
+2026-05-24 12:36:36   ⚠ UID 71: revision lock failed: RepositoryNotFoundError: 401 Client Error.
+2026-05-24 12:36:36 (Request ID:
+2026-05-24 12:36:36 Root=1-6a12f0d4-6027a46f4df9ea2c358ba7c9;63e95f84-73c6-44b2-a3b6-38a680934194)
+2026-05-24 12:36:36 
+2026-05-24 12:36:36 Repository Not Found for url:
+2026-05-24 12:36:36 https://huggingface.co/api/models/clear-blue-sky/evolai-mb2-001/revision/main.
+2026-05-24 12:36:36 Please make sure you specified the correct `repo_id` and `repo_type`.
+2026-05-24 12:36:36 If you are trying to access a private or gated repo, make sure you are
+2026-05-24 12:36:36 authenticated and your token has the required permissions.
+2026-05-24 12:36:36 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
+2026-05-24 12:36:36 Invalid username or password.
+2026-05-24 12:36:36   ⚠ UID 74: revision lock failed: RepositoryNotFoundError: 401 Client Error.
+2026-05-24 12:36:36 (Request ID:
+2026-05-24 12:36:36 Root=1-6a12f0d4-5ee777d350896e4d356bf26b;dfed951f-9bd4-4bf0-b19b-c3056a14be64)
+2026-05-24 12:36:36 
+2026-05-24 12:36:36 Repository Not Found for url:
+2026-05-24 12:36:36 https://huggingface.co/api/models/clear-blue-sky/evolai-mb2-007/revision/main.
+2026-05-24 12:36:36 Please make sure you specified the correct `repo_id` and `repo_type`.
+2026-05-24 12:36:36 If you are trying to access a private or gated repo, make sure you are
+2026-05-24 12:36:36 authenticated and your token has the required permissions.
+2026-05-24 12:36:36 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
+2026-05-24 12:36:36 Invalid username or password.
+2026-05-24 12:36:36   ⚠ UID 81: revision lock failed: RepositoryNotFoundError: 401 Client Error.
+2026-05-24 12:36:36 (Request ID:
+2026-05-24 12:36:36 Root=1-6a12f0d4-5874621e72d4b0ad2d7fed4f;346aa226-57ac-4fa0-8b36-0b0e38a0627e)
+2026-05-24 12:36:36 
+2026-05-24 12:36:36 Repository Not Found for url:
+2026-05-24 12:36:36 https://huggingface.co/api/models/clear-blue-sky/evolai-mb2-010/revision/main.
+2026-05-24 12:36:36 Please make sure you specified the correct `repo_id` and `repo_type`.
+2026-05-24 12:36:36 If you are trying to access a private or gated repo, make sure you are
+2026-05-24 12:36:36 authenticated and your token has the required permissions.
+2026-05-24 12:36:36 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
+2026-05-24 12:36:36 Invalid username or password.
+2026-05-24 12:36:37   Locked mamba2 revisions (15 miner(s), 6 skipped)
+2026-05-24 12:37:14   Committed round seed epoch=22927 seed=f77a747a...
+2026-05-24 12:37:15 Evaluating TRANSFORMER track…
+2026-05-24 12:37:15 
+2026-05-24 12:37:15   Found 50 locked transformer miners
+2026-05-24 12:37:15    Downloading
+2026-05-24 12:37:15 andrebarrosilva1123/evolai-d@89649e9376dace64f631711d3d270198e376702e…
+2026-05-24 12:37:15 Pre-building current/next challenges for 50 miners…
+2026-05-24 12:37:15 Fetching 7 files: 100%|██████████| 7/7 [00:06<00:00,  1.13it/s]
+2026-05-24 12:37:21    Ready: andrebarrosilva1123/evolai-d@89649e9376dace64f631711d3d270198e376702e
+2026-05-24 12:37:21    Downloading Lin2es/evolai-tfm-04o@52061d203723fdc8be09324d0c827898fcb7bdc4…
+2026-05-24 12:37:21 Fetching 7 files: 100%|██████████| 7/7 [00:02<00:00,  2.97it/s]
+2026-05-24 12:37:23    Ready: Lin2es/evolai-tfm-04o@52061d203723fdc8be09324d0c827898fcb7bdc4
+2026-05-24 12:38:09 ✓ Ref data ready: submitted=50, cached=50
+2026-05-24 12:38:09   [1/50] UID 51 | andrebarrosilva1123/evolai-d @
+2026-05-24 12:38:09 89649e9376dace64f631711d3d270198e376702e | hotkey 5EhLiPB1GHwH…
+2026-05-24 12:38:09     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:38:09     Fetched 20 texts (20 indices)
+2026-05-24 12:38:09    Downloading
+2026-05-24 12:38:09 batster4/evolai-phi4-mini-dpo-v1@8217794abaf74f8e15f578a507e27b5f9b1df4c9…
+2026-05-24 12:38:11     Loaded (local prefetch)
+2026-05-24 12:38:12     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 12:38:14   [2/50] UID 92 | Lin2es/evolai-tfm-04o @
+2026-05-24 12:38:14 52061d203723fdc8be09324d0c827898fcb7bdc4 | hotkey 5GefYX69KUVQ…
+2026-05-24 12:38:14     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:38:14     Fetched 20 texts (20 indices)
+2026-05-24 12:38:17     Loaded (local prefetch)
+2026-05-24 12:38:17     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:38:23    Ready:
+2026-05-24 12:38:23 batster4/evolai-phi4-mini-dpo-v1@8217794abaf74f8e15f578a507e27b5f9b1df4c9
+2026-05-24 12:38:23    Downloading
+2026-05-24 12:38:23 mrthor102/evolai-tfm-super-003@d0815286b53c386ac2ccaae67f6991d94c4bc17d…
+2026-05-24 12:38:23 Fetching 7 files: 100%|██████████| 7/7 [00:03<00:00,  1.76it/s]
+2026-05-24 12:38:27    Ready:
+2026-05-24 12:38:27 mrthor102/evolai-tfm-super-003@d0815286b53c386ac2ccaae67f6991d94c4bc17d
+2026-05-24 12:39:19     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:58
+2026-05-24 12:39:19     Loss 2.2509 | Size ×0.50 | Think 2.2509 | ThinkGain 0 (+0.4450) | Flow
+2026-05-24 12:39:19 0.0287 | KL 2.2223 | NextKL 2.7399 | SideQ 0% | Score 0.0000 (62.0s)
+2026-05-24 12:39:19     Gate FAIL | Improve same SHA cur=2.2223 req<=2.1778 prev=2.2223 | Consist ok
+2026-05-24 12:39:19 ema_cur=2.7774 ema_next=2.5478 ratio=0.917 max<=1.20
+2026-05-24 12:39:20   Evicted cached model:
+2026-05-24 12:39:20 Lin2es/evolai-mb2-02v@c1ad3d94c5929dcc0e3a40d9d9034bd80da9a1f8
+2026-05-24 12:39:21   [3/50] UID 59 | batster4/evolai-phi4-mini-dpo-v1 @
+2026-05-24 12:39:21 8217794abaf74f8e15f578a507e27b5f9b1df4c9 | hotkey 5GCA2s6m4RRM…
+2026-05-24 12:39:21     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:39:21     Fetched 20 texts (20 indices)
+2026-05-24 12:39:21    Downloading
+2026-05-24 12:39:21 dexserbia/evolai-gemma2-9b@7fe66309a3847239a4da5b712477f2105e88399b…
+2026-05-24 12:39:24     Loaded (local prefetch)
+2026-05-24 12:39:25     ⚠ Invalid model size (3.84B; allowed 0.45-0.48B, 1.50-1.80B) — skipping
+2026-05-24 12:39:27   [4/50] UID 98 | mrthor102/evolai-tfm-super-003 @
+2026-05-24 12:39:27 d0815286b53c386ac2ccaae67f6991d94c4bc17d | hotkey 5Hgy59m2Hzm1…
+2026-05-24 12:39:27     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:39:27     Fetched 20 texts (20 indices)
+2026-05-24 12:39:29     Loaded (local prefetch)
+2026-05-24 12:39:29     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:39:51    Ready: dexserbia/evolai-gemma2-9b@7fe66309a3847239a4da5b712477f2105e88399b
+2026-05-24 12:39:51    Downloading
+2026-05-24 12:39:51 logosnodos/evolai-qwen-1.5b@7e121e8efe6c6b93d622e9a53972d221e763d10b…
+2026-05-24 12:39:51 Fetching 17 files: 100%|██████████| 17/17 [00:44<00:00,  2.60s/it]
+2026-05-24 12:40:36    Ready: logosnodos/evolai-qwen-1.5b@7e121e8efe6c6b93d622e9a53972d221e763d10b
+2026-05-24 12:40:38     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:01:05
+2026-05-24 12:40:39     Loss 3.4848 | Size ×0.50 | Think 3.4848 | ThinkGain 0 (+0.4601) | Flow
+2026-05-24 12:40:39 0.1136 | KL 1.5860 | NextKL 1.8003 | SideQ 0% | Score 0.0310 (69.3s)
+2026-05-24 12:40:39     Gate PASS | Improve ok cur=1.5860 req<=1.6022 prev=1.6349 | Consist ok
+2026-05-24 12:40:39 ema_cur=1.8995 ema_next=1.8933 ratio=0.997 max<=1.20
+2026-05-24 12:40:40   Evicted cached model:
+2026-05-24 12:40:40 Lin2es/evolai-mb2-01v@a7f32e5ce7f8d307c98560e5025525f3703310c0
+2026-05-24 12:40:41   [5/50] UID 9 | dexserbia/evolai-gemma2-9b @
+2026-05-24 12:40:41 7fe66309a3847239a4da5b712477f2105e88399b | hotkey 5EbpxBkVKVNV…
+2026-05-24 12:40:41     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:40:41     Fetched 20 texts (20 indices)
+2026-05-24 12:40:41    Downloading
+2026-05-24 12:40:41 clear-blue-sky/evolai-reborn-tfm-007@bbeaa148635845855ae73f0d00613db01dc54d2a…
+2026-05-24 12:40:45    Ready:
+2026-05-24 12:40:45 clear-blue-sky/evolai-reborn-tfm-007@bbeaa148635845855ae73f0d00613db01dc54d2a
+2026-05-24 12:40:50     Loaded (local prefetch)
+2026-05-24 12:40:53     ⚠ Invalid model size (9.24B; allowed 0.45-0.48B, 1.50-1.80B) — skipping
+2026-05-24 12:40:55   [6/50] UID 61 | logosnodos/evolai-qwen-1.5b @
+2026-05-24 12:40:55 7e121e8efe6c6b93d622e9a53972d221e763d10b | hotkey 5FNTU6ZYgKup…
+2026-05-24 12:40:55     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:40:55    Downloading
+2026-05-24 12:40:55 mihai-777/evolai-tfm-1p5b@594894f806fb4c014675d89aad14f1c68976d52c…
+2026-05-24 12:40:55     Fetched 20 texts (20 indices)
+2026-05-24 12:40:57     Loaded (local prefetch)
+2026-05-24 12:40:59    Ready: mihai-777/evolai-tfm-1p5b@594894f806fb4c014675d89aad14f1c68976d52c
+2026-05-24 12:41:01     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 12:41:03   [7/50] UID 84 | clear-blue-sky/evolai-reborn-tfm-007 @
+2026-05-24 12:41:03 bbeaa148635845855ae73f0d00613db01dc54d2a | hotkey 5H1DaT8Dtt4N…
+2026-05-24 12:41:03     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:41:03     Fetched 20 texts (20 indices)
+2026-05-24 12:41:03    Downloading
+2026-05-24 12:41:03 clear-blue-sky/evolai-reborn-tfm-011@4ffd8e2076172f916b374f3bcadd956906a76179…
+2026-05-24 12:41:05     Loaded (local prefetch)
+2026-05-24 12:41:06     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:41:08    Ready:
+2026-05-24 12:41:08 clear-blue-sky/evolai-reborn-tfm-011@4ffd8e2076172f916b374f3bcadd956906a76179
+2026-05-24 12:42:08     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:57
+2026-05-24 12:42:08     Loss 3.8855 | Size ×0.50 | Think 3.8855 | ThinkGain 0 (+0.4562) | Flow
+2026-05-24 12:42:08 0.1661 | KL 1.9974 | NextKL 2.0402 | SideQ 0% | Score 0.0290 (61.4s)
+2026-05-24 12:42:08     Gate PASS | Improve ok cur=1.9974 req<=2.0366 prev=2.0781 | Consist ok
+2026-05-24 12:42:08 ema_cur=1.9070 ema_next=1.9324 ratio=1.013 max<=1.20
+2026-05-24 12:42:10   Evicted cached model:
+2026-05-24 12:42:10 mihai-777/evolai-mamba2-0p47b-v3@c2a96b92acf632d51a2c21da4482f77f98256518
+2026-05-24 12:42:10   [8/50] UID 33 | mihai-777/evolai-tfm-1p5b @
+2026-05-24 12:42:10 594894f806fb4c014675d89aad14f1c68976d52c | hotkey 5F22JM4of6TR…
+2026-05-24 12:42:10    Downloading
+2026-05-24 12:42:10 andrebarrosilva1123/evolai-c@6fc3d7f7c514cf3d5e4fc44dd8ef6b4ef883827c…
+2026-05-24 12:42:10     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:42:10     Fetched 20 texts (20 indices)
+2026-05-24 12:42:12     Loaded (local prefetch)
+2026-05-24 12:42:12     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:42:17    Ready: andrebarrosilva1123/evolai-c@6fc3d7f7c514cf3d5e4fc44dd8ef6b4ef883827c
+2026-05-24 12:43:17     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:01:00
+2026-05-24 12:43:17     Loss 2.9853 | Size ×0.50 | Think 2.9853 | ThinkGain 0 (+0.4540) | Flow
+2026-05-24 12:43:17 0.0000 | KL 2.5304 | NextKL 2.6268 | SideQ 0% | Score 0.0000 (64.6s)
+2026-05-24 12:43:17     Gate FAIL | Improve same SHA cur=2.5304 req<=2.4798 prev=2.5304 | Consist ok
+2026-05-24 12:43:17 ema_cur=2.4309 ema_next=2.4584 ratio=1.011 max<=1.20
+2026-05-24 12:43:19   Evicted cached model:
+2026-05-24 12:43:19 evolai/evolai_mamba_naive_kl@b7c8842d1d5a700bd6a36b834fe6f0b3dc5d321a
+2026-05-24 12:43:20   [9/50] UID 73 | clear-blue-sky/evolai-reborn-tfm-011 @
+2026-05-24 12:43:20 4ffd8e2076172f916b374f3bcadd956906a76179 | hotkey 5CSAM6rnGRPk…
+2026-05-24 12:43:20     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:43:20     Fetched 20 texts (20 indices)
+2026-05-24 12:43:20    Downloading
+2026-05-24 12:43:20 andrebarrosilva1123/evolai-0.4b@fa913c93aa7a7449066ce870427387bd3fc7e841…
+2026-05-24 12:43:22     Loaded (local prefetch)
+2026-05-24 12:43:22     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:43:26    Ready:
+2026-05-24 12:43:26 andrebarrosilva1123/evolai-0.4b@fa913c93aa7a7449066ce870427387bd3fc7e841
+2026-05-24 12:43:31    alpha=0.005461 TAO/α  budget=0.049625
+2026-05-24 12:43:45    emission scale=1.000 (active miners)
+2026-05-24 12:43:45    emission scale=1.000 (active miners)
+2026-05-24 12:43:45    all quality scores zero after gates — emission share redistributed to
+2026-05-24 12:43:45 productive tracks
+2026-05-24 12:43:46   ✓  set at 12:43:46 UTC
+2026-05-24 12:44:13     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:48
+2026-05-24 12:44:14     Loss 3.8249 | Size ×0.50 | Think 3.8249 | ThinkGain 0 (+0.4593) | Flow
+2026-05-24 12:44:14 0.0208 | KL 1.9116 | NextKL 1.9647 | SideQ 0% | Score 0.0181 (51.5s)
+2026-05-24 12:44:14     Gate PASS | Improve ok cur=1.9116 req<=1.9257 prev=1.9650 | Consist ok
+2026-05-24 12:44:14 ema_cur=2.1461 ema_next=1.8746 ratio=0.873 max<=1.20
+2026-05-24 12:44:16   Evicted cached model:
+2026-05-24 12:44:16 mihai-777/evolai-mamba2-0p47b@7b6564c9a46f602702c260185aa43867f321dee7
+2026-05-24 12:44:16   [10/50] UID 54 | andrebarrosilva1123/evolai-c @
+2026-05-24 12:44:16 6fc3d7f7c514cf3d5e4fc44dd8ef6b4ef883827c | hotkey 5D7HPRR2QdDB…
+2026-05-24 12:44:16     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:44:16     Fetched 20 texts (20 indices)
+2026-05-24 12:44:16    Downloading
+2026-05-24 12:44:16 mrthor102/evolai-tfm-super-002@0e5ff978cf3e2ea82e49ebd05d474a31feefba4e…
+2026-05-24 12:44:18     Loaded (local prefetch)
+2026-05-24 12:44:19     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 12:44:20    Ready:
+2026-05-24 12:44:20 mrthor102/evolai-tfm-super-002@0e5ff978cf3e2ea82e49ebd05d474a31feefba4e
+2026-05-24 12:44:21   [11/50] UID 49 | andrebarrosilva1123/evolai-0.4b @
+2026-05-24 12:44:21 fa913c93aa7a7449066ce870427387bd3fc7e841 | hotkey 5DULz3AJEisH…
+2026-05-24 12:44:21     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:44:21     Fetched 20 texts (20 indices)
+2026-05-24 12:44:21    Downloading
+2026-05-24 12:44:21 mihai-777/evolai-tfm-1p5b-05@a66a1beeefdbc6ff871ea4854b4e71ed5c3a44ba…
+2026-05-24 12:44:23     Loaded (local prefetch)
+2026-05-24 12:44:24     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 12:44:25    Ready: mihai-777/evolai-tfm-1p5b-05@a66a1beeefdbc6ff871ea4854b4e71ed5c3a44ba
+2026-05-24 12:44:26   [12/50] UID 97 | mrthor102/evolai-tfm-super-002 @
+2026-05-24 12:44:26 0e5ff978cf3e2ea82e49ebd05d474a31feefba4e | hotkey 5EcJYRJBVF5K…
+2026-05-24 12:44:26     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:44:26     Fetched 20 texts (20 indices)
+2026-05-24 12:44:26    Downloading
+2026-05-24 12:44:26 clear-blue-sky/evolai-reborn-tfm-002@80bfd436ce33127b06b23d3010d58604de53de1f…
+2026-05-24 12:44:27     Loaded (local prefetch)
+2026-05-24 12:44:28     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:44:30    Ready:
+2026-05-24 12:44:30 clear-blue-sky/evolai-reborn-tfm-002@80bfd436ce33127b06b23d3010d58604de53de1f
+2026-05-24 12:45:06     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:35
+2026-05-24 12:45:06     Loss 3.9021 | Size ×0.50 | Think 3.9021 | ThinkGain 0 (+0.4623) | Flow
+2026-05-24 12:45:06 0.1732 | KL 1.9108 | NextKL 1.9023 | SideQ 0% | Score 0.0339 (38.3s)
+2026-05-24 12:45:06     Gate PASS | Improve ok cur=1.9108 req<=1.9394 prev=1.9789 | Consist ok
+2026-05-24 12:45:06 ema_cur=1.9081 ema_next=1.9083 ratio=1.000 max<=1.20
+2026-05-24 12:45:08   Evicted cached model:
+2026-05-24 12:45:08 Lin2es/evolai-mb2-03v@3047597c4e4b4430450ddcd633240b88d781fdbd
+2026-05-24 12:45:08   [13/50] UID 76 | mihai-777/evolai-tfm-1p5b-05 @
+2026-05-24 12:45:08 a66a1beeefdbc6ff871ea4854b4e71ed5c3a44ba | hotkey 5GLBxPtoiB7R…
+2026-05-24 12:45:08     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:45:08     Fetched 20 texts (20 indices)
+2026-05-24 12:45:08    Downloading
+2026-05-24 12:45:08 sangerno63/evolai-transformer-v2@4b325f440c9ab4b8cc501454c5c5dc5f8e890ebb…
+2026-05-24 12:45:10     Loaded (local prefetch)
+2026-05-24 12:45:10     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:45:12    Ready:
+2026-05-24 12:45:12 sangerno63/evolai-transformer-v2@4b325f440c9ab4b8cc501454c5c5dc5f8e890ebb
+2026-05-24 12:45:49     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:35
+2026-05-24 12:45:49     Loss 3.6075 | Size ×0.50 | Think 3.6075 | ThinkGain 0 (+0.4563) | Flow
+2026-05-24 12:45:49 0.0000 | KL 2.8922 | NextKL 2.1234 | SideQ 0% | Score 0.0000 (38.6s)
+2026-05-24 12:45:49     Gate FAIL | Improve same SHA cur=2.8922 req<=2.8344 prev=2.8922 | Consist ok
+2026-05-24 12:45:49 ema_cur=2.4258 ema_next=2.3881 ratio=0.984 max<=1.20
+2026-05-24 12:45:50   Evicted cached model:
+2026-05-24 12:45:50 mihai-777/evolai-mamba2-1p6b-alt@131bd3907f9816bbf184f5651ba63af66046e84c
+2026-05-24 12:45:51   [14/50] UID 67 | clear-blue-sky/evolai-reborn-tfm-002 @
+2026-05-24 12:45:51 80bfd436ce33127b06b23d3010d58604de53de1f | hotkey 5GC7k2mkTKGF…
+2026-05-24 12:45:51     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:45:51    Downloading
+2026-05-24 12:45:51 clear-blue-sky/evolai-reborn-tfm-001@dcd7619a059c82daf5b685d70ee1b86c77e6b2bd…
+2026-05-24 12:45:51     Fetched 20 texts (20 indices)
+2026-05-24 12:45:53     Loaded (local prefetch)
+2026-05-24 12:45:53     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:45:55    Ready:
+2026-05-24 12:45:55 clear-blue-sky/evolai-reborn-tfm-001@dcd7619a059c82daf5b685d70ee1b86c77e6b2bd
+2026-05-24 12:46:32     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:35
+2026-05-24 12:46:32     Loss 4.2733 | Size ×0.50 | Think 4.2733 | ThinkGain 0 (+0.4614) | Flow
+2026-05-24 12:46:32 0.0000 | KL 2.2201 | NextKL 1.9431 | SideQ 0% | Score 0.0268 (38.4s)
+2026-05-24 12:46:32     Gate PASS | Improve ok cur=2.2201 req<=2.2514 prev=2.2974 | Consist ok
+2026-05-24 12:46:32 ema_cur=1.9077 ema_next=1.9149 ratio=1.004 max<=1.20
+2026-05-24 12:46:34   Evicted cached model:
+2026-05-24 12:46:34 Lin2es/evolai-tfm-04o@52061d203723fdc8be09324d0c827898fcb7bdc4
+2026-05-24 12:46:34   [15/50] UID 48 | sangerno63/evolai-transformer-v2 @
+2026-05-24 12:46:34 4b325f440c9ab4b8cc501454c5c5dc5f8e890ebb | hotkey 5ED3KNj5uEVS…
+2026-05-24 12:46:34     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:46:34     Fetched 20 texts (20 indices)
+2026-05-24 12:46:34    Downloading evolai/evolai_naive_kl@da8203b6900f14ec1b724f3dd8c6dc35576fc3e4…
+2026-05-24 12:46:36     Loaded (local prefetch)
+2026-05-24 12:46:37     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:46:37    Ready: evolai/evolai_naive_kl@da8203b6900f14ec1b724f3dd8c6dc35576fc3e4
+2026-05-24 12:47:14     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:34
+2026-05-24 12:47:14     Loss 3.9911 | Size ×0.50 | Think 3.9911 | ThinkGain 0 (+0.4476) | Flow
+2026-05-24 12:47:14 0.0000 | KL 2.4143 | NextKL 2.3034 | SideQ 0% | Score 0.0001 (37.3s)
+2026-05-24 12:47:14     Gate FAIL | Improve same SHA cur=2.4143 req<=2.3660 prev=2.4143 | Consist ok
+2026-05-24 12:47:14 ema_cur=2.2205 ema_next=2.2251 ratio=1.002 max<=1.20
+2026-05-24 12:47:16   Evicted cached model:
+2026-05-24 12:47:16 mrthor102/evolai-tfm-super-003@d0815286b53c386ac2ccaae67f6991d94c4bc17d
+2026-05-24 12:47:17   [16/50] UID 62 | clear-blue-sky/evolai-reborn-tfm-001 @
+2026-05-24 12:47:17 dcd7619a059c82daf5b685d70ee1b86c77e6b2bd | hotkey 5EjjVuNJsjqP…
+2026-05-24 12:47:17     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:47:17     Fetched 20 texts (20 indices)
+2026-05-24 12:47:17    Downloading Lin2es/evolai-tfm-02o@fc5fc3ee4a3877b825b404dc85c9367c1f248c59…
+2026-05-24 12:47:18     Loaded (local prefetch)
+2026-05-24 12:47:19     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:47:19    Ready: Lin2es/evolai-tfm-02o@fc5fc3ee4a3877b825b404dc85c9367c1f248c59
+2026-05-24 12:47:57     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:35
+2026-05-24 12:47:57     Loss 4.0691 | Size ×0.50 | Think 4.0691 | ThinkGain 0 (+0.4589) | Flow
+2026-05-24 12:47:57 0.0928 | KL 2.0184 | NextKL 1.9347 | SideQ 0% | Score 0.0276 (38.6s)
+2026-05-24 12:47:57     Gate PASS | Improve ok cur=2.0184 req<=2.0478 prev=2.0896 | Consist ok
+2026-05-24 12:47:57 ema_cur=1.9219 ema_next=1.9160 ratio=0.997 max<=1.20
+2026-05-24 12:47:59   Evicted cached model:
+2026-05-24 12:47:59 clear-blue-sky/evolai-reborn-tfm-007@bbeaa148635845855ae73f0d00613db01dc54d2a
+2026-05-24 12:48:00   [17/50] UID 95 | evolai/evolai_naive_kl @
+2026-05-24 12:48:00 da8203b6900f14ec1b724f3dd8c6dc35576fc3e4 | hotkey 5CXwmm7R4U6o…
+2026-05-24 12:48:00     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:48:00     Fetched 20 texts (20 indices)
+2026-05-24 12:48:00    Downloading
+2026-05-24 12:48:00 Danieli1021/evolai-qwen047-v3@e01dfd3b9c54325c98bf12966bdebadace391002…
+2026-05-24 12:48:01     Loaded (local prefetch)
+2026-05-24 12:48:02     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:48:04    Ready: Danieli1021/evolai-qwen047-v3@e01dfd3b9c54325c98bf12966bdebadace391002
+2026-05-24 12:48:08     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:03
+2026-05-24 12:48:08     Loss 3.3781 | Size ×0.50 | Think 3.3781 | ThinkGain 0 (+0.4813) | Flow
+2026-05-24 12:48:08 0.0751 | KL 3.1252 | NextKL 2.9683 | SideQ 0% | Score 0.0000 (6.4s)
+2026-05-24 12:48:08     Gate FAIL | Improve same SHA cur=3.1252 req<=3.0627 prev=3.1252 | Consist ok
+2026-05-24 12:48:08 ema_cur=2.7898 ema_next=2.8011 ratio=1.004 max<=1.20
+2026-05-24 12:48:10   Evicted cached model:
+2026-05-24 12:48:10 mihai-777/evolai-tfm-1p5b@594894f806fb4c014675d89aad14f1c68976d52c
+2026-05-24 12:48:10   [18/50] UID 78 | Lin2es/evolai-tfm-02o @
+2026-05-24 12:48:10 fc5fc3ee4a3877b825b404dc85c9367c1f248c59 | hotkey 5FA2kgLNs36d…
+2026-05-24 12:48:10     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:48:10     Fetched 20 texts (20 indices)
+2026-05-24 12:48:10    Downloading
+2026-05-24 12:48:10 dreamiii0406/evolai-0p47b-v1@fea2659bdf8bd35e5382c50e4857f1ab20f20262…
+2026-05-24 12:48:12     Loaded (local prefetch)
+2026-05-24 12:48:12     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:48:14    Ready: dreamiii0406/evolai-0p47b-v1@fea2659bdf8bd35e5382c50e4857f1ab20f20262
+2026-05-24 12:48:49     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:34
+2026-05-24 12:48:49     Loss 3.6171 | Size ×0.50 | Think 3.6171 | ThinkGain 0 (+0.4173) | Flow
+2026-05-24 12:48:49 0.1570 | KL 2.8971 | NextKL 2.9376 | SideQ 0% | Score 0.0000 (36.6s)
+2026-05-24 12:48:49     Gate FAIL | Improve same SHA cur=2.8971 req<=2.8392 prev=2.8971 | Consist ok
+2026-05-24 12:48:49 ema_cur=2.7547 ema_next=2.7715 ratio=1.006 max<=1.20
+2026-05-24 12:48:50   Evicted cached model:
+2026-05-24 12:48:50 clear-blue-sky/evolai-reborn-tfm-011@4ffd8e2076172f916b374f3bcadd956906a76179
+2026-05-24 12:48:51   [19/50] UID 100 | Danieli1021/evolai-qwen047-v3 @
+2026-05-24 12:48:51 e01dfd3b9c54325c98bf12966bdebadace391002 | hotkey 5DMH2VrrukYd…
+2026-05-24 12:48:51     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:48:51     Fetched 20 texts (20 indices)
+2026-05-24 12:48:51    Downloading
+2026-05-24 12:48:51 clear-blue-sky/evolai-reborn-tfm-010@a192d3011fd12641d6e1016688b620117747ff01…
+2026-05-24 12:48:52     Loaded (local prefetch)
+2026-05-24 12:48:52     Model 0.47B → batch=512, seq=16384
+2026-05-24 12:48:55    Ready:
+2026-05-24 12:48:55 clear-blue-sky/evolai-reborn-tfm-010@a192d3011fd12641d6e1016688b620117747ff01
+2026-05-24 12:49:12     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:16
+2026-05-24 12:49:12     Loss 4.0420 | Size ×0.51 | Think 4.0420 | ThinkGain 0 (+0.4795) | Flow
+2026-05-24 12:49:12 0.0164 | KL 3.8464 | NextKL 4.0251 | SideQ 0% | Score 0.0000 (19.6s)
+2026-05-24 12:49:12     Gate FAIL | Improve same SHA cur=3.8464 req<=3.7695 prev=3.8464 | Consist ok
+2026-05-24 12:49:12 ema_cur=4.1667 ema_next=3.9550 ratio=0.949 max<=1.20
+2026-05-24 12:49:14   Evicted cached model:
+2026-05-24 12:49:14 mrthor102/evolai-tfm-super-002@0e5ff978cf3e2ea82e49ebd05d474a31feefba4e
+2026-05-24 12:49:14   [20/50] UID 80 | dreamiii0406/evolai-0p47b-v1 @
+2026-05-24 12:49:14 fea2659bdf8bd35e5382c50e4857f1ab20f20262 | hotkey 5Cd2zZyMQnvp…
+2026-05-24 12:49:14     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:49:14    Downloading
+2026-05-24 12:49:14 mihai-777/evolai-tfm-1p5b-alt@5ebb4a406916abe39e32823ff1f635b70e707e5a…
+2026-05-24 12:49:14     Fetched 20 texts (20 indices)
+2026-05-24 12:49:16     Loaded (local prefetch)
+2026-05-24 12:49:16     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 12:49:18   [21/50] UID 72 | clear-blue-sky/evolai-reborn-tfm-010 @
+2026-05-24 12:49:18 a192d3011fd12641d6e1016688b620117747ff01 | hotkey 5H3rMcqJQcbK…
+2026-05-24 12:49:18     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:49:18     Fetched 20 texts (20 indices)
+2026-05-24 12:49:19    Ready: mihai-777/evolai-tfm-1p5b-alt@5ebb4a406916abe39e32823ff1f635b70e707e5a
+2026-05-24 12:49:19    Downloading
+2026-05-24 12:49:19 clear-blue-sky/evolai-reborn-tfm-006@d1c15c64857c37a26b0d3771ab9b08338abca528…
+2026-05-24 12:49:19 Fetching 7 files: 100%|██████████| 7/7 [00:03<00:00,  1.89it/s]
+2026-05-24 12:49:20     Loaded (local prefetch)
+2026-05-24 12:49:20     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:49:22    Ready:
+2026-05-24 12:49:22 clear-blue-sky/evolai-reborn-tfm-006@d1c15c64857c37a26b0d3771ab9b08338abca528
+2026-05-24 12:49:55     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:32
+2026-05-24 12:49:55     Loss 3.5882 | Size ×0.50 | Think 3.5882 | ThinkGain 0 (+0.4599) | Flow
+2026-05-24 12:49:55 0.2941 | KL 1.7165 | NextKL 1.9621 | SideQ 0% | Score 0.0275 (34.7s)
+2026-05-24 12:49:55     Gate PASS | Improve ok cur=1.7165 req<=1.7525 prev=1.7882 | Consist ok
+2026-05-24 12:49:55 ema_cur=1.8548 ema_next=1.8759 ratio=1.011 max<=1.20
+2026-05-24 12:49:56   Evicted cached model:
+2026-05-24 12:49:56 mihai-777/evolai-tfm-1p5b-05@a66a1beeefdbc6ff871ea4854b4e71ed5c3a44ba
+2026-05-24 12:49:57   [22/50] UID 38 | mihai-777/evolai-tfm-1p5b-alt @
+2026-05-24 12:49:57 5ebb4a406916abe39e32823ff1f635b70e707e5a | hotkey 5FbfiXysyCtC…
+2026-05-24 12:49:57     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:49:57    Downloading
+2026-05-24 12:49:57 Radiant28/evolai-transformer-0.4b-b1@18231d7d50096d8b2744fdff1b38a7b90246ddf0…
+2026-05-24 12:49:57     Fetched 20 texts (20 indices)
+2026-05-24 12:49:58     Loaded (local prefetch)
+2026-05-24 12:49:58     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:50:03    Ready:
+2026-05-24 12:50:03 Radiant28/evolai-transformer-0.4b-b1@18231d7d50096d8b2744fdff1b38a7b90246ddf0
+2026-05-24 12:50:37     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:35
+2026-05-24 12:50:37     Loss 2.4187 | Size ×0.50 | Think 2.4187 | ThinkGain 0 (+0.4531) | Flow
+2026-05-24 12:50:37 0.0000 | KL 2.3022 | NextKL 2.4298 | SideQ 0% | Score 0.0000 (38.8s)
+2026-05-24 12:50:37     Gate FAIL | Improve same SHA cur=2.3022 req<=2.2561 prev=2.3022 | Consist ok
+2026-05-24 12:50:37 ema_cur=2.4386 ema_next=2.4454 ratio=1.003 max<=1.20
+2026-05-24 12:50:39   Evicted cached model:
+2026-05-24 12:50:39 clear-blue-sky/evolai-reborn-tfm-002@80bfd436ce33127b06b23d3010d58604de53de1f
+2026-05-24 12:50:40   [23/50] UID 66 | clear-blue-sky/evolai-reborn-tfm-006 @
+2026-05-24 12:50:40 d1c15c64857c37a26b0d3771ab9b08338abca528 | hotkey 5E4M4B5sVED5…
+2026-05-24 12:50:40     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:50:40     Fetched 20 texts (20 indices)
+2026-05-24 12:50:40    Downloading
+2026-05-24 12:50:40 andrebarrosilva1123/evolai-b@3414c0abb8793ed4af56fd5e6e536b8b0f5ac520…
+2026-05-24 12:50:41     Loaded (local prefetch)
+2026-05-24 12:50:42     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:50:46    Ready: andrebarrosilva1123/evolai-b@3414c0abb8793ed4af56fd5e6e536b8b0f5ac520
+2026-05-24 12:51:21     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:36
+2026-05-24 12:51:21     Loss 3.6512 | Size ×0.50 | Think 3.6512 | ThinkGain 0 (+0.4609) | Flow
+2026-05-24 12:51:21 0.1832 | KL 1.8387 | NextKL 1.8490 | SideQ 0% | Score 0.0286 (39.5s)
+2026-05-24 12:51:21     Gate PASS | Improve ok cur=1.8387 req<=1.8520 prev=1.8898 | Consist ok
+2026-05-24 12:51:21 ema_cur=1.9322 ema_next=1.9234 ratio=0.995 max<=1.20
+2026-05-24 12:51:23   Evicted cached model:
+2026-05-24 12:51:23 sangerno63/evolai-transformer-v2@4b325f440c9ab4b8cc501454c5c5dc5f8e890ebb
+2026-05-24 12:51:24   [24/50] UID 35 | Radiant28/evolai-transformer-0.4b-b1 @
+2026-05-24 12:51:24 18231d7d50096d8b2744fdff1b38a7b90246ddf0 | hotkey 5EXZBq3wQzTK…
+2026-05-24 12:51:24     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:51:24     Fetched 20 texts (20 indices)
+2026-05-24 12:51:24    Downloading Jubilant/evolai-1.54b@d8681d30b14cb5a597d2ff7c909998cf9d217599…
+2026-05-24 12:51:26     Loaded (local prefetch)
+2026-05-24 12:51:26     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 12:51:29   [25/50] UID 50 | andrebarrosilva1123/evolai-b @
+2026-05-24 12:51:29 3414c0abb8793ed4af56fd5e6e536b8b0f5ac520 | hotkey 5FXELcBK4WiD…
+2026-05-24 12:51:29     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:51:29     Fetched 20 texts (20 indices)
+2026-05-24 12:51:30    Ready: Jubilant/evolai-1.54b@d8681d30b14cb5a597d2ff7c909998cf9d217599
+2026-05-24 12:51:30    Downloading
+2026-05-24 12:51:30 mihai-777/evolai-tfm-1p5b-v5@bd42aeb0828dfa0126f7fc825e13b49209fec678…
+2026-05-24 12:51:31     Loaded (local prefetch)
+2026-05-24 12:51:32     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 12:51:33    Ready: mihai-777/evolai-tfm-1p5b-v5@bd42aeb0828dfa0126f7fc825e13b49209fec678
+2026-05-24 12:51:34   [26/50] UID 36 | Jubilant/evolai-1.54b @
+2026-05-24 12:51:34 d8681d30b14cb5a597d2ff7c909998cf9d217599 | hotkey 5G7Co5VNfQio…
+2026-05-24 12:51:34     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:51:34     Fetched 20 texts (20 indices)
+2026-05-24 12:51:34    Downloading
+2026-05-24 12:51:34 mrthor102/evolai-tfm-super-001@2118985d91895e4c9aaedda32aa4401f8fe087c0…
+2026-05-24 12:51:36     Loaded (local prefetch)
+2026-05-24 12:51:36     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 12:51:38    Ready:
+2026-05-24 12:51:38 mrthor102/evolai-tfm-super-001@2118985d91895e4c9aaedda32aa4401f8fe087c0
+2026-05-24 12:51:39   [27/50] UID 42 | mihai-777/evolai-tfm-1p5b-v5 @
+2026-05-24 12:51:39 bd42aeb0828dfa0126f7fc825e13b49209fec678 | hotkey 5C5WCYnsrXRz…
+2026-05-24 12:51:39     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:51:39     Fetched 20 texts (20 indices)
+2026-05-24 12:51:39    Downloading
+2026-05-24 12:51:39 mihai-777/evolai-tfm-1p5b-04@fb289dbfe35c595b1a586f786a19e118cc1bfc9a…
+2026-05-24 12:51:40     Loaded (local prefetch)
+2026-05-24 12:51:40     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:51:42    Ready: mihai-777/evolai-tfm-1p5b-04@fb289dbfe35c595b1a586f786a19e118cc1bfc9a
+2026-05-24 12:52:19     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:35
+2026-05-24 12:52:19     Loss 2.9312 | Size ×0.50 | Think 2.9312 | ThinkGain 0 (+0.4525) | Flow
+2026-05-24 12:52:19 0.1335 | KL 2.2947 | NextKL 2.5562 | SideQ 0% | Score 0.0000 (38.6s)
+2026-05-24 12:52:19     Gate FAIL | Improve same SHA cur=2.2947 req<=2.2488 prev=2.2947 | Consist ok
+2026-05-24 12:52:19 ema_cur=2.4225 ema_next=2.4414 ratio=1.008 max<=1.20
+2026-05-24 12:52:20   Evicted cached model:
+2026-05-24 12:52:20 clear-blue-sky/evolai-reborn-tfm-001@dcd7619a059c82daf5b685d70ee1b86c77e6b2bd
+2026-05-24 12:52:21   [28/50] UID 94 | mrthor102/evolai-tfm-super-001 @
+2026-05-24 12:52:21 2118985d91895e4c9aaedda32aa4401f8fe087c0 | hotkey 5CPXihPMoGQ2…
+2026-05-24 12:52:21     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:52:21     Fetched 20 texts (20 indices)
+2026-05-24 12:52:21    Downloading
+2026-05-24 12:52:21 clear-blue-sky/evolai-reborn-tfm-009@e4ffccf95e260f015433c4fa2aaba8170a077a7f…
+2026-05-24 12:52:23     Loaded (local prefetch)
+2026-05-24 12:52:23     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:52:25    Ready:
+2026-05-24 12:52:25 clear-blue-sky/evolai-reborn-tfm-009@e4ffccf95e260f015433c4fa2aaba8170a077a7f
+2026-05-24 12:53:02     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:35
+2026-05-24 12:53:02     Loss 3.8280 | Size ×0.50 | Think 3.8280 | ThinkGain 0 (+0.4624) | Flow
+2026-05-24 12:53:02 0.0000 | KL 1.8878 | NextKL 1.9947 | SideQ 0% | Score 0.0252 (38.5s)
+2026-05-24 12:53:02     Gate PASS | Improve ok cur=1.8878 req<=1.9121 prev=1.9511 | Consist ok
+2026-05-24 12:53:02 ema_cur=1.9587 ema_next=1.9709 ratio=1.006 max<=1.20
+2026-05-24 12:53:04   Evicted cached model:
+2026-05-24 12:53:04 evolai/evolai_naive_kl@da8203b6900f14ec1b724f3dd8c6dc35576fc3e4
+2026-05-24 12:53:04   [29/50] UID 75 | mihai-777/evolai-tfm-1p5b-04 @
+2026-05-24 12:53:04 fb289dbfe35c595b1a586f786a19e118cc1bfc9a | hotkey 5Dnz76SAsEv8…
+2026-05-24 12:53:04     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:53:04     Fetched 20 texts (20 indices)
+2026-05-24 12:53:04    Downloading snx999/evolai_qw_4b@69eff663b4e9a2b5bf76dde6cdecc5dce29759d3…
+2026-05-24 12:53:06     Loaded (local prefetch)
+2026-05-24 12:53:06     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:53:19    Ready: snx999/evolai_qw_4b@69eff663b4e9a2b5bf76dde6cdecc5dce29759d3
+2026-05-24 12:53:46     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:37
+2026-05-24 12:53:47     Loss 3.0942 | Size ×0.50 | Think 3.0942 | ThinkGain 0 (+0.4558) | Flow
+2026-05-24 12:53:47 0.0000 | KL 2.3620 | NextKL 2.7640 | SideQ 0% | Score 0.0000 (40.3s)
+2026-05-24 12:53:47     Gate FAIL | Improve same SHA cur=2.3620 req<=2.3148 prev=2.3620 | Consist ok
+2026-05-24 12:53:47 ema_cur=2.4220 ema_next=2.4636 ratio=1.017 max<=1.20
+2026-05-24 12:53:48   Evicted cached model:
+2026-05-24 12:53:48 Lin2es/evolai-tfm-02o@fc5fc3ee4a3877b825b404dc85c9367c1f248c59
+2026-05-24 12:53:49   [30/50] UID 69 | clear-blue-sky/evolai-reborn-tfm-009 @
+2026-05-24 12:53:49 e4ffccf95e260f015433c4fa2aaba8170a077a7f | hotkey 5ChUCf3NjrgS…
+2026-05-24 12:53:49     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:53:49     Fetched 20 texts (20 indices)
+2026-05-24 12:53:49    Downloading
+2026-05-24 12:53:49 mrthor102/evolai-tfm-super-004@bf3cd1a5f495f1a25b4bd471de3e45dd458fb2ea…
+2026-05-24 12:53:50     Loaded (local prefetch)
+2026-05-24 12:53:51     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:53:55    Ready:
+2026-05-24 12:53:55 mrthor102/evolai-tfm-super-004@bf3cd1a5f495f1a25b4bd471de3e45dd458fb2ea
+2026-05-24 12:54:30     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:35
+2026-05-24 12:54:30     Loss 3.2581 | Size ×0.50 | Think 3.2581 | ThinkGain 0 (+0.4606) | Flow
+2026-05-24 12:54:30 0.1265 | KL 1.7040 | NextKL 1.8212 | SideQ 0% | Score 0.0263 (38.9s)
+2026-05-24 12:54:30     Gate PASS | Improve ok cur=1.7040 req<=1.7146 prev=1.7496 | Consist ok
+2026-05-24 12:54:30 ema_cur=1.9063 ema_next=1.9010 ratio=0.997 max<=1.20
+2026-05-24 12:54:32   Evicted cached model:
+2026-05-24 12:54:32 Danieli1021/evolai-qwen047-v3@e01dfd3b9c54325c98bf12966bdebadace391002
+2026-05-24 12:54:32   [31/50] UID 25 | snx999/evolai_qw_4b @
+2026-05-24 12:54:32 69eff663b4e9a2b5bf76dde6cdecc5dce29759d3 | hotkey 5HBJoNWv4nAi…
+2026-05-24 12:54:32     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:54:32     Fetched 20 texts (20 indices)
+2026-05-24 12:54:32    Downloading
+2026-05-24 12:54:32 clear-blue-sky/evolai-reborn-tfm-003@5c6b0c29d5d07cfcc5327b94f83fb774bf720826…
+2026-05-24 12:54:35     Loaded (local prefetch)
+2026-05-24 12:54:36    Ready:
+2026-05-24 12:54:36 clear-blue-sky/evolai-reborn-tfm-003@5c6b0c29d5d07cfcc5327b94f83fb774bf720826
+2026-05-24 12:54:37     ⚠ Invalid model size (4.21B; allowed 0.45-0.48B, 1.50-1.80B) — skipping
+2026-05-24 12:54:39   [32/50] UID 99 | mrthor102/evolai-tfm-super-004 @
+2026-05-24 12:54:39 bf3cd1a5f495f1a25b4bd471de3e45dd458fb2ea | hotkey 5EnuPuwNaqmP…
+2026-05-24 12:54:39     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:54:39     Fetched 20 texts (20 indices)
+2026-05-24 12:54:39    Downloading
+2026-05-24 12:54:39 clear-blue-sky/evolai-reborn-tfm-004@66dafbecbb0581afb28d70fbe88a7cdb7c6ccabd…
+2026-05-24 12:54:40     Loaded (local prefetch)
+2026-05-24 12:54:40     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:54:43    Ready:
+2026-05-24 12:54:43 clear-blue-sky/evolai-reborn-tfm-004@66dafbecbb0581afb28d70fbe88a7cdb7c6ccabd
+2026-05-24 12:55:19     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:35
+2026-05-24 12:55:19     Loss 3.6535 | Size ×0.50 | Think 3.6535 | ThinkGain 0 (+0.4610) | Flow
+2026-05-24 12:55:19 0.1585 | KL 1.8456 | NextKL 1.8802 | SideQ 0% | Score 0.0240 (38.6s)
+2026-05-24 12:55:19     Gate PASS | Improve ok cur=1.8456 req<=1.8688 prev=1.9069 | Consist ok
+2026-05-24 12:55:19 ema_cur=1.9163 ema_next=1.9105 ratio=0.997 max<=1.20
+2026-05-24 12:55:21   Evicted cached model:
+2026-05-24 12:55:21 clear-blue-sky/evolai-reborn-tfm-010@a192d3011fd12641d6e1016688b620117747ff01
+2026-05-24 12:55:22   [33/50] UID 82 | clear-blue-sky/evolai-reborn-tfm-003 @
+2026-05-24 12:55:22 5c6b0c29d5d07cfcc5327b94f83fb774bf720826 | hotkey 5EtDxpyqHywK…
+2026-05-24 12:55:22     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:55:22     Fetched 20 texts (20 indices)
+2026-05-24 12:55:22    Downloading
+2026-05-24 12:55:22 andrebarrosilva1123/evolai-e@806394ca7f2f7c1edbe962a9471647f4d67b5e72…
+2026-05-24 12:55:24     Loaded (local prefetch)
+2026-05-24 12:55:24     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:55:28    Ready: andrebarrosilva1123/evolai-e@806394ca7f2f7c1edbe962a9471647f4d67b5e72
+2026-05-24 12:56:03     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:36
+2026-05-24 12:56:03     Loss 3.3131 | Size ×0.50 | Think 3.3131 | ThinkGain 0 (+0.4618) | Flow
+2026-05-24 12:56:03 0.2458 | KL 1.6723 | NextKL 1.8379 | SideQ 0% | Score 0.0315 (39.2s)
+2026-05-24 12:56:03     Gate PASS | Improve ok cur=1.6723 req<=1.6876 prev=1.7221 | Consist ok
+2026-05-24 12:56:03 ema_cur=1.8616 ema_next=1.8705 ratio=1.005 max<=1.20
+2026-05-24 12:56:05   Evicted cached model:
+2026-05-24 12:56:05 mihai-777/evolai-tfm-1p5b-alt@5ebb4a406916abe39e32823ff1f635b70e707e5a
+2026-05-24 12:56:06   [34/50] UID 70 | clear-blue-sky/evolai-reborn-tfm-004 @
+2026-05-24 12:56:06 66dafbecbb0581afb28d70fbe88a7cdb7c6ccabd | hotkey 5Hdg2gHopWQK…
+2026-05-24 12:56:06     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:56:06     Fetched 20 texts (20 indices)
+2026-05-24 12:56:06    Downloading
+2026-05-24 12:56:06 evolai/evolai_test_challenge@1840c825eafbc561683b35823e8dd34e2388c48d…
+2026-05-24 12:56:07     Loaded (local prefetch)
+2026-05-24 12:56:08     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:56:10    Ready: evolai/evolai_test_challenge@1840c825eafbc561683b35823e8dd34e2388c48d
+2026-05-24 12:56:46     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:34
+2026-05-24 12:56:46     Loss 4.0334 | Size ×0.50 | Think 4.0334 | ThinkGain 0 (+0.4655) | Flow
+2026-05-24 12:56:46 0.0000 | KL 2.0356 | NextKL 1.9721 | SideQ 0% | Score 0.0262 (37.8s)
+2026-05-24 12:56:46     Gate PASS | Improve ok cur=2.0356 req<=2.0541 prev=2.0960 | Consist ok
+2026-05-24 12:56:46 ema_cur=1.9335 ema_next=1.9425 ratio=1.005 max<=1.20
+2026-05-24 12:56:48   Evicted cached model:
+2026-05-24 12:56:48 clear-blue-sky/evolai-reborn-tfm-006@d1c15c64857c37a26b0d3771ab9b08338abca528
+2026-05-24 12:56:48   [35/50] UID 53 | andrebarrosilva1123/evolai-e @
+2026-05-24 12:56:48 806394ca7f2f7c1edbe962a9471647f4d67b5e72 | hotkey 5EFgFa93M5Vx…
+2026-05-24 12:56:48     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:56:48     Fetched 20 texts (20 indices)
+2026-05-24 12:56:48    Downloading Lin2es/evolai-tfm-01o@d5af8d4f7543ee9e09ef3f668a29f2e09daeea8d…
+2026-05-24 12:56:50     Loaded (local prefetch)
+2026-05-24 12:56:51     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 12:56:52    Ready: Lin2es/evolai-tfm-01o@d5af8d4f7543ee9e09ef3f668a29f2e09daeea8d
+2026-05-24 12:56:53   [36/50] UID 8 | evolai/evolai_test_challenge @
+2026-05-24 12:56:53 1840c825eafbc561683b35823e8dd34e2388c48d | hotkey 5ENhqnBoyFdz…
+2026-05-24 12:56:53     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:56:53    Downloading
+2026-05-24 12:56:53 andrebarrosilva1123/evolai-f@89654c7b1e351cce36bab65fe09692eb0e109f72…
+2026-05-24 12:56:53     Fetched 20 texts (20 indices)
+2026-05-24 12:56:55     Loaded (local prefetch)
+2026-05-24 12:56:55     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:56:59    Ready: andrebarrosilva1123/evolai-f@89654c7b1e351cce36bab65fe09692eb0e109f72
+2026-05-24 12:57:33     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:35
+2026-05-24 12:57:34     Loss 3.7644 | Size ×0.50 | Think 3.7644 | ThinkGain 0 (+0.4589) | Flow
+2026-05-24 12:57:34 0.0240 | KL 1.8334 | NextKL 2.0146 | SideQ 0% | Score 0.0319 (38.3s)
+2026-05-24 12:57:34     Gate PASS | Improve ok cur=1.8334 req<=2.0696 prev=2.1119 | Consist ok
+2026-05-24 12:57:34 ema_cur=1.7297 ema_next=1.9400 ratio=1.122 max<=1.20
+2026-05-24 12:57:36   Evicted cached model:
+2026-05-24 12:57:36 mihai-777/evolai-tfm-1p5b-v5@bd42aeb0828dfa0126f7fc825e13b49209fec678
+2026-05-24 12:57:36   [37/50] UID 77 | Lin2es/evolai-tfm-01o @
+2026-05-24 12:57:36 d5af8d4f7543ee9e09ef3f668a29f2e09daeea8d | hotkey 5GQydjNVEhMb…
+2026-05-24 12:57:36     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:57:36     Fetched 20 texts (20 indices)
+2026-05-24 12:57:36    Downloading
+2026-05-24 12:57:36 Radiant28/evolai-transformer-0.4b-b2@808b61992e043ca99ff5b412a6cf61bfbb3fd793…
+2026-05-24 12:57:37     Loaded (local prefetch)
+2026-05-24 12:57:38     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:57:42    Ready:
+2026-05-24 12:57:42 Radiant28/evolai-transformer-0.4b-b2@808b61992e043ca99ff5b412a6cf61bfbb3fd793
+2026-05-24 12:58:16     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:35
+2026-05-24 12:58:16     Loss 2.4879 | Size ×0.50 | Think 2.4879 | ThinkGain 0 (+0.4324) | Flow
+2026-05-24 12:58:16 0.0000 | KL 2.6614 | NextKL 2.6849 | SideQ 0% | Score 0.0000 (38.1s)
+2026-05-24 12:58:16     Gate FAIL | Improve same SHA cur=2.6614 req<=2.6082 prev=2.6614 | Consist ok
+2026-05-24 12:58:16 ema_cur=2.6447 ema_next=2.6401 ratio=0.998 max<=1.20
+2026-05-24 12:58:17   Evicted cached model:
+2026-05-24 12:58:17 mrthor102/evolai-tfm-super-001@2118985d91895e4c9aaedda32aa4401f8fe087c0
+2026-05-24 12:58:18   [38/50] UID 52 | andrebarrosilva1123/evolai-f @
+2026-05-24 12:58:18 89654c7b1e351cce36bab65fe09692eb0e109f72 | hotkey 5HTZZEb5oxv9…
+2026-05-24 12:58:18     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:58:18     Fetched 20 texts (20 indices)
+2026-05-24 12:58:18    Downloading Lin2es/evolai-tfm-03o@2fcb3445759b5cb5d5d6a9be9e5731f72cc0f600…
+2026-05-24 12:58:20     Loaded (local prefetch)
+2026-05-24 12:58:21     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 12:58:21    Ready: Lin2es/evolai-tfm-03o@2fcb3445759b5cb5d5d6a9be9e5731f72cc0f600
+2026-05-24 12:58:23   [39/50] UID 37 | Radiant28/evolai-transformer-0.4b-b2 @
+2026-05-24 12:58:23 808b61992e043ca99ff5b412a6cf61bfbb3fd793 | hotkey 5HjbzF3e9waA…
+2026-05-24 12:58:23     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:58:23     Fetched 20 texts (20 indices)
+2026-05-24 12:58:23    Downloading
+2026-05-24 12:58:23 Jubilant/evolai-1.50b-v1@074810c41bab77c52a216e0c2f7886484e12deeb…
+2026-05-24 12:58:25     Loaded (local prefetch)
+2026-05-24 12:58:26     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 12:58:28   [40/50] UID 79 | Lin2es/evolai-tfm-03o @
+2026-05-24 12:58:28 2fcb3445759b5cb5d5d6a9be9e5731f72cc0f600 | hotkey 5D4eNqXRjWmX…
+2026-05-24 12:58:28     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:58:28     Fetched 20 texts (20 indices)
+2026-05-24 12:58:29    Ready: Jubilant/evolai-1.50b-v1@074810c41bab77c52a216e0c2f7886484e12deeb
+2026-05-24 12:58:29    Downloading philk11/evolai-0.4b@822950352d63cdd145c3a7449ebfd4b51ad5ae6a…
+2026-05-24 12:58:29     Loaded (local prefetch)
+2026-05-24 12:58:29 Fetching 10 files: 100%|██████████| 10/10 [00:03<00:00,  3.32it/s]
+2026-05-24 12:58:29     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:58:32    Ready: philk11/evolai-0.4b@822950352d63cdd145c3a7449ebfd4b51ad5ae6a
+2026-05-24 12:59:04     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:32
+2026-05-24 12:59:04     Loss 2.8182 | Size ×0.50 | Think 2.8182 | ThinkGain 0 (+0.4642) | Flow
+2026-05-24 12:59:04 0.2074 | KL 2.3879 | NextKL 2.5365 | SideQ 0% | Score 0.0000 (34.5s)
+2026-05-24 12:59:04     Gate FAIL | Improve same SHA cur=2.3879 req<=2.3401 prev=2.3879 | Consist ok
+2026-05-24 12:59:04 ema_cur=2.3826 ema_next=2.3993 ratio=1.007 max<=1.20
+2026-05-24 12:59:05   Evicted cached model:
+2026-05-24 12:59:05 mihai-777/evolai-tfm-1p5b-04@fb289dbfe35c595b1a586f786a19e118cc1bfc9a
+2026-05-24 12:59:06   [41/50] UID 40 | Jubilant/evolai-1.50b-v1 @
+2026-05-24 12:59:06 074810c41bab77c52a216e0c2f7886484e12deeb | hotkey 5Fuv43yR7tjJ…
+2026-05-24 12:59:06    Downloading Radiant28/evolai-1p5b@e351598db6d77f85b5081768df04d37c132750f0…
+2026-05-24 12:59:06     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:59:06     Fetched 20 texts (20 indices)
+2026-05-24 12:59:08     Loaded (local prefetch)
+2026-05-24 12:59:08     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 12:59:10   [42/50] UID 65 | philk11/evolai-0.4b @
+2026-05-24 12:59:10 822950352d63cdd145c3a7449ebfd4b51ad5ae6a | hotkey 5GvHE1tHbhGv…
+2026-05-24 12:59:10     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:59:10     Fetched 20 texts (20 indices)
+2026-05-24 12:59:12     Loaded (local prefetch)
+2026-05-24 12:59:12     ⚠ Invalid model size (0.60B; allowed 0.45-0.48B, 1.50-1.80B) — skipping
+2026-05-24 12:59:12    Ready: Radiant28/evolai-1p5b@e351598db6d77f85b5081768df04d37c132750f0
+2026-05-24 12:59:12    Downloading galuis116/evolai-future@f6f4f4fb9bcf46d226b45f4ad1d5946a8ef3e787…
+2026-05-24 12:59:13 Fetching 7 files: 100%|██████████| 7/7 [00:05<00:00,  1.18it/s]
+2026-05-24 12:59:15   [43/50] UID 43 | Radiant28/evolai-1p5b @
+2026-05-24 12:59:15 e351598db6d77f85b5081768df04d37c132750f0 | hotkey 5HSz4knZnWHY…
+2026-05-24 12:59:15     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:59:15     Fetched 20 texts (20 indices)
+2026-05-24 12:59:17     Loaded (local prefetch)
+2026-05-24 12:59:17     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 12:59:19    Ready: galuis116/evolai-future@f6f4f4fb9bcf46d226b45f4ad1d5946a8ef3e787
+2026-05-24 12:59:19    Downloading
+2026-05-24 12:59:19 Radiant28/evolai-0.4b-V1@5e0cb9981c5c7ec29fe92d5cf1ebddcbcc002af5…
+2026-05-24 12:59:20   [44/50] UID 101 | galuis116/evolai-future @
+2026-05-24 12:59:20 f6f4f4fb9bcf46d226b45f4ad1d5946a8ef3e787 | hotkey 5DPz76uobJLT…
+2026-05-24 12:59:20     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 12:59:20     Fetched 20 texts (20 indices)
+2026-05-24 12:59:21     Loaded (local prefetch)
+2026-05-24 12:59:22     Model 0.46B → batch=512, seq=16384
+2026-05-24 12:59:26    Ready: Radiant28/evolai-0.4b-V1@5e0cb9981c5c7ec29fe92d5cf1ebddcbcc002af5
+2026-05-24 12:59:26    Downloading
+2026-05-24 12:59:26 Roystar/evolai-qwen2.5-1.5b@47e6a605a62ff328096c1d7bd160b8eaf9ec5ff1…
+2026-05-24 12:59:26 Fetching 7 files: 100%|██████████| 7/7 [00:05<00:00,  1.27it/s]
+2026-05-24 12:59:32    Ready: Roystar/evolai-qwen2.5-1.5b@47e6a605a62ff328096c1d7bd160b8eaf9ec5ff1
+2026-05-24 13:00:01     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:36
+2026-05-24 13:00:02     Loss 3.5259 | Size ×0.50 | Think 3.5259 | ThinkGain 0 (+0.4623) | Flow
+2026-05-24 13:00:02 0.1270 | KL 1.7096 | NextKL 2.0219 | SideQ 0% | Score 0.0254 (39.8s)
+2026-05-24 13:00:02     Gate PASS | Improve ok cur=1.7096 req<=1.7349 prev=1.7704 | Consist ok
+2026-05-24 13:00:02 ema_cur=1.8790 ema_next=1.8908 ratio=1.006 max<=1.20
+2026-05-24 13:00:04   Evicted cached model:
+2026-05-24 13:00:04 clear-blue-sky/evolai-reborn-tfm-009@e4ffccf95e260f015433c4fa2aaba8170a077a7f
+2026-05-24 13:00:04   [45/50] UID 44 | Radiant28/evolai-0.4b-V1 @
+2026-05-24 13:00:04 5e0cb9981c5c7ec29fe92d5cf1ebddcbcc002af5 | hotkey 5DXm2ShZGmwG…
+2026-05-24 13:00:04     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 13:00:04     Fetched 20 texts (20 indices)
+2026-05-24 13:00:04    Downloading
+2026-05-24 13:00:04 clear-blue-sky/evolai-reborn-tfm-005@22b9ea4e5d80626cda51fc7cf1a5513f5b3ec28a…
+2026-05-24 13:00:06     Loaded (local prefetch)
+2026-05-24 13:00:07     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 13:00:08    Ready:
+2026-05-24 13:00:08 clear-blue-sky/evolai-reborn-tfm-005@22b9ea4e5d80626cda51fc7cf1a5513f5b3ec28a
+2026-05-24 13:00:09   [46/50] UID 55 | Roystar/evolai-qwen2.5-1.5b @
+2026-05-24 13:00:09 47e6a605a62ff328096c1d7bd160b8eaf9ec5ff1 | hotkey 5DhRJtUeVA6P…
+2026-05-24 13:00:09     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 13:00:09    Downloading
+2026-05-24 13:00:09 Phoenix9781/evolai-tf-model@883756e42bfbc362761bb150f2ef316deaafa94f…
+2026-05-24 13:00:09     Fetched 20 texts (20 indices)
+2026-05-24 13:00:11     Loaded (local prefetch)
+2026-05-24 13:00:11     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 13:00:13    Ready: Phoenix9781/evolai-tf-model@883756e42bfbc362761bb150f2ef316deaafa94f
+2026-05-24 13:00:14   [47/50] UID 83 | clear-blue-sky/evolai-reborn-tfm-005 @
+2026-05-24 13:00:14 22b9ea4e5d80626cda51fc7cf1a5513f5b3ec28a | hotkey 5G8tRiKdn5cC…
+2026-05-24 13:00:14     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 13:00:14     Fetched 20 texts (20 indices)
+2026-05-24 13:00:14    Downloading
+2026-05-24 13:00:14 clear-blue-sky/evolai-reborn-tfm-008@c0d3a5cf60cd31cb613c78982fc51fa0263c0680…
+2026-05-24 13:00:15     Loaded (local prefetch)
+2026-05-24 13:00:16     Model 0.46B → batch=512, seq=16384
+2026-05-24 13:00:18    Ready:
+2026-05-24 13:00:18 clear-blue-sky/evolai-reborn-tfm-008@c0d3a5cf60cd31cb613c78982fc51fa0263c0680
+2026-05-24 13:00:54     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:35
+2026-05-24 13:00:55     Loss 3.9180 | Size ×0.50 | Think 3.9180 | ThinkGain 0 (+0.4624) | Flow
+2026-05-24 13:00:55 0.0384 | KL 1.8698 | NextKL 1.8268 | SideQ 0% | Score 0.0207 (38.8s)
+2026-05-24 13:00:55     Gate PASS | Improve ok cur=1.8698 req<=1.9038 prev=1.9427 | Consist ok
+2026-05-24 13:00:55 ema_cur=2.1862 ema_next=1.9006 ratio=0.869 max<=1.20
+2026-05-24 13:00:57   Evicted cached model:
+2026-05-24 13:00:57 mrthor102/evolai-tfm-super-004@bf3cd1a5f495f1a25b4bd471de3e45dd458fb2ea
+2026-05-24 13:00:57   [48/50] UID 93 | Phoenix9781/evolai-tf-model @
+2026-05-24 13:00:57 883756e42bfbc362761bb150f2ef316deaafa94f | hotkey 5F4R25t78FSF…
+2026-05-24 13:00:57     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 13:00:57     Fetched 20 texts (20 indices)
+2026-05-24 13:00:57    Downloading
+2026-05-24 13:00:57 Radiant28/evolai-transformer-0.4b-b0@7a08a8009fa8b8f82d1ad0febc442a89020082d1…
+2026-05-24 13:00:58     Loaded (local prefetch)
+2026-05-24 13:00:59     Model 0.46B → batch=512, seq=16384
+2026-05-24 13:01:03    Ready:
+2026-05-24 13:01:03 Radiant28/evolai-transformer-0.4b-b0@7a08a8009fa8b8f82d1ad0febc442a89020082d1
+2026-05-24 13:01:36     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:34
+2026-05-24 13:01:36     Loss 3.9359 | Size ×0.50 | Think 3.9359 | ThinkGain 0 (+0.4616) | Flow
+2026-05-24 13:01:36 0.1232 | KL 1.8533 | NextKL 2.0370 | SideQ 0% | Score 0.0000 (37.2s)
+2026-05-24 13:01:36     Gate FAIL | Improve same SHA cur=1.8533 req<=1.8163 prev=1.8533 | Consist ok
+2026-05-24 13:01:36 ema_cur=1.9504 ema_next=1.9561 ratio=1.003 max<=1.20
+2026-05-24 13:01:38   Evicted cached model:
+2026-05-24 13:01:38 clear-blue-sky/evolai-reborn-tfm-003@5c6b0c29d5d07cfcc5327b94f83fb774bf720826
+2026-05-24 13:01:39   [49/50] UID 85 | clear-blue-sky/evolai-reborn-tfm-008 @
+2026-05-24 13:01:39 c0d3a5cf60cd31cb613c78982fc51fa0263c0680 | hotkey 5EC5MzPj6dGb…
+2026-05-24 13:01:39     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 13:01:39     Fetched 20 texts (20 indices)
+2026-05-24 13:01:40     Loaded (local prefetch)
+2026-05-24 13:01:41     Model 0.46B → batch=512, seq=16384
+2026-05-24 13:02:20     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:36
+2026-05-24 13:02:20     Loss 3.7276 | Size ×0.50 | Think 3.7276 | ThinkGain 0 (+0.4586) | Flow
+2026-05-24 13:02:20 0.0380 | KL 1.8338 | NextKL 1.8535 | SideQ 0% | Score 0.0209 (39.3s)
+2026-05-24 13:02:20     Gate PASS | Improve ok cur=1.8338 req<=1.8468 prev=1.8845 | Consist ok
+2026-05-24 13:02:20 ema_cur=2.1744 ema_next=1.8951 ratio=0.872 max<=1.20
+2026-05-24 13:02:22   Evicted cached model:
+2026-05-24 13:02:22 clear-blue-sky/evolai-reborn-tfm-004@66dafbecbb0581afb28d70fbe88a7cdb7c6ccabd
+2026-05-24 13:02:23   [50/50] UID 45 | Radiant28/evolai-transformer-0.4b-b0 @
+2026-05-24 13:02:23 7a08a8009fa8b8f82d1ad0febc442a89020082d1 | hotkey 5F1B3j7EyjuE…
+2026-05-24 13:02:23     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 13:02:23     Fetched 20 texts (20 indices)
+2026-05-24 13:02:25     Loaded (local prefetch)
+2026-05-24 13:02:25     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 13:02:27   Cached next refs for transformer: 50 miner(s)
+2026-05-24 13:02:27 
+2026-05-24 13:02:27   ✓ TRANSFORMER: 30 evaluated, 23 skipped —
+2026-05-24 13:02:27 epoch_22927_transformer_20260524_123618.json
+2026-05-24 13:02:27   ✓ Telemetry sent (30 records)
+2026-05-24 13:02:27 Evaluating MAMBA2 track…
+2026-05-24 13:02:27 
+2026-05-24 13:02:27   Found 15 locked mamba2 miners
+2026-05-24 13:02:27    Downloading
+2026-05-24 13:02:27 andrebarrosilva1123/evolai-mamba2-a@55b92d373b1c219a4cfbac7034c154ddbcdc854d…
+2026-05-24 13:02:27 Pre-building current/next challenges for 15 miners…
+2026-05-24 13:02:27 Fetching 7 files: 100%|██████████| 7/7 [00:03<00:00,  1.88it/s]
+2026-05-24 13:02:31    Ready:
+2026-05-24 13:02:31 andrebarrosilva1123/evolai-mamba2-a@55b92d373b1c219a4cfbac7034c154ddbcdc854d
+2026-05-24 13:02:31    Downloading
+2026-05-24 13:02:31 Radiant28/evolai-mamba2-0.47b-v3@97f692fb0b295aa29075d3f9d592bfb4e7625b16…
+2026-05-24 13:02:31 Fetching 7 files: 100%|██████████| 7/7 [00:03<00:00,  2.22it/s]
+2026-05-24 13:02:34    Ready:
+2026-05-24 13:02:34 Radiant28/evolai-mamba2-0.47b-v3@97f692fb0b295aa29075d3f9d592bfb4e7625b16
+2026-05-24 13:02:47 ✓ Ref data ready: submitted=15, cached=15
+2026-05-24 13:02:47   [1/15] UID 56 | andrebarrosilva1123/evolai-mamba2-a @
+2026-05-24 13:02:47 55b92d373b1c219a4cfbac7034c154ddbcdc854d | hotkey 5D1zGn2n3mzF…
+2026-05-24 13:02:47     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 13:02:47     Fetched 20 texts (20 indices)
+2026-05-24 13:02:47    Downloading Lin2es/evolai-mb2-02v@c1ad3d94c5929dcc0e3a40d9d9034bd80da9a1f8…
+2026-05-24 13:02:49     Loaded (local prefetch)
+2026-05-24 13:02:49     ⚠ Vocab incompatible (model=151669 < ref=248077) — skipping
+2026-05-24 13:02:51   [2/15] UID 41 | Radiant28/evolai-mamba2-0.47b-v3 @
+2026-05-24 13:02:51 97f692fb0b295aa29075d3f9d592bfb4e7625b16 | hotkey 5CP5QrWuFe93…
+2026-05-24 13:02:51     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 13:02:51     Fetched 20 texts (20 indices)
+2026-05-24 13:02:51    Ready: Lin2es/evolai-mb2-02v@c1ad3d94c5929dcc0e3a40d9d9034bd80da9a1f8
+2026-05-24 13:02:51    Downloading Lin2es/evolai-mb2-01v@a7f32e5ce7f8d307c98560e5025525f3703310c0…
+2026-05-24 13:02:53    Ready: Lin2es/evolai-mb2-01v@a7f32e5ce7f8d307c98560e5025525f3703310c0
+2026-05-24 13:02:53     Loaded (local prefetch)
+2026-05-24 13:02:54     ⚠ Vocab incompatible (model=151669 < ref=248077) — skipping
+2026-05-24 13:02:56   [3/15] UID 90 | Lin2es/evolai-mb2-02v @
+2026-05-24 13:02:56 c1ad3d94c5929dcc0e3a40d9d9034bd80da9a1f8 | hotkey 5CtLLhrw6Lxa…
+2026-05-24 13:02:56     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 13:02:56     Fetched 20 texts (20 indices)
+2026-05-24 13:02:56    Downloading
+2026-05-24 13:02:56 elgin-group/evolai-mamba2-0p47b-v1@39b2f90ad08643d34503c88f5c7224fd3dabeed7…
+2026-05-24 13:02:59    Ready:
+2026-05-24 13:02:59 elgin-group/evolai-mamba2-0p47b-v1@39b2f90ad08643d34503c88f5c7224fd3dabeed7
+2026-05-24 13:03:00     Loaded (local prefetch)
+2026-05-24 13:03:00     Model 0.48B → batch=512, seq=16384
+2026-05-24 13:03:06     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:01
+2026-05-24 13:03:06     Loss 4.6226 | Size ×0.52 | Think 0.0000 | ThinkGain 0 (+0.5000) | Flow
+2026-05-24 13:03:06 0.0279 | KL 4.6226 | NextKL 4.7659 | SideQ 0% | Score 0.0000 (5.5s)
+2026-05-24 13:03:06     Gate FAIL | Improve same SHA cur=4.6226 req<=4.5301 prev=4.6226 | Consist ok
+2026-05-24 13:03:06 ema_cur=4.8823 ema_next=4.7047 ratio=0.964 max<=1.20
+2026-05-24 13:03:07   Evicted cached model:
+2026-05-24 13:03:07 evolai/evolai_test_challenge@1840c825eafbc561683b35823e8dd34e2388c48d
+2026-05-24 13:03:08   [4/15] UID 11 | Lin2es/evolai-mb2-01v @
+2026-05-24 13:03:08 a7f32e5ce7f8d307c98560e5025525f3703310c0 | hotkey 5HYuS4jrJJ56…
+2026-05-24 13:03:08     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 13:03:08     Fetched 20 texts (20 indices)
+2026-05-24 13:03:08    Downloading
+2026-05-24 13:03:08 mihai-777/evolai-mamba2-0p47b-v3@c2a96b92acf632d51a2c21da4482f77f98256518…
+2026-05-24 13:03:11    Ready:
+2026-05-24 13:03:11 mihai-777/evolai-mamba2-0p47b-v3@c2a96b92acf632d51a2c21da4482f77f98256518
+2026-05-24 13:03:12     Loaded (local prefetch)
+2026-05-24 13:03:12     Model 0.48B → batch=512, seq=16384
+2026-05-24 13:03:16     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:01
+2026-05-24 13:03:17     Loss 4.5371 | Size ×0.52 | Think 0.0000 | ThinkGain 0 (+0.5000) | Flow
+2026-05-24 13:03:17 0.1761 | KL 4.5371 | NextKL 4.6719 | SideQ 0% | Score 0.0000 (4.2s)
+2026-05-24 13:03:17     Gate FAIL | Improve same SHA cur=4.5371 req<=4.4463 prev=4.5371 | Consist ok
+2026-05-24 13:03:17 ema_cur=4.6453 ema_next=4.6516 ratio=1.001 max<=1.20
+2026-05-24 13:03:18   Evicted cached model:
+2026-05-24 13:03:18 Lin2es/evolai-tfm-01o@d5af8d4f7543ee9e09ef3f668a29f2e09daeea8d
+2026-05-24 13:03:18   [5/15] UID 34 | elgin-group/evolai-mamba2-0p47b-v1 @
+2026-05-24 13:03:18 39b2f90ad08643d34503c88f5c7224fd3dabeed7 | hotkey 5GNJr9NfE9e9…
+2026-05-24 13:03:18     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 13:03:18     Fetched 20 texts (20 indices)
+2026-05-24 13:03:18    Downloading
+2026-05-24 13:03:18 andrebarrosilva1123/evolai-mamba2-b@62336a49df6d6014f779575adfd29373c228edd4…
+2026-05-24 13:03:20     Loaded (local prefetch)
+2026-05-24 13:03:20     ⚠ Vocab incompatible (model=151669 < ref=248077) — skipping
+2026-05-24 13:03:21    Ready:
+2026-05-24 13:03:21 andrebarrosilva1123/evolai-mamba2-b@62336a49df6d6014f779575adfd29373c228edd4
+2026-05-24 13:03:22   [6/15] UID 30 | mihai-777/evolai-mamba2-0p47b-v3 @
+2026-05-24 13:03:22 c2a96b92acf632d51a2c21da4482f77f98256518 | hotkey 5GGsbuVKDrTA…
+2026-05-24 13:03:22     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 13:03:22     Fetched 20 texts (20 indices)
+2026-05-24 13:03:22    Downloading Lin2es/evolai-mb2-04v@9c0198682f16cc8595fec849aa37227f7160e92c…
+2026-05-24 13:03:24     Loaded (local prefetch)
+2026-05-24 13:03:25     Model 0.48B → batch=512, seq=16384
+2026-05-24 13:03:26    Ready: Lin2es/evolai-mb2-04v@9c0198682f16cc8595fec849aa37227f7160e92c
+2026-05-24 13:03:29     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:01
+2026-05-24 13:03:29     Loss 4.7650 | Size ×0.52 | Think 0.0000 | ThinkGain 0 (+0.5000) | Flow
+2026-05-24 13:03:29 0.0000 | KL 4.7650 | NextKL 4.7854 | SideQ 0% | Score 0.0000 (4.5s)
+2026-05-24 13:03:29     Gate FAIL | Improve same SHA cur=4.7650 req<=4.6697 prev=4.7650 | Consist ok
+2026-05-24 13:03:29 ema_cur=4.7956 ema_next=4.7971 ratio=1.000 max<=1.20
+2026-05-24 13:03:31   Evicted cached model:
+2026-05-24 13:03:31 Lin2es/evolai-tfm-03o@2fcb3445759b5cb5d5d6a9be9e5731f72cc0f600
+2026-05-24 13:03:32   [7/15] UID 57 | andrebarrosilva1123/evolai-mamba2-b @
+2026-05-24 13:03:32 62336a49df6d6014f779575adfd29373c228edd4 | hotkey 5EZx1DRvpMGK…
+2026-05-24 13:03:32     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 13:03:32     Fetched 20 texts (20 indices)
+2026-05-24 13:03:32    Downloading
+2026-05-24 13:03:32 evolai/evolai_mamba_naive_kl@b7c8842d1d5a700bd6a36b834fe6f0b3dc5d321a…
+2026-05-24 13:03:33     Loaded (local prefetch)
+2026-05-24 13:03:34     ⚠ Vocab incompatible (model=151669 < ref=248077) — skipping
+2026-05-24 13:03:34    Ready: evolai/evolai_mamba_naive_kl@b7c8842d1d5a700bd6a36b834fe6f0b3dc5d321a
+2026-05-24 13:03:35   [8/15] UID 89 | Lin2es/evolai-mb2-04v @
+2026-05-24 13:03:35 9c0198682f16cc8595fec849aa37227f7160e92c | hotkey 5DkZf6V3X8Za…
+2026-05-24 13:03:35     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 13:03:35     Fetched 20 texts (20 indices)
+2026-05-24 13:03:35    Downloading
+2026-05-24 13:03:35 mihai-777/evolai-mamba2-0p47b@7b6564c9a46f602702c260185aa43867f321dee7…
+2026-05-24 13:03:36     Loaded (local prefetch)
+2026-05-24 13:03:37     ⚠ Vocab incompatible (model=151665 < ref=248077) — skipping
+2026-05-24 13:03:39   [9/15] UID 96 | evolai/evolai_mamba_naive_kl @
+2026-05-24 13:03:39 b7c8842d1d5a700bd6a36b834fe6f0b3dc5d321a | hotkey 5HQuJVXBXGrW…
+2026-05-24 13:03:39     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 13:03:39     Fetched 20 texts (20 indices)
+2026-05-24 13:03:39    Ready: mihai-777/evolai-mamba2-0p47b@7b6564c9a46f602702c260185aa43867f321dee7
+2026-05-24 13:03:39    Downloading
+2026-05-24 13:03:39 Radiant28/evolai-mamba2-0.47b-v2@475bf7bf65af1192ed824d58816c1d83f3475983…
+2026-05-24 13:03:40     Loaded (local prefetch)
+2026-05-24 13:03:40     Model 0.46B → batch=512, seq=16384
+2026-05-24 13:03:42    Ready:
+2026-05-24 13:03:42 Radiant28/evolai-mamba2-0.47b-v2@475bf7bf65af1192ed824d58816c1d83f3475983
+2026-05-24 13:03:44     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:01
+2026-05-24 13:03:44     Loss 3.4273 | Size ×0.50 | Think 0.0000 | ThinkGain 0 (+0.5000) | Flow
+2026-05-24 13:03:44 0.0000 | KL 3.4273 | NextKL 3.4312 | SideQ 0% | Score 0.0000 (3.8s)
+2026-05-24 13:03:44     Gate FAIL | Improve same SHA cur=3.4273 req<=3.3588 prev=3.4273 | Consist ok
+2026-05-24 13:03:44 ema_cur=3.7536 ema_next=3.5199 ratio=0.938 max<=1.20
+2026-05-24 13:03:46   Evicted cached model:
+2026-05-24 13:03:46 galuis116/evolai-future@f6f4f4fb9bcf46d226b45f4ad1d5946a8ef3e787
+2026-05-24 13:03:46   [10/15] UID 31 | mihai-777/evolai-mamba2-0p47b @
+2026-05-24 13:03:46 7b6564c9a46f602702c260185aa43867f321dee7 | hotkey 5CJuKKq16FkR…
+2026-05-24 13:03:46     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 13:03:46     Fetched 20 texts (20 indices)
+2026-05-24 13:03:46    Downloading
+2026-05-24 13:03:46 andrebarrosilva1123/evolai-mamba2-c@dc37c985d66c77e3d10bf9eaf16e6dc952c62e17…
+2026-05-24 13:03:48     Loaded (local prefetch)
+2026-05-24 13:03:48     Model 0.48B → batch=512, seq=16384
+2026-05-24 13:03:50    Ready:
+2026-05-24 13:03:50 andrebarrosilva1123/evolai-mamba2-c@dc37c985d66c77e3d10bf9eaf16e6dc952c62e17
+2026-05-24 13:03:53     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:01
+2026-05-24 13:03:53     Loss 4.7895 | Size ×0.52 | Think 0.0000 | ThinkGain 0 (+0.5000) | Flow
+2026-05-24 13:03:53 0.0000 | KL 4.7895 | NextKL 4.8654 | SideQ 0% | Score 0.0000 (4.4s)
+2026-05-24 13:03:53     Gate FAIL | Improve same SHA cur=4.7895 req<=4.6937 prev=4.7895 | Consist ok
+2026-05-24 13:03:53 ema_cur=4.8040 ema_next=4.8078 ratio=1.001 max<=1.20
+2026-05-24 13:03:55   Evicted cached model:
+2026-05-24 13:03:55 clear-blue-sky/evolai-reborn-tfm-005@22b9ea4e5d80626cda51fc7cf1a5513f5b3ec28a
+2026-05-24 13:03:55   [11/15] UID 39 | Radiant28/evolai-mamba2-0.47b-v2 @
+2026-05-24 13:03:55 475bf7bf65af1192ed824d58816c1d83f3475983 | hotkey 5FvTt3gVVhFT…
+2026-05-24 13:03:55     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 13:03:55     Fetched 20 texts (20 indices)
+2026-05-24 13:03:55    Downloading Lin2es/evolai-mb2-03v@3047597c4e4b4430450ddcd633240b88d781fdbd…
+2026-05-24 13:03:57     Loaded (local prefetch)
+2026-05-24 13:03:57     ⚠ Vocab incompatible (model=151669 < ref=248077) — skipping
+2026-05-24 13:03:58    Ready: Lin2es/evolai-mb2-03v@3047597c4e4b4430450ddcd633240b88d781fdbd
+2026-05-24 13:03:59   [12/15] UID 58 | andrebarrosilva1123/evolai-mamba2-c @
+2026-05-24 13:03:59 dc37c985d66c77e3d10bf9eaf16e6dc952c62e17 | hotkey 5EgtSzXJbjpV…
+2026-05-24 13:03:59     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 13:03:59     Fetched 20 texts (20 indices)
+2026-05-24 13:03:59    Downloading
+2026-05-24 13:03:59 batster4/evolai-mamba2-v1@142f14d218be618e3161d86926085b3a9cefed55…
+2026-05-24 13:04:00     Loaded (local prefetch)
+2026-05-24 13:04:01     ⚠ Vocab incompatible (model=151669 < ref=248077) — skipping
+2026-05-24 13:04:02   [13/15] UID 91 | Lin2es/evolai-mb2-03v @
+2026-05-24 13:04:02 3047597c4e4b4430450ddcd633240b88d781fdbd | hotkey 5EcdUqvUBCSp…
+2026-05-24 13:04:02     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 13:04:02     Fetched 20 texts (20 indices)
+2026-05-24 13:04:02    Ready: batster4/evolai-mamba2-v1@142f14d218be618e3161d86926085b3a9cefed55
+2026-05-24 13:04:02    Downloading
+2026-05-24 13:04:02 mihai-777/evolai-mamba2-1p6b-alt@131bd3907f9816bbf184f5651ba63af66046e84c…
+2026-05-24 13:04:04     Loaded (local prefetch)
+2026-05-24 13:04:04     Model 0.48B → batch=512, seq=16384
+2026-05-24 13:04:05    Ready:
+2026-05-24 13:04:05 mihai-777/evolai-mamba2-1p6b-alt@131bd3907f9816bbf184f5651ba63af66046e84c
+2026-05-24 13:04:08     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:01
+2026-05-24 13:04:08     Loss 4.6448 | Size ×0.52 | Think 0.0000 | ThinkGain 0 (+0.5000) | Flow
+2026-05-24 13:04:08 0.0000 | KL 4.6448 | NextKL 4.6740 | SideQ 0% | Score 0.0000 (4.3s)
+2026-05-24 13:04:08     Gate FAIL | Improve same SHA cur=4.6448 req<=4.5519 prev=4.6448 | Consist ok
+2026-05-24 13:04:08 ema_cur=4.6679 ema_next=4.6698 ratio=1.000 max<=1.20
+2026-05-24 13:04:10   Evicted cached model:
+2026-05-24 13:04:10 Phoenix9781/evolai-tf-model@883756e42bfbc362761bb150f2ef316deaafa94f
+2026-05-24 13:04:11   [14/15] UID 60 | batster4/evolai-mamba2-v1 @
+2026-05-24 13:04:11 142f14d218be618e3161d86926085b3a9cefed55 | hotkey 5Dc8EpAixcqc…
+2026-05-24 13:04:11     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 13:04:11     Fetched 20 texts (20 indices)
+2026-05-24 13:04:12     Loaded (local prefetch)
+2026-05-24 13:04:13     ⚠ Invalid model size (0.82B; allowed 0.45-0.48B, 1.50-1.80B) — skipping
+2026-05-24 13:04:14   [15/15] UID 32 | mihai-777/evolai-mamba2-1p6b-alt @
+2026-05-24 13:04:14 131bd3907f9816bbf184f5651ba63af66046e84c | hotkey 5GL84HKDau7C…
+2026-05-24 13:04:14     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 13:04:14     Fetched 20 texts (20 indices)
+2026-05-24 13:04:15     Loaded (local prefetch)
+2026-05-24 13:04:15     Model 0.48B → batch=512, seq=16384
+2026-05-24 13:04:18     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:01
+2026-05-24 13:04:19     Loss 4.8670 | Size ×0.52 | Think 0.0000 | ThinkGain 0 (+0.5000) | Flow
+2026-05-24 13:04:19 0.0135 | KL 4.8670 | NextKL 4.8709 | SideQ 0% | Score 0.0000 (3.0s)
+2026-05-24 13:04:19     Gate FAIL | Improve same SHA cur=4.8670 req<=4.7697 prev=4.8670 | Consist ok
+2026-05-24 13:04:19 ema_cur=4.8799 ema_next=4.8748 ratio=0.999 max<=1.20
+2026-05-24 13:04:19   Evicted cached model:
+2026-05-24 13:04:19 clear-blue-sky/evolai-reborn-tfm-008@c0d3a5cf60cd31cb613c78982fc51fa0263c0680
+2026-05-24 13:04:20   Cached next refs for mamba2: 15 miner(s)
+2026-05-24 13:04:20 
+2026-05-24 13:04:20   ✓ MAMBA2: 7 evaluated, 14 skipped — epoch_22927_mamba2_20260524_123618.json
+2026-05-24 13:04:21   ✓ Telemetry sent (7 records)
+2026-05-24 13:04:21 Current Leaderboard:
+2026-05-24 13:04:35 
+2026-05-24 13:04:35 TRANSFORMER
+2026-05-24 13:04:35 ┏━━━━━━┳━━━━━┳━━━━━━━━┳━━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━┳━━━━━┳━━━━━━━━━┳━━━━━━━┓
+2026-05-24 13:04:35 ┃      ┃     ┃        ┃     Latest ┃           ┃       ┃     ┃         ┃       ┃
+2026-05-24 13:04:35 ┃ Rank ┃ UID ┃  Score ┃       Loss ┃ ThinkGain ┃  Flow ┃ SQ% ┃      KL ┃ Evals ┃
+2026-05-24 13:04:35 ┡━━━━━━╇━━━━━╇━━━━━━━━╇━━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━╇━━━━━╇━━━━━━━━━╇━━━━━━━┩
+2026-05-24 13:04:35 │    1 │  97 │ 0.0339 │     3.9021 │  0 FAIL   │ 0.173 │  0% │  1.9108 │   266 │
+2026-05-24 13:04:35 │    2 │   8 │ 0.0319 │     3.7644 │  0 FAIL   │ 0.024 │  0% │  1.8334 │   316 │
+2026-05-24 13:04:35 │    3 │  82 │ 0.0315 │     3.3131 │  0 FAIL   │ 0.246 │  0% │  1.6723 │   351 │
+2026-05-24 13:04:35 │    4 │  98 │ 0.0310 │     3.4848 │  0 FAIL   │ 0.114 │  0% │  1.5860 │   265 │
+2026-05-24 13:04:35 │    5 │  84 │ 0.0290 │     3.8855 │  0 FAIL   │ 0.166 │  0% │  1.9974 │   337 │
+2026-05-24 13:04:35 │    6 │  66 │ 0.0286 │     3.6512 │  0 FAIL   │ 0.183 │  0% │  1.8387 │   351 │
+2026-05-24 13:04:35 │    7 │  62 │ 0.0276 │     4.0691 │  0 FAIL   │ 0.093 │  0% │  2.0184 │   353 │
+2026-05-24 13:04:35 │    8 │  72 │ 0.0275 │     3.5882 │  0 FAIL   │ 0.294 │  0% │  1.7165 │   135 │
+2026-05-24 13:04:35 │    9 │  67 │ 0.0268 │     4.2733 │  0 FAIL   │ 0.000 │  0% │  2.2201 │   353 │
+2026-05-24 13:04:35 │   10 │  69 │ 0.0263 │     3.2581 │  0 FAIL   │ 0.127 │  0% │  1.7040 │   136 │
+2026-05-24 13:04:35 │   11 │  70 │ 0.0262 │     4.0334 │  0 FAIL   │ 0.000 │  0% │  2.0356 │   351 │
+2026-05-24 13:04:35 │   12 │ 101 │ 0.0254 │     3.5259 │  0 FAIL   │ 0.127 │  0% │  1.7096 │    86 │
+2026-05-24 13:04:35 │   13 │  94 │ 0.0252 │     3.8280 │  0 FAIL   │ 0.000 │  0% │  1.8878 │   266 │
+2026-05-24 13:04:35 │   14 │  99 │ 0.0240 │     3.6535 │  0 FAIL   │ 0.158 │  0% │  1.8456 │   134 │
+2026-05-24 13:04:35 │   15 │  85 │ 0.0209 │     3.7276 │  0 FAIL   │ 0.038 │  0% │  1.8338 │   340 │
+2026-05-24 13:04:35 │   16 │  83 │ 0.0207 │     3.9180 │  0 FAIL   │ 0.038 │  0% │  1.8698 │   353 │
+2026-05-24 13:04:35 │   17 │  73 │ 0.0181 │     3.8249 │  0 FAIL   │ 0.021 │  0% │  1.9116 │   136 │
+2026-05-24 13:04:35 │   18 │  48 │ 0.0001 │     3.9911 │  0 FAIL   │ 0.000 │  0% │  2.4143 │   140 │
+2026-05-24 13:04:35 │   19 │  87 │ 0.0000 │     4.0577 │  0 FAIL   │ 0.133 │  0% │  2.2495 │   147 │
+2026-05-24 13:04:35 │   20 │  86 │ 0.0000 │     4.1094 │  0 FAIL   │ 0.139 │  0% │  2.3171 │   148 │
+2026-05-24 13:04:35 │   21 │  93 │ 0.0000 │     3.9359 │  0 FAIL   │ 0.123 │  0% │  1.8533 │   136 │
+2026-05-24 13:04:35 │   22 │   9 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   355 │
+2026-05-24 13:04:35 │   23 │  25 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   352 │
+2026-05-24 13:04:35 │   24 │  33 │ 0.0000 │     2.9853 │  0 FAIL   │ 0.000 │  0% │  2.5304 │   353 │
+2026-05-24 13:04:35 │   25 │  35 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   353 │
+2026-05-24 13:04:35 │   26 │  36 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   352 │
+2026-05-24 13:04:35 │   27 │  37 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   353 │
+2026-05-24 13:04:35 │   28 │  38 │ 0.0000 │     2.4187 │  0 FAIL   │ 0.000 │  0% │  2.3022 │   352 │
+2026-05-24 13:04:35 │   29 │  40 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   353 │
+2026-05-24 13:04:35 │   30 │  42 │ 0.0000 │     2.9312 │  0 FAIL   │ 0.133 │  0% │  2.2947 │   353 │
+2026-05-24 13:04:35 │   31 │  43 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   353 │
+2026-05-24 13:04:35 │   32 │  44 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   354 │
+2026-05-24 13:04:35 │   33 │  45 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   353 │
+2026-05-24 13:04:35 │   34 │  49 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   352 │
+2026-05-24 13:04:35 │   35 │  50 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   352 │
+2026-05-24 13:04:35 │   36 │  51 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   325 │
+2026-05-24 13:04:35 │   37 │  52 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   326 │
+2026-05-24 13:04:35 │   38 │  53 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   353 │
+2026-05-24 13:04:35 │   39 │  54 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   324 │
+2026-05-24 13:04:35 │   40 │  55 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   356 │
+2026-05-24 13:04:35 │   41 │  59 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   353 │
+2026-05-24 13:04:35 │   42 │  61 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   353 │
+2026-05-24 13:04:35 │   43 │  65 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   353 │
+2026-05-24 13:04:35 │   44 │  75 │ 0.0000 │     3.0942 │  0 FAIL   │ 0.000 │  0% │  2.3620 │   354 │
+2026-05-24 13:04:35 │   45 │  76 │ 0.0000 │     3.6075 │  0 FAIL   │ 0.000 │  0% │  2.8922 │   352 │
+2026-05-24 13:04:35 │   46 │  77 │ 0.0000 │     2.4879 │  0 FAIL   │ 0.000 │  0% │  2.6614 │   255 │
+2026-05-24 13:04:35 │   47 │  78 │ 0.0000 │     3.6171 │  0 FAIL   │ 0.157 │  0% │  2.8971 │   255 │
+2026-05-24 13:04:35 │   48 │  79 │ 0.0000 │     2.8182 │  0 FAIL   │ 0.207 │  0% │  2.3879 │   255 │
+2026-05-24 13:04:35 │   49 │  80 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   354 │
+2026-05-24 13:04:35 │   50 │  88 │ 0.0000 │     3.9147 │  0 FAIL   │ 0.290 │  0% │  1.9992 │   146 │
+2026-05-24 13:04:35 │   51 │  92 │ 0.0000 │     2.2509 │  0 FAIL   │ 0.029 │  0% │  2.2223 │   256 │
+2026-05-24 13:04:35 │   52 │  95 │ 0.0000 │     3.3781 │  0 FAIL   │ 0.075 │  0% │  3.1252 │   265 │
+2026-05-24 13:04:35 │   53 │ 100 │ 0.0000 │     4.0420 │  0 FAIL   │ 0.016 │  0% │  3.8464 │   264 │
+2026-05-24 13:04:35 └──────┴─────┴────────┴────────────┴───────────┴───────┴─────┴─────────┴───────┘
+2026-05-24 13:04:35 
+2026-05-24 13:04:35 MAMBA2
+2026-05-24 13:04:35 ┏━━━━━━┳━━━━━┳━━━━━━━━┳━━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━┳━━━━━┳━━━━━━━━━┳━━━━━━━┓
+2026-05-24 13:04:35 ┃      ┃     ┃        ┃     Latest ┃           ┃       ┃     ┃         ┃       ┃
+2026-05-24 13:04:35 ┃ Rank ┃ UID ┃  Score ┃       Loss ┃ ThinkGain ┃  Flow ┃ SQ% ┃      KL ┃ Evals ┃
+2026-05-24 13:04:35 ┡━━━━━━╇━━━━━╇━━━━━━━━╇━━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━╇━━━━━╇━━━━━━━━━╇━━━━━━━┩
+2026-05-24 13:04:35 │    1 │  11 │ 0.0000 │     4.5371 │  0 FAIL   │ 0.176 │  0% │  4.5371 │   255 │
+2026-05-24 13:04:35 │    2 │  30 │ 0.0000 │     4.7650 │  0 FAIL   │ 0.000 │  0% │  4.7650 │   350 │
+2026-05-24 13:04:35 │    3 │  31 │ 0.0000 │     4.7895 │  0 FAIL   │ 0.000 │  0% │  4.7895 │   350 │
+2026-05-24 13:04:35 │    4 │  32 │ 0.0000 │     4.8670 │  0 FAIL   │ 0.014 │  0% │  4.8670 │   350 │
+2026-05-24 13:04:35 │    5 │  34 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   350 │
+2026-05-24 13:04:35 │    6 │  39 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   351 │
+2026-05-24 13:04:35 │    7 │  41 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   350 │
+2026-05-24 13:04:35 │    8 │  56 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   350 │
+2026-05-24 13:04:35 │    9 │  57 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   350 │
+2026-05-24 13:04:35 │   10 │  58 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   350 │
+2026-05-24 13:04:35 │   11 │  60 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   350 │
+2026-05-24 13:04:35 │   12 │  63 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   271 │
+2026-05-24 13:04:35 │   13 │  64 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   272 │
+2026-05-24 13:04:35 │   14 │  68 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   272 │
+2026-05-24 13:04:35 │   15 │  71 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   271 │
+2026-05-24 13:04:35 │   16 │  74 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   272 │
+2026-05-24 13:04:35 │   17 │  81 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   273 │
+2026-05-24 13:04:35 │   18 │  89 │ 0.0000 │    10.0000 │  0 FAIL   │ 0.000 │  0% │ 10.0000 │   255 │
+2026-05-24 13:04:35 │   19 │  90 │ 0.0000 │     4.6226 │  0 FAIL   │ 0.028 │  0% │  4.6226 │   265 │
+2026-05-24 13:04:35 │   20 │  91 │ 0.0000 │     4.6448 │  0 FAIL   │ 0.000 │  0% │  4.6448 │   265 │
+2026-05-24 13:04:35 │   21 │  96 │ 0.0000 │     3.4273 │  0 FAIL   │ 0.000 │  0% │  3.4273 │   265 │
+2026-05-24 13:04:35 └──────┴─────┴────────┴────────────┴───────────┴───────┴─────┴─────────┴───────┘
+2026-05-24 13:04:35 
+2026-05-24 13:04:35 Round complete in epoch 22927 (1698s elapsed). Starting next round immediately…
+2026-05-24 13:04:35 
+2026-05-24 13:04:35 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-05-24 13:04:36 
+2026-05-24 13:04:36 ━━━ Epoch #22928 (Loop #11) ━━━ block=8254133, ~61m remaining
+2026-05-24 13:04:45 
+2026-05-24 13:04:45   ⚠ UID 86: revision lock failed: RepositoryNotFoundError: 401 Client Error.
+2026-05-24 13:04:45 (Request ID:
+2026-05-24 13:04:45 Root=1-6a12f76d-17e554d35063d85e7da0f9fc;d8431241-3350-4386-a8d1-c2b682377744)
+2026-05-24 13:04:45 
+2026-05-24 13:04:45 Repository Not Found for url:
+2026-05-24 13:04:45 https://huggingface.co/api/models/clear-blue-sky/evolai-tfm-012/revision/main.
+2026-05-24 13:04:45 Please make sure you specified the correct `repo_id` and `repo_type`.
+2026-05-24 13:04:45 If you are trying to access a private or gated repo, make sure you are
+2026-05-24 13:04:45 authenticated and your token has the required permissions.
+2026-05-24 13:04:45 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
+2026-05-24 13:04:45 Invalid username or password.
+2026-05-24 13:04:45   ⚠ UID 87: revision lock failed: RepositoryNotFoundError: 401 Client Error.
+2026-05-24 13:04:45 (Request ID:
+2026-05-24 13:04:45 Root=1-6a12f76d-48150b6b302f083074ab0e48;f4d776a4-3dce-4407-abea-dc5a53dbda47)
+2026-05-24 13:04:45 
+2026-05-24 13:04:45 Repository Not Found for url:
+2026-05-24 13:04:45 https://huggingface.co/api/models/clear-blue-sky/evolai-tfm-013/revision/main.
+2026-05-24 13:04:45 Please make sure you specified the correct `repo_id` and `repo_type`.
+2026-05-24 13:04:45 If you are trying to access a private or gated repo, make sure you are
+2026-05-24 13:04:45 authenticated and your token has the required permissions.
+2026-05-24 13:04:45 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
+2026-05-24 13:04:45 Invalid username or password.
+2026-05-24 13:04:45   ⚠ UID 88: revision lock failed: RepositoryNotFoundError: 401 Client Error.
+2026-05-24 13:04:45 (Request ID:
+2026-05-24 13:04:45 Root=1-6a12f76d-2ca73ffe1c8ed8cc483780c4;1ec13d13-3517-49e1-9b29-f0e8a8e868e2)
+2026-05-24 13:04:45 
+2026-05-24 13:04:45 Repository Not Found for url:
+2026-05-24 13:04:45 https://huggingface.co/api/models/clear-blue-sky/evolai-tfm-014/revision/main.
+2026-05-24 13:04:45 Please make sure you specified the correct `repo_id` and `repo_type`.
+2026-05-24 13:04:45 If you are trying to access a private or gated repo, make sure you are
+2026-05-24 13:04:45 authenticated and your token has the required permissions.
+2026-05-24 13:04:45 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
+2026-05-24 13:04:45 Invalid username or password.
+2026-05-24 13:04:46   Locked transformer revisions (50 miner(s), 3 skipped)
+2026-05-24 13:04:54   ⚠ UID 63: revision lock failed: RepositoryNotFoundError: 401 Client Error.
+2026-05-24 13:04:54 (Request ID:
+2026-05-24 13:04:54 Root=1-6a12f776-0baa6332409c643102c9eae5;34501303-2ab0-4def-8b26-a0c398706084)
+2026-05-24 13:04:54 
+2026-05-24 13:04:54 Repository Not Found for url:
+2026-05-24 13:04:54 https://huggingface.co/api/models/clear-blue-sky/evolai-mb2-009/revision/main.
+2026-05-24 13:04:54 Please make sure you specified the correct `repo_id` and `repo_type`.
+2026-05-24 13:04:54 If you are trying to access a private or gated repo, make sure you are
+2026-05-24 13:04:54 authenticated and your token has the required permissions.
+2026-05-24 13:04:54 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
+2026-05-24 13:04:54 Invalid username or password.
+2026-05-24 13:04:54   ⚠ UID 64: revision lock failed: RepositoryNotFoundError: 401 Client Error.
+2026-05-24 13:04:54 (Request ID:
+2026-05-24 13:04:54 Root=1-6a12f776-74e3b6594183e349265a0e53;6d3f79b9-ae20-472a-bfc1-ecf11eba0902)
+2026-05-24 13:04:54 
+2026-05-24 13:04:54 Repository Not Found for url:
+2026-05-24 13:04:54 https://huggingface.co/api/models/clear-blue-sky/evolai-mb2-002/revision/main.
+2026-05-24 13:04:54 Please make sure you specified the correct `repo_id` and `repo_type`.
+2026-05-24 13:04:54 If you are trying to access a private or gated repo, make sure you are
+2026-05-24 13:04:54 authenticated and your token has the required permissions.
+2026-05-24 13:04:54 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
+2026-05-24 13:04:54 Invalid username or password.
+2026-05-24 13:04:54   ⚠ UID 68: revision lock failed: RepositoryNotFoundError: 401 Client Error.
+2026-05-24 13:04:54 (Request ID:
+2026-05-24 13:04:54 Root=1-6a12f776-742b3d8538472879275d6902;08850f55-9028-4a75-a74d-ab79dfb8df29)
+2026-05-24 13:04:54 
+2026-05-24 13:04:54 Repository Not Found for url:
+2026-05-24 13:04:54 https://huggingface.co/api/models/clear-blue-sky/evolai-mb2-008/revision/main.
+2026-05-24 13:04:54 Please make sure you specified the correct `repo_id` and `repo_type`.
+2026-05-24 13:04:54 If you are trying to access a private or gated repo, make sure you are
+2026-05-24 13:04:54 authenticated and your token has the required permissions.
+2026-05-24 13:04:54 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
+2026-05-24 13:04:54 Invalid username or password.
+2026-05-24 13:04:54   ⚠ UID 71: revision lock failed: RepositoryNotFoundError: 401 Client Error.
+2026-05-24 13:04:54 (Request ID:
+2026-05-24 13:04:54 Root=1-6a12f776-1fce65c921931a1e6134286f;05a7d4f8-3ea1-40a7-a746-aec678402f78)
+2026-05-24 13:04:54 
+2026-05-24 13:04:54 Repository Not Found for url:
+2026-05-24 13:04:54 https://huggingface.co/api/models/clear-blue-sky/evolai-mb2-001/revision/main.
+2026-05-24 13:04:54 Please make sure you specified the correct `repo_id` and `repo_type`.
+2026-05-24 13:04:54 If you are trying to access a private or gated repo, make sure you are
+2026-05-24 13:04:54 authenticated and your token has the required permissions.
+2026-05-24 13:04:54 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
+2026-05-24 13:04:54 Invalid username or password.
+2026-05-24 13:04:54   ⚠ UID 74: revision lock failed: RepositoryNotFoundError: 401 Client Error.
+2026-05-24 13:04:54 (Request ID:
+2026-05-24 13:04:54 Root=1-6a12f776-45c5c1d63f4c1ce93dd48d00;5da66c4f-dcfd-4491-86ac-ebc660055c8e)
+2026-05-24 13:04:54 
+2026-05-24 13:04:54 Repository Not Found for url:
+2026-05-24 13:04:54 https://huggingface.co/api/models/clear-blue-sky/evolai-mb2-007/revision/main.
+2026-05-24 13:04:54 Please make sure you specified the correct `repo_id` and `repo_type`.
+2026-05-24 13:04:54 If you are trying to access a private or gated repo, make sure you are
+2026-05-24 13:04:54 authenticated and your token has the required permissions.
+2026-05-24 13:04:54 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
+2026-05-24 13:04:54 Invalid username or password.
+2026-05-24 13:04:54   ⚠ UID 81: revision lock failed: RepositoryNotFoundError: 401 Client Error.
+2026-05-24 13:04:54 (Request ID:
+2026-05-24 13:04:54 Root=1-6a12f776-0e92c034019c534132af520f;233c04e2-fc43-445a-a195-6197e54186d2)
+2026-05-24 13:04:54 
+2026-05-24 13:04:54 Repository Not Found for url:
+2026-05-24 13:04:54 https://huggingface.co/api/models/clear-blue-sky/evolai-mb2-010/revision/main.
+2026-05-24 13:04:54 Please make sure you specified the correct `repo_id` and `repo_type`.
+2026-05-24 13:04:54 If you are trying to access a private or gated repo, make sure you are
+2026-05-24 13:04:54 authenticated and your token has the required permissions.
+2026-05-24 13:04:54 For more details, see https://huggingface.co/docs/huggingface_hub/authentication
+2026-05-24 13:04:54 Invalid username or password.
+2026-05-24 13:04:55   Locked mamba2 revisions (15 miner(s), 6 skipped)
+2026-05-24 13:05:26   Committed round seed epoch=22928 seed=0570afc8...
+2026-05-24 13:05:27 Evaluating TRANSFORMER track…
+2026-05-24 13:05:27 
+2026-05-24 13:05:27   Found 50 locked transformer miners
+2026-05-24 13:05:27    Downloading
+2026-05-24 13:05:27 clear-blue-sky/evolai-reborn-tfm-002@cf85e6e669a163876d9ea69957da334d9ce68b2c…
+2026-05-24 13:05:27 Pre-building current/next challenges for 50 miners…
+2026-05-24 13:05:27 Fetching 7 files: 100%|██████████| 7/7 [00:04<00:00,  1.67it/s]
+2026-05-24 13:05:31    Ready:
+2026-05-24 13:05:31 clear-blue-sky/evolai-reborn-tfm-002@cf85e6e669a163876d9ea69957da334d9ce68b2c
+2026-05-24 13:05:31    Downloading
+2026-05-24 13:05:31 clear-blue-sky/evolai-reborn-tfm-007@08764acf36a9a0af013bff3dcf428eff6a8ff9a5…
+2026-05-24 13:05:31 Fetching 7 files: 100%|██████████| 7/7 [00:04<00:00,  1.69it/s]
+2026-05-24 13:05:35    Ready:
+2026-05-24 13:05:35 clear-blue-sky/evolai-reborn-tfm-007@08764acf36a9a0af013bff3dcf428eff6a8ff9a5
+2026-05-24 13:06:21 ✓ Ref data ready: submitted=50, cached=50
+2026-05-24 13:06:21   [1/50] UID 67 | clear-blue-sky/evolai-reborn-tfm-002 @
+2026-05-24 13:06:21 cf85e6e669a163876d9ea69957da334d9ce68b2c | hotkey 5GC7k2mkTKGF…
+2026-05-24 13:06:21     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 13:06:21     Fetched 20 texts (20 indices)
+2026-05-24 13:06:21    Downloading
+2026-05-24 13:06:21 andrebarrosilva1123/evolai-c@6fc3d7f7c514cf3d5e4fc44dd8ef6b4ef883827c…
+2026-05-24 13:06:22     Loaded (local prefetch)
+2026-05-24 13:06:23     Model 0.46B → batch=512, seq=16384
+2026-05-24 13:06:27    Ready: andrebarrosilva1123/evolai-c@6fc3d7f7c514cf3d5e4fc44dd8ef6b4ef883827c
+2026-05-24 13:07:19     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:52
+2026-05-24 13:07:19     Loss 3.7493 | Size ×0.50 | Think 3.7493 | ThinkGain 0 (+0.4600) | Flow
+2026-05-24 13:07:19 0.0000 | KL 1.9440 | NextKL 1.8287 | SideQ 0% | Score 0.0000 (56.0s)
+2026-05-24 13:07:19     Gate FAIL | Improve FAIL cur=1.9440 req<=1.9043 prev=1.9431 | Consist ok
+2026-05-24 13:07:19 ema_cur=1.9113 ema_next=1.9062 ratio=0.997 max<=1.20
+2026-05-24 13:07:20   Evicted cached model:
+2026-05-24 13:07:20 Lin2es/evolai-mb2-02v@c1ad3d94c5929dcc0e3a40d9d9034bd80da9a1f8
+2026-05-24 13:07:21   [2/50] UID 84 | clear-blue-sky/evolai-reborn-tfm-007 @
+2026-05-24 13:07:21 08764acf36a9a0af013bff3dcf428eff6a8ff9a5 | hotkey 5H1DaT8Dtt4N…
+2026-05-24 13:07:21     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 13:07:21     Fetched 20 texts (20 indices)
+2026-05-24 13:07:21    Downloading
+2026-05-24 13:07:21 andrebarrosilva1123/evolai-f@89654c7b1e351cce36bab65fe09692eb0e109f72…
+2026-05-24 13:07:25     Loaded (local prefetch)
+2026-05-24 13:07:25     Model 0.46B → batch=512, seq=16384
+2026-05-24 13:07:28    Ready: andrebarrosilva1123/evolai-f@89654c7b1e351cce36bab65fe09692eb0e109f72
+2026-05-24 13:08:24     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:55
+2026-05-24 13:08:24     Loss 4.0834 | Size ×0.50 | Think 4.0834 | ThinkGain 0 (+0.4577) | Flow
+2026-05-24 13:08:24 0.0480 | KL 2.0536 | NextKL 2.0575 | SideQ 0% | Score 0.0000 (58.8s)
+2026-05-24 13:08:24     Gate FAIL | Improve FAIL cur=2.0536 req<=1.9994 prev=2.0402 | Consist ok
+2026-05-24 13:08:24 ema_cur=1.9217 ema_next=1.9449 ratio=1.012 max<=1.20
+2026-05-24 13:08:26   Evicted cached model:
+2026-05-24 13:08:26 Lin2es/evolai-mb2-01v@a7f32e5ce7f8d307c98560e5025525f3703310c0
+2026-05-24 13:08:26   [3/50] UID 54 | andrebarrosilva1123/evolai-c @
+2026-05-24 13:08:26 6fc3d7f7c514cf3d5e4fc44dd8ef6b4ef883827c | hotkey 5D7HPRR2QdDB…
+2026-05-24 13:08:26     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 13:08:26     Fetched 20 texts (20 indices)
+2026-05-24 13:08:26    Downloading evolai/evolai_naive_kl@da8203b6900f14ec1b724f3dd8c6dc35576fc3e4…
+2026-05-24 13:08:29     Loaded (local prefetch)
+2026-05-24 13:08:29     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 13:08:30    Ready: evolai/evolai_naive_kl@da8203b6900f14ec1b724f3dd8c6dc35576fc3e4
+2026-05-24 13:08:32   [4/50] UID 52 | andrebarrosilva1123/evolai-f @
+2026-05-24 13:08:32 89654c7b1e351cce36bab65fe09692eb0e109f72 | hotkey 5HTZZEb5oxv9…
+2026-05-24 13:08:32     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 13:08:32     Fetched 20 texts (20 indices)
+2026-05-24 13:08:32    Downloading Lin2es/evolai-tfm-01o@d5af8d4f7543ee9e09ef3f668a29f2e09daeea8d…
+2026-05-24 13:08:34    Ready: Lin2es/evolai-tfm-01o@d5af8d4f7543ee9e09ef3f668a29f2e09daeea8d
+2026-05-24 13:08:35     Loaded (local prefetch)
+2026-05-24 13:08:36     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 13:08:39   [5/50] UID 95 | evolai/evolai_naive_kl @
+2026-05-24 13:08:39 da8203b6900f14ec1b724f3dd8c6dc35576fc3e4 | hotkey 5CXwmm7R4U6o…
+2026-05-24 13:08:39     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 13:08:39     Fetched 20 texts (20 indices)
+2026-05-24 13:08:39    Downloading
+2026-05-24 13:08:39 Roystar/evolai-qwen2.5-1.5b@47e6a605a62ff328096c1d7bd160b8eaf9ec5ff1…
+2026-05-24 13:08:42     Loaded (local prefetch)
+2026-05-24 13:08:42     Model 0.46B → batch=512, seq=16384
+2026-05-24 13:08:44    Ready: Roystar/evolai-qwen2.5-1.5b@47e6a605a62ff328096c1d7bd160b8eaf9ec5ff1
+2026-05-24 13:08:53     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:05
+2026-05-24 13:08:53     Loss 2.2784 | Size ×0.50 | Think 2.2784 | ThinkGain 0 (+0.4825) | Flow
+2026-05-24 13:08:53 0.0144 | KL 2.9683 | NextKL 2.8674 | SideQ 0% | Score 0.0000 (10.1s)
+2026-05-24 13:08:53     Gate FAIL | Improve same SHA cur=2.9683 req<=2.9090 prev=2.9683 | Consist ok
+2026-05-24 13:08:53 ema_cur=2.8077 ema_next=2.8077 ratio=1.000 max<=1.20
+2026-05-24 13:08:55   Evicted cached model:
+2026-05-24 13:08:55 mihai-777/evolai-mamba2-0p47b-v3@c2a96b92acf632d51a2c21da4482f77f98256518
+2026-05-24 13:08:55   [6/50] UID 77 | Lin2es/evolai-tfm-01o @
+2026-05-24 13:08:55 d5af8d4f7543ee9e09ef3f668a29f2e09daeea8d | hotkey 5GQydjNVEhMb…
+2026-05-24 13:08:55     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 13:08:55     Fetched 20 texts (20 indices)
+2026-05-24 13:08:55    Downloading
+2026-05-24 13:08:55 mrthor102/evolai-tfm-super-002@6a7c9e5fb4f214f19fb2122b37448d2e61652d35…
+2026-05-24 13:08:58     Loaded (local prefetch)
+2026-05-24 13:08:58     Model 0.46B → batch=512, seq=16384
+2026-05-24 13:09:01    Ready:
+2026-05-24 13:09:01 mrthor102/evolai-tfm-super-002@6a7c9e5fb4f214f19fb2122b37448d2e61652d35
+2026-05-24 13:09:58     Loss eval ━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80/80 100% 0:00:55
+2026-05-24 13:09:58     Loss 2.8811 | Size ×0.50 | Think 2.8811 | ThinkGain 0 (+0.4328) | Flow
+2026-05-24 13:09:58 0.0000 | KL 2.6849 | NextKL 2.5997 | SideQ 0% | Score 0.0000 (59.6s)
+2026-05-24 13:09:58     Gate FAIL | Improve same SHA cur=2.6849 req<=2.6312 prev=2.6849 | Consist ok
+2026-05-24 13:09:58 ema_cur=2.6487 ema_next=2.6361 ratio=0.995 max<=1.20
+2026-05-24 13:10:00   Evicted cached model:
+2026-05-24 13:10:00 evolai/evolai_mamba_naive_kl@b7c8842d1d5a700bd6a36b834fe6f0b3dc5d321a
+2026-05-24 13:10:01   [7/50] UID 55 | Roystar/evolai-qwen2.5-1.5b @
+2026-05-24 13:10:01 47e6a605a62ff328096c1d7bd160b8eaf9ec5ff1 | hotkey 5DhRJtUeVA6P…
+2026-05-24 13:10:01    Downloading
+2026-05-24 13:10:01 andrebarrosilva1123/evolai-d@89649e9376dace64f631711d3d270198e376702e…
+2026-05-24 13:10:01     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 13:10:01     Fetched 20 texts (20 indices)
+2026-05-24 13:10:03     Loaded (local prefetch)
+2026-05-24 13:10:04     ⚠ Vocab incompatible (model=151936 < ref=248077) — skipping
+2026-05-24 13:10:06   [8/50] UID 97 | mrthor102/evolai-tfm-super-002 @
+2026-05-24 13:10:06 6a7c9e5fb4f214f19fb2122b37448d2e61652d35 | hotkey 5EcJYRJBVF5K…
+2026-05-24 13:10:06     Challenge: evolai/universal_qa(20 idx)
+2026-05-24 13:10:06     Fetched 20 texts (20 indices)
+2026-05-24 13:10:08    Ready: andrebarrosilva1123/evolai-d@89649e9376dace64f631711d3d270198e376702e
+2026-05-24 13:10:08    Downloading
+2026-05-24 13:10:08 dexserbia/evolai-gemma2-9b@7fe66309a3847239a4da5b712477f2105e88399b…
+2026-05-24 13:10:08     Loaded (local prefetch)
+2026-05-24 13:10:08 Fetching 6 files:  50%|█████     | 3/6 [00:00<00:00, 23.59it/s]
+2026-05-24 13:10:09     Model 0.46B → batch=512, seq=16384

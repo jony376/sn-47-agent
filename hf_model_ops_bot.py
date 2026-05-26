@@ -11,6 +11,8 @@ from urllib import parse, request
 
 from huggingface_hub import HfApi, snapshot_download
 
+from agent_common import is_valid_sha, resolve_register_revision, verify_hf_revision
+
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 DEFAULT_ENV_PATH = SCRIPT_DIR / ".env"
@@ -109,17 +111,20 @@ def upload_model(api: HfApi, source_dir: Optional[Path]) -> Dict[str, str]:
     repo_id = f"{username}/{model_name}"
 
     notify(f"[START] Upload folder: {source_dir} -> {repo_id}", telegram=False)
-    api.upload_folder(
+    commit_info = api.upload_folder(
         repo_id=repo_id,
         repo_type="model",
         folder_path=str(source_dir),
         commit_message="Upload model via sn-47-agent bot",
     )
 
-    info = api.model_info(repo_id=repo_id)
-    revision = getattr(info, "sha", None)
+    revision = getattr(commit_info, "oid", None) or getattr(commit_info, "sha", None)
     if not revision:
+        info = api.model_info(repo_id=repo_id)
+        revision = getattr(info, "sha", None)
+    if not is_valid_sha(str(revision or "")):
         raise RuntimeError(f"Could not get revision sha for {repo_id}")
+    revision = verify_hf_revision(api, repo_id, str(revision))
 
     notify(
         f"[DONE] Upload completed: {repo_id} (revision={revision})", telegram=False
@@ -136,6 +141,10 @@ def register_model(repo_id: str, revision: str) -> None:
     hotkey = require("REGISTER_HOTKEY")
     netuid = env_str("REGISTER_NETUID", "47")
 
+    register_revision = resolve_register_revision(
+        revision,
+        env_str("REGISTER_REVISION", "auto"),
+    )
     cmd = [
         str(EVOLAI_PYTHON),
         "-m",
@@ -144,7 +153,7 @@ def register_model(repo_id: str, revision: str) -> None:
         "register",
         repo_id,
         "--revision",
-        "main",
+        register_revision,
         "--track",
         track,
         "--wallet-name",
@@ -156,7 +165,7 @@ def register_model(repo_id: str, revision: str) -> None:
     ]
 
     notify(
-        f"[START] Register model in EvolAI: {repo_id} (revision=main)",
+        f"[START] Register model in EvolAI: {repo_id} (revision={register_revision})",
         telegram=False,
     )
     result = subprocess.run(
