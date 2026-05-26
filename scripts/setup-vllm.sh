@@ -125,6 +125,15 @@ else
     warn "vLLM CLI help failed — binary exists but may need CUDA drivers at runtime"
 fi
 
+if bash "$SCRIPT_DIR/check-vllm-ready.sh"; then
+    ok "vLLM runtime preflight passed"
+else
+    warn "vLLM preflight failed — KL eval will use in-process ref (or fix CUDA: bash scripts/fix-cuda-path.sh)"
+    upsert_env "KL_EVAL_REF_MODE" "inprocess"
+    upsert_env "KL_EVAL_START_VLLM_REF" "false"
+    ok "Set KL_EVAL_REF_MODE=inprocess until nvcc is available"
+fi
+
 header "Setup complete"
 echo ""
 echo -e "  ${BOLD}Layout:${RESET}"

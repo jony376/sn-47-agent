@@ -121,6 +121,21 @@ To reuse EvolAI's validator vLLM env instead:
 VLLM_VENV=/root/sn47/evolai/vllm_env bash /root/sn47/sn-47-agent/scripts/setup-vllm.sh
 ```
 
+**RunPod / VPS without `nvcc`:** vLLM 0.21 needs the CUDA **devel** toolkit
+(flashinfer JIT). If you see `Could not find nvcc`, either fix the path or use
+in-process KL (same gate scale ~2.x):
+
+```bash
+bash /root/sn47/sn-47-agent/scripts/check-vllm-ready.sh
+bash /root/sn47/sn-47-agent/scripts/fix-cuda-path.sh   # writes CUDA_HOME to .env
+# or skip vLLM entirely:
+# KL_EVAL_REF_MODE=inprocess
+# KL_EVAL_START_VLLM_REF=false
+```
+
+`validator_kl_eval.py` now skips vLLM startup when `nvcc` is missing (when
+`KL_EVAL_FALLBACK_INPROCESS=true`) instead of waiting ~4 minutes for a crash.
+
 If a ref server is already running, point at it and skip auto-start:
 
 ```bash

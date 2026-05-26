@@ -165,6 +165,55 @@ def _vllm_binary_available() -> bool:
     return shutil.which(exe) is not None
 
 
+def _discover_cuda_home() -> tuple[str | None, str | None]:
+    """Locate CUDA toolkit (nvcc). RunPod often has cuda-12.x but no /usr/local/cuda symlink."""
+    explicit = (os.getenv("CUDA_HOME") or "").strip()
+    if explicit:
+        nvcc = Path(explicit) / "bin" / "nvcc"
+        if nvcc.is_file():
+            return explicit, str(nvcc)
+
+    nvcc_path = shutil.which("nvcc")
+    if nvcc_path:
+        home = str(Path(nvcc_path).resolve().parent.parent)
+        return home, nvcc_path
+
+    for candidate in (
+        "/usr/local/cuda",
+        "/usr/local/cuda-12.8",
+        "/usr/local/cuda-12.6",
+        "/usr/local/cuda-12.4",
+        "/usr/local/cuda-12.1",
+        "/opt/cuda",
+    ):
+        nvcc = Path(candidate) / "bin" / "nvcc"
+        if nvcc.is_file():
+            return candidate, str(nvcc)
+
+    return None, None
+
+
+def _apply_cuda_env(cuda_home: str) -> None:
+    os.environ["CUDA_HOME"] = cuda_home
+    bin_dir = str(Path(cuda_home) / "bin")
+    path = os.environ.get("PATH", "")
+    if bin_dir not in path.split(os.pathsep):
+        os.environ["PATH"] = bin_dir + os.pathsep + path
+
+
+def _cuda_toolkit_ready() -> tuple[bool, str]:
+    """vLLM 0.21 + flashinfer JIT-compile sampling kernels and need nvcc at first run."""
+    cuda_home, nvcc = _discover_cuda_home()
+    if cuda_home and nvcc:
+        _apply_cuda_env(cuda_home)
+        return True, f"CUDA_HOME={cuda_home} nvcc={nvcc}"
+    return (
+        False,
+        "nvcc not found (install CUDA devel toolkit or set CUDA_HOME; "
+        "see scripts/check-vllm-ready.sh)",
+    )
+
+
 def _probe_vllm_url(base_url: str) -> bool:
     """Return True if ref vLLM /health responds."""
     import httpx
@@ -250,6 +299,15 @@ def _resolve_ref_backend(
             yield from _inprocess(msg)
             return
         raise SystemExit(msg)
+
+    cuda_ok, cuda_detail = _cuda_toolkit_ready()
+    if not cuda_ok:
+        if mode_req == "vllm" and not allow_inprocess_fallback:
+            raise SystemExit(f"CUDA toolkit required for vLLM: {cuda_detail}")
+        if allow_inprocess_fallback:
+            yield from _inprocess(f"skipping vLLM startup ({cuda_detail})")
+            return
+        raise SystemExit(f"CUDA toolkit required for vLLM: {cuda_detail}")
 
     try:
         from evolai.validator.vllm_client import VLLMClient
