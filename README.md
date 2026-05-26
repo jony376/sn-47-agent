@@ -80,6 +80,23 @@ Gate prediction uses `validator_kl_eval.py`, which calls the same
 `evaluate_with_side_quests` KL path as on-chain validators (Qwen chat template,
 ref-generated tokens, not teacher-forced CE).
 
+### Without vLLM (in-process fallback)
+
+When vLLM is unavailable, set:
+
+```bash
+KL_EVAL_REF_MODE=auto
+KL_EVAL_FALLBACK_INPROCESS=true
+KL_EVAL_START_VLLM_REF=false
+```
+
+The bot loads the HF ref model (`Qwen/Qwen3.5-9B`) in-process and runs the **same**
+prompts and ref-generation protocol. KL uses full-vocab HF logits (not the old
+`kl_eval_validator_like.py` CE proxy). Numbers should still be in the validator
+~2.x range, usually within a few percent of vLLM MC-KL.
+
+Needs ~24–32 GB VRAM for miner + ref together on one GPU.
+
 ### vLLM (recommended — matches validator MC-KL exactly)
 
 Install the isolated vLLM environment once:

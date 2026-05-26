@@ -315,6 +315,7 @@ def run_kl_eval(
     model_revision: str = "",
     vllm_ref_url: str = "",
     start_vllm_ref: bool = False,
+    allow_inprocess_fallback: bool = True,
 ) -> dict[str, Any]:
     python_bin = EVOLAI_PYTHON if EVOLAI_PYTHON.exists() else Path(sys.executable)
     cmd = [
@@ -349,6 +350,8 @@ def run_kl_eval(
         cmd.extend(["--vllm-ref-url", vllm_ref_url])
     if start_vllm_ref:
         cmd.append("--start-vllm-ref")
+    if not allow_inprocess_fallback:
+        cmd.append("--no-inprocess-fallback")
     notify(f"[KL] Running: {' '.join(cmd)}", telegram=False)
     kl_env = os.environ.copy()
     if model_repo:
@@ -499,6 +502,7 @@ def run_pipeline(env_path: Path) -> int:
     kl_eval_data_suffix = env_str("KL_EVAL_DATA_SUFFIX", "_next")
     vllm_ref_url = env_str("VLLM_REF_URL", "")
     start_vllm_ref = env_bool("KL_EVAL_START_VLLM_REF", False)
+    kl_eval_fallback_inprocess = env_bool("KL_EVAL_FALLBACK_INPROCESS", True)
     lock_timing_mode = env_str("LOCK_TIMING_MODE", "dynamic").strip().lower()
     validator_eval_interval_s = float(env_str("VALIDATOR_EVAL_INTERVAL_S", "720"))
     lock_risk_budget_fraction = float(env_str("LOCK_RISK_BUDGET_FRACTION", "0.40"))
@@ -726,6 +730,7 @@ def run_pipeline(env_path: Path) -> int:
                 model_revision=eval_rec.get("model_revision", ""),
                 vllm_ref_url=vllm_ref_url,
                 start_vllm_ref=start_vllm_ref,
+                allow_inprocess_fallback=kl_eval_fallback_inprocess,
             )
             baseline_kl_by_validator = {
                 int(r["validator_uid"]): float(r["kl"])
@@ -794,6 +799,7 @@ def run_pipeline(env_path: Path) -> int:
                             model_revision=eval_rec.get("model_revision", ""),
                             vllm_ref_url=vllm_ref_url,
                             start_vllm_ref=start_vllm_ref,
+                            allow_inprocess_fallback=kl_eval_fallback_inprocess,
                         )
                         cur_kl_by_validator = {
                             int(r["validator_uid"]): float(r["kl"])

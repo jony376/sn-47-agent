@@ -4,8 +4,10 @@
 Uses evolai.validator.loss_evaluator.evaluate_with_side_quests with the same
 protocol as on-chain validators:
   - Qwen chat template + enable_thinking=True KL prompts
-  - MC KL on ref-generated continuation tokens (vLLM path), or exact full-vocab
-    KL when an in-process ref model is used
+  - Ref-generated continuation tokens only (not teacher-forced CE)
+  - vLLM path: Monte-Carlo KL (identical to on-chain validators)
+  - In-process fallback: full-vocab KL via HF ref model (same prompts/generation,
+    slightly different KL estimator — still ~2.x scale, not legacy CE proxy)
   - skip_ce=True, skip_sq=True (KL only)
 """
 from __future__ import annotations
@@ -13,9 +15,11 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import shutil
 import sys
 import time
 from contextlib import contextmanager
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Iterator
 
@@ -138,59 +142,160 @@ def _rows_to_samples(rows: list[dict[str, Any]], limit: int) -> list[ChatSample]
     return samples
 
 
+@dataclass
+class RefBackend:
+    """Resolved reference backend for KL evaluation."""
+
+    mode: str  # vllm_mc | inprocess_full_vocab
+    vllm_url: str | None = None
+    vllm_client: Any = None
+    fallback_reason: str = ""
+    notes: list[str] = field(default_factory=list)
+
+
+def _env_bool(name: str, default: bool) -> bool:
+    raw = os.getenv(name)
+    if raw is None:
+        return default
+    return raw.strip().lower() in {"1", "true", "yes", "on"}
+
+
+def _vllm_binary_available() -> bool:
+    exe = os.getenv("VLLM_EXECUTABLE", "vllm").strip() or "vllm"
+    return shutil.which(exe) is not None
+
+
+def _probe_vllm_url(base_url: str) -> bool:
+    """Return True if ref vLLM /health responds."""
+    import httpx
+
+    root = base_url.rstrip("/")
+    if root.endswith("/v1"):
+        health_url = root[: -len("/v1")] + "/health"
+    else:
+        health_url = root + "/health"
+    try:
+        resp = httpx.get(health_url, timeout=5.0)
+        return resp.status_code == 200
+    except Exception:
+        return False
+
+
 @contextmanager
-def _maybe_vllm_ref_server(
+def _resolve_ref_backend(
     ref_model: str,
     ref_mode: str,
     vllm_ref_url: str,
     start_vllm: bool,
-) -> Iterator[tuple[str | None, Any]]:
-    """Yield (vllm_base_url, vllm_client_or_none). Starts/stops server when requested."""
-    client = None
-    base_url = vllm_ref_url.strip() or None
-    mode = ref_mode.lower()
+    *,
+    allow_inprocess_fallback: bool,
+) -> Iterator[RefBackend]:
+    """Pick vLLM MC-KL when possible; otherwise in-process HF (validator-matching prompts)."""
+    mode_req = ref_mode.lower()
+    url_in = vllm_ref_url.strip()
+    notes: list[str] = []
+    fallback_reason = ""
 
-    if mode == "inprocess":
-        yield None, None
+    def _inprocess(reason: str) -> Iterator[RefBackend]:
+        nonlocal fallback_reason
+        fallback_reason = reason
+        notes.append(
+            "in-process HF ref: same evaluate_with_side_quests + ref-generated tokens; "
+            "full-vocab KL (not MC). KL scale should still match validator (~2.x)."
+        )
+        print(f"[KL] using in-process ref fallback: {reason}", flush=True)
+        yield RefBackend(
+            mode="inprocess_full_vocab",
+            vllm_url=None,
+            vllm_client=None,
+            fallback_reason=reason,
+            notes=notes,
+        )
+
+    if mode_req == "inprocess":
+        yield from _inprocess("KL_EVAL_REF_MODE=inprocess")
         return
 
-    if base_url:
-        yield base_url.rstrip("/"), None
-        return
-
-    if mode == "vllm" or (mode == "auto" and start_vllm):
-        try:
-            from evolai.validator.vllm_client import VLLMClient
-        except Exception as exc:
-            if mode == "vllm":
-                raise SystemExit(f"vLLM client unavailable: {exc}") from exc
-            print(f"[KL] vLLM unavailable ({exc}); falling back to in-process ref model", flush=True)
-            yield None, None
+    # Explicit URL: use when healthy, else fallback if allowed.
+    if url_in:
+        base = url_in.rstrip("/")
+        if not base.endswith("/v1"):
+            base = base + "/v1"
+        if _probe_vllm_url(base):
+            print(f"[KL] using existing ref vLLM at {base}", flush=True)
+            yield RefBackend(mode="vllm_mc", vllm_url=base, notes=["external vLLM URL"])
             return
+        msg = f"vLLM at {base} not reachable"
+        if mode_req == "vllm" and not allow_inprocess_fallback:
+            raise SystemExit(msg)
+        if allow_inprocess_fallback:
+            yield from _inprocess(msg)
+            return
+        raise SystemExit(msg)
 
+    want_vllm = mode_req == "vllm" or (mode_req == "auto" and start_vllm)
+    if not want_vllm:
+        yield from _inprocess(
+            "KL_EVAL_REF_MODE=auto and KL_EVAL_START_VLLM_REF=false"
+        )
+        return
+
+    if not _vllm_binary_available():
+        msg = (
+            f"VLLM_EXECUTABLE={os.getenv('VLLM_EXECUTABLE', 'vllm')!r} not found"
+        )
+        if mode_req == "vllm" and not allow_inprocess_fallback:
+            raise SystemExit(msg)
+        if allow_inprocess_fallback:
+            yield from _inprocess(msg)
+            return
+        raise SystemExit(msg)
+
+    try:
+        from evolai.validator.vllm_client import VLLMClient
+    except Exception as exc:
+        if mode_req == "vllm" and not allow_inprocess_fallback:
+            raise SystemExit(f"vLLM client import failed: {exc}") from exc
+        if allow_inprocess_fallback:
+            yield from _inprocess(f"vLLM client import failed: {exc}")
+            return
+        raise SystemExit(f"vLLM client import failed: {exc}") from exc
+
+    client = VLLMClient(
+        port=VLLM_REF_PORT,
+        max_model_len=VLLM_REF_MAX_MODEL_LEN,
+        gpu_memory_utilization=VLLM_REF_GPU_MEMORY_UTILIZATION,
+    )
+    url = f"http://127.0.0.1:{VLLM_REF_PORT}/v1"
+    try:
         print(
             f"[KL] starting ref vLLM server model={ref_model} port={VLLM_REF_PORT} "
             f"gpu={VLLM_REF_GPU_INDEX}",
             flush=True,
         )
-        client = VLLMClient(
-            port=VLLM_REF_PORT,
-            max_model_len=VLLM_REF_MAX_MODEL_LEN,
-            gpu_memory_utilization=VLLM_REF_GPU_MEMORY_UTILIZATION,
+        client.start_server(ref_model, gpu_index=VLLM_REF_GPU_INDEX)
+        if not _probe_vllm_url(url):
+            raise RuntimeError("vLLM server started but /health check failed")
+        print(f"[KL] ref vLLM ready at {url} (MC-KL, validator-identical)", flush=True)
+        yield RefBackend(
+            mode="vllm_mc",
+            vllm_url=url,
+            vllm_client=client,
+            notes=["local vLLM ref server"],
         )
+    except Exception as exc:
+        if mode_req == "vllm" and not allow_inprocess_fallback:
+            raise SystemExit(f"vLLM ref server failed: {exc}") from exc
+        if allow_inprocess_fallback:
+            yield from _inprocess(f"vLLM ref server failed: {type(exc).__name__}: {exc}")
+            return
+        raise SystemExit(f"vLLM ref server failed: {exc}") from exc
+    finally:
         try:
-            client.start_server(ref_model, gpu_index=VLLM_REF_GPU_INDEX)
-            url = f"http://127.0.0.1:{VLLM_REF_PORT}/v1"
-            print(f"[KL] ref vLLM ready at {url}", flush=True)
-            yield url, client
-        finally:
-            try:
+            if client.is_server_running():
                 client.stop_server()
-            except Exception as exc:
-                print(f"[KL] warn: vLLM stop failed: {exc}", flush=True)
-        return
-
-    yield None, None
+        except Exception as stop_exc:
+            print(f"[KL] warn: vLLM stop failed: {stop_exc}", flush=True)
 
 
 def _resolve_device(device_arg: str) -> str:
@@ -231,7 +336,21 @@ def parse_args() -> argparse.Namespace:
         "--ref-mode",
         default=os.getenv("KL_EVAL_REF_MODE", "auto"),
         choices=["auto", "vllm", "inprocess"],
-        help="Ref generation backend: vLLM MC-KL (validator default), in-process, or auto.",
+        help=(
+            "auto: try vLLM when KL_EVAL_START_VLLM_REF or VLLM_REF_URL set, else in-process; "
+            "vllm: MC-KL via ref server; inprocess: HF ref (full-vocab KL, same prompts)."
+        ),
+    )
+    p.add_argument(
+        "--allow-inprocess-fallback",
+        action="store_true",
+        default=_env_bool("KL_EVAL_FALLBACK_INPROCESS", True),
+        help="When vLLM fails, use in-process HF ref (same evaluate_with_side_quests).",
+    )
+    p.add_argument(
+        "--no-inprocess-fallback",
+        action="store_true",
+        help="Disable in-process fallback (fail if vLLM unavailable).",
     )
     p.add_argument(
         "--vllm-ref-url",
@@ -301,22 +420,12 @@ def main() -> int:
         flush=True,
     )
 
+    allow_fallback = args.allow_inprocess_fallback and not args.no_inprocess_fallback
+
     print(f"[KL] loading ref tokenizer {args.ref_tokenizer}", flush=True)
     ref_tokenizer = AutoTokenizer.from_pretrained(args.ref_tokenizer, trust_remote_code=False)
 
-    print(f"[KL] loading candidate model from {model_dir}", flush=True)
-    _ensure_local_model_metadata(model_dir)
-    model = AutoModelForCausalLM.from_pretrained(
-        str(model_dir),
-        torch_dtype=dtype,
-        low_cpu_mem_usage=True,
-        local_files_only=True,
-    )
-    model = model.to(device)
-    print("[KL] candidate model loaded", flush=True)
-
     rows_out: list[dict[str, Any]] = []
-    ref_model_obj = None
     eval_meta: dict[str, Any] = {
         "evaluator": "evolai.validator.loss_evaluator.evaluate_with_side_quests",
         "skip_ce": True,
@@ -324,22 +433,28 @@ def main() -> int:
         "ref_tokenizer": args.ref_tokenizer,
         "ref_model": args.ref_model,
         "ref_mode_requested": args.ref_mode,
+        "allow_inprocess_fallback": allow_fallback,
         "kl_max_new_tokens": args.kl_max_new_tokens,
         "max_length": args.max_length,
         "data_suffix": args.data_suffix,
         "device": device,
     }
 
-    with _maybe_vllm_ref_server(
+    with _resolve_ref_backend(
         ref_model=args.ref_model,
         ref_mode=args.ref_mode,
         vllm_ref_url=args.vllm_ref_url,
         start_vllm=args.start_vllm_ref,
-    ) as (vllm_url, _vllm_client):
-        use_vllm = vllm_url is not None
-        eval_meta["ref_mode_used"] = "vllm" if use_vllm else "inprocess"
+        allow_inprocess_fallback=allow_fallback,
+    ) as backend:
+        use_vllm = backend.mode == "vllm_mc"
+        vllm_url = backend.vllm_url
+        eval_meta["ref_mode_used"] = backend.mode
         eval_meta["vllm_ref_url"] = vllm_url or ""
+        eval_meta["fallback_reason"] = backend.fallback_reason
+        eval_meta["backend_notes"] = backend.notes
 
+        ref_model_obj = None
         if not use_vllm:
             print(f"[KL] loading in-process ref model {args.ref_model}", flush=True)
             ref_model_obj = AutoModelForCausalLM.from_pretrained(
@@ -348,7 +463,27 @@ def main() -> int:
                 low_cpu_mem_usage=True,
             )
             ref_model_obj = ref_model_obj.to(device)
-            print("[KL] in-process ref model loaded (full-vocab KL path)", flush=True)
+            print(
+                "[KL] in-process ref loaded — same prompts/generation as validator; "
+                "KL uses full-vocab Σ_v P_ref(v)[log P_ref - log P_miner] (~2.x scale)",
+                flush=True,
+            )
+
+        print(f"[KL] loading candidate model from {model_dir}", flush=True)
+        _ensure_local_model_metadata(model_dir)
+        model = AutoModelForCausalLM.from_pretrained(
+            str(model_dir),
+            torch_dtype=dtype,
+            low_cpu_mem_usage=True,
+            local_files_only=True,
+        )
+        model = model.to(device)
+        print("[KL] candidate model loaded", flush=True)
+
+        if device.startswith("cuda"):
+            import torch as _torch
+
+            _torch.cuda.empty_cache()
 
         total_validators = len(files)
         for v_idx, f in enumerate(files, start=1):
@@ -449,6 +584,10 @@ def main() -> int:
                 f"elapsed={v_elapsed:.1f}s mode={eval_meta['ref_mode_used']}",
                 flush=True,
             )
+            if device.startswith("cuda"):
+                import torch as _torch
+
+                _torch.cuda.empty_cache()
 
     out = {
         "model_dir": str(model_dir),
