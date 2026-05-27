@@ -64,6 +64,12 @@ discover_nvcc() {
     return 1
 }
 
+if command -v ninja &>/dev/null; then
+    pass "ninja: $(command -v ninja) ($(ninja --version 2>/dev/null || echo '?'))"
+else
+    fail "ninja not found — flashinfer JIT needs: apt-get install -y ninja-build"
+fi
+
 if NVCC_PATH="$(discover_nvcc)"; then
     CUDA_HOME_FOUND="$(dirname "$(dirname "$NVCC_PATH")")"
     pass "nvcc: $NVCC_PATH (CUDA_HOME=$CUDA_HOME_FOUND)"

@@ -200,7 +200,10 @@ def assess_lock_risk(
         if timing_mode == "dynamic_log" and remaining_s is not None:
             if lock_window and lock_window.get("lock_after_gate"):
                 pass  # already high
-            elif remaining_s <= 0 or age_s >= max(0.0, remaining_s):
+            # remaining_s is already "seconds from now until next lock".
+            # Comparing pipeline age (elapsed since trigger) to remaining_s mixes
+            # two different clocks and can overstate risk.
+            elif remaining_s <= 0:
                 risk = "high"
                 reasons.append(
                     f"{label} age {age_s:.0f}s >= ~{remaining_s:.0f}s remaining until next lock"

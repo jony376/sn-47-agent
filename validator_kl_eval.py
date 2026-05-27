@@ -184,6 +184,8 @@ def _discover_cuda_home() -> tuple[str | None, str | None]:
         "/usr/local/cuda-12.6",
         "/usr/local/cuda-12.4",
         "/usr/local/cuda-12.1",
+        "/usr/lib/cuda",
+        "/usr/lib/nvidia-cuda-toolkit",
         "/opt/cuda",
     ):
         nvcc = Path(candidate) / "bin" / "nvcc"
@@ -331,7 +333,22 @@ def _resolve_ref_backend(
             f"gpu={VLLM_REF_GPU_INDEX}",
             flush=True,
         )
-        client.start_server(ref_model, gpu_index=VLLM_REF_GPU_INDEX)
+        try:
+            import torch
+
+            if torch.cuda.is_available():
+                torch.cuda.empty_cache()
+                print("[KL] cleared CUDA cache before ref vLLM startup", flush=True)
+        except Exception:
+            pass
+        ref_max_num_seqs = int(os.getenv("VLLM_REF_MAX_NUM_SEQS", "128"))
+        print(f"[KL] ref vLLM max_num_seqs={ref_max_num_seqs}", flush=True)
+        client.start_server(
+            ref_model,
+            gpu_index=VLLM_REF_GPU_INDEX,
+            gpu_memory_utilization=VLLM_REF_GPU_MEMORY_UTILIZATION,
+            max_num_seqs=ref_max_num_seqs,
+        )
         if not _probe_vllm_url(url):
             raise RuntimeError("vLLM server started but /health check failed")
         print(f"[KL] ref vLLM ready at {url} (MC-KL, validator-identical)", flush=True)
@@ -440,6 +457,14 @@ def parse_args() -> argparse.Namespace:
         type=int,
         default=int(os.getenv("KL_EVAL_LIMIT_PER_VALIDATOR", str(N_EVAL_TRANSFORMER))),
     )
+    p.add_argument(
+        "--validator-uids",
+        default=os.getenv(
+            "KL_EVAL_VALIDATOR_UIDS",
+            os.getenv("TARGET_VALIDATOR_UID", ""),
+        ),
+        help="Comma-separated validator UIDs to eval (default: all validator_* jsonl files).",
+    )
     p.add_argument("--progress-every", type=int, default=5)
     p.add_argument(
         "--device",
@@ -465,6 +490,30 @@ def main() -> int:
     files = sorted(prep_dir.glob(pattern))
     if not files:
         raise SystemExit(f"No {pattern} files found in {prep_dir}")
+
+    uid_filter_raw = (args.validator_uids or "").strip()
+    if uid_filter_raw:
+        uid_filter = {
+            int(part.strip())
+            for part in uid_filter_raw.split(",")
+            if part.strip()
+        }
+
+        def _validator_uid_from_path(path: Path) -> int:
+            stem = path.stem
+            return int(stem.replace("validator_", "").replace(args.data_suffix, ""))
+
+        files = [f for f in files if _validator_uid_from_path(f) in uid_filter]
+        if not files:
+            raise SystemExit(
+                f"No validator files matched --validator-uids={uid_filter_raw!r} "
+                f"under {prep_dir} (pattern {pattern})"
+            )
+        print(
+            f"[KL] restricted to validator uid(s): {sorted(uid_filter)} "
+            f"({len(files)} file(s))",
+            flush=True,
+        )
 
     device = _resolve_device(args.device)
     import torch

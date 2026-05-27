@@ -316,6 +316,7 @@ def run_kl_eval(
     vllm_ref_url: str = "",
     start_vllm_ref: bool = False,
     allow_inprocess_fallback: bool = True,
+    validator_uids: str = "",
 ) -> dict[str, Any]:
     python_bin = EVOLAI_PYTHON if EVOLAI_PYTHON.exists() else Path(sys.executable)
     cmd = [
@@ -346,6 +347,8 @@ def run_kl_eval(
         "--data-suffix",
         data_suffix,
     ]
+    if validator_uids.strip():
+        cmd.extend(["--validator-uids", validator_uids.strip()])
     if vllm_ref_url:
         cmd.extend(["--vllm-ref-url", vllm_ref_url])
     if start_vllm_ref:
@@ -488,6 +491,10 @@ def run_pipeline(env_path: Path) -> int:
     gate_fail_action = env_str("GATE_FAIL_ACTION", "abort").lower()
     train_until_pass_enabled = env_bool("TRAIN_UNTIL_PASS_ENABLED", False)
     train_until_pass_max_rounds = int(env_str("TRAIN_UNTIL_PASS_MAX_ROUNDS", "5"))
+    target_validator_uid = int(env_str("TARGET_VALIDATOR_UID", "0"))
+    kl_eval_validator_uids = env_str("KL_EVAL_VALIDATOR_UIDS", "").strip()
+    if not kl_eval_validator_uids and target_validator_uid > 0:
+        kl_eval_validator_uids = str(target_validator_uid)
     kl_eval_enabled = env_bool("KL_EVAL_ENABLED", True)
     kl_eval_ref_model = env_str("KL_EVAL_REF_MODEL", "Qwen/Qwen3.5-9B")
     kl_eval_ref_tokenizer = env_str("KL_EVAL_REF_TOKENIZER", kl_eval_ref_model)
@@ -680,8 +687,25 @@ def run_pipeline(env_path: Path) -> int:
 
         t = step_log("Derive challenge indices from latest seeds")
         ch = derive_challenge_json(uid=uid, network=network, netuid=netuid, out_path=challenge_json)
+        challenge_validator_uids = [
+            int(v.get("validator_uid"))
+            for v in ch.get("validators", [])
+            if v.get("validator_uid") is not None
+        ]
+        if target_validator_uid > 0:
+            if target_validator_uid not in challenge_validator_uids:
+                raise RuntimeError(
+                    f"TARGET_VALIDATOR_UID={target_validator_uid} not found in current challenge validators: "
+                    f"{challenge_validator_uids}"
+                )
+            notify(
+                f"[CHALLENGE] single-validator mode enabled: uid={target_validator_uid}",
+                telegram=False,
+            )
         summary["challenge"] = {
             "validators": len(ch.get("validators", [])),
+            "validator_uids": challenge_validator_uids,
+            "target_validator_uid": (target_validator_uid if target_validator_uid > 0 else None),
             "epoch": ch.get("current_epoch"),
             "block": ch.get("current_block"),
         }
@@ -731,6 +755,7 @@ def run_pipeline(env_path: Path) -> int:
                 vllm_ref_url=vllm_ref_url,
                 start_vllm_ref=start_vllm_ref,
                 allow_inprocess_fallback=kl_eval_fallback_inprocess,
+                validator_uids=kl_eval_validator_uids,
             )
             baseline_kl_by_validator = {
                 int(r["validator_uid"]): float(r["kl"])
@@ -749,8 +774,25 @@ def run_pipeline(env_path: Path) -> int:
                 passed = False
                 last_gate_result: dict[str, Any] | None = None
                 for ridx in range(1, max(1, train_until_pass_max_rounds) + 1):
+                    # single-validator mode: always focus configured validator file
+                    if target_validator_uid > 0:
+                        focus = prep_out_dir / f"validator_{target_validator_uid}_next.jsonl"
+                        if focus.exists():
+                            env_extra["FOCUS_FILE"] = str(focus)
+                        else:
+                            env_extra["FOCUS_FILE"] = str(prep_out_dir / "union_next.jsonl")
+                            notify(
+                                f"[LOOP] round {ridx}: validator file missing for {target_validator_uid}; "
+                                "falling back to union_next.jsonl",
+                                telegram=False,
+                            )
+                        notify(
+                            f"[LOOP] round {ridx}: forced focus validator {target_validator_uid} "
+                            f"file={env_extra['FOCUS_FILE']}",
+                            telegram=False,
+                        )
                     # worst-validator-focused schedule
-                    if last_gate_result and last_gate_result.get("worst_validator_uid") is not None:
+                    elif last_gate_result and last_gate_result.get("worst_validator_uid") is not None:
                         wuid = int(last_gate_result["worst_validator_uid"])
                         focus = prep_out_dir / f"validator_{wuid}_next.jsonl"
                         if focus.exists():
@@ -800,6 +842,7 @@ def run_pipeline(env_path: Path) -> int:
                             vllm_ref_url=vllm_ref_url,
                             start_vllm_ref=start_vllm_ref,
                             allow_inprocess_fallback=kl_eval_fallback_inprocess,
+                            validator_uids=kl_eval_validator_uids,
                         )
                         cur_kl_by_validator = {
                             int(r["validator_uid"]): float(r["kl"])
@@ -894,7 +937,12 @@ def run_pipeline(env_path: Path) -> int:
         summary["timing_pre_upload"] = timing_pre
         _enforce_lock_risk("pre_upload", lock_pre)
         age_pre, _ = effective_lock_age_seconds(eval_rec)
-        if age_pre is not None and age_pre > max_pipeline_seconds:
+        # MAX_PIPELINE_SECONDS=0 means no hard cap (see README / .env.example).
+        if (
+            max_pipeline_seconds > 0
+            and age_pre is not None
+            and age_pre > max_pipeline_seconds
+        ):
             raise RuntimeError(
                 f"Pipeline exceeded MAX_PIPELINE_SECONDS ({max_pipeline_seconds:.0f}s); "
                 "upload/register would likely miss the next validator lock"
