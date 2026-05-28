@@ -164,6 +164,7 @@ class WandbLogTailer:
             raise ValueError(
                 f"Unknown WANDB_FETCH_MODE={self.fetch_mode!r}; use auto, public_graphql, or api"
             )
+        self.cache_dir.mkdir(parents=True, exist_ok=True)
         cache_file = self.cache_dir / f"{self.run_id}_tail.log"
         cache_file.write_text("\n".join(self._lines) + "\n", encoding="utf-8")
         return len(self._lines)

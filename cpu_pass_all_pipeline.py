@@ -58,27 +58,37 @@ class PreparedExample:
         }
 
 
-def cmd_prepare_data(args: argparse.Namespace) -> int:
-    from datasets import load_dataset
-
-    challenge = json.loads(Path(args.challenge_json).read_text())
-    validators = challenge.get("validators", [])
-    if not validators:
-        raise SystemExit("No validators found in challenge JSON.")
-
-    out_dir = Path(args.out_dir)
-    out_dir.mkdir(parents=True, exist_ok=True)
-
-    # dataset -> loaded split
-    ds_cache: dict[str, Any] = {}
-    union_seen: set[tuple[str, int]] = set()
+def _write_validator_split(
+    *,
+    validators: list[dict[str, Any]],
+    out_dir: Path,
+    ds_cache: dict[str, Any],
+    indices_key: str,
+    suffix: str,
+    union_seen: set[tuple[str, int]] | None = None,
+    fallback_indices_key: str | None = None,
+) -> tuple[list[PreparedExample], list[str], list[int]]:
+    """Build per-validator + union JSONL for one seed slice (_current / _next)."""
     union_examples: list[PreparedExample] = []
+    per_validator_paths: list[str] = []
+    fallback_validator_uids: list[int] = []
+    track_union = union_seen is not None
 
     for v in validators:
         v_uid = int(v["validator_uid"])
-        v_epoch = int(v["latest_seed_epoch"])
-        indices_map = v["next_challenge_indices_from_latest_seed"]
+        v_epoch = int(v.get("latest_seed_epoch") or 0)
+        indices_map = v.get(indices_key)
+        used_key = indices_key
+        if not indices_map and fallback_indices_key:
+            indices_map = v.get(fallback_indices_key)
+            if indices_map:
+                used_key = f"{fallback_indices_key} (fallback; {indices_key} missing)"
+                fallback_validator_uids.append(v_uid)
+        if not indices_map:
+            continue
+
         per_val_examples: list[PreparedExample] = []
+        from datasets import load_dataset
 
         for ds_name, indices in indices_map.items():
             if ds_name not in ds_cache:
@@ -100,40 +110,100 @@ def cmd_prepare_data(args: argparse.Namespace) -> int:
                     response=sample["response"],
                 )
                 per_val_examples.append(ex)
-                key = (ds_name, int(idx))
-                if key not in union_seen:
-                    union_seen.add(key)
-                    union_examples.append(ex)
+                if track_union:
+                    key = (ds_name, int(idx))
+                    assert union_seen is not None
+                    if key not in union_seen:
+                        union_seen.add(key)
+                        union_examples.append(ex)
 
-        vf = out_dir / f"validator_{v_uid}_next.jsonl"
+        vf = out_dir / f"validator_{v_uid}{suffix}.jsonl"
         with vf.open("w", encoding="utf-8") as f:
             for ex in per_val_examples:
                 f.write(json.dumps(ex.to_json(), ensure_ascii=True) + "\n")
+        per_validator_paths.append(str(vf))
+        print(f"Wrote {vf.name}: {len(per_val_examples)} samples ({used_key})")
 
-    uf = out_dir / "union_next.jsonl"
-    with uf.open("w", encoding="utf-8") as f:
-        for ex in union_examples:
+    return union_examples, per_validator_paths, fallback_validator_uids
+
+
+def cmd_prepare_data(args: argparse.Namespace) -> int:
+    from datasets import load_dataset  # noqa: F401 — used by _write_validator_split
+
+    challenge = json.loads(Path(args.challenge_json).read_text())
+    validators = challenge.get("validators", [])
+    if not validators:
+        raise SystemExit("No validators found in challenge JSON.")
+
+    out_dir = Path(args.out_dir)
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    ds_cache: dict[str, Any] = {}
+
+    # _current: previous_epoch_seed indices (matches validator log line "KL")
+    union_current_seen: set[tuple[str, int]] = set()
+    union_current, paths_current, current_fallback_uids = _write_validator_split(
+        validators=validators,
+        out_dir=out_dir,
+        ds_cache=ds_cache,
+        indices_key="challenge_indices_from_previous_seed",
+        suffix="_current",
+        union_seen=union_current_seen,
+        fallback_indices_key="next_challenge_indices_from_latest_seed",
+    )
+    if current_fallback_uids:
+        print(
+            "Note: _current used latest-seed indices for validator UIDs "
+            f"{current_fallback_uids} (no previous_seed on chain yet)."
+        )
+    uf_current = out_dir / "union_current.jsonl"
+    with uf_current.open("w", encoding="utf-8") as f:
+        for ex in union_current:
             f.write(json.dumps(ex.to_json(), ensure_ascii=True) + "\n")
+    print(f"Wrote union dataset: {uf_current} ({len(union_current)} samples)")
+
+    # _next: latest_seed indices (matches validator log line "NextKL")
+    union_next_seen: set[tuple[str, int]] = set()
+    union_next, paths_next, _ = _write_validator_split(
+        validators=validators,
+        out_dir=out_dir,
+        ds_cache=ds_cache,
+        indices_key="next_challenge_indices_from_latest_seed",
+        suffix="_next",
+        union_seen=union_next_seen,
+    )
+    uf_next = out_dir / "union_next.jsonl"
+    with uf_next.open("w", encoding="utf-8") as f:
+        for ex in union_next:
+            f.write(json.dumps(ex.to_json(), ensure_ascii=True) + "\n")
+    print(f"Wrote union dataset: {uf_next} ({len(union_next)} samples)")
 
     manifest = {
         "target_uid": challenge.get("target_uid"),
         "track": challenge.get("track"),
         "n_eval": challenge.get("n_eval"),
         "validators": [int(v["validator_uid"]) for v in validators],
-        "union_size": len(union_examples),
-        "files": {
-            "union_next": str(uf),
-            "per_validator": [
-                str(out_dir / f"validator_{int(v['validator_uid'])}_next.jsonl")
-                for v in validators
-            ],
+        "current": {
+            "indices_key": "challenge_indices_from_previous_seed",
+            "fallback_indices_key": "next_challenge_indices_from_latest_seed",
+            "fallback_validator_uids": current_fallback_uids,
+            "union_size": len(union_current),
+            "union_file": str(uf_current),
+            "per_validator": paths_current,
+        },
+        "next": {
+            "indices_key": "next_challenge_indices_from_latest_seed",
+            "union_size": len(union_next),
+            "union_file": str(uf_next),
+            "per_validator": paths_next,
         },
     }
     (out_dir / "manifest.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
 
-    print(f"Wrote union dataset: {uf} ({len(union_examples)} samples)")
     print(f"Wrote per-validator datasets in: {out_dir}")
-    print("Tip: train on union, validate on each validator_* file separately.")
+    print(
+        "Tip: gate on validator_*_current.jsonl (KL); monitor validator_*_next.jsonl (NextKL)."
+    )
     return 0
 
 

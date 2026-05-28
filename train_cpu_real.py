@@ -260,30 +260,58 @@ def main() -> int:
     report_path = Path(args.report_json).resolve()
     report_path.parent.mkdir(parents=True, exist_ok=True)
 
-    union_path = prep_dir / "union_next.jsonl"
-    if not union_path.exists():
-        raise SystemExit(f"Missing union dataset: {union_path}")
-
-    print(f"[TRAIN] loading union dataset: {union_path}", flush=True)
-    union_rows = _read_jsonl(union_path)
-    if not union_rows:
-        raise SystemExit("Union dataset is empty.")
-    print(f"[TRAIN] union samples: {len(union_rows)}", flush=True)
-
     focus_rows: list[dict[str, Any]] = []
+    focus_path: Path | None = None
     if args.focus_file:
-        fp = Path(args.focus_file).resolve()
-        focus_rows = _read_jsonl(fp)
+        focus_path = Path(args.focus_file).resolve()
+        focus_rows = _read_jsonl(focus_path)
         print(
-            f"[TRAIN] focus-file={fp} samples={len(focus_rows)}",
+            f"[TRAIN] focus-file={focus_path} samples={len(focus_rows)}",
             flush=True,
         )
 
-    per_val_files = sorted(prep_dir.glob("validator_*_next.jsonl"))
-    per_val_rows: dict[str, list[dict[str, Any]]] = {
-        p.stem.replace("validator_", "").replace("_next", ""): _read_jsonl(p)
-        for p in per_val_files
-    }
+    def _suffix_from_path(p: Path | None) -> str | None:
+        if p is None:
+            return None
+        stem = p.stem
+        if stem.endswith("_next"):
+            return "_next"
+        if stem.endswith("_current"):
+            return "_current"
+        return None
+
+    focus_suffix = _suffix_from_path(focus_path)
+    if focus_suffix == "_next":
+        union_candidates = [
+            prep_dir / "union_next.jsonl",
+            prep_dir / "union_current.jsonl",
+        ]
+    else:
+        union_candidates = [
+            prep_dir / "union_current.jsonl",
+            prep_dir / "union_next.jsonl",
+        ]
+    union_path = next((p for p in union_candidates if p.exists()), None)
+    if union_path is None:
+        raise SystemExit(
+            f"Missing union dataset (expected union_current.jsonl or union_next.jsonl in {prep_dir})"
+        )
+
+    print(f"[TRAIN] loading union dataset: {union_path}", flush=True)
+    union_rows = _read_jsonl(union_path)
+    if not union_rows and not focus_rows:
+        raise SystemExit("Union dataset is empty.")
+    print(f"[TRAIN] union samples: {len(union_rows)}", flush=True)
+
+    per_val_files = sorted(prep_dir.glob("validator_*_*.jsonl"))
+    per_val_rows: dict[str, list[dict[str, Any]]] = {}
+    for p in per_val_files:
+        stem = p.stem.replace("validator_", "", 1)
+        if "_" in stem:
+            vid_key = stem.rsplit("_", 1)[0]
+        else:
+            vid_key = stem
+        per_val_rows[vid_key] = _read_jsonl(p)
 
     t0 = time.time()
     device = _resolve_device(args.device)
@@ -361,17 +389,32 @@ def main() -> int:
         raise SystemExit(f"No trainable parameters found for train_mode={args.train_mode}.")
     print(f"[TRAIN] train_mode={args.train_mode} trainable_parameters={trainable}", flush=True)
 
-    before_union = _avg_ce(model, tokenizer, union_rows, args.max_seq_len, device)
-    before_by_validator = {
-        vid: _avg_ce(model, tokenizer, rows, args.max_seq_len, device)
-        for vid, rows in per_val_rows.items()
-    }
+    train_rows = focus_rows if focus_rows else union_rows
+    metric_rows = train_rows
+    if focus_rows:
+        print(
+            f"[TRAIN] training on focus only ({len(focus_rows)} samples, "
+            "validator challenge slice)",
+            flush=True,
+        )
+
+    before_union = _avg_ce(model, tokenizer, metric_rows, args.max_seq_len, device)
+    if focus_path and focus_rows:
+        vid_key = focus_path.stem.replace("validator_", "", 1)
+        if "_" in vid_key:
+            vid_key = vid_key.rsplit("_", 1)[0]
+        before_by_validator = {vid_key: before_union}
+        per_val_rows = {vid_key: focus_rows}
+    else:
+        before_by_validator = {
+            vid: _avg_ce(model, tokenizer, vrows, args.max_seq_len, device)
+            for vid, vrows in per_val_rows.items()
+        }
 
     optim = AdamW([p for p in model.parameters() if p.requires_grad], lr=args.lr)
-    base_rows = focus_rows if focus_rows else union_rows
-    rows = [r for r in base_rows if (r.get("instruction") or "").strip()]
+    rows = [r for r in train_rows if (r.get("instruction") or "").strip()]
     if not rows:
-        raise SystemExit("No valid instruction rows in union dataset.")
+        raise SystemExit("No valid instruction rows for training.")
 
     step = 0
     losses: list[float] = []
@@ -432,10 +475,10 @@ def main() -> int:
     tokenizer.save_pretrained(str(model_dir))
     print("[TRAIN] save complete", flush=True)
 
-    after_union = _avg_ce(model, tokenizer, union_rows, args.max_seq_len, device)
+    after_union = _avg_ce(model, tokenizer, metric_rows, args.max_seq_len, device)
     after_by_validator = {
-        vid: _avg_ce(model, tokenizer, rows, args.max_seq_len, device)
-        for vid, rows in per_val_rows.items()
+        vid: _avg_ce(model, tokenizer, vrows, args.max_seq_len, device)
+        for vid, vrows in per_val_rows.items()
     }
 
     report = {

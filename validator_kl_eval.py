@@ -49,6 +49,11 @@ from evolai.validator.loss_evaluator import (  # noqa: E402
     pregenerate_kl_sequences,
     pregenerate_kl_via_vllm,
 )
+from validator_kl_scoring import (  # noqa: E402
+    apply_validator_kl_adjustment,
+    estimate_num_params_b,
+    resolve_eval_max_length,
+)
 
 
 def _read_jsonl(path: Path) -> list[dict[str, Any]]:
@@ -130,6 +135,14 @@ def _ensure_local_model_metadata(model_dir: Path) -> None:
         )
     if not (model_dir / "tokenizer.json").exists():
         raise SystemExit("No local tokenizer.json found after repair.")
+
+
+def _validator_uid_from_stem(stem: str, suffix: str) -> int:
+    """Parse validator UID from filenames like validator_6_current."""
+    body = stem[len("validator_") :] if stem.startswith("validator_") else stem
+    if body.endswith(suffix):
+        return int(body[: -len(suffix)])
+    return int(body.split("_")[0])
 
 
 def _rows_to_samples(rows: list[dict[str, Any]], limit: int) -> list[ChatSample]:
@@ -507,10 +520,29 @@ def main() -> int:
     out_path = Path(args.out_json).resolve()
     out_path.parent.mkdir(parents=True, exist_ok=True)
 
-    pattern = f"validator_*{args.data_suffix}.jsonl"
+    suffix = (args.data_suffix or "_current").strip()
+    if not suffix.startswith("_"):
+        suffix = f"_{suffix}"
+
+    pattern = f"validator_*{suffix}.jsonl"
     files = sorted(prep_dir.glob(pattern))
+    if not files and suffix == "_current":
+        alt = "_next"
+        alt_pattern = f"validator_*{alt}.jsonl"
+        alt_files = sorted(prep_dir.glob(alt_pattern))
+        if alt_files:
+            print(
+                f"[KL] no {pattern} files; falling back to {alt_pattern} "
+                "(no previous_seed on chain yet)",
+                flush=True,
+            )
+            suffix = alt
+            pattern = alt_pattern
+            files = alt_files
     if not files:
         raise SystemExit(f"No {pattern} files found in {prep_dir}")
+
+    args.data_suffix = suffix
 
     uid_filter_raw = (args.validator_uids or "").strip()
     if uid_filter_raw:
@@ -521,8 +553,7 @@ def main() -> int:
         }
 
         def _validator_uid_from_path(path: Path) -> int:
-            stem = path.stem
-            return int(stem.replace("validator_", "").replace(args.data_suffix, ""))
+            return _validator_uid_from_stem(path.stem, suffix)
 
         files = [f for f in files if _validator_uid_from_path(f) in uid_filter]
         if not files:
@@ -599,6 +630,18 @@ def main() -> int:
 
         print(f"[KL] loading candidate model from {model_dir}", flush=True)
         _ensure_local_model_metadata(model_dir)
+        num_params_b = estimate_num_params_b(model_dir)
+        if num_params_b <= 0:
+            num_params_b = 0.0
+        resolved_max_length = resolve_eval_max_length(num_params_b, env_max=args.max_length)
+        if resolved_max_length != args.max_length:
+            print(
+                f"[KL] max_length={resolved_max_length} "
+                f"(model {num_params_b:.2f}B, validator size table)",
+                flush=True,
+            )
+            args.max_length = resolved_max_length
+
         model = AutoModelForCausalLM.from_pretrained(
             str(model_dir),
             torch_dtype=dtype,
@@ -606,7 +649,18 @@ def main() -> int:
             local_files_only=True,
         )
         model = model.to(device)
-        print("[KL] candidate model loaded", flush=True)
+        loaded_params_b = sum(p.numel() for p in model.parameters()) / 1e9
+        if loaded_params_b > 0:
+            num_params_b = loaded_params_b
+        size_adj = apply_validator_kl_adjustment(1.0, num_params_b)["size_adj"]
+        eval_meta["num_params_b"] = num_params_b
+        eval_meta["size_adj"] = size_adj
+        eval_meta["max_length_used"] = args.max_length
+        print(
+            f"[KL] candidate model loaded params={num_params_b:.2f}B "
+            f"size_adj={size_adj:.4f}",
+            flush=True,
+        )
 
         if device.startswith("cuda"):
             import torch as _torch
@@ -615,8 +669,7 @@ def main() -> int:
 
         total_validators = len(files)
         for v_idx, f in enumerate(files, start=1):
-            stem = f.stem
-            vid = int(stem.replace("validator_", "").replace(args.data_suffix, ""))
+            vid = _validator_uid_from_stem(f.stem, suffix)
             data = _read_jsonl(f)
             samples = _rows_to_samples(data, args.limit_per_validator)
             if not samples:
@@ -699,16 +752,18 @@ def main() -> int:
             )
 
             v_elapsed = time.time() - v_started
-            rows_out.append(
-                {
-                    "validator_uid": vid,
-                    "samples": len(samples),
-                    "kl": float(kl_loss),
-                    "file": str(f),
-                }
-            )
+            scored = apply_validator_kl_adjustment(float(kl_loss), num_params_b)
+            row = {
+                "validator_uid": vid,
+                "samples": len(samples),
+                "file": str(f),
+                **scored,
+            }
+            rows_out.append(row)
             print(
-                f"[KL] validator={vid} done kl={kl_loss:.6f} samples={len(samples)} "
+                f"[KL] validator={vid} done "
+                f"kl_raw={scored['kl_raw']:.6f} kl_adj={scored['kl_adjusted']:.6f} "
+                f"size_adj={scored['size_adj']:.4f} samples={len(samples)} "
                 f"elapsed={v_elapsed:.1f}s mode={eval_meta['ref_mode_used']}",
                 flush=True,
             )
