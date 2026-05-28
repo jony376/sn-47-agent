@@ -321,37 +321,48 @@ def _resolve_ref_backend(
             return
         raise SystemExit(f"vLLM client import failed: {exc}") from exc
 
+    url = f"http://127.0.0.1:{VLLM_REF_PORT}/v1"
+    keep_vllm_ref = _env_bool("KL_EVAL_KEEP_VLLM_REF", True)
+    stop_vllm_ref = _env_bool("KL_EVAL_STOP_VLLM_REF", False)
     client = VLLMClient(
         port=VLLM_REF_PORT,
         max_model_len=VLLM_REF_MAX_MODEL_LEN,
         gpu_memory_utilization=VLLM_REF_GPU_MEMORY_UTILIZATION,
     )
-    url = f"http://127.0.0.1:{VLLM_REF_PORT}/v1"
+    started_server = False
     try:
-        print(
-            f"[KL] starting ref vLLM server model={ref_model} port={VLLM_REF_PORT} "
-            f"gpu={VLLM_REF_GPU_INDEX}",
-            flush=True,
-        )
-        try:
-            import torch
+        if _probe_vllm_url(url):
+            print(
+                f"[KL] reusing ref vLLM at {url} (skip cold start; "
+                f"keep_alive={keep_vllm_ref})",
+                flush=True,
+            )
+        else:
+            print(
+                f"[KL] starting ref vLLM server model={ref_model} port={VLLM_REF_PORT} "
+                f"gpu={VLLM_REF_GPU_INDEX}",
+                flush=True,
+            )
+            try:
+                import torch
 
-            if torch.cuda.is_available():
-                torch.cuda.empty_cache()
-                print("[KL] cleared CUDA cache before ref vLLM startup", flush=True)
-        except Exception:
-            pass
-        ref_max_num_seqs = int(os.getenv("VLLM_REF_MAX_NUM_SEQS", "128"))
-        print(f"[KL] ref vLLM max_num_seqs={ref_max_num_seqs}", flush=True)
-        client.start_server(
-            ref_model,
-            gpu_index=VLLM_REF_GPU_INDEX,
-            gpu_memory_utilization=VLLM_REF_GPU_MEMORY_UTILIZATION,
-            max_num_seqs=ref_max_num_seqs,
-        )
-        if not _probe_vllm_url(url):
-            raise RuntimeError("vLLM server started but /health check failed")
-        print(f"[KL] ref vLLM ready at {url} (MC-KL, validator-identical)", flush=True)
+                if torch.cuda.is_available():
+                    torch.cuda.empty_cache()
+                    print("[KL] cleared CUDA cache before ref vLLM startup", flush=True)
+            except Exception:
+                pass
+            ref_max_num_seqs = int(os.getenv("VLLM_REF_MAX_NUM_SEQS", "128"))
+            print(f"[KL] ref vLLM max_num_seqs={ref_max_num_seqs}", flush=True)
+            client.start_server(
+                ref_model,
+                gpu_index=VLLM_REF_GPU_INDEX,
+                gpu_memory_utilization=VLLM_REF_GPU_MEMORY_UTILIZATION,
+                max_num_seqs=ref_max_num_seqs,
+            )
+            started_server = True
+            if not _probe_vllm_url(url):
+                raise RuntimeError("vLLM server started but /health check failed")
+            print(f"[KL] ref vLLM ready at {url} (MC-KL, validator-identical)", flush=True)
         yield RefBackend(
             mode="vllm_mc",
             vllm_url=url,
@@ -366,11 +377,21 @@ def _resolve_ref_backend(
             return
         raise SystemExit(f"vLLM ref server failed: {exc}") from exc
     finally:
-        try:
-            if client.is_server_running():
-                client.stop_server()
-        except Exception as stop_exc:
-            print(f"[KL] warn: vLLM stop failed: {stop_exc}", flush=True)
+        if keep_vllm_ref and not stop_vllm_ref and started_server:
+            # Detach so VLLMClient.__del__ does not SIGTERM the child on subprocess exit.
+            if getattr(client, "server_process", None) is not None:
+                print(
+                    "[KL] detaching from ref vLLM child (keep alive for next KL eval)",
+                    flush=True,
+                )
+                client.server_process = None
+        elif stop_vllm_ref or not keep_vllm_ref:
+            try:
+                if client.is_server_running():
+                    print("[KL] stopping ref vLLM server", flush=True)
+                    client.stop_server()
+            except Exception as stop_exc:
+                print(f"[KL] warn: vLLM stop failed: {stop_exc}", flush=True)
 
 
 def _resolve_device(device_arg: str) -> str:

@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import Any
 
 import torch
+import torch.nn.functional as F
 from torch.optim import AdamW
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
@@ -92,6 +93,39 @@ def _model_dtype(device: torch.device) -> torch.dtype:
     return torch.float16
 
 
+def _token_kl_from_logits(
+    student_logits: torch.Tensor,
+    teacher_logits: torch.Tensor,
+    labels: torch.Tensor,
+) -> torch.Tensor:
+    """
+    KL(teacher || student) on next-token distributions for supervised tokens only.
+    """
+    # Causal LM next-token alignment.
+    s = student_logits[:, :-1, :]
+    t = teacher_logits[:, :-1, :]
+    lbl = labels[:, 1:]
+    mask = lbl.ne(-100)
+    if not mask.any():
+        return s.new_tensor(0.0)
+
+    s_logp = F.log_softmax(s, dim=-1)
+    t_logp = F.log_softmax(t, dim=-1)
+    t_prob = t_logp.exp()
+    per_tok = (t_prob * (t_logp - s_logp)).sum(dim=-1)
+    return per_tok[mask].mean()
+
+
+def _resolve_teacher_device(name: str, train_device: torch.device) -> torch.device:
+    choice = (name or "auto").strip().lower()
+    if choice == "auto":
+        # Default to train device so KL is not bottlenecked by host/device transfer.
+        return train_device
+    if choice == "cuda" and not torch.cuda.is_available():
+        raise SystemExit("KL teacher device cuda requested but CUDA is unavailable")
+    return torch.device(choice)
+
+
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description="Fine-tune miner model on challenge data (CPU or GPU).")
     p.add_argument("--uid", required=True)
@@ -123,6 +157,21 @@ def parse_args() -> argparse.Namespace:
         default="auto",
         choices=("auto", "cpu", "cuda"),
         help="Training device. auto prefers CUDA when available.",
+    )
+    p.add_argument(
+        "--kl-weight",
+        type=float,
+        default=0.0,
+        help=(
+            "KL regularization weight. total_loss = CE + kl_weight * KL(teacher||student). "
+            "Set >0 to optimize a gate-KL proxy during training."
+        ),
+    )
+    p.add_argument(
+        "--kl-teacher-device",
+        default="auto",
+        choices=("auto", "cpu", "cuda"),
+        help="Device for frozen KL teacher model.",
     )
     return p.parse_args()
 
@@ -257,6 +306,28 @@ def main() -> int:
     model.train()
     print(f"[TRAIN] model loaded in {time.time()-t0:.1f}s", flush=True)
 
+    kl_weight = max(0.0, float(args.kl_weight))
+    teacher_model = None
+    teacher_device = None
+    if kl_weight > 0.0:
+        teacher_device = _resolve_teacher_device(args.kl_teacher_device, device)
+        print(
+            f"[TRAIN] KL enabled weight={kl_weight:.4f} teacher_source=baseline_snapshot "
+            f"teacher_device={teacher_device}",
+            flush=True,
+        )
+        # Frozen pre-train snapshot of current model as teacher.
+        teacher_model = AutoModelForCausalLM.from_pretrained(
+            str(model_dir),
+            torch_dtype=dtype if teacher_device.type == "cuda" else torch.float32,
+            low_cpu_mem_usage=True,
+            local_files_only=True,
+        )
+        teacher_model = teacher_model.to(teacher_device)
+        teacher_model.eval()
+        for p in teacher_model.parameters():
+            p.requires_grad = False
+
     # CPU-friendly train modes.
     for _, p in model.named_parameters():
         p.requires_grad = False
@@ -304,9 +375,12 @@ def main() -> int:
 
     step = 0
     losses: list[float] = []
+    ce_losses: list[float] = []
+    kl_losses: list[float] = []
     t_train = time.time()
     print(
-        f"[TRAIN] start steps={args.max_steps} lr={args.lr} max_seq_len={args.max_seq_len}",
+        f"[TRAIN] start steps={args.max_steps} lr={args.lr} max_seq_len={args.max_seq_len} "
+        f"kl_weight={kl_weight}",
         flush=True,
     )
     while step < args.max_steps:
@@ -318,7 +392,17 @@ def main() -> int:
         labels = labels.unsqueeze(0).to(device)
 
         out = model(input_ids=input_ids, labels=labels, use_cache=False)
-        loss = out.loss
+        ce_loss = out.loss
+        kl_loss = ce_loss.new_tensor(0.0)
+
+        if teacher_model is not None and kl_weight > 0.0:
+            with torch.inference_mode():
+                t_input_ids = input_ids.to(teacher_device)
+                t_out = teacher_model(input_ids=t_input_ids, use_cache=False)
+                t_logits = t_out.logits.to(device)
+            kl_loss = _token_kl_from_logits(out.logits, t_logits, labels)
+
+        loss = ce_loss + (kl_weight * kl_loss)
         loss.backward()
         if step < args.warmup_steps:
             scale = float(step + 1) / max(1.0, float(args.warmup_steps))
@@ -332,10 +416,13 @@ def main() -> int:
 
         step += 1
         losses.append(float(loss.detach().float().item()))
+        ce_losses.append(float(ce_loss.detach().float().item()))
+        kl_losses.append(float(kl_loss.detach().float().item()))
         elapsed = time.time() - t_train
         print(
             f"[TRAIN] step {step}/{args.max_steps} "
-            f"loss={losses[-1]:.4f} avg={sum(losses)/len(losses):.4f} "
+            f"loss={losses[-1]:.4f} ce={ce_losses[-1]:.4f} kl={kl_losses[-1]:.4f} "
+            f"avg={sum(losses)/len(losses):.4f} "
             f"elapsed={elapsed:.1f}s",
             flush=True,
         )
@@ -357,11 +444,15 @@ def main() -> int:
         "device": str(device),
         "dtype": str(dtype),
         "train_mode": args.train_mode,
+        "kl_weight": float(kl_weight),
+        "kl_teacher_device": str(teacher_device) if teacher_device is not None else "",
         "max_steps": int(args.max_steps),
         "lr": float(args.lr),
         "max_seq_len": int(args.max_seq_len),
         "trainable_params": int(trainable),
         "avg_train_loss": float(sum(losses) / max(1, len(losses))),
+        "avg_ce_loss": float(sum(ce_losses) / max(1, len(ce_losses))),
+        "avg_kl_loss": float(sum(kl_losses) / max(1, len(kl_losses))),
         "before_union_ce": before_union,
         "after_union_ce": after_union,
         "before_by_validator_ce": before_by_validator,

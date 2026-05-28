@@ -357,6 +357,8 @@ def run_kl_eval(
         cmd.append("--no-inprocess-fallback")
     notify(f"[KL] Running: {' '.join(cmd)}", telegram=False)
     kl_env = os.environ.copy()
+    kl_env.setdefault("KL_EVAL_KEEP_VLLM_REF", "true")
+    kl_env.setdefault("KL_EVAL_STOP_VLLM_REF", "false")
     if model_repo:
         kl_env["MODEL_REPO"] = model_repo
     if model_revision:
