@@ -1,3 +1,5 @@
 models/
 __pycache__/
 vllm_env/.env
+.env
+.wandb_cache/
