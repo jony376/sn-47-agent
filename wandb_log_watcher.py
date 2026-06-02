@@ -9,7 +9,7 @@ from typing import Any
 from urllib import request
 from urllib.parse import urlparse
 
-from eval_log_parser import parse_latest_eval_for_uid
+from eval_log_parser import parse_latest_eval_for_uid, parse_top_uid_from_leaderboard
 
 WANDB_GRAPHQL_URL = "https://api.wandb.ai/graphql"
 
@@ -203,6 +203,26 @@ class WandbLogTailer:
         rec["wandb_total_log_lines"] = self._total_line_count
         rec["wandb_tail_lines"] = len(self._lines)
         return rec
+
+    def top_miner_for_track(self, track: str = "transformer") -> dict[str, Any]:
+        """Resolve the current top miner (uid + model repo/revision) for a track.
+
+        Combines the validator leaderboard (to pick the winning UID) with that UID's
+        latest eval block (to read its HF model repo and the evaluated revision SHA).
+        """
+        if not self._lines:
+            self.refresh()
+        top = parse_top_uid_from_leaderboard(self._lines, track)
+        eval_rec = parse_latest_eval_for_uid(self._lines, top["uid"])
+        return {
+            "uid": top["uid"],
+            "rank": top["rank"],
+            "score": top["score"],
+            "track": track,
+            "model_repo": (eval_rec.get("model_repo") or "").strip(),
+            "model_revision": (eval_rec.get("model_revision") or "").strip(),
+            "wandb_run_path": self.run_path,
+        }
 
     def append_to_local_log(self, dest: Path) -> None:
         if not self._lines:

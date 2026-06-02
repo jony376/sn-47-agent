@@ -12,6 +12,7 @@ from urllib import parse, request
 from huggingface_hub import HfApi, snapshot_download
 
 from agent_common import is_valid_sha, resolve_register_revision, verify_hf_revision
+from wandb_log_watcher import WandbLogTailer
 
 
 SCRIPT_DIR = Path(__file__).resolve().parent
@@ -74,11 +75,73 @@ def require(name: str) -> str:
     return value
 
 
+def download_top_miner() -> bool:
+    """When true, download the current top miner on the subnet (from W&B leaderboard)
+    instead of the static DOWNLOAD_USERNAME/DOWNLOAD_MODEL_NAME repo."""
+    return env_bool("DOWNLOAD_TOP_MINER", True)
+
+
+def top_miner_track() -> str:
+    """Leaderboard track to pick the top miner from (defaults to REGISTER_TRACK)."""
+    return env_str("DOWNLOAD_TRACK", env_str("REGISTER_TRACK", "transformer"))
+
+
+def resolve_top_miner() -> Dict[str, str]:
+    """Read the current top miner's UID and HF model repo/revision from the W&B log.
+
+    Uses WANDB_RUN_URL (or WANDB_ENTITY/PROJECT/RUN_ID) from the environment.
+    """
+    cache_dir = Path(env_str("WANDB_CACHE_DIR", str(SCRIPT_DIR / ".wandb_cache")))
+    track = top_miner_track()
+    tailer = WandbLogTailer.from_env(cache_dir=cache_dir)
+    tailer.refresh()
+    info = tailer.top_miner_for_track(track)
+
+    repo_id = (info.get("model_repo") or "").strip()
+    if not repo_id or "/" not in repo_id:
+        raise RuntimeError(
+            f"Could not resolve HF model repo for top miner uid={info.get('uid')} "
+            f"on track {track!r} (got {repo_id!r})"
+        )
+    return {
+        "repo_id": repo_id,
+        "revision": (info.get("model_revision") or "").strip(),
+        "uid": str(info.get("uid")),
+        "rank": str(info.get("rank")),
+        "score": str(info.get("score")),
+        "track": str(info.get("track") or track),
+    }
+
+
 def download_model(api: HfApi) -> Path:
-    username = require("DOWNLOAD_USERNAME")
-    model_name = require("DOWNLOAD_MODEL_NAME")
     target_dir = Path(env_str("DOWNLOAD_TARGET_DIR", str(SCRIPT_DIR / "models")))
     target_dir.mkdir(parents=True, exist_ok=True)
+
+    if download_top_miner():
+        top = resolve_top_miner()
+        repo_id = top["repo_id"]
+        revision = top["revision"] or None
+        local_dir = target_dir / repo_id.replace("/", "__")
+        notify(
+            f"[START] Download TOP miner (track={top['track']} rank={top['rank']} "
+            f"uid={top['uid']} score={top['score']}): "
+            f"{repo_id}@{(revision or 'main')[:12]}",
+            telegram=False,
+        )
+        snapshot_download(
+            repo_id=repo_id,
+            revision=revision,
+            local_dir=str(local_dir),
+            token=env_str("HF_TOKEN"),
+        )
+        notify(
+            f"[DONE] Download completed: {repo_id}@{(revision or 'main')[:12]} -> {local_dir}",
+            telegram=False,
+        )
+        return local_dir
+
+    username = require("DOWNLOAD_USERNAME")
+    model_name = require("DOWNLOAD_MODEL_NAME")
     repo_id = f"{username}/{model_name}"
     local_dir = target_dir / model_name
 
@@ -187,12 +250,27 @@ def register_model(repo_id: str, revision: str) -> None:
 
 
 def source_repo_id() -> str:
+    if download_top_miner():
+        return resolve_top_miner()["repo_id"]
     username = require("DOWNLOAD_USERNAME")
     model_name = require("DOWNLOAD_MODEL_NAME")
     return f"{username}/{model_name}"
 
 
 def source_head_revision(api: HfApi) -> str:
+    if download_top_miner():
+        top = resolve_top_miner()
+        revision = top["revision"]
+        if not is_valid_sha(revision):
+            info = api.model_info(repo_id=top["repo_id"])
+            revision = (getattr(info, "sha", None) or "").strip()
+        if not revision:
+            raise RuntimeError(
+                f"Could not read revision for top miner {top['repo_id']}"
+            )
+        # Combined marker so the watcher re-triggers when either the winning miner
+        # changes (different repo) or it publishes a new evaluated revision.
+        return f"{top['repo_id']}@{revision}"
     repo_id = source_repo_id()
     info = api.model_info(repo_id=repo_id)
     revision = getattr(info, "sha", None)
