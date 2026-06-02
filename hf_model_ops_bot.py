@@ -17,7 +17,7 @@ from wandb_log_watcher import WandbLogTailer
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 DEFAULT_ENV_PATH = SCRIPT_DIR / ".env"
-EVOLAI_PYTHON = Path("/root/sn47/evolai/.venv/bin/python")
+EVOLAI_PYTHON = Path("/var/www/evolai/.venv/bin/python")
 DEFAULT_STATE_PATH = SCRIPT_DIR / ".hf_model_ops_state.json"
 
 
@@ -233,7 +233,7 @@ def register_model(repo_id: str, revision: str) -> None:
     )
     result = subprocess.run(
         cmd,
-        cwd="/root/sn47/evolai",
+        cwd="/var/www/evolai",
         text=True,
         capture_output=True,
         check=False,

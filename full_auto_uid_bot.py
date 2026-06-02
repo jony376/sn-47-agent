@@ -55,7 +55,7 @@ from fast_kl_eval import PersistentFastKLEvaluator, run_fast_kl_eval_subprocess
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 DEFAULT_ENV_PATH = SCRIPT_DIR / ".env"
-EVOLAI_ROOT = Path("/root/sn47/evolai")
+EVOLAI_ROOT = Path("/var/www/evolai")
 EVOLAI_PYTHON = EVOLAI_ROOT / ".venv/bin/python"
 CHALLENGE_SCRIPT = SCRIPT_DIR / "get_prev_seed_and_next_indices.py"
 PREPARE_SCRIPT = SCRIPT_DIR / "cpu_pass_all_pipeline.py"

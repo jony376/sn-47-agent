@@ -10,8 +10,8 @@
 # versions that conflict with bittensor.
 #
 # Usage:
-#   bash /root/sn47/sn-47-agent/scripts/setup-vllm.sh
-#   VLLM_VENV=/root/sn47/evolai/vllm_env bash scripts/setup-vllm.sh
+#   bash /var/www/sn-47-agent/scripts/setup-vllm.sh
+#   VLLM_VENV=/var/www/evolai/vllm_env bash scripts/setup-vllm.sh
 #   EVOLAI_PYTHON_VERSION=3.11 bash scripts/setup-vllm.sh
 #
 # After setup, .env is updated with VLLM_EXECUTABLE and KL eval vLLM settings.
@@ -146,7 +146,7 @@ echo -e "  ${BOLD}Next:${RESET}"
 echo -e "    1. Ensure HF_TOKEN is set in .env (ref model download)"
 echo -e "    2. Run full_auto pipeline — KL eval starts ref vLLM on port 8002 automatically"
 echo -e "    3. Optional manual test:"
-echo -e "       ${CYAN}/root/sn47/evolai/.venv/bin/python $AGENT_DIR/validator_kl_eval.py \\${RESET}"
+echo -e "       ${CYAN}/var/www/evolai/.venv/bin/python $AGENT_DIR/validator_kl_eval.py \\${RESET}"
 echo -e "       ${CYAN}  --model-dir \$AUTO_MODEL_DIR --prep-out-dir \$AUTO_PREPARE_OUT_DIR \\${RESET}"
 echo -e "       ${CYAN}  --out-json $AGENT_DIR/kl_eval_test.json --device cuda --start-vllm-ref${RESET}"
 echo ""

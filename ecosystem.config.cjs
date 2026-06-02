@@ -7,8 +7,8 @@ module.exports = {
   apps: [
     {
       name: "sn47-miner",
-      cwd: "/root/sn47/sn47-agent",
-      script: "/root/sn47/evolai/.venv/bin/python",
+      cwd: "/var/www/sn47-agent",
+      script: "/var/www/evolai/.venv/bin/python",
       args: "hf_model_ops_bot.py",
       interpreter: "none",
       autorestart: true,

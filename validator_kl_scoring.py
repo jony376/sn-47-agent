@@ -9,7 +9,7 @@ import sys
 from pathlib import Path
 from typing import Any
 
-EVOLAI_ROOT = Path(os.environ.get("EVOLAI_ROOT", "/root/sn47/evolai")).resolve()
+EVOLAI_ROOT = Path(os.environ.get("EVOLAI_ROOT", "/var/www/evolai")).resolve()
 if str(EVOLAI_ROOT) not in sys.path:
     sys.path.insert(0, str(EVOLAI_ROOT))
 
