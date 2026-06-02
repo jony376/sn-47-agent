@@ -10,7 +10,7 @@
 # versions that conflict with bittensor.
 #
 # Usage:
-#   bash /var/www/sn-47-agent/phoenix/scripts/setup-vllm.sh
+#   bash /var/www/phoenix/sn-47-agent/scripts/setup-vllm.sh
 #   VLLM_VENV=/var/www/evolai/vllm_env bash scripts/setup-vllm.sh
 #   EVOLAI_PYTHON_VERSION=3.11 bash scripts/setup-vllm.sh
 #

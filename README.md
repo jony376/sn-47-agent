@@ -22,13 +22,13 @@ Upload commits into your existing model repo:
 ## 2) Run
 
 ```bash
-/var/www/evolai/.venv/bin/python /var/www/sn-47-agent/phoenix/hf_model_ops_bot.py
+/var/www/evolai/.venv/bin/python /var/www/phoenix/sn-47-agent/hf_model_ops_bot.py
 ```
 
 Or pass custom env file path:
 
 ```bash
-/var/www/evolai/.venv/bin/python /var/www/sn-47-agent/phoenix/hf_model_ops_bot.py /path/to/custom.env
+/var/www/evolai/.venv/bin/python /var/www/phoenix/sn-47-agent/hf_model_ops_bot.py /path/to/custom.env
 ```
 
 ## Notes
@@ -102,13 +102,13 @@ Needs ~24–32 GB VRAM for miner + ref together on one GPU.
 Install the isolated vLLM environment once:
 
 ```bash
-bash /var/www/sn-47-agent/phoenix/scripts/setup-vllm.sh
+bash /var/www/phoenix/sn-47-agent/scripts/setup-vllm.sh
 ```
 
 This creates `sn-47-agent/vllm_env`, installs vLLM, and writes these into `.env`:
 
 ```bash
-VLLM_EXECUTABLE=/var/www/sn-47-agent/phoenix/vllm_env/bin/vllm
+VLLM_EXECUTABLE=/var/www/phoenix/sn-47-agent/vllm_env/bin/vllm
 KL_EVAL_REF_MODE=vllm
 KL_EVAL_START_VLLM_REF=true
 VLLM_REF_PORT=8002
@@ -118,7 +118,7 @@ VLLM_REF_GPU_INDEX=0
 To reuse EvolAI's validator vLLM env instead:
 
 ```bash
-VLLM_VENV=/var/www/evolai/vllm_env bash /var/www/sn-47-agent/phoenix/scripts/setup-vllm.sh
+VLLM_VENV=/var/www/evolai/vllm_env bash /var/www/phoenix/sn-47-agent/scripts/setup-vllm.sh
 ```
 
 **RunPod / VPS without `nvcc`:** vLLM 0.21 needs the CUDA **devel** toolkit
@@ -126,8 +126,8 @@ VLLM_VENV=/var/www/evolai/vllm_env bash /var/www/sn-47-agent/phoenix/scripts/set
 in-process KL (same gate scale ~2.x):
 
 ```bash
-bash /var/www/sn-47-agent/phoenix/scripts/check-vllm-ready.sh
-bash /var/www/sn-47-agent/phoenix/scripts/fix-cuda-path.sh   # writes CUDA_HOME to .env
+bash /var/www/phoenix/sn-47-agent/scripts/check-vllm-ready.sh
+bash /var/www/phoenix/sn-47-agent/scripts/fix-cuda-path.sh   # writes CUDA_HOME to .env
 # or skip vLLM entirely:
 # KL_EVAL_REF_MODE=inprocess
 # KL_EVAL_START_VLLM_REF=false
@@ -195,6 +195,6 @@ Behavior:
 ## PM2 example
 
 ```bash
-pm2 start /var/www/evolai/.venv/bin/python --name hf-model-ops -- /var/www/sn-47-agent/phoenix/hf_model_ops_bot.py
+pm2 start /var/www/evolai/.venv/bin/python --name hf-model-ops -- /var/www/phoenix/sn-47-agent/hf_model_ops_bot.py
 pm2 logs hf-model-ops
 ```
