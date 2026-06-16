@@ -19,6 +19,7 @@ from wandb_log_watcher import WandbLogTailer
 from huggingface_hub import HfApi
 
 from agent_common import (
+    AGENT_ROOT,
     assess_lock_risk,
     effective_lock_age_seconds,
     eval_age_seconds,
@@ -33,6 +34,8 @@ from agent_common import (
     resolve_register_revision,
     save_state,
     should_skip_duplicate_eval,
+    resolve_evolai_python,
+    resolve_evolai_root,
     verify_hf_revision,
     watch_eval_trigger_key,
 )
@@ -53,10 +56,10 @@ from validator_kl_scoring import (
 from fast_kl_eval import PersistentFastKLEvaluator, run_fast_kl_eval_subprocess
 
 
-SCRIPT_DIR = Path(__file__).resolve().parent
+SCRIPT_DIR = AGENT_ROOT
 DEFAULT_ENV_PATH = SCRIPT_DIR / ".env"
-EVOLAI_ROOT = Path("/var/www/evolai")
-EVOLAI_PYTHON = EVOLAI_ROOT / ".venv/bin/python"
+EVOLAI_ROOT = resolve_evolai_root()
+EVOLAI_PYTHON = resolve_evolai_python()
 CHALLENGE_SCRIPT = SCRIPT_DIR / "get_prev_seed_and_next_indices.py"
 PREPARE_SCRIPT = SCRIPT_DIR / "cpu_pass_all_pipeline.py"
 POST_TRAIN_GATE_SCRIPT = SCRIPT_DIR / "post_train_gate_check.py"

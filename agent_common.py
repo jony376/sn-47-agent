@@ -3,11 +3,23 @@
 from __future__ import annotations
 
 import json
+import os
 import re
 import time
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
+
+AGENT_ROOT = Path(__file__).resolve().parent
+
+
+def resolve_evolai_root() -> Path:
+    return Path(os.environ.get("EVOLAI_ROOT", str(AGENT_ROOT.parent / "evolai"))).resolve()
+
+
+def resolve_evolai_python() -> Path:
+    root = resolve_evolai_root()
+    return Path(os.environ.get("EVOLAI_PYTHON", str(root / ".venv/bin/python")))
 
 
 SHA40_RE = re.compile(r"^[0-9a-f]{40}$")

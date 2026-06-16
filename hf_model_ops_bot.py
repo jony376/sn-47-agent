@@ -11,13 +11,21 @@ from urllib import parse, request
 
 from huggingface_hub import HfApi, snapshot_download
 
-from agent_common import is_valid_sha, resolve_register_revision, verify_hf_revision
+from agent_common import (
+    AGENT_ROOT,
+    is_valid_sha,
+    resolve_evolai_python,
+    resolve_evolai_root,
+    resolve_register_revision,
+    verify_hf_revision,
+)
 from wandb_log_watcher import WandbLogTailer
 
 
-SCRIPT_DIR = Path(__file__).resolve().parent
+SCRIPT_DIR = AGENT_ROOT
 DEFAULT_ENV_PATH = SCRIPT_DIR / ".env"
-EVOLAI_PYTHON = Path("/var/www/evolai/.venv/bin/python")
+EVOLAI_ROOT = resolve_evolai_root()
+EVOLAI_PYTHON = resolve_evolai_python()
 DEFAULT_STATE_PATH = SCRIPT_DIR / ".hf_model_ops_state.json"
 
 
@@ -233,7 +241,7 @@ def register_model(repo_id: str, revision: str) -> None:
     )
     result = subprocess.run(
         cmd,
-        cwd="/var/www/evolai",
+        cwd=str(EVOLAI_ROOT),
         text=True,
         capture_output=True,
         check=False,
@@ -276,7 +284,56 @@ def source_head_revision(api: HfApi) -> str:
     revision = getattr(info, "sha", None)
     if not revision:
         raise RuntimeError(f"Could not read source revision for {repo_id}")
-    return revision
+    return f"{repo_id}@{revision}"
+
+
+LAST_PROCESSED_SOURCE_KEY = "last_processed_top_miner_source"
+
+
+def skip_duplicate_source() -> bool:
+    return env_bool("SKIP_DUPLICATE_SOURCE", True)
+
+
+def source_trigger_key(api: HfApi) -> str:
+    return source_head_revision(api)
+
+
+def is_source_already_processed(state: Dict[str, str], trigger_key: str) -> bool:
+    if not skip_duplicate_source():
+        return False
+    return state.get(LAST_PROCESSED_SOURCE_KEY) == trigger_key
+
+
+def mark_source_processed(
+    state: Dict[str, str],
+    trigger_key: str,
+    upload_result: Optional[Dict[str, str]],
+) -> None:
+    state[LAST_PROCESSED_SOURCE_KEY] = trigger_key
+    if upload_result:
+        state["last_uploaded_repo"] = upload_result.get("repo_id", "")
+        state["last_uploaded_revision"] = upload_result.get("revision", "")
+
+
+def run_pipeline_if_needed(
+    api: HfApi,
+    state: Dict[str, str],
+    state_path: Path,
+    *,
+    trigger_key: str,
+) -> bool:
+    """Run download/upload/register when top miner source changed. Returns True if ran."""
+    if is_source_already_processed(state, trigger_key):
+        notify(f"[SKIP] Top miner already processed: {trigger_key}", telegram=False)
+        return False
+
+    notify(f"[PIPELINE] Processing new top miner source: {trigger_key}", telegram=False)
+    upload_result = run_pipeline_once(api)
+    latest_key = source_trigger_key(api)
+    mark_source_processed(state, latest_key, upload_result or None)
+    save_state(state_path, state)
+    notify(f"[PIPELINE] Marked processed: {latest_key}", telegram=False)
+    return True
 
 
 def load_state(state_path: Path) -> Dict[str, str]:
@@ -340,52 +397,31 @@ def main() -> int:
 
     notify("[BOOT] sn-47-agent HF model bot started", telegram=False)
 
+    state_path = Path(env_str("STATE_FILE_PATH", str(DEFAULT_STATE_PATH)))
+    state = load_state(state_path)
+
     if not watch_mode:
-        run_pipeline_once(api)
+        trigger_key = source_trigger_key(api)
+        run_pipeline_if_needed(api, state, state_path, trigger_key=trigger_key)
         return 0
 
     if not env_bool("RUN_DOWNLOAD", True):
         raise ValueError("WATCH_MODE requires RUN_DOWNLOAD=true")
 
     poll_seconds = int(env_str("WATCH_POLL_SECONDS", "60"))
-    state_path = Path(env_str("STATE_FILE_PATH", str(DEFAULT_STATE_PATH)))
-    state = load_state(state_path)
-    src_repo = source_repo_id()
-    last_seen_key = f"last_seen:{src_repo}"
-    last_done_key = f"last_done:{src_repo}"
-
     notify(
-        f"[WATCH] Watching {src_repo} for new commits every {poll_seconds}s "
+        f"[WATCH] Polling every {poll_seconds}s for top miner changes "
         f"(state: {state_path})",
         telegram=False,
     )
     error_sleep_seconds = int(env_str("WATCH_ERROR_SLEEP_SECONDS", "30"))
     while True:
         try:
-            current = source_head_revision(api)
-            if state.get(last_seen_key) != current:
-                state[last_seen_key] = current
-                save_state(state_path, state)
-                notify(f"[WATCH] New source commit detected: {current}", telegram=False)
-
-            if state.get(last_done_key) != current:
-                notify(
-                    f"[WATCH] Triggering pipeline for source commit: {current}",
-                    telegram=False,
-                )
-                run_pipeline_once(api)
-                # Collapse multiple upstream commits: after one pipeline run, mark
-                # the newest head as done so we do not replay intermediate commits.
-                latest_after_run = source_head_revision(api)
-                state[last_done_key] = latest_after_run
-                save_state(state_path, state)
-                notify(
-                    "[WATCH] Completed pipeline. "
-                    f"Marked latest source commit as done: {latest_after_run}",
-                    telegram=False,
-                )
+            trigger_key = source_trigger_key(api)
+            if not is_source_already_processed(state, trigger_key):
+                run_pipeline_if_needed(api, state, state_path, trigger_key=trigger_key)
             else:
-                notify(f"[WATCH] No new source commit. Current: {current}", telegram=False)
+                notify(f"[WATCH] No change. Current: {trigger_key}", telegram=False)
 
             time.sleep(poll_seconds)
         except Exception as exc:
